@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Employer Dashboard - My Jwaneng</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    font-family:Poppins;
+    background:#f4f6fb;
+    margin:0;
+}
+
+/* HEADER */
+header{
+    background:#001f3f;
+    color:white;
+    padding:30px 8%;
+}
+
+header h1{
+    margin:0;
+}
+
+/* LAYOUT */
+.container{
+    padding:30px 8%;
+}
+
+/* STATS */
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.card h3{
+    margin:0;
+    color:#001f3f;
+}
+
+.card p{
+    font-size:22px;
+    font-weight:700;
+    margin-top:10px;
+}
+
+/* JOB LIST */
+.job{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.job h3{
+    margin:0;
+    color:#001f3f;
+}
+
+.meta{
+    font-size:13px;
+    color:#666;
+    margin:5px 0;
+}
+
+.status{
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.pending{ background:#fff3cd; }
+.approved{ background:#d4edda; }
+.rejected{ background:#f8d7da; }
+
+.actions{
+    margin-top:10px;
+}
+
+button{
+    padding:8px 12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.view{
+    background:#4fc3f7;
+}
+
+.post{
+    background:#001f3f;
+    color:white;
+    margin-bottom:20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Employer Dashboard</h1>
+    <p>Manage your job postings</p>
+</header>
+
+<div class="container">
+
+    <button class="post" onclick="location.href='post-job.html'">
+        + Post New Job
+    </button>
+
+    <div class="stats">
+        <div class="card">
+            <h3>Total Jobs</h3>
+            <p id="totalJobs">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Pending</h3>
+            <p id="pendingJobs">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Approved</h3>
+            <p id="approvedJobs">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Rejected</h3>
+            <p id="rejectedJobs">0</p>
+        </div>
+    </div>
+
+    <div id="jobsList"></div>
+
+</div>
+
+<script type="module">
+
+import { supabase } from './supabase.js';
+import { loadUser, requireAuth } from './auth.js';
+
+/* PROTECT PAGE */
+await requireAuth();
+
+/* LOAD USER */
+const { user } = await loadUser();
+
+const jobsList = document.getElementById("jobsList");
+
+/* LOAD JOBS */
+async function loadJobs(){
+
+    const { data, error } = await supabase
+        .from("jobs")
+        .select("*")
+        .eq("employer_id", user.id)
+        .order("created_at", { ascending:false });
+
+    if(error){
+        console.log(error);
+        return;
+    }
+
+    let total = 0;
+    let pending = 0;
+    let approved = 0;
+    let rejected = 0;
+
+    jobsList.innerHTML = "";
+
+    data.forEach(job => {
+
+        total++;
+
+        if(job.status === "pending") pending++;
+        if(job.status === "approved") approved++;
+        if(job.status === "rejected") rejected++;
+
+        const div = document.createElement("div");
+        div.className = "job";
+
+        div.innerHTML = `
+            <h3>${job.title}</h3>
+            <div class="meta">${job.company} • ${job.location}</div>
+
+            <span class="status ${job.status}">
+                ${job.status.toUpperCase()}
+            </span>
+
+            <p>${job.description.substring(0,120)}...</p>
+
+            <div class="actions">
+                <button class="view" onclick="alert('Next: Applicant system')">
+                    View Applicants
+                </button>
+            </div>
+        `;
+
+        jobsList.appendChild(div);
+    });
+
+    document.getElementById("totalJobs").innerText = total;
+    document.getElementById("pendingJobs").innerText = pending;
+    document.getElementById("approvedJobs").innerText = approved;
+    document.getElementById("rejectedJobs").innerText = rejected;
+}
+
+loadJobs();
+
+</script>
+
+</body>
+</html>

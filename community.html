@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Community Feed - My Jwaneng</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= GLOBAL ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f5f7fb;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+    background:#001f3f;
+    color:white;
+    padding:15px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:700;
+}
+
+.logo span{color:#4fc3f7;}
+
+.nav a{
+    color:white;
+    margin-left:15px;
+    text-decoration:none;
+}
+
+/* ================= LAYOUT ================= */
+
+.container{
+    display:grid;
+    grid-template-columns:1fr 350px;
+    gap:25px;
+    padding:30px 8%;
+}
+
+/* ================= POST BOX ================= */
+
+.post-box{
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+textarea{
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    resize:none;
+    min-height:80px;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+
+button{
+    margin-top:10px;
+    padding:10px 15px;
+    background:#4fc3f7;
+    border:none;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* ================= FEED ================= */
+
+.post{
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.post h4{
+    color:#001f3f;
+}
+
+.meta{
+    font-size:12px;
+    color:#777;
+    margin-bottom:10px;
+}
+
+.post img{
+    width:100%;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+/* ================= ACTIONS ================= */
+
+.actions{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+}
+
+.actions button{
+    flex:1;
+    background:#001f3f;
+    color:white;
+}
+
+/* ================= COMMENTS ================= */
+
+.comment-box{
+    margin-top:12px;
+    padding-top:10px;
+    border-top:1px solid #eee;
+}
+
+.comment{
+    font-size:13px;
+    padding:6px 0;
+    border-bottom:1px solid #f1f1f1;
+}
+
+.comment strong{
+    color:#001f3f;
+}
+
+.comment-input{
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+}
+
+.comment-input input{
+    flex:1;
+    padding:8px;
+}
+
+.comment-input button{
+    padding:8px 12px;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    height:fit-content;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.comment{
+    font-size:13px;
+    border-bottom:1px solid #eee;
+    padding:8px 0;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">My<span>Jwaneng</span></div>
+    <div class="nav">
+        <a href="welcomepage.html">Home</a>
+        <a href="community.html">Community</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="marketplace.html">Marketplace</a>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="container">
+
+    <!-- LEFT -->
+    <div>
+
+        <!-- CREATE POST -->
+        <div class="post-box">
+
+            <textarea id="content" placeholder="What's happening in Jwaneng?"></textarea>
+            <input type="text" id="image" placeholder="Image URL (optional)">
+            <input type="text" id="name" placeholder="Your name">
+
+            <button onclick="createPost()">Post</button>
+
+        </div>
+
+        <!-- FEED -->
+        <div id="feed"></div>
+
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <div class="sidebar">
+
+        <h3>Trending Topics</h3>
+
+        <div class="comment">#JwanengCommunity</div>
+        <div class="comment">#MiningLife</div>
+        <div class="comment">#LocalBusiness</div>
+        <div class="comment">#SafetyFirst</div>
+
+    </div>
+
+</div>
+
+<!-- SUPABASE -->
+<script type="module">
+const {
+    data: { session }
+} = await supabase.auth.getSession();
+
+if(!session){
+    window.location.href = "login.html";
+}
+import { supabase } from './supabase.js';
+import { loadUser } from './auth.js';
+
+const user = await loadUser();
+
+
+const feed = document.getElementById("feed");
+
+
+/* LOGIN/LOGOUT BUTTONS */
+
+function updateNavUI(user) {
+
+    const nav = document.querySelector(".nav-buttons");
+
+    if (!nav) return;
+
+    if (user) {
+        nav.innerHTML = `
+            <button onclick="location.href='profile.html'">Profile</button>
+            <button onclick="logoutUser()">Logout</button>
+        `;
+    } else {
+        nav.innerHTML = `
+            <button onclick="location.href='login.html'">Login</button>
+            <button onclick="location.href='register.html'">Register</button>
+        `;
+    }
+}
+/* LOAD POSTS */
+
+async function loadPosts(){
+
+    const { data } = await supabase
+        .from("community_posts")
+        .select("*")
+        .order("created_at",{ascending:false});
+
+    feed.innerHTML = "";
+
+    data.forEach(post => {
+
+        const div = document.createElement("div");
+        div.className = "post";
+
+        div.innerHTML = `
+            <h4>${post.user_name || "Anonymous"}</h4>
+            <div class="meta">${new Date(post.created_at).toLocaleString()}</div>
+
+            <p>${post.content}</p>
+
+            ${post.image_url ? `<img src="${post.image_url}">` : ""}
+
+            <div class="actions">
+                <button onclick="likePost('${post.id}', ${post.likes || 0})">
+                    👍 Like (${post.likes || 0})
+                </button>
+
+                <button onclick="toggleComments('${post.id}')">
+                    💬 Comment
+                </button>
+            </div>
+
+            <!-- COMMENTS SECTION -->
+            <div id="comments-${post.id}" class="comment-box" style="display:none;">
+
+                <div id="list-${post.id}"></div>
+
+                <div class="comment-input">
+                    <input id="name-${post.id}" placeholder="Name">
+                    <input id="text-${post.id}" placeholder="Write a comment">
+                    <button onclick="addComment('${post.id}')">Post</button>
+                </div>
+
+            </div>
+        `;
+
+        feed.appendChild(div);
+    });
+
+}
+
+/* CREATE POST */
+
+window.createPost = async function(){
+
+    const content = document.getElementById("content").value;
+    const image = document.getElementById("image").value;
+    const name = document.getElementById("name").value;
+
+    await supabase
+        .from("community_posts")
+        .insert([{
+            content,
+            image_url: image,
+            user_name: name || "Anonymous",
+            likes: 0
+        }]);
+
+    document.getElementById("content").value = "";
+    document.getElementById("image").value = "";
+    document.getElementById("name").value = "";
+
+    loadPosts();
+};
+
+/* LIKE POST */
+
+window.likePost = async function(id, likes){
+
+    await supabase
+        .from("community_posts")
+        .update({ likes: likes + 1 })
+        .eq("id", id);
+
+    loadPosts();
+};
+
+/* TOGGLE COMMENTS */
+
+window.toggleComments = async function(postId){
+
+    const box = document.getElementById(`comments-${postId}`);
+
+    if(box.style.display === "none"){
+        box.style.display = "block";
+        loadComments(postId);
+    } else {
+        box.style.display = "none";
+    }
+};
+
+/* LOAD COMMENTS */
+
+window.loadComments = async function(postId){
+
+    const list = document.getElementById(`list-${postId}`);
+
+    const { data } = await supabase
+        .from("community_comments")
+        .select("*")
+        .eq("post_id", postId)
+        .order("created_at",{ascending:true});
+
+    list.innerHTML = "";
+
+    data.forEach(c => {
+
+        const div = document.createElement("div");
+        div.className = "comment";
+
+        div.innerHTML = `<strong>${c.user_name}</strong>: ${c.comment}`;
+
+        list.appendChild(div);
+    });
+};
+
+/* ADD COMMENT */
+
+window.addComment = async function(postId){
+
+    const name = document.getElementById(`name-${postId}`).value;
+    const text = document.getElementById(`text-${postId}`).value;
+
+    if(!text) return;
+
+    await supabase
+        .from("community_comments")
+        .insert([{
+            post_id: postId,
+            user_name: name || "Anonymous",
+            comment: text
+        }]);
+
+    document.getElementById(`text-${postId}`).value = "";
+
+    loadComments(postId);
+};
+
+/* INIT */
+
+loadPosts();
+
+</script>
+
+</body>
+</html>

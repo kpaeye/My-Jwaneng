@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Jwaneng - Jobs</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================
+GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f5f7fb;
+    color:#222;
+}
+
+/* =========================
+NAVBAR
+========================= */
+
+.navbar{
+    background:#001f3f;
+    padding:18px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    color:white;
+    font-size:28px;
+    font-weight:700;
+}
+
+.logo span{
+    color:#4fc3f7;
+}
+
+.nav-links{
+    display:flex;
+    gap:25px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    font-weight:500;
+}
+
+.nav-buttons button{
+    padding:10px 18px;
+    border:none;
+    border-radius:8px;
+    margin-left:10px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.login-btn{
+    background:transparent;
+    border:2px solid #4fc3f7;
+    color:white;
+}
+
+.register-btn{
+    background:#4fc3f7;
+    color:#001f3f;
+}
+
+/* =========================
+HEADER
+========================= */
+
+.jobs-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    background:linear-gradient(to right,#001f3f,#003566);
+    color:white;
+    padding:70px 8%;
+}
+
+.jobs-header-content h1{
+    font-size:50px;
+    margin-bottom:15px;
+}
+
+.jobs-header-content p{
+    max-width:700px;
+    line-height:1.7;
+}
+
+.post-job-btn{
+    background:#4fc3f7;
+    color:#001f3f;
+    padding:14px 22px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:700;
+    white-space:nowrap;
+    transition:0.3s;
+}
+
+.post-job-btn:hover{
+    background:white;
+    color:#001f3f;
+}
+
+/* =========================
+SEARCH + FILTERS
+========================= */
+
+.search-section{
+    padding:40px 8%;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.search-box{
+    display:flex;
+    gap:10px;
+}
+
+.search-box input{
+    flex:1;
+    padding:15px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    font-size:16px;
+}
+
+.search-box button{
+    padding:15px 25px;
+    border:none;
+    background:#4fc3f7;
+    color:#001f3f;
+    font-weight:700;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.filters{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.filters button{
+    padding:10px 18px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    background:white;
+    box-shadow:0 3px 10px rgba(0,0,0,0.08);
+    font-weight:500;
+}
+
+/* =========================
+JOB GRID
+========================= */
+
+.job-grid{
+    padding:20px 8% 80px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:25px;
+}
+
+/* =========================
+JOB CARD
+========================= */
+
+.job-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.job-card:hover{
+    transform:translateY(-8px);
+}
+
+.job-card h3{
+    font-size:22px;
+    color:#001f3f;
+    margin-bottom:10px;
+}
+
+.job-card p{
+    margin-bottom:10px;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.contact{
+    color:#666;
+    font-size:13px;
+}
+
+.apply-btn{
+    display:block;
+    width:100%;
+    text-align:center;
+    padding:12px;
+    margin-top:15px;
+    background:#001f3f;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.apply-btn:hover{
+    background:#4fc3f7;
+    color:#001f3f;
+}
+
+/* =========================
+FOOTER
+========================= */
+
+footer{
+    background:#001f3f;
+    color:white;
+    padding:60px 8%;
+    text-align:center;
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    .jobs-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .jobs-header-content h1{
+        font-size:36px;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .post-job-btn{
+        width:100%;
+        text-align:center;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        My<span>Jwaneng</span>
+    </div>
+
+    <div class="nav-links">
+        <a href="welcomepage.html">Home</a>
+        <a href="community.html">Community</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="marketplace.html">Marketplace</a>
+        <a href="businesses.html">Businesses</a>
+        <a href="townnews.html">Events</a>
+        <a href="jwanengtowncouncil.html">Jwaneng Town Council</a>
+    </div>
+
+    <div class="nav-buttons">
+        <button class="login-btn">Login</button>
+        <button class="register-btn">Register</button>
+    </div>
+
+</nav>
+
+<!-- HEADER -->
+
+<section class="jobs-header">
+
+    <div class="jobs-header-content">
+        <h1>Jobs & Opportunities</h1>
+
+        <p>
+            Explore curated job listings, mining opportunities,
+            internships, and local work opportunities in Jwaneng.
+        </p>
+    </div>
+
+    <a href="post-job.html" class="post-job-btn">
+        + Post a Job
+    </a>
+
+</section>
+
+<!-- SEARCH -->
+
+<section class="search-section">
+
+    <div class="search-box">
+        <input type="text" placeholder="Search jobs, companies, keywords...">
+        <button>Search</button>
+    </div>
+
+    <div class="filters">
+        <button>All Jobs</button>
+        <button>Mining</button>
+        <button>Full-time</button>
+        <button>Contract</button>
+        <button>Internships</button>
+        <button>Tenders</button>
+    </div>
+
+</section>
+
+<!-- DYNAMIC JOBS -->
+
+<section class="job-grid" id="jobGrid">
+    <!-- Jobs load dynamically -->
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+    © 2026 My Jwaneng | Powered by A-eye Group
+</footer>
+
+<!-- SUPABASE -->
+
+<script type="module">
+
+    const {
+    data: { user }
+} = await supabase.auth.getUser();
+
+const { data: profile } = await supabase
+    .from("user_profiles")
+    .select("*")
+    .eq("id", user.id)
+    .single();
+
+document.getElementById("username").innerText =
+    profile.full_name;
+const {
+    data: { session }
+} = await supabase.auth.getSession();
+
+if(!session){
+    window.location.href = "login.html";
+}
+import { supabase } from './supabase.js';
+import { loadUser } from './auth.js';
+
+
+
+const jobGrid = document.getElementById("jobGrid");
+
+async function loadJobs() {
+
+    const { data, error } = await supabase
+        .from('jobs')
+        .select('*')
+        .eq('status', 'approved')
+        .order('created_at', { ascending: false });
+
+    if (error) {
+        console.log("Error loading jobs:", error);
+        return;
+    }
+
+    jobGrid.innerHTML = "";
+
+    data.forEach(job => {
+
+        const card = document.createElement("div");
+        card.className = "job-card";
+
+        card.innerHTML = `
+            <h3>${job.title}</h3>
+
+            <p><strong>Company:</strong> ${job.company}</p>
+
+            <p>${job.description}</p>
+
+            <p><strong>Location:</strong> ${job.location}</p>
+
+            <p><strong>Salary:</strong> ${job.salary || 'Negotiable'}</p>
+
+            <p class="contact">${job.contact}</p>
+
+            <a class="apply-btn" href="apply-job.html?job=${job.id}">
+                Apply Now
+            </a>
+        `;
+
+        jobGrid.appendChild(card);
+    });
+}
+
+loadJobs();
+
+/* LOGIN/LOGOUT BUTTONS */
+
+function updateNavUI(user) {
+
+    const nav = document.querySelector(".nav-buttons");
+
+    if (!nav) return;
+
+    if (user) {
+        nav.innerHTML = `
+            <button onclick="location.href='profile.html'">Profile</button>
+            <button onclick="logoutUser()">Logout</button>
+        `;
+    } else {
+        nav.innerHTML = `
+            <button onclick="location.href='login.html'">Login</button>
+            <button onclick="location.href='register.html'">Register</button>
+        `;
+    }
+}
+
+</script>
+
+</body>
+</html>

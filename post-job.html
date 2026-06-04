@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Post a Job - My Jwaneng</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= GLOBAL ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f4f6fb;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    background:#001f3f;
+    color:white;
+    padding:40px 8%;
+    text-align:center;
+}
+
+header h1{
+    font-size:36px;
+}
+
+header p{
+    margin-top:10px;
+    color:#cfe8ff;
+}
+
+/* ================= FORM CONTAINER ================= */
+
+.container{
+    max-width:800px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* ================= FORM ================= */
+
+form{
+    display:grid;
+    gap:15px;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:14px;
+}
+
+textarea{
+    min-height:120px;
+    resize:none;
+}
+
+/* ================= BUTTON ================= */
+
+button{
+    padding:12px;
+    background:#4fc3f7;
+    border:none;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#001f3f;
+    color:white;
+}
+
+/* ================= MESSAGE ================= */
+
+#msg{
+    margin-top:15px;
+    font-size:14px;
+    font-weight:600;
+}
+
+/* ================= NAV LINK ================= */
+
+.nav{
+    text-align:center;
+    margin-top:20px;
+}
+
+.nav a{
+    color:#001f3f;
+    font-weight:600;
+    text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <h1>Post a Job</h1>
+    <p>Submit job opportunities for approval on My Jwaneng</p>
+</header>
+
+<div class="container">
+
+<form id="jobForm">
+
+    <input type="text" id="title" placeholder="Job Title" required>
+
+    <input type="text" id="company" placeholder="Company Name" required>
+
+    <input type="text" id="location" placeholder="Location" required>
+
+    <input type="text" id="salary" placeholder="Salary (optional)">
+
+    <input type="text" id="contact" placeholder="Contact Details" required>
+
+    <textarea id="description" placeholder="Job Description" required></textarea>
+
+    <button type="submit">
+        Submit Job for Approval
+    </button>
+
+    <div id="msg"></div>
+
+</form>
+
+<div class="nav">
+    <a href="jobs.html">← Back to Jobs</a>
+</div>
+```
+
+</div>
+
+<script type="module">
+
+import { supabase } from './supabase.js';
+import { requireEmployer, loadUser } from './auth.js';
+
+/* =====================================
+PROTECT PAGE
+===================================== */
+
+await requireEmployer();
+
+/* =====================================
+LOAD CURRENT USER
+===================================== */
+
+const result = await loadUser();
+
+if(!result){
+    window.location.href = "login.html";
+}
+
+const user = result.user;
+
+const form = document.getElementById("jobForm");
+const msg = document.getElementById("msg");
+
+/* =====================================
+SUBMIT JOB
+===================================== */
+
+form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    msg.innerText = "";
+
+    const job = {
+
+        employer_id: user.id,
+
+        title: document.getElementById("title").value.trim(),
+
+        company: document.getElementById("company").value.trim(),
+
+        location: document.getElementById("location").value.trim(),
+
+        salary: document.getElementById("salary").value.trim(),
+
+        contact: document.getElementById("contact").value.trim(),
+
+        description: document.getElementById("description").value.trim(),
+
+        status: "pending"
+
+    };
+
+    const { error } = await supabase
+        .from("jobs")
+        .insert([job]);
+
+    if(error){
+
+        console.error(error);
+
+        msg.style.color = "red";
+        msg.innerText =
+            "Failed to submit job. Please try again.";
+
+        return;
+    }
+
+    msg.style.color = "green";
+    msg.innerText =
+        "Job submitted successfully. Awaiting admin approval.";
+
+    form.reset();
+
+});
+
+/* =====================================
+DEBUG INFO
+===================================== */
+
+console.log("Employer ID:", user.id);
+
+</script>
+
+</body>
+</html>

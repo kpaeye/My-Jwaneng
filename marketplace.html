@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Jwaneng - Marketplace</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= GLOBAL ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f5f7fb;
+    color:#222;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+    background:#001f3f;
+    padding:18px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    color:white;
+    font-size:28px;
+    font-weight:700;
+}
+
+.logo span{
+    color:#4fc3f7;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:500;
+}
+
+/* ================= HEADER ================= */
+
+.header{
+    background:linear-gradient(to right,#001f3f,#003566);
+    color:white;
+    text-align:center;
+    padding:70px 8%;
+}
+
+.header h1{
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+/* ================= FILTERS ================= */
+
+.filters{
+    padding:30px 8%;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.filters button{
+    padding:10px 18px;
+    border:none;
+    border-radius:20px;
+    background:white;
+    box-shadow:0 3px 10px rgba(0,0,0,0.08);
+    cursor:pointer;
+    font-weight:500;
+}
+
+/* ================= GRID ================= */
+
+.grid{
+    padding:20px 8% 80px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+/* ================= CARD ================= */
+
+.card{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
+
+.card-content{
+    padding:15px;
+}
+
+.title{
+    font-size:18px;
+    font-weight:700;
+    color:#001f3f;
+    margin-bottom:5px;
+}
+
+.price{
+    color:#4fc3f7;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.meta{
+    font-size:12px;
+    color:#777;
+    margin-bottom:10px;
+}
+
+.desc{
+    font-size:13px;
+    color:#444;
+    margin-bottom:10px;
+}
+
+.btn{
+    width:100%;
+    padding:10px;
+    border:none;
+    background:#001f3f;
+    color:white;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.btn:hover{
+    background:#4fc3f7;
+    color:#001f3f;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    background:#001f3f;
+    color:white;
+    text-align:center;
+    padding:50px 8%;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+    .header h1{font-size:32px;}
+    .nav-links{display:none;}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+
+    <div class="logo">My<span>Jwaneng</span></div>
+
+    <div class="nav-links">
+        <a href="welcomepage.html">Home</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="marketplace.html">Marketplace</a>
+        <a href="businesses.html">Businesses</a>
+    </div>
+
+</div>
+
+<!-- HEADER -->
+<div class="header">
+    <h1>Marketplace</h1>
+    <p>Buy and sell items in Jwaneng safely and easily</p>
+</div>
+
+<!-- FILTERS -->
+<div class="filters">
+
+    <button onclick="loadItems()">All</button>
+    <button onclick="loadItems('Vehicles')">Vehicles</button>
+    <button onclick="loadItems('Electronics')">Electronics</button>
+    <button onclick="loadItems('Tools')">Tools</button>
+    <button onclick="loadItems('Property')">Property</button>
+    <button onclick="loadItems('Services')">Services</button>
+
+</div>
+
+<!-- GRID -->
+<div class="grid" id="grid"></div>
+
+<!-- FOOTER -->
+<footer>
+    © 2026 My Jwaneng | Powered by A-eye Group
+</footer>
+
+<!-- SUPABASE -->
+<script type="module">
+  const {
+    data: { session }
+} = await supabase.auth.getSession();
+
+if(!session){
+    window.location.href = "login.html";
+}  
+import { supabase } from './supabase.js';
+import { loadUser } from './auth.js';
+
+const user = await loadUser();
+
+
+const grid = document.getElementById("grid");
+/* LOGIN/LOGOUT BUTTONS */
+
+function updateNavUI(user) {
+
+    const nav = document.querySelector(".nav-buttons");
+
+    if (!nav) return;
+
+    if (user) {
+        nav.innerHTML = `
+            <button onclick="location.href='profile.html'">Profile</button>
+            <button onclick="logoutUser()">Logout</button>
+        `;
+    } else {
+        nav.innerHTML = `
+            <button onclick="location.href='login.html'">Login</button>
+            <button onclick="location.href='register.html'">Register</button>
+        `;
+    }
+}
+/* LOAD ITEMS */
+
+window.loadItems = async function(category = null){
+
+    let query = supabase
+        .from('marketplace_items')
+        .select('*')
+        .eq('status','approved')
+        .order('created_at',{ascending:false});
+
+    if(category){
+        query = query.eq('category', category);
+    }
+
+    const { data, error } = await query;
+
+    if(error){
+        console.log(error);
+        return;
+    }
+
+    grid.innerHTML = "";
+
+    if(!data || data.length === 0){
+        grid.innerHTML = "<p>No items available</p>";
+        return;
+    }
+
+    data.forEach(item => {
+
+        const card = document.createElement("div");
+        card.className = "card";
+
+        card.innerHTML = `
+            <img src="${item.image_url || 'https://via.placeholder.com/400'}">
+
+            <div class="card-content">
+
+                <div class="title">${item.title}</div>
+
+                <div class="price">P ${item.price}</div>
+
+                <div class="meta">
+                    ${item.category} • ${item.location || 'Jwaneng'}
+                </div>
+
+                <div class="desc">
+                    ${item.description || ''}
+                </div>
+
+                <a href="tel:${item.contact}">
+                    <button class="btn">Contact Seller</button>
+                </a>
+
+            </div>
+        `;
+
+        grid.appendChild(card);
+    });
+
+};
+
+loadItems();
+
+</script>
+
+</body>
+</html>

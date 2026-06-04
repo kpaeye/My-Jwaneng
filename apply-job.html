@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Apply for Job - My Jwaneng</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= GLOBAL ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f4f6fb;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    background:#001f3f;
+    color:white;
+    padding:40px 8%;
+    text-align:center;
+}
+
+header h1{
+    margin-bottom:10px;
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+    max-width:700px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* ================= JOB INFO ================= */
+
+.job-info{
+    background:#f4f8ff;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+    border-left:5px solid #4fc3f7;
+}
+
+.job-info h2{
+    color:#001f3f;
+    margin-bottom:10px;
+}
+
+.job-info p{
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+/* ================= FORM ================= */
+
+form{
+    display:grid;
+    gap:15px;
+}
+
+input, textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:14px;
+}
+
+textarea{
+    min-height:120px;
+    resize:none;
+}
+
+/* ================= DRAG & DROP ================= */
+
+#dropZone{
+    border:2px dashed #4fc3f7;
+    padding:25px;
+    border-radius:12px;
+    text-align:center;
+    cursor:pointer;
+    background:#f9fbff;
+    transition:0.3s;
+}
+
+#dropZone:hover{
+    background:#eef6ff;
+}
+
+#fileName{
+    font-size:14px;
+    color:#001f3f;
+    font-weight:600;
+}
+
+/* ================= BUTTON ================= */
+
+button{
+    padding:12px;
+    background:#4fc3f7;
+    border:none;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#001f3f;
+    color:white;
+}
+
+/* ================= MESSAGE ================= */
+
+#msg{
+    font-size:14px;
+    font-weight:600;
+}
+
+/* ================= BACK ================= */
+
+.back{
+    text-align:center;
+    margin-top:15px;
+}
+
+.back a{
+    text-decoration:none;
+    font-weight:600;
+    color:#001f3f;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Job Application</h1>
+    <p>Submit your application for this opportunity</p>
+</header>
+
+<div class="container">
+
+    <!-- JOB DETAILS -->
+    <div id="jobInfo" class="job-info">
+        Loading job details...
+    </div>
+
+    <!-- APPLICATION FORM -->
+    <form id="applyForm">
+
+        <input type="text" id="name" placeholder="Full Name" required>
+
+        <input type="email" id="email" placeholder="Email Address" required>
+
+        <input type="text" id="phone" placeholder="Phone Number" required>
+
+        <textarea id="cover" placeholder="Cover Letter" required></textarea>
+
+        <!-- DRAG & DROP -->
+        <div id="dropZone">
+            <p>📄 Drag & Drop CV here or click to upload</p>
+            <input type="file" id="fileInput" hidden accept=".pdf,.doc,.docx">
+        </div>
+
+        <p id="fileName"></p>
+
+        <button type="submit">Submit Application</button>
+
+        <div id="msg"></div>
+
+    </form>
+
+    <div class="back">
+        <a href="jobs.html">← Back to Jobs</a>
+    </div>
+
+</div>
+
+<!-- ================= SUPABASE ================= -->
+
+<script type="module">
+
+import { supabase } from './supabase.js';
+import { loadUser } from './auth.js';
+
+const user = await loadUser();
+
+
+/* ================= GET JOB ID ================= */
+
+const params = new URLSearchParams(window.location.search);
+const jobId = params.get("job");
+
+/* ================= ELEMENTS ================= */
+
+const jobInfo = document.getElementById("jobInfo");
+
+const form = document.getElementById("applyForm");
+const msg = document.getElementById("msg");
+
+const dropZone = document.getElementById("dropZone");
+const fileInput = document.getElementById("fileInput");
+const fileName = document.getElementById("fileName");
+
+let selectedFile = null;
+
+/* ================= LOAD JOB DETAILS ================= */
+
+async function loadJob() {
+
+    if (!jobId) {
+        jobInfo.innerHTML = "Invalid Job";
+        return;
+    }
+
+    const { data, error } = await supabase
+        .from('jobs')
+        .select('*')
+        .eq('id', jobId)
+        .single();
+
+    if (error || !data) {
+        jobInfo.innerHTML = "Job not found";
+        return;
+    }
+
+    jobInfo.innerHTML = `
+        <h2>${data.title}</h2>
+        <p><strong>Company:</strong> ${data.company}</p>
+        <p><strong>Location:</strong> ${data.location}</p>
+        <p><strong>Salary:</strong> ${data.salary || 'Negotiable'}</p>
+    `;
+}
+
+loadJob();
+
+/* ================= FILE UPLOAD ================= */
+
+dropZone.addEventListener("click", () => {
+    fileInput.click();
+});
+
+fileInput.addEventListener("change", (e) => {
+
+    selectedFile = e.target.files[0];
+
+    if(selectedFile){
+        fileName.innerText = selectedFile.name;
+    }
+});
+
+dropZone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZone.style.background = "#e6f2ff";
+});
+
+dropZone.addEventListener("dragleave", () => {
+    dropZone.style.background = "#f9fbff";
+});
+
+dropZone.addEventListener("drop", (e) => {
+
+    e.preventDefault();
+
+    dropZone.style.background = "#f9fbff";
+
+    selectedFile = e.dataTransfer.files[0];
+
+    if(selectedFile){
+        fileName.innerText = selectedFile.name;
+    }
+});
+
+/* ================= SUBMIT APPLICATION ================= */
+
+form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    if (!selectedFile) {
+
+        msg.style.color = "red";
+        msg.innerText = "Please upload your CV.";
+
+        return;
+    }
+
+    msg.style.color = "#001f3f";
+    msg.innerText = "Uploading CV...";
+
+    /* FILE PATH */
+
+    const filePath = `cv-${Date.now()}-${selectedFile.name}`;
+
+    /* ================= UPLOAD CV ================= */
+
+    const { error: uploadError } = await supabase
+        .storage
+        .from("job-cvs")
+        .upload(filePath, selectedFile);
+
+    if (uploadError) {
+
+        msg.style.color = "red";
+        msg.innerText = "CV upload failed.";
+
+        console.log(uploadError);
+
+        return;
+    }
+
+    /* ================= GET PUBLIC URL ================= */
+
+    const { data: urlData } = supabase
+        .storage
+        .from("job-cvs")
+        .getPublicUrl(filePath);
+
+    const cvUrl = urlData.publicUrl;
+
+    /* ================= SAVE APPLICATION ================= */
+
+    const application = {
+
+        job_id: jobId,
+
+        applicant_name: document.getElementById("name").value,
+
+        email: document.getElementById("email").value,
+
+        phone: document.getElementById("phone").value,
+
+        cover_letter: document.getElementById("cover").value,
+
+        cv_link: cvUrl,
+
+        status: "pending"
+    };
+
+    const { error } = await supabase
+        .from("job_applications")
+        .insert([application]);
+
+    if (error) {
+
+        msg.style.color = "red";
+        msg.innerText = "Failed to submit application.";
+
+        console.log(error);
+
+    } else {
+
+        msg.style.color = "green";
+        msg.innerText = "Application submitted successfully!";
+
+        form.reset();
+
+        fileName.innerText = "";
+
+        selectedFile = null;
+    }
+});
+
+</script>
+
+</body>
+</html>

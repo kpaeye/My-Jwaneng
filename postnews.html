@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Post News - My Jwaneng Admin</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= GLOBAL ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f4f6fb;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    background:#001f3f;
+    color:white;
+    padding:40px 8%;
+    text-align:center;
+}
+
+header h1{
+    margin-bottom:10px;
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+    max-width:800px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* ================= FORM ================= */
+
+form{
+    display:grid;
+    gap:15px;
+}
+
+input, textarea, select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:14px;
+}
+
+textarea{
+    min-height:150px;
+    resize:none;
+}
+
+/* ================= IMAGE UPLOAD ================= */
+
+.upload-box{
+    border:2px dashed #4fc3f7;
+    padding:20px;
+    text-align:center;
+    border-radius:12px;
+    cursor:pointer;
+    background:#f9fbff;
+}
+
+.upload-box:hover{
+    background:#eef6ff;
+}
+
+/* ================= BUTTON ================= */
+
+button{
+    padding:12px;
+    background:#4fc3f7;
+    border:none;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#001f3f;
+    color:white;
+}
+
+/* ================= MESSAGE ================= */
+
+#msg{
+    font-weight:600;
+    font-size:14px;
+}
+
+/* ================= BACK ================= */
+
+.back{
+    text-align:center;
+    margin-top:15px;
+}
+
+.back a{
+    text-decoration:none;
+    font-weight:600;
+    color:#001f3f;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <h1>Post Town News</h1>
+    <p>Create and publish news articles instantly</p>
+</header>
+
+<div class="container">
+
+    <form id="newsForm">
+
+        <input type="text" id="title" placeholder="News Title" required>
+
+        <select id="category" required>
+            <option value="">Select Category</option>
+            <option value="Mining">Mining</option>
+            <option value="Community">Community</option>
+            <option value="Events">Events</option>
+            <option value="Government">Government</option>
+            <option value="Safety">Safety</option>
+            <option value="Business">Business</option>
+        </select>
+
+        <textarea id="summary" placeholder="Short Summary" required></textarea>
+
+        <textarea id="content" placeholder="Full Article Content"></textarea>
+
+        <!-- IMAGE UPLOAD -->
+        <div class="upload-box" id="uploadBox">
+            📷 Click or Drag & Drop Image Here
+        </div>
+
+        <input type="file" id="fileInput" hidden accept="image/*">
+
+        <p id="fileName"></p>
+
+        <button type="submit">Publish News</button>
+
+        <div id="msg"></div>
+
+    </form>
+
+    <div class="back">
+        <a href="admin-dashboard.html">← Back to Dashboard</a>
+    </div>
+
+</div>
+
+<!-- SUPABASE -->
+<script type="module">
+
+import { supabase } from './supabase.js';
+
+const form = document.getElementById("newsForm");
+const msg = document.getElementById("msg");
+
+const uploadBox = document.getElementById("uploadBox");
+const fileInput = document.getElementById("fileInput");
+const fileName = document.getElementById("fileName");
+
+let selectedFile = null;
+
+/* ================= IMAGE UPLOAD UI ================= */
+
+uploadBox.addEventListener("click", () => fileInput.click());
+
+fileInput.addEventListener("change", (e) => {
+    selectedFile = e.target.files[0];
+    fileName.innerText = selectedFile ? selectedFile.name : "";
+});
+
+uploadBox.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    uploadBox.style.background = "#e6f2ff";
+});
+
+uploadBox.addEventListener("dragleave", () => {
+    uploadBox.style.background = "#f9fbff";
+});
+
+uploadBox.addEventListener("drop", (e) => {
+    e.preventDefault();
+    selectedFile = e.dataTransfer.files[0];
+    fileName.innerText = selectedFile.name;
+});
+
+/* ================= SUBMIT NEWS ================= */
+
+form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    msg.innerText = "Publishing...";
+
+    let imageUrl = null;
+
+    /* UPLOAD IMAGE */
+    if(selectedFile){
+
+        const filePath = `news-${Date.now()}-${selectedFile.name}`;
+
+        const { error: uploadError } = await supabase
+            .storage
+            .from("town-news-images")
+            .upload(filePath, selectedFile);
+
+        if(uploadError){
+            msg.innerText = "Image upload failed";
+            console.log(uploadError);
+            return;
+        }
+
+        const { data } = supabase
+            .storage
+            .from("town-news-images")
+            .getPublicUrl(filePath);
+
+        imageUrl = data.publicUrl;
+    }
+
+    /* SAVE TO DATABASE */
+
+    const newsItem = {
+
+        title: document.getElementById("title").value,
+        category: document.getElementById("category").value,
+        summary: document.getElementById("summary").value,
+        content: document.getElementById("content").value,
+        image_url: imageUrl,
+        published: true,
+        author: "Admin"
+    };
+
+    const { error } = await supabase
+        .from("town_news")
+        .insert([newsItem]);
+
+    if(error){
+        msg.style.color = "red";
+        msg.innerText = "Failed to publish news";
+        console.log(error);
+    } else {
+        msg.style.color = "green";
+        msg.innerText = "News published successfully!";
+        form.reset();
+        fileName.innerText = "";
+        selectedFile = null;
+    }
+});
+
+</script>
+
+</body>
+</html>

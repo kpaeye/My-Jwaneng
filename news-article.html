@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>News Article - My Jwaneng</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= GLOBAL ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f4f6fb;
+    color:#222;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    background:#001f3f;
+    color:white;
+    padding:30px 8%;
+}
+
+header a{
+    color:#4fc3f7;
+    text-decoration:none;
+    font-weight:600;
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+    max-width:900px;
+    margin:40px auto;
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* ================= IMAGE ================= */
+
+.article-image{
+    width:100%;
+    height:400px;
+    object-fit:cover;
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+    padding:30px;
+}
+
+.title{
+    font-size:28px;
+    font-weight:700;
+    color:#001f3f;
+    margin-bottom:10px;
+}
+
+.meta{
+    font-size:13px;
+    color:#777;
+    margin-bottom:20px;
+}
+
+.category{
+    display:inline-block;
+    background:#4fc3f7;
+    color:#001f3f;
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+    margin-bottom:20px;
+}
+
+.text{
+    font-size:15px;
+    line-height:1.8;
+    color:#333;
+    white-space:pre-line;
+}
+
+/* ================= BACK ================= */
+
+.back{
+    padding:20px 30px;
+    border-top:1px solid #eee;
+}
+
+.back a{
+    text-decoration:none;
+    font-weight:600;
+    color:#001f3f;
+}
+
+/* ================= ERROR ================= */
+
+.error{
+    padding:60px;
+    text-align:center;
+    color:#777;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <a href="townnews.html">← Back to Town News</a>
+</header>
+
+<div class="container" id="articleContainer">
+
+    <div class="error">Loading article...</div>
+
+</div>
+
+<!-- SUPABASE -->
+<script type="module">
+
+import { supabase } from './supabase.js';
+
+const container = document.getElementById("articleContainer");
+const {
+    data: { session }
+} = await supabase.auth.getSession();
+
+if(!session){
+    window.location.href = "login.html";
+}
+/* GET ID FROM URL */
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+async function loadArticle(){
+
+    if(!id){
+        container.innerHTML = `<div class="error">Invalid article link</div>`;
+        return;
+    }
+
+    const { data, error } = await supabase
+        .from("town_news")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+    if(error || !data){
+        container.innerHTML = `<div class="error">Article not found</div>`;
+        return;
+    }
+
+    container.innerHTML = `
+
+        <img class="article-image"
+             src="${data.image_url || 'https://via.placeholder.com/1200x600'}">
+
+        <div class="content">
+
+            <div class="category">${data.category || 'General'}</div>
+
+            <div class="title">${data.title}</div>
+
+            <div class="meta">
+                By ${data.author || 'Admin'} •
+                ${new Date(data.created_at).toLocaleDateString()}
+            </div>
+
+            <div class="text">
+                ${data.content || data.summary || ''}
+            </div>
+
+        </div>
+
+        <div class="back">
+            <a href="townnews.html">← Back to Town News</a>
+        </div>
+
+    `;
+}
+
+loadArticle();
+
+</script>
+
+</body>
+</html>

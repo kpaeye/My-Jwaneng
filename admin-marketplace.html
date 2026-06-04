@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Marketplace Admin - My Jwaneng</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= GLOBAL ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f4f6fb;
+    display:flex;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    width:250px;
+    background:#001f3f;
+    color:white;
+    min-height:100vh;
+    padding:25px;
+}
+
+.sidebar h2{
+    margin-bottom:20px;
+}
+
+.nav{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.nav a{
+    color:white;
+    text-decoration:none;
+    padding:10px;
+    border-radius:8px;
+    font-weight:500;
+}
+
+.nav a:hover{
+    background:#4fc3f7;
+    color:#001f3f;
+}
+
+/* ================= MAIN ================= */
+
+.main{
+    flex:1;
+    padding:30px;
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.header h1{
+    color:#001f3f;
+}
+
+/* ================= GRID ================= */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+}
+
+/* ================= CARD ================= */
+
+.card{
+    background:white;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    overflow:hidden;
+}
+
+.card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
+
+.content{
+    padding:15px;
+}
+
+.title{
+    font-size:18px;
+    font-weight:700;
+    color:#001f3f;
+    margin-bottom:5px;
+}
+
+.meta{
+    font-size:13px;
+    color:#777;
+    margin-bottom:8px;
+}
+
+.price{
+    color:#4fc3f7;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+/* ================= BUTTONS ================= */
+
+.actions{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+}
+
+button{
+    flex:1;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.approve{
+    background:#4fc3f7;
+    color:#001f3f;
+}
+
+.reject{
+    background:#ff4d4d;
+    color:white;
+}
+
+.delete{
+    background:#333;
+    color:white;
+}
+
+/* ================= EMPTY ================= */
+
+.empty{
+    text-align:center;
+    color:#777;
+    margin-top:50px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+    <h2>Admin Panel</h2>
+
+    <div class="nav">
+        <a href="admin-dashboard.html">Dashboard</a>
+        <a href="admin-jobs.html">Jobs</a>
+        <a href="admin-marketplace.html">Marketplace</a>
+        <a href="post-news.html">Post News</a>
+    </div>
+
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+    <div class="header">
+        <h1>Marketplace Approvals</h1>
+    </div>
+
+    <div class="grid" id="grid"></div>
+
+</div>
+
+<!-- SUPABASE -->
+<script type="module">
+
+import { supabase } from './supabase.js';
+
+const grid = document.getElementById("grid");
+
+/* LOAD ITEMS */
+
+async function loadItems(){
+
+    const { data, error } = await supabase
+        .from("marketplace_items")
+        .select("*")
+        .order("created_at",{ascending:false});
+
+    if(error){
+        console.log(error);
+        return;
+    }
+
+    grid.innerHTML = "";
+
+    if(!data.length){
+        grid.innerHTML = `<div class="empty">No marketplace items found</div>`;
+        return;
+    }
+
+    data.forEach(item => {
+
+        const card = document.createElement("div");
+        card.className = "card";
+
+        card.innerHTML = `
+
+            <img src="${item.image_url || 'https://via.placeholder.com/400'}">
+
+            <div class="content">
+
+                <div class="title">${item.title}</div>
+
+                <div class="meta">${item.category} • ${item.location || ''}</div>
+
+                <div class="price">P ${item.price}</div>
+
+                <p style="font-size:13px;color:#444;">
+                    ${item.description || ''}
+                </p>
+
+                <div class="actions">
+
+                    <button class="approve">Approve</button>
+                    <button class="reject">Reject</button>
+                    <button class="delete">Delete</button>
+
+                </div>
+
+            </div>
+
+        `;
+
+        /* APPROVE */
+        card.querySelector(".approve").onclick = async () => {
+
+            await supabase
+                .from("marketplace_items")
+                .update({ status: "approved" })
+                .eq("id", item.id);
+
+            loadItems();
+        };
+
+        /* REJECT */
+        card.querySelector(".reject").onclick = async () => {
+
+            await supabase
+                .from("marketplace_items")
+                .update({ status: "rejected" })
+                .eq("id", item.id);
+
+            loadItems();
+        };
+
+        /* DELETE */
+        card.querySelector(".delete").onclick = async () => {
+
+            await supabase
+                .from("marketplace_items")
+                .delete()
+                .eq("id", item.id);
+
+            loadItems();
+        };
+
+        grid.appendChild(card);
+    });
+
+}
+
+loadItems();
+
+</script>
+
+</body>
+</html>

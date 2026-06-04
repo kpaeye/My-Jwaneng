@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Seller Dashboard - My Jwaneng</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    margin:0;
+    font-family:Poppins;
+    background:#f4f6fb;
+}
+
+header{
+    background:#001f3f;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+.container{
+    max-width:900px;
+    margin:30px auto;
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+input, textarea{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border-radius:8px;
+    border:1px solid #ddd;
+}
+
+button{
+    padding:12px;
+    width:100%;
+    background:#4fc3f7;
+    border:none;
+    border-radius:8px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.item{
+    border-bottom:1px solid #eee;
+    padding:10px 0;
+}
+
+.status{
+    font-size:12px;
+    padding:4px 8px;
+    border-radius:6px;
+}
+
+.pending{ background:#ffcc00; }
+.approved{ background:#4fc3f7; }
+.rejected{ background:#ff4d4d; color:white; }
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Seller Dashboard</h1>
+</header>
+
+<div class="container">
+
+    <h2>Post Marketplace Item</h2>
+
+    <input type="text" id="title" placeholder="Item Title">
+    <input type="text" id="price" placeholder="Price (e.g. P500)">
+    <input type="text" id="location" placeholder="Location">
+
+    <textarea id="description" placeholder="Item Description"></textarea>
+
+    <button onclick="createItem()">Post Item</button>
+
+    <hr>
+
+    <h2>My Listings</h2>
+    <div id="myItems"></div>
+
+</div>
+<script type="module">
+
+import { supabase } from './supabase.js';
+
+const {
+    data: { session }
+} = await supabase.auth.getSession();
+
+if(!session){
+    window.location.href = "login.html";
+}
+
+</script>
+<script type="module">
+
+import { supabase } from './supabase.js';
+import { loadUser } from './auth.js';
+
+const user = await loadUser();
+const container = document.getElementById("myItems");
+
+/* CREATE ITEM */
+window.createItem = async function(){
+
+    const item = {
+        title: document.getElementById("title").value,
+        price: document.getElementById("price").value,
+        location: document.getElementById("location").value,
+        description: document.getElementById("description").value,
+        status: "pending",
+        seller_id: user.user.id
+    };
+
+    const { error } = await supabase
+        .from("marketplace")
+        .insert([item]);
+
+    if(error){
+        alert(error.message);
+    } else {
+        alert("Item submitted for approval");
+        loadMyItems();
+    }
+};
+
+/* LOAD SELLER ITEMS */
+async function loadMyItems(){
+
+    const { data } = await supabase
+        .from("marketplace")
+        .select("*")
+        .eq("seller_id", user.user.id)
+        .order("created_at",{ascending:false});
+
+    container.innerHTML = "";
+
+    data.forEach(item => {
+
+        container.innerHTML += `
+            <div class="item">
+                <b>${item.title}</b><br>
+                ${item.price} - ${item.location}
+
+                <p>${item.description}</p>
+
+                <span class="status ${item.status}">
+                    ${item.status}
+                </span>
+            </div>
+        `;
+    });
+}
+
+loadMyItems();
+
+</script>
+
+</body>
+</html>

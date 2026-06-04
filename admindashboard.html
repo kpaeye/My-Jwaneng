@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Control Center - My Jwaneng</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    margin:0;
+    font-family:Poppins;
+    background:#f4f6fb;
+    display:flex;
+}
+
+/* SIDEBAR */
+.sidebar{
+    width:250px;
+    background:#001f3f;
+    color:white;
+    height:100vh;
+    padding:20px;
+}
+
+.sidebar h2{
+    color:#4fc3f7;
+}
+
+.menu button{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+/* MAIN */
+.main{
+    flex:1;
+    padding:20px;
+}
+
+.section{
+    display:none;
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.section.active{
+    display:block;
+}
+
+.item{
+    border-bottom:1px solid #eee;
+    padding:10px 0;
+}
+
+button.approve{
+    background:#4fc3f7;
+    border:none;
+    padding:8px 12px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button.reject{
+    background:#ff4d4d;
+    border:none;
+    padding:8px 12px;
+    border-radius:6px;
+    color:white;
+    cursor:pointer;
+}
+
+.role-btn{
+    margin:3px;
+    padding:6px 10px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    background:#001f3f;
+    color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>Admin Panel</h2>
+
+    <div class="menu">
+        <button onclick="showTab('jobs')">Jobs</button>
+        <button onclick="showTab('market')">Marketplace</button>
+        <button onclick="showTab('news')">Town News</button>
+        <button onclick="showTab('users')">Users</button>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+    <!-- JOBS -->
+    <div id="jobs" class="section active">
+        <h2>Pending Jobs</h2>
+        <div id="jobsContainer"></div>
+    </div>
+
+    <!-- MARKET -->
+    <div id="market" class="section">
+        <h2>Pending Marketplace Listings</h2>
+        <div id="marketContainer"></div>
+    </div>
+
+    <!-- NEWS -->
+    <div id="news" class="section">
+        <h2>Town News Approval</h2>
+        <div id="newsContainer"></div>
+    </div>
+
+    <!-- USERS -->
+    <div id="users" class="section">
+        <h2>User Management</h2>
+        <div id="usersContainer"></div>
+    </div>
+
+</div>
+
+<script type="module">
+const {
+    data: { session }
+} = await supabase.auth.getSession();
+
+if(!session){
+    window.location.href = "login.html";
+}
+
+const { data: profile } = await supabase
+    .from("user_profiles")
+    .select("role")
+    .eq("id", session.user.id)
+    .single();
+
+if(profile.role !== "admin"){
+    window.location.href = "welcomepage.html";
+}
+import { supabase } from './supabase.js';
+
+const {
+    data: { session }
+} = await supabase.auth.getSession();
+
+if(!session){
+    window.location.href = "login.html";
+}
+
+</script>
+<script type="module">
+const {
+    data: { user }
+} = await supabase.auth.getUser();
+
+if(!user){
+    window.location.href = "login.html";
+}
+import { supabase } from './supabase.js';
+import { requireRole } from './roleGuard.js';
+
+await requireRole("admin");
+
+/* TAB SWITCH */
+window.showTab = function(tab){
+
+    document.querySelectorAll(".section")
+        .forEach(s => s.classList.remove("active"));
+
+    document.getElementById(tab).classList.add("active");
+};
+
+/* LOAD DATA */
+async function loadAll(){
+
+    loadJobs();
+    loadMarket();
+    loadNews();
+    loadUsers();
+}
+
+/* JOBS */
+async function loadJobs(){
+
+    const { data } = await supabase
+        .from("jobs")
+        .select("*")
+        .eq("status","pending");
+
+    const container = document.getElementById("jobsContainer");
+    container.innerHTML = "";
+
+    data.forEach(job => {
+
+        container.innerHTML += `
+            <div class="item">
+                <b>${job.title}</b><br>
+                ${job.company}
+
+                <br><br>
+
+                <button class="approve" onclick="approveJob('${job.id}')">Approve</button>
+                <button class="reject" onclick="rejectJob('${job.id}')">Reject</button>
+            </div>
+        `;
+    });
+}
+
+/* MARKET */
+async function loadMarket(){
+
+    const { data } = await supabase
+        .from("marketplace")
+        .select("*")
+        .eq("status","pending");
+
+    const container = document.getElementById("marketContainer");
+    container.innerHTML = "";
+
+    data.forEach(item => {
+
+        container.innerHTML += `
+            <div class="item">
+                <b>${item.title}</b><br>
+                ${item.price}
+
+                <br><br>
+
+                <button class="approve" onclick="approveMarket('${item.id}')">Approve</button>
+                <button class="reject" onclick="rejectMarket('${item.id}')">Reject</button>
+            </div>
+        `;
+    });
+}
+
+/* NEWS */
+async function loadNews(){
+
+    const { data } = await supabase
+        .from("town_news")
+        .select("*")
+        .eq("status","pending");
+
+    const container = document.getElementById("newsContainer");
+    container.innerHTML = "";
+
+    data.forEach(n => {
+
+        container.innerHTML += `
+            <div class="item">
+                <b>${n.title}</b>
+
+                <br><br>
+
+                <button class="approve" onclick="approveNews('${n.id}')">Publish</button>
+                <button class="reject" onclick="deleteNews('${n.id}')">Delete</button>
+            </div>
+        `;
+    });
+}
+
+/* USERS */
+async function loadUsers(){
+
+    const { data } = await supabase
+        .from("user_profiles")
+        .select("*");
+
+    const container = document.getElementById("usersContainer");
+    container.innerHTML = "";
+
+    data.forEach(u => {
+
+        container.innerHTML += `
+            <div class="item">
+                <b>${u.full_name || u.email}</b><br>
+                Role: ${u.role || "user"}
+
+                <br><br>
+
+                <button class="role-btn" onclick="setRole('${u.id}','user')">User</button>
+                <button class="role-btn" onclick="setRole('${u.id}','employer')">Employer</button>
+                <button class="role-btn" onclick="setRole('${u.id}','business_owner')">Business</button>
+                <button class="role-btn" onclick="setRole('${u.id}','admin')">Admin</button>
+            </div>
+        `;
+    });
+}
+
+/* ACTIONS */
+window.approveJob = async (id) => {
+    await supabase.from("jobs").update({status:"approved"}).eq("id",id);
+    loadJobs();
+};
+
+window.rejectJob = async (id) => {
+    await supabase.from("jobs").delete().eq("id",id);
+    loadJobs();
+};
+
+window.approveMarket = async (id) => {
+    await supabase.from("marketplace").update({status:"approved"}).eq("id",id);
+    loadMarket();
+};
+
+window.rejectMarket = async (id) => {
+    await supabase.from("marketplace").delete().eq("id",id);
+    loadMarket();
+};
+
+window.approveNews = async (id) => {
+    await supabase.from("town_news").update({status:"published"}).eq("id",id);
+    loadNews();
+};
+
+window.deleteNews = async (id) => {
+    await supabase.from("town_news").delete().eq("id",id);
+    loadNews();
+};
+
+window.setRole = async (id, role) => {
+    await supabase.from("user_profiles").update({role}).eq("id",id);
+    loadUsers();
+};
+
+loadAll();
+
+</script>
+
+</body>
+</html>

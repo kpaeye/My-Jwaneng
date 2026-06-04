@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Post Item - My Jwaneng Marketplace</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f4f6fb;
+}
+
+header{
+    background:#001f3f;
+    color:white;
+    padding:40px 8%;
+    text-align:center;
+}
+
+.container{
+    max-width:800px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+form{
+    display:grid;
+    gap:15px;
+}
+
+input, textarea, select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+}
+
+textarea{min-height:120px;}
+
+.upload{
+    border:2px dashed #4fc3f7;
+    padding:20px;
+    text-align:center;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+button{
+    padding:12px;
+    background:#4fc3f7;
+    border:none;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#001f3f;
+    color:white;
+}
+
+#msg{
+    font-weight:600;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sell an Item</h1>
+    <p>Post your product to the Jwaneng Marketplace</p>
+</header>
+
+<div class="container">
+
+<form id="form">
+
+    <input type="text" id="title" placeholder="Item Title" required>
+
+    <select id="category" required>
+        <option value="">Category</option>
+        <option>Vehicles</option>
+        <option>Electronics</option>
+        <option>Tools</option>
+        <option>Property</option>
+        <option>Services</option>
+        <option>General</option>
+    </select>
+
+    <textarea id="description" placeholder="Description"></textarea>
+
+    <input type="number" id="price" placeholder="Price (BWP)" required>
+
+    <input type="text" id="location" placeholder="Location">
+
+    <input type="text" id="contact" placeholder="Contact Number" required>
+
+    <div class="upload" id="uploadBox">
+        📷 Upload Image
+    </div>
+
+    <input type="file" id="file" hidden accept="image/*">
+
+    <p id="fileName"></p>
+
+    <button type="submit">Submit Item</button>
+
+    <div id="msg"></div>
+
+</form>
+
+</div>
+
+<script type="module">
+
+import { supabase } from './supabase.js';
+
+const form = document.getElementById("form");
+const fileInput = document.getElementById("file");
+const uploadBox = document.getElementById("uploadBox");
+const fileName = document.getElementById("fileName");
+const msg = document.getElementById("msg");
+
+let file = null;
+
+uploadBox.onclick = () => fileInput.click();
+
+fileInput.onchange = (e) => {
+    file = e.target.files[0];
+    fileName.innerText = file.name;
+};
+
+form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    msg.innerText = "Uploading...";
+
+    let imageUrl = null;
+
+    if(file){
+
+        const path = `market-${Date.now()}-${file.name}`;
+
+        const { error: upErr } = await supabase.storage
+            .from("marketplace-images")
+            .upload(path, file);
+
+        if(upErr){
+            msg.innerText = "Upload failed";
+            return;
+        }
+
+        const { data } = supabase.storage
+            .from("marketplace-images")
+            .getPublicUrl(path);
+
+        imageUrl = data.publicUrl;
+    }
+
+    const item = {
+
+        title: document.getElementById("title").value,
+        category: document.getElementById("category").value,
+        description: document.getElementById("description").value,
+        price: document.getElementById("price").value,
+        location: document.getElementById("location").value,
+        contact: document.getElementById("contact").value,
+        image_url: imageUrl,
+        status: "pending",
+        seller_name: "User"
+
+    };
+
+    const { error } = await supabase
+        .from("marketplace_items")
+        .insert([item]);
+
+    if(error){
+        msg.innerText = "Failed to submit item";
+        console.log(error);
+    } else {
+        msg.innerText = "Item submitted for approval!";
+        form.reset();
+        fileName.innerText = "";
+        file = null;
+    }
+});
+
+</script>
+
+</body>
+</html>
