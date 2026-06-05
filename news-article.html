@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,8 @@
 <title>News Article - My Jwaneng</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
@@ -126,24 +129,17 @@ header a{
 </header>
 
 <div class="container" id="articleContainer">
-
     <div class="error">Loading article...</div>
-
 </div>
 
-<!-- SUPABASE -->
-<script type="module">
+<script>
+const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
 
-import { supabase } from './supabase.js';
+const client = supabase.createClient(supabaseUrl, supabaseKey);
 
 const container = document.getElementById("articleContainer");
-const {
-    data: { session }
-} = await supabase.auth.getSession();
 
-if(!session){
-    window.location.href = "login.html";
-}
 /* GET ID FROM URL */
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
@@ -155,8 +151,8 @@ async function loadArticle(){
         return;
     }
 
-    const { data, error } = await supabase
-        .from("town_news")
+    const { data, error } = await client
+        .from("news")
         .select("*")
         .eq("id", id)
         .single();
@@ -167,7 +163,6 @@ async function loadArticle(){
     }
 
     container.innerHTML = `
-
         <img class="article-image"
              src="${data.image_url || 'https://via.placeholder.com/1200x600'}">
 
@@ -191,12 +186,10 @@ async function loadArticle(){
         <div class="back">
             <a href="townnews.html">← Back to Town News</a>
         </div>
-
     `;
 }
 
 loadArticle();
-
 </script>
 
 </body>
