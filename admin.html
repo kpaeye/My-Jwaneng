@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Control Center - My Jwaneng</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= GLOBAL ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f4f6fb;
+    color:#222;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    background:#001f3f;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+header h1{
+    font-size:22px;
+}
+
+/* ================= LAYOUT ================= */
+
+.container{
+    padding:20px;
+    max-width:900px;
+    margin:auto;
+}
+
+/* ================= TABS ================= */
+
+.tabs{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+.tabs button{
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#ddd;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.tabs button.active{
+    background:#4fc3f7;
+    color:#001f3f;
+}
+
+/* ================= FORMS ================= */
+
+.panel{
+    display:none;
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.panel.active{
+    display:block;
+}
+
+input, textarea, select{
+    width:100%;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    font-size:14px;
+}
+
+textarea{
+    min-height:100px;
+}
+
+button.submit{
+    width:100%;
+    padding:12px;
+    background:#4fc3f7;
+    border:none;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+button.submit:hover{
+    background:#001f3f;
+    color:white;
+}
+
+.msg{
+    font-size:13px;
+    font-weight:600;
+    margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <h1>Admin Control Center</h1>
+</header>
+
+<div class="container">
+
+    <!-- TABS -->
+    <div class="tabs">
+        <button class="active" onclick="openTab('news')">News</button>
+        <button onclick="openTab('jobs')">Jobs</button>
+        <button onclick="openTab('market')">Marketplace</button>
+    </div>
+
+    <!-- NEWS -->
+    <div id="news" class="panel active">
+
+        <h3>Post Town News</h3>
+
+        <input id="news_title" placeholder="Title">
+        <textarea id="news_content" placeholder="Content"></textarea>
+        <input id="news_image" placeholder="Image URL">
+
+        <button class="submit" onclick="postNews()">Publish News</button>
+
+        <div id="news_msg" class="msg"></div>
+    </div>
+
+    <!-- JOBS -->
+    <div id="jobs" class="panel">
+
+        <h3>Post Job</h3>
+
+        <input id="job_title" placeholder="Job Title">
+        <input id="job_company" placeholder="Company">
+        <input id="job_location" placeholder="Location">
+        <input id="job_salary" placeholder="Salary">
+        <textarea id="job_description" placeholder="Description"></textarea>
+
+        <button class="submit" onclick="postJob()">Publish Job</button>
+
+        <div id="job_msg" class="msg"></div>
+    </div>
+
+    <!-- MARKETPLACE -->
+    <div id="market" class="panel">
+
+        <h3>Post Marketplace Item</h3>
+
+        <input id="item_title" placeholder="Item Title">
+        <input id="item_price" placeholder="Price">
+        <input id="item_image" placeholder="Image URL">
+        <textarea id="item_description" placeholder="Description"></textarea>
+
+        <button class="submit" onclick="postItem()">Publish Item</button>
+
+        <div id="item_msg" class="msg"></div>
+    </div>
+
+</div>
+
+<script type="module">
+
+import { supabase } from './supabase.js';
+
+/* ================= TAB SWITCH ================= */
+
+window.openTab = function(tab){
+
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+
+    document.getElementById(tab).classList.add('active');
+    event.target.classList.add('active');
+};
+
+/* ================= POST NEWS ================= */
+
+window.postNews = async function(){
+
+    const { error } = await supabase
+        .from('town_news')
+        .insert([{
+            title: document.getElementById('news_title').value,
+            content: document.getElementById('news_content').value,
+            image_url: document.getElementById('news_image').value
+        }]);
+
+    const msg = document.getElementById('news_msg');
+
+    if(error){
+        msg.innerText = "Failed to post news";
+        msg.style.color = "red";
+    } else {
+        msg.innerText = "News published successfully";
+        msg.style.color = "green";
+    }
+};
+
+/* ================= POST JOB ================= */
+
+window.postJob = async function(){
+
+    const { error } = await supabase
+        .from('jobs')
+        .insert([{
+            title: document.getElementById('job_title').value,
+            company: document.getElementById('job_company').value,
+            location: document.getElementById('job_location').value,
+            salary: document.getElementById('job_salary').value,
+            description: document.getElementById('job_description').value,
+            status: "approved"
+        }]);
+
+    const msg = document.getElementById('job_msg');
+
+    if(error){
+        msg.innerText = "Failed to post job";
+        msg.style.color = "red";
+    } else {
+        msg.innerText = "Job published successfully";
+        msg.style.color = "green";
+    }
+};
+
+/* ================= POST MARKET ITEM ================= */
+
+window.postItem = async function(){
+
+    const { error } = await supabase
+        .from('marketplace')
+        .insert([{
+            title: document.getElementById('item_title').value,
+            price: document.getElementById('item_price').value,
+            image_url: document.getElementById('item_image').value,
+            description: document.getElementById('item_description').value
+        }]);
+
+    const msg = document.getElementById('item_msg');
+
+    if(error){
+        msg.innerText = "Failed to post item";
+        msg.style.color = "red";
+    } else {
+        msg.innerText = "Item published successfully";
+        msg.style.color = "green";
+    }
+};
+
+</script>
+
+</body>
+</html>
