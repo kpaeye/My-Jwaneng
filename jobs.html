@@ -1,449 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Jwaneng Jobs</title>
 
-<title>My Jwaneng - Jobs</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+  body {
+    font-family: Arial;
+    margin: 0;
+    background: #f4f6f9;
+  }
 
-/* =========================
-GLOBAL
-========================= */
+  header {
+    background: #0b1f3a;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 20px;
+  }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+  .container {
+    padding: 15px;
+  }
 
-body{
-    font-family:'Poppins',sans-serif;
-    background:#f5f7fb;
-    color:#222;
-}
+  .job-card {
+    background: white;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+  }
 
-/* =========================
-NAVBAR
-========================= */
+  .job-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0b1f3a;
+  }
 
-.navbar{
-    background:#001f3f;
-    padding:18px 8%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    position:sticky;
-    top:0;
-    z-index:1000;
-}
+  .job-company {
+    color: #555;
+    margin-top: 5px;
+  }
 
-.logo{
-    color:white;
-    font-size:28px;
-    font-weight:700;
-}
+  .job-meta {
+    font-size: 13px;
+    color: #777;
+    margin-top: 5px;
+  }
 
-.logo span{
-    color:#4fc3f7;
-}
+  /* DETAILS VIEW */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+  }
 
-.nav-links{
-    display:flex;
-    gap:25px;
-}
+  .modal-content {
+    background: white;
+    margin: 60px auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 10px;
+  }
 
-.nav-links a{
-    color:white;
-    text-decoration:none;
-    font-weight:500;
-}
+  .close {
+    float: right;
+    cursor: pointer;
+    font-size: 18px;
+  }
 
-.nav-buttons button{
-    padding:10px 18px;
-    border:none;
-    border-radius:8px;
-    margin-left:10px;
-    cursor:pointer;
-    font-weight:600;
-}
-
-.login-btn{
-    background:transparent;
-    border:2px solid #4fc3f7;
-    color:white;
-}
-
-.register-btn{
-    background:#4fc3f7;
-    color:#001f3f;
-}
-
-/* =========================
-HEADER
-========================= */
-
-.jobs-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
-    background:linear-gradient(to right,#001f3f,#003566);
-    color:white;
-    padding:70px 8%;
-}
-
-.jobs-header-content h1{
-    font-size:50px;
-    margin-bottom:15px;
-}
-
-.jobs-header-content p{
-    max-width:700px;
-    line-height:1.7;
-}
-
-.post-job-btn{
-    background:#4fc3f7;
-    color:#001f3f;
-    padding:14px 22px;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:700;
-    white-space:nowrap;
-    transition:0.3s;
-}
-
-.post-job-btn:hover{
-    background:white;
-    color:#001f3f;
-}
-
-/* =========================
-SEARCH + FILTERS
-========================= */
-
-.search-section{
-    padding:40px 8%;
-    display:flex;
-    flex-direction:column;
-    gap:20px;
-}
-
-.search-box{
-    display:flex;
-    gap:10px;
-}
-
-.search-box input{
-    flex:1;
-    padding:15px;
-    border-radius:10px;
-    border:1px solid #ddd;
-    font-size:16px;
-}
-
-.search-box button{
-    padding:15px 25px;
-    border:none;
-    background:#4fc3f7;
-    color:#001f3f;
-    font-weight:700;
-    border-radius:10px;
-    cursor:pointer;
-}
-
-.filters{
-    display:flex;
-    gap:15px;
-    flex-wrap:wrap;
-}
-
-.filters button{
-    padding:10px 18px;
-    border:none;
-    border-radius:20px;
-    cursor:pointer;
-    background:white;
-    box-shadow:0 3px 10px rgba(0,0,0,0.08);
-    font-weight:500;
-}
-
-/* =========================
-JOB GRID
-========================= */
-
-.job-grid{
-    padding:20px 8% 80px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:25px;
-}
-
-/* =========================
-JOB CARD
-========================= */
-
-.job-card{
-    background:white;
-    border-radius:20px;
-    padding:25px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.08);
-    transition:0.3s;
-}
-
-.job-card:hover{
-    transform:translateY(-8px);
-}
-
-.job-card h3{
-    font-size:22px;
-    color:#001f3f;
-    margin-bottom:10px;
-}
-
-.job-card p{
-    margin-bottom:10px;
-    font-size:14px;
-    line-height:1.6;
-}
-
-.contact{
-    color:#666;
-    font-size:13px;
-}
-
-.apply-btn{
-    display:block;
-    width:100%;
-    text-align:center;
-    padding:12px;
-    margin-top:15px;
-    background:#001f3f;
-    color:white;
-    text-decoration:none;
-    border-radius:10px;
-    font-weight:600;
-    transition:0.3s;
-}
-
-.apply-btn:hover{
-    background:#4fc3f7;
-    color:#001f3f;
-}
-
-/* =========================
-FOOTER
-========================= */
-
-footer{
-    background:#001f3f;
-    color:white;
-    padding:60px 8%;
-    text-align:center;
-}
-
-/* =========================
-RESPONSIVE
-========================= */
-
-@media(max-width:768px){
-
-    .jobs-header{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
-    .jobs-header-content h1{
-        font-size:36px;
-    }
-
-    .search-box{
-        flex-direction:column;
-    }
-
-    .nav-links{
-        display:none;
-    }
-
-    .post-job-btn{
-        width:100%;
-        text-align:center;
-    }
-}
-
+  .apply-btn {
+    display: inline-block;
+    background: #0b1f3a;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+  }
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
+<header>
+  My Jwaneng Jobs
+</header>
 
-<nav class="navbar">
+<div class="container" id="jobsContainer">
+  Loading jobs...
+</div>
 
-    <div class="logo">
-        My<span>Jwaneng</span>
-    </div>
+<!-- MODAL -->
+<div class="modal" id="jobModal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">X</span>
 
-    <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="jobs.html">Jobs</a>
-        <a href="marketplace.html">Marketplace</a>
-        <a href="businesses.html">Businesses</a>
-        <a href="events.html">Events</a>
-        <a href="jwanengtowncouncil.html">Jwaneng Town Council</a>
-        <a href="townnews.html">Town News</a>
-    </div>
-    </div>
-</nav>
+    <h2 id="m_title"></h2>
+    <p><b>Company:</b> <span id="m_company"></span></p>
+    <p><b>Location:</b> <span id="m_location"></span></p>
+    <p><b>Job Type:</b> <span id="m_type"></span></p>
 
-<!-- HEADER -->
+    <p><b>Description:</b></p>
+    <p id="m_description"></p>
 
-<section class="jobs-header">
+    <p><b>Requirements:</b></p>
+    <p id="m_requirements"></p>
 
-    <div class="jobs-header-content">
-        <h1>Jobs & Opportunities</h1>
+    <p><b>Closing Date:</b> <span id="m_closing"></span></p>
 
-        <p>
-            Explore curated job listings, mining opportunities,
-            internships, and local work opportunities in Jwaneng.
-        </p>
-    </div>
+    <p><b>Contact:</b></p>
+    <p id="m_contact"></p>
 
+    <a id="m_apply" class="apply-btn" target="_blank">Apply Now</a>
+  </div>
+</div>
 
+<script>
+  const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
+  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
 
-</section>
+  const client = supabase.createClient(supabaseUrl, supabaseKey);
 
-<!-- SEARCH -->
+  let jobsData = [];
 
-<section class="search-section">
-
-    <div class="search-box">
-        <input type="text" placeholder="Search jobs, companies, keywords...">
-        <button>Search</button>
-    </div>
-
-    <div class="filters">
-        <button>All Jobs</button>
-        <button>Mining</button>
-        <button>Full-time</button>
-        <button>Contract</button>
-        <button>Internships</button>
-        <button>Tenders</button>
-    </div>
-
-</section>
-
-<!-- DYNAMIC JOBS -->
-
-<section class="job-grid" id="jobGrid">
-    <!-- Jobs load dynamically -->
-</section>
-
-<!-- FOOTER -->
-
-<footer>
-    © 2026 My Jwaneng | Powered by A-eye Group
-</footer>
-
-<!-- SUPABASE -->
-
-<script type="module">
-
-    const {
-    data: { user }
-} = await supabase.auth.getUser();
-
-const { data: profile } = await supabase
-    .from("user_profiles")
-    .select("*")
-    .eq("id", user.id)
-    .single();
-
-document.getElementById("username").innerText =
-    profile.full_name;
-const {
-    data: { session }
-} = await supabase.auth.getSession();
-
-if(!session){
-    window.location.href = "login.html";
-}
-import { supabase } from './supabase.js';
-import { loadUser } from './auth.js';
-
-
-
-const jobGrid = document.getElementById("jobGrid");
-
-async function loadJobs() {
-
-    const { data, error } = await supabase
-        .from('jobs')
-        .select('*')
-        .eq('status', 'approved')
-        .order('created_at', { ascending: false });
+  async function loadJobs() {
+    const { data, error } = await client
+      .from("jobs")
+      .select("*")
+      .eq("status", "active")
+      .order("created_at", { ascending: false });
 
     if (error) {
-        console.log("Error loading jobs:", error);
-        return;
+      document.getElementById("jobsContainer").innerHTML = "Error loading jobs";
+      return;
     }
 
-    jobGrid.innerHTML = "";
+    jobsData = data;
+    renderJobs();
+  }
 
-    data.forEach(job => {
+  function renderJobs() {
+    const container = document.getElementById("jobsContainer");
+    container.innerHTML = "";
 
-        const card = document.createElement("div");
-        card.className = "job-card";
+    if (jobsData.length === 0) {
+      container.innerHTML = "No jobs available yet.";
+      return;
+    }
 
-        card.innerHTML = `
-            <h3>${job.title}</h3>
-
-            <p><strong>Company:</strong> ${job.company}</p>
-
-            <p>${job.description}</p>
-
-            <p><strong>Location:</strong> ${job.location}</p>
-
-            <p><strong>Salary:</strong> ${job.salary || 'Negotiable'}</p>
-
-            <p class="contact">${job.contact}</p>
-
-            <a class="apply-btn" href="apply-job.html?job=${job.id}">
-                Apply Now
-            </a>
-        `;
-
-        jobGrid.appendChild(card);
+    jobsData.forEach((job, index) => {
+      container.innerHTML += `
+        <div class="job-card" onclick="openJob(${index})">
+          <div class="job-title">${job.title}</div>
+          <div class="job-company">${job.company}</div>
+          <div class="job-meta">
+            ${job.location || ""} | ${job.job_type || ""} 
+          </div>
+        </div>
+      `;
     });
-}
+  }
 
-loadJobs();
+  function openJob(index) {
+    const job = jobsData[index];
 
-/* LOGIN/LOGOUT BUTTONS */
+    document.getElementById("m_title").innerText = job.title;
+    document.getElementById("m_company").innerText = job.company;
+    document.getElementById("m_location").innerText = job.location || "N/A";
+    document.getElementById("m_type").innerText = job.job_type || "N/A";
+    document.getElementById("m_description").innerText = job.description || "N/A";
+    document.getElementById("m_requirements").innerText = job.requirements || "N/A";
+    document.getElementById("m_closing").innerText = job.closing_date || "N/A";
 
-function updateNavUI(user) {
+    let contact = "";
+    if (job.application_email) contact += "Email: " + job.application_email + "\n";
+    if (job.contact_number) contact += "Phone: " + job.contact_number;
 
-    const nav = document.querySelector(".nav-buttons");
+    document.getElementById("m_contact").innerText = contact || "N/A";
 
-    if (!nav) return;
+    // APPLY BUTTON LOGIC
+    const applyBtn = document.getElementById("m_apply");
 
-    if (user) {
-        nav.innerHTML = `
-            <button onclick="location.href='profile.html'">Profile</button>
-            <button onclick="logoutUser()">Logout</button>
-        `;
+    if (job.application_link) {
+      applyBtn.style.display = "inline-block";
+      applyBtn.href = job.application_link;
     } else {
-        nav.innerHTML = `
-            <button onclick="location.href='login.html'">Login</button>
-            <button onclick="location.href='register.html'">Register</button>
-        `;
+      applyBtn.style.display = "none";
     }
-}
 
+    document.getElementById("jobModal").style.display = "block";
+  }
+
+  function closeModal() {
+    document.getElementById("jobModal").style.display = "none";
+  }
+
+  loadJobs();
 </script>
 
 </body>

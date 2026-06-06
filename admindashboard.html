@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +15,6 @@
       background: #f4f6f9;
     }
 
-    /* SIDEBAR */
     .sidebar {
       width: 220px;
       background: #0b1f3a;
@@ -45,7 +43,6 @@
       background: #1d3b66;
     }
 
-    /* MAIN */
     .main {
       margin-left: 240px;
       padding: 20px;
@@ -161,10 +158,27 @@
       <h3>Add Job</h3>
 
       <input id="job_title" placeholder="Job Title" />
-      <input id="job_company" placeholder="Company" />
+      <input id="job_company" placeholder="Company Name" />
       <input id="job_location" placeholder="Location" />
-      <textarea id="job_description" placeholder="Description"></textarea>
-      <input id="job_closing" placeholder="Closing Date" />
+
+      <select id="job_type">
+        <option value="">Job Type (Optional)</option>
+        <option>Full Time</option>
+        <option>Part Time</option>
+        <option>Contract</option>
+        <option>Temporary</option>
+        <option>Internship</option>
+      </select>
+
+      <textarea id="job_description" placeholder="Job Description"></textarea>
+      <textarea id="job_requirements" placeholder="Requirements (Optional)"></textarea>
+
+      <input id="job_email" placeholder="Application Email (Optional)" />
+      <input id="job_link" placeholder="Application Link (Optional)" />
+      <input id="job_phone" placeholder="Contact Number (Optional)" />
+      <input id="job_image" placeholder="Company Logo URL (Optional)" />
+
+      <input id="job_closing" type="date" />
 
       <button onclick="addJob()">Post Job</button>
     </div>
@@ -178,7 +192,6 @@
 
   const client = supabase.createClient(supabaseUrl, supabaseKey);
 
-  // NAVIGATION
   function showSection(section) {
     document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
     document.getElementById(section).classList.remove('hidden');
@@ -196,10 +209,7 @@
       status: "published"
     }]);
 
-    if (error) {
-  alert(error.message);
-  console.log("FULL ERROR:", error);
-}
+    if (error) alert(error.message);
     else alert("News published!");
   }
 
@@ -233,16 +243,28 @@
 
   // JOBS
   async function addJob() {
+
     const { error } = await client.from("jobs").insert([{
       title: document.getElementById("job_title").value,
       company: document.getElementById("job_company").value,
       location: document.getElementById("job_location").value,
+      job_type: document.getElementById("job_type").value || null,
       description: document.getElementById("job_description").value,
-      closing_date: document.getElementById("job_closing").value
+      requirements: document.getElementById("job_requirements").value || null,
+      application_email: document.getElementById("job_email").value || null,
+      application_link: document.getElementById("job_link").value || null,
+      contact_number: document.getElementById("job_phone").value || null,
+      image_url: document.getElementById("job_image").value || null,
+      closing_date: document.getElementById("job_closing").value || null,
+      status: "active"
     }]);
 
-    if (error) alert("Error posting job");
-    else alert("Job posted!");
+    if (error) {
+      alert("Error posting job");
+      console.log(error);
+    } else {
+      alert("Job posted successfully!");
+    }
   }
 
   function logout() {
