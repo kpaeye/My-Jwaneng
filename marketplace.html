@@ -4,110 +4,86 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>My Jwaneng - Marketplace</title>
+<title>My Jwaneng Marketplace V3</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<meta name="theme-color" content="#0b1f3a">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-
-/* ================= GLOBAL ================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
     font-family:'Poppins',sans-serif;
     background:#f5f7fb;
-    color:#222;
 }
 
-/* ================= NAVBAR ================= */
-
+/* NAV */
 .navbar{
-    background:#001f3f;
-    padding:18px 8%;
+    background:#0b1f3a;
+    padding:15px 8%;
     display:flex;
     justify-content:space-between;
     align-items:center;
-}
-
-.logo{
     color:white;
-    font-size:28px;
-    font-weight:700;
 }
 
-.logo span{
-    color:#4fc3f7;
+.logo{font-size:22px;font-weight:700;}
+.logo span{color:#4fc3f7;}
+
+.post-btn{
+    background:#4fc3f7;
+    color:#0b1f3a;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
 }
 
-.nav-links a{
-    color:white;
-    text-decoration:none;
-    margin-left:20px;
-    font-weight:500;
-}
-
-/* ================= HEADER ================= */
-
+/* HEADER */
 .header{
-    background:linear-gradient(to right,#001f3f,#003566);
+    background:linear-gradient(135deg,#0b1f3a,#174a8b);
     color:white;
     text-align:center;
-    padding:70px 8%;
+    padding:60px 8%;
 }
 
-.header h1{
-    font-size:45px;
-    margin-bottom:10px;
-}
-
-/* ================= FILTERS ================= */
-
-.filters{
-    padding:30px 8%;
+/* CATEGORY */
+.categories{
     display:flex;
     flex-wrap:wrap;
     gap:10px;
+    padding:20px 8%;
 }
 
-.filters button{
-    padding:10px 18px;
+.cat-btn{
+    padding:10px 15px;
     border:none;
     border-radius:20px;
     background:white;
-    box-shadow:0 3px 10px rgba(0,0,0,0.08);
     cursor:pointer;
     font-weight:500;
 }
 
-/* ================= GRID ================= */
+.cat-btn.active{
+    background:#0b1f3a;
+    color:white;
+}
 
+/* GRID */
 .grid{
-    padding:20px 8% 80px;
+    padding:20px 8%;
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
     gap:20px;
 }
 
-/* ================= CARD ================= */
-
+/* CARD */
 .card{
     background:white;
     border-radius:15px;
     overflow:hidden;
     box-shadow:0 5px 15px rgba(0,0,0,0.08);
-    transition:0.3s;
-}
-
-.card:hover{
-    transform:translateY(-5px);
 }
 
 .card img{
@@ -116,177 +92,187 @@ body{
     object-fit:cover;
 }
 
-.card-content{
-    padding:15px;
-}
+.card-content{padding:15px;}
 
-.title{
-    font-size:18px;
-    font-weight:700;
-    color:#001f3f;
-    margin-bottom:5px;
-}
+.title{font-weight:700;color:#0b1f3a;}
 
-.price{
-    color:#4fc3f7;
-    font-weight:700;
-    margin-bottom:8px;
-}
+.price{font-weight:700;margin:8px 0;}
 
-.meta{
-    font-size:12px;
-    color:#777;
-    margin-bottom:10px;
-}
-
-.desc{
-    font-size:13px;
-    color:#444;
-    margin-bottom:10px;
+.badge{
+    background:#4fc3f7;
+    display:inline-block;
+    padding:3px 8px;
+    border-radius:10px;
+    font-size:11px;
 }
 
 .btn{
     width:100%;
     padding:10px;
+    background:#0b1f3a;
+    color:white;
     border:none;
-    background:#001f3f;
-    color:white;
     border-radius:8px;
+    margin-top:5px;
     cursor:pointer;
-    font-weight:600;
 }
 
-.btn:hover{
-    background:#4fc3f7;
-    color:#001f3f;
+.btn.whatsapp{background:#25D366;}
+.btn.facebook{background:#1877F2;}
+
+/* MODAL */
+.modal{
+    display:none;
+    position:fixed;
+    top:0;left:0;
+    width:100%;height:100%;
+    background:rgba(0,0,0,0.6);
 }
 
-/* ================= FOOTER ================= */
-
-footer{
-    background:#001f3f;
-    color:white;
-    text-align:center;
-    padding:50px 8%;
+.modal-content{
+    background:white;
+    width:90%;
+    max-width:500px;
+    margin:60px auto;
+    padding:20px;
+    border-radius:12px;
 }
 
-/* RESPONSIVE */
-
-@media(max-width:768px){
-    .header h1{font-size:32px;}
-    .nav-links{display:none;}
+input,textarea,select{
+    width:100%;
+    padding:10px;
+    margin:8px 0 12px;
 }
 
+.close{float:right;cursor:pointer;font-size:18px;}
 </style>
-
 </head>
 
 <body>
 
-<!-- NAVBAR -->
 <div class="navbar">
-
     <div class="logo">My<span>Jwaneng</span></div>
-
-    <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="jobs.html">Jobs</a>
-        <a href="marketplace.html">Marketplace</a>
-        <a href="businesses.html">Businesses</a>
-        <a href="events.html">Events</a>    
-        <a href="jwanengtowncouncil.html">Jwaneng Town Council</a>
-        <a href="townnews.html">Town News</a>
-    </div>
-
+    <button class="post-btn" onclick="openModal()">+ Post Item</button>
 </div>
 
-<!-- HEADER -->
 <div class="header">
     <h1>Marketplace</h1>
-    <p>Buy and sell items in Jwaneng safely and easily</p>
+    <p>Buy & Sell (Admin Approved Listings)</p>
 </div>
 
-<!-- FILTERS -->
-<div class="filters">
-
-    <button onclick="loadItems()">All</button>
-    <button onclick="loadItems('Vehicles')">Vehicles</button>
-    <button onclick="loadItems('Electronics')">Electronics</button>
-    <button onclick="loadItems('Tools')">Tools</button>
-    <button onclick="loadItems('Property')">Property</button>
-    <button onclick="loadItems('Services')">Services</button>
-
+<div class="categories">
+    <button class="cat-btn active" onclick="filterItems(null,this)">All</button>
+    <button class="cat-btn" onclick="filterItems('Agriculture',this)">Agriculture</button>
+    <button class="cat-btn" onclick="filterItems('Electronics',this)">Electronics</button>
+    <button class="cat-btn" onclick="filterItems('Clothing',this)">Clothing</button>
+    <button class="cat-btn" onclick="filterItems('Vehicles',this)">Vehicles</button>
+    <button class="cat-btn" onclick="filterItems('Property',this)">Property</button>
+    <button class="cat-btn" onclick="filterItems('Services',this)">Services</button>
 </div>
 
-<!-- GRID -->
 <div class="grid" id="grid"></div>
 
-<!-- FOOTER -->
-<footer>
-    © 2026 My Jwaneng | Powered by A-eye Group
+<footer style="background:#0b1f3a;color:white;text-align:center;padding:40px;">
+© 2026 My Jwaneng | Powered by A-eye Group
 </footer>
 
-<!-- SUPABASE -->
-<script type="module">
-  const {
-    data: { session }
-} = await supabase.auth.getSession();
+<!-- MODAL -->
+<div class="modal" id="modal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">✖</span>
 
-if(!session){
-    window.location.href = "login.html";
-}  
-import { supabase } from './supabase.js';
-import { loadUser } from './auth.js';
+<h3>Post Item (Sent for Approval)</h3>
 
-const user = await loadUser();
+<input id="title" placeholder="Title">
+<input id="price" type="number" placeholder="Price (Pula)">
 
+<select id="category">
+    <option>Agriculture</option>
+    <option>Electronics</option>
+    <option>Clothing</option>
+    <option>Vehicles</option>
+    <option>Property</option>
+    <option>Services</option>
+</select>
 
-const grid = document.getElementById("grid");
-/* LOGIN/LOGOUT BUTTONS */
+<textarea id="description" placeholder="Description"></textarea>
 
-function updateNavUI(user) {
+<!-- CAMERA + UPLOAD -->
+<input 
+    type="file" 
+    id="imageFile" 
+    accept="image/*" 
+    capture="environment"
+/>
 
-    const nav = document.querySelector(".nav-buttons");
+<input id="phone" placeholder="Phone">
+<input id="whatsapp" placeholder="WhatsApp (71234567)">
+<input id="facebook" placeholder="Facebook link">
 
-    if (!nav) return;
+<button onclick="submitItem()">Submit</button>
+</div>
+</div>
 
-    if (user) {
-        nav.innerHTML = `
-            <button onclick="location.href='profile.html'">Profile</button>
-            <button onclick="logoutUser()">Logout</button>
-        `;
-    } else {
-        nav.innerHTML = `
-            <button onclick="location.href='login.html'">Login</button>
-            <button onclick="location.href='register.html'">Register</button>
-        `;
-    }
+<script>
+
+const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
+const supabaseKey = "YOUR_SUPABASE_ANON_KEY";
+const client = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+/* FORMAT */
+function formatPula(p){
+    return p ? "P " + Number(p).toFixed(2) : "P 0";
 }
+
+function formatWhatsApp(num){
+    if(!num) return null;
+    let n = num.replace(/\D/g,'');
+    if(!n.startsWith("267")) n = "267" + n;
+    return `https://wa.me/${n}`;
+}
+
+/* UPLOAD IMAGE */
+async function uploadImage(file){
+    if(!file) return "";
+
+    const name = Date.now() + "-" + file.name;
+
+    const { error } = await client
+        .storage
+        .from("marketplace-images")
+        .upload(name, file);
+
+    if(error) return "";
+
+    const { data } = client
+        .storage
+        .from("marketplace-images")
+        .getPublicUrl(name);
+
+    return data.publicUrl;
+}
+
 /* LOAD ITEMS */
+async function loadItems(category=null){
 
-window.loadItems = async function(category = null){
+    const grid = document.getElementById("grid");
 
-    let query = supabase
-        .from('marketplace_items')
-        .select('*')
-        .eq('status','approved')
-        .order('created_at',{ascending:false});
+    let query = client
+        .from("marketplace_items")
+        .select("*")
+        .eq("status","approved")
+        .order("created_at",{ascending:false});
 
     if(category){
-        query = query.eq('category', category);
+        query = query.eq("category",category);
     }
 
-    const { data, error } = await query;
-
-    if(error){
-        console.log(error);
-        return;
-    }
+    const { data } = await query;
 
     grid.innerHTML = "";
 
     if(!data || data.length === 0){
-        grid.innerHTML = "<p>No items available</p>";
+        grid.innerHTML = "<p>No approved items yet</p>";
         return;
     }
 
@@ -299,32 +285,73 @@ window.loadItems = async function(category = null){
             <img src="${item.image_url || 'https://via.placeholder.com/400'}">
 
             <div class="card-content">
-
+                <div class="badge">${item.category}</div>
                 <div class="title">${item.title}</div>
+                <div class="price">${formatPula(item.price)}</div>
 
-                <div class="price">P ${item.price}</div>
+                <p>${item.description || ''}</p>
 
-                <div class="meta">
-                    ${item.category} • ${item.location || 'Jwaneng'}
-                </div>
+                ${item.phone ? `<a href="tel:${item.phone}"><button class="btn">Call</button></a>` : ""}
 
-                <div class="desc">
-                    ${item.description || ''}
-                </div>
+                ${item.whatsapp ? `<a href="${formatWhatsApp(item.whatsapp)}" target="_blank"><button class="btn whatsapp">WhatsApp</button></a>` : ""}
 
-                <a href="tel:${item.contact}">
-                    <button class="btn">Contact Seller</button>
-                </a>
-
+                ${item.facebook ? `<a href="${item.facebook}" target="_blank"><button class="btn facebook">Facebook</button></a>` : ""}
             </div>
         `;
 
         grid.appendChild(card);
     });
+}
 
-};
+/* MODAL */
+function openModal(){document.getElementById("modal").style.display="block";}
+function closeModal(){document.getElementById("modal").style.display="none";}
 
-loadItems();
+/* SUBMIT (ADMIN PIPELINE) */
+async function submitItem(){
+
+    const file = document.getElementById("imageFile").files[0];
+    const image_url = await uploadImage(file);
+
+    const item = {
+        title: document.getElementById("title").value,
+        price: document.getElementById("price").value,
+        category: document.getElementById("category").value,
+        description: document.getElementById("description").value,
+        image_url,
+        phone: document.getElementById("phone").value,
+        whatsapp: document.getElementById("whatsapp").value,
+        facebook: document.getElementById("facebook").value,
+        status: "pending"
+    };
+
+    const { error } = await client
+        .from("marketplace_items")
+        .insert([item]);
+
+    if(error){
+        alert("Error submitting item");
+        return;
+    }
+
+    alert("Sent for admin approval!");
+    closeModal();
+    loadItems();
+}
+
+/* FILTER */
+function filterItems(cat,btn){
+    loadItems(cat);
+    document.querySelectorAll(".cat-btn").forEach(b=>b.classList.remove("active"));
+    if(btn) btn.classList.add("active");
+}
+
+window.openModal=openModal;
+window.closeModal=closeModal;
+window.submitItem=submitItem;
+window.filterItems=filterItems;
+
+document.addEventListener("DOMContentLoaded", loadItems);
 
 </script>
 
