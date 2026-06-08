@@ -4,121 +4,57 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>My Jwaneng Marketplace V3</title>
+<title>My Jwaneng Marketplace</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-
 body{
-    font-family:'Poppins',sans-serif;
+    font-family:Poppins;
     background:#f5f7fb;
-}
-
-/* NAV */
-.navbar{
-    background:#0b1f3a;
-    padding:15px 8%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    color:white;
-}
-
-.logo{font-size:22px;font-weight:700;}
-.logo span{color:#4fc3f7;}
-
-.post-btn{
-    background:#4fc3f7;
-    color:#0b1f3a;
-    border:none;
-    padding:10px 15px;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:600;
+    margin:0;
 }
 
 /* HEADER */
 .header{
-    background:linear-gradient(135deg,#0b1f3a,#174a8b);
+    background:#0b1f3a;
     color:white;
+    padding:20px;
     text-align:center;
-    padding:60px 8%;
 }
 
-/* CATEGORY */
-.categories{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    padding:20px 8%;
-}
-
-.cat-btn{
-    padding:10px 15px;
-    border:none;
-    border-radius:20px;
-    background:white;
-    cursor:pointer;
-    font-weight:500;
-}
-
-.cat-btn.active{
-    background:#0b1f3a;
-    color:white;
-}
-
-/* GRID */
-.grid{
-    padding:20px 8%;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-    gap:20px;
-}
-
-/* CARD */
-.card{
-    background:white;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 5px 15px rgba(0,0,0,0.08);
-}
-
-.card img{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-}
-
-.card-content{padding:15px;}
-
-.title{font-weight:700;color:#0b1f3a;}
-
-.price{font-weight:700;margin:8px 0;}
-
-.badge{
-    background:#4fc3f7;
-    display:inline-block;
-    padding:3px 8px;
-    border-radius:10px;
-    font-size:11px;
-}
-
+/* BUTTON */
 .btn{
-    width:100%;
     padding:10px;
-    background:#0b1f3a;
-    color:white;
     border:none;
     border-radius:8px;
-    margin-top:5px;
+    background:#0b1f3a;
+    color:white;
     cursor:pointer;
+    width:100%;
 }
 
-.btn.whatsapp{background:#25D366;}
-.btn.facebook{background:#1877F2;}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:10px;
+    padding:10px;
+}
+
+.card{
+    background:white;
+    padding:10px;
+    border-radius:10px;
+}
+
+img{
+    width:100%;
+    height:150px;
+    object-fit:cover;
+    border-radius:10px;
+}
 
 /* MODAL */
 .modal{
@@ -126,193 +62,134 @@ body{
     position:fixed;
     top:0;left:0;
     width:100%;height:100%;
-    background:rgba(0,0,0,0.6);
+    background:rgba(0,0,0,0.5);
 }
 
 .modal-content{
     background:white;
+    padding:15px;
+    margin:40px auto;
     width:90%;
-    max-width:500px;
-    margin:60px auto;
-    padding:20px;
-    border-radius:12px;
+    border-radius:10px;
 }
 
-input,textarea,select{
+input,select,textarea{
     width:100%;
     padding:10px;
-    margin:8px 0 12px;
+    margin:5px 0;
 }
-
-.close{float:right;cursor:pointer;font-size:18px;}
 </style>
 </head>
 
 <body>
 
-<div class="navbar">
-    <div class="logo">My<span>Jwaneng</span></div>
-    <button class="post-btn" onclick="openModal()">+ Post Item</button>
-</div>
-
 <div class="header">
-    <h1>Marketplace</h1>
-    <p>Buy & Sell (Admin Approved Listings)</p>
-</div>
-
-<div class="categories">
-    <button class="cat-btn active" onclick="filterItems(null,this)">All</button>
-    <button class="cat-btn" onclick="filterItems('Agriculture',this)">Agriculture</button>
-    <button class="cat-btn" onclick="filterItems('Electronics',this)">Electronics</button>
-    <button class="cat-btn" onclick="filterItems('Clothing',this)">Clothing</button>
-    <button class="cat-btn" onclick="filterItems('Vehicles',this)">Vehicles</button>
-    <button class="cat-btn" onclick="filterItems('Machinery',this)">Machinery</button>
-    <button class="cat-btn" onclick="filterItems('Property',this)">Property</button>
-    <button class="cat-btn" onclick="filterItems('Services',this)">Services</button>
-    <button class="cat-btn" onclick="filterItems('Other',this)">Other</button>
-
+<h2>My Jwaneng Marketplace</h2>
+<button onclick="openModal()" class="btn">+ Post Item</button>
 </div>
 
 <div class="grid" id="grid"></div>
 
-<footer style="background:#0b1f3a;color:white;text-align:center;padding:40px;">
-© 2026 My Jwaneng | Powered by A-eye Group
-</footer>
-
 <!-- MODAL -->
 <div class="modal" id="modal">
 <div class="modal-content">
-<span class="close" onclick="closeModal()">✖</span>
 
-<h3>Post Item (Sent for Approval)</h3>
+<h3>Post Item</h3>
 
 <input id="title" placeholder="Title">
-<input id="price" type="number" placeholder="Price (Pula)">
+<input id="price" type="number" placeholder="Price">
 
 <select id="category">
-    <option>Agriculture</option>
-    <option>Electronics</option>
-    <option>Clothing</option>
-    <option>Vehicles</option>
-    <option>Property</option>
-    <option>Services</option>
-    <option>Machinery</option>
-    <option>Other</option>
+<option>Agriculture</option>
+<option>Electronics</option>
+<option>Clothing</option>
+<option>Vehicles</option>
+<option>Services</option>
 </select>
 
 <textarea id="description" placeholder="Description"></textarea>
 
-<!-- CAMERA + UPLOAD -->
-<input 
-    type="file" 
-    id="imageFile" 
-    accept="image/*" 
-    capture="environment"
-/>
+<!-- CAMERA ENABLED -->
+<input type="file" id="imageFile" accept="image/*" capture="environment">
 
 <input id="phone" placeholder="Phone">
-<input id="whatsapp" placeholder="WhatsApp (71234567)">
+<input id="whatsapp" placeholder="WhatsApp number">
 <input id="facebook" placeholder="Facebook link">
 
-<button onclick="submitItem()">Submit</button>
+<button class="btn" onclick="submitItem()">Submit</button>
+<button class="btn" onclick="closeModal()" style="margin-top:10px;background:red;">Close</button>
+
 </div>
 </div>
 
 <script>
-
+/* ================= SAFE INIT ================= */
 const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
-const client = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-/* FORMAT */
-function formatPula(p){
-    return p ? "P " + Number(p).toFixed(2) : "P 0";
-}
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-function formatWhatsApp(num){
-    if(!num) return null;
-    let n = num.replace(/\D/g,'');
-    if(!n.startsWith("267")) n = "267" + n;
-    return `https://wa.me/${n}`;
-}
+/* ================= LOAD ITEMS ================= */
+async function loadItems(){
 
-/* UPLOAD IMAGE */
-async function uploadImage(file){
-    if(!file) return "";
-
-    const name = Date.now() + "-" + file.name;
-
-    const { error } = await client
-        .storage
-        .from("marketplace-images")
-        .upload(name, file);
-
-    if(error) return "";
-
-    const { data } = client
-        .storage
-        .from("marketplace-images")
-        .getPublicUrl(name);
-
-    return data.publicUrl;
-}
-
-/* LOAD ITEMS */
-async function loadItems(category=null){
-
-    const grid = document.getElementById("grid");
-
-    let query = client
+    const { data, error } = await supabaseClient
         .from("marketplace_items")
         .select("*")
-        .eq("status","approved")
         .order("created_at",{ascending:false});
 
-    if(category){
-        query = query.eq("category",category);
-    }
-
-    const { data } = await query;
-
+    const grid = document.getElementById("grid");
     grid.innerHTML = "";
 
-    if(!data || data.length === 0){
-        grid.innerHTML = "<p>No approved items yet</p>";
+    if(error){
+        grid.innerHTML = "<p>Error loading items</p>";
         return;
     }
 
     data.forEach(item => {
 
-        const card = document.createElement("div");
-        card.className = "card";
+        const wa = item.whatsapp
+        ? `https://wa.me/${item.whatsapp.replace(/\D/g,'')}`
+        : null;
 
-        card.innerHTML = `
-            <img src="${item.image_url || 'https://via.placeholder.com/400'}">
+        grid.innerHTML += `
+        <div class="card">
+            <img src="${item.image_url || 'https://via.placeholder.com/300'}">
+            <h3>${item.title}</h3>
+            <p>P ${item.price}</p>
+            <p>${item.description || ''}</p>
 
-            <div class="card-content">
-                <div class="badge">${item.category}</div>
-                <div class="title">${item.title}</div>
-                <div class="price">${formatPula(item.price)}</div>
+            ${item.phone ? `<a href="tel:${item.phone}"><button class="btn">Call</button></a>` : ""}
 
-                <p>${item.description || ''}</p>
-
-                ${item.phone ? `<a href="tel:${item.phone}"><button class="btn">Call</button></a>` : ""}
-
-                ${item.whatsapp ? `<a href="${formatWhatsApp(item.whatsapp)}" target="_blank"><button class="btn whatsapp">WhatsApp</button></a>` : ""}
-
-                ${item.facebook ? `<a href="${item.facebook}" target="_blank"><button class="btn facebook">Facebook</button></a>` : ""}
-            </div>
-        `;
-
-        grid.appendChild(card);
+            ${wa ? `<a href="${wa}" target="_blank"><button class="btn">WhatsApp</button></a>` : ""}
+        </div>`;
     });
 }
 
-/* MODAL */
-function openModal(){document.getElementById("modal").style.display="block";}
-function closeModal(){document.getElementById("modal").style.display="none";}
+/* ================= IMAGE UPLOAD ================= */
+async function uploadImage(file){
+    if(!file) return "";
 
-/* SUBMIT (ADMIN PIPELINE) */
+    const fileName = Date.now() + "-" + file.name;
+
+    const { error } = await supabaseClient
+        .storage
+        .from("marketplace-images")
+        .upload(fileName, file);
+
+    if(error){
+        console.log(error);
+        return "";
+    }
+
+    const { data } = supabaseClient
+        .storage
+        .from("marketplace-images")
+        .getPublicUrl(fileName);
+
+    return data.publicUrl;
+}
+
+/* ================= SUBMIT ================= */
 async function submitItem(){
 
     const file = document.getElementById("imageFile").files[0];
@@ -327,37 +204,29 @@ async function submitItem(){
         phone: document.getElementById("phone").value,
         whatsapp: document.getElementById("whatsapp").value,
         facebook: document.getElementById("facebook").value,
-        status: "pending"
+        status: "active"
     };
 
-    const { error } = await client
+    const { error } = await supabaseClient
         .from("marketplace_items")
         .insert([item]);
 
     if(error){
-        alert("Error submitting item");
+        console.log(error);
+        alert("Error posting item");
         return;
     }
 
-    alert("Sent for admin approval!");
+    alert("Item posted!");
     closeModal();
     loadItems();
 }
 
-/* FILTER */
-function filterItems(cat,btn){
-    loadItems(cat);
-    document.querySelectorAll(".cat-btn").forEach(b=>b.classList.remove("active"));
-    if(btn) btn.classList.add("active");
-}
-
-window.openModal=openModal;
-window.closeModal=closeModal;
-window.submitItem=submitItem;
-window.filterItems=filterItems;
+/* ================= UI ================= */
+function openModal(){document.getElementById("modal").style.display="block";}
+function closeModal(){document.getElementById("modal").style.display="none";}
 
 document.addEventListener("DOMContentLoaded", loadItems);
-
 </script>
 
 </body>
