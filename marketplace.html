@@ -166,8 +166,11 @@ input,textarea,select{
     <button class="cat-btn" onclick="filterItems('Electronics',this)">Electronics</button>
     <button class="cat-btn" onclick="filterItems('Clothing',this)">Clothing</button>
     <button class="cat-btn" onclick="filterItems('Vehicles',this)">Vehicles</button>
+    <button class="cat-btn" onclick="filterItems('Machinery',this)">Machinery</button>
     <button class="cat-btn" onclick="filterItems('Property',this)">Property</button>
     <button class="cat-btn" onclick="filterItems('Services',this)">Services</button>
+    <button class="cat-btn" onclick="filterItems('Other',this)">Other</button>
+
 </div>
 
 <div class="grid" id="grid"></div>
@@ -193,6 +196,8 @@ input,textarea,select{
     <option>Vehicles</option>
     <option>Property</option>
     <option>Services</option>
+    <option>Machinery</option>
+    <option>Other</option>
 </select>
 
 <textarea id="description" placeholder="Description"></textarea>
@@ -216,7 +221,7 @@ input,textarea,select{
 <script>
 
 const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
-const supabaseKey = "YOUR_SUPABASE_ANON_KEY";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
 const client = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 /* FORMAT */
