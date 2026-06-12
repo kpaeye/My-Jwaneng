@@ -7,7 +7,6 @@
 <title>My Jwaneng Marketplace</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -36,24 +35,38 @@ body{
     width:100%;
 }
 
+/* GRID */
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
     gap:10px;
     padding:10px;
 }
 
+/* CARD (ICON STYLE) */
 .card{
     background:white;
-    padding:10px;
     border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
 }
 
+/* IMAGE FIX */
 img{
     width:100%;
-    height:150px;
+    height:120px;
     object-fit:cover;
-    border-radius:10px;
+    display:block;
+}
+
+/* TEXT */
+h3{
+    font-size:14px;
+    margin:5px;
+}
+p{
+    font-size:12px;
+    margin:5px;
 }
 
 /* MODAL */
@@ -109,7 +122,6 @@ input,select,textarea{
 
 <textarea id="description" placeholder="Description"></textarea>
 
-<!-- CAMERA ENABLED -->
 <input type="file" id="imageFile" accept="image/*" capture="environment">
 
 <input id="phone" placeholder="Phone">
@@ -123,14 +135,24 @@ input,select,textarea{
 </div>
 
 <script>
-/* ================= SAFE INIT ================= */
+
+/* ================= SAFE SUPABASE INIT ================= */
 const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
 
-const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+/* prevent crashes */
+const supabaseClient =
+    window.supabase && window.supabase.createClient
+        ? window.supabase.createClient(supabaseUrl, supabaseKey)
+        : null;
 
 /* ================= LOAD ITEMS ================= */
 async function loadItems(){
+
+    if(!supabaseClient){
+        console.log("Supabase not initialized");
+        return;
+    }
 
     const { data, error } = await supabaseClient
         .from("marketplace_items")
@@ -141,19 +163,26 @@ async function loadItems(){
     grid.innerHTML = "";
 
     if(error){
+        console.log(error);
         grid.innerHTML = "<p>Error loading items</p>";
+        return;
+    }
+
+    if(!data || data.length === 0){
+        grid.innerHTML = "<p>No items yet</p>";
         return;
     }
 
     data.forEach(item => {
 
         const wa = item.whatsapp
-        ? `https://wa.me/${item.whatsapp.replace(/\D/g,'')}`
-        : null;
+            ? `https://wa.me/${item.whatsapp.replace(/\D/g,'')}`
+            : null;
 
         grid.innerHTML += `
         <div class="card">
             <img src="${item.image_url || 'https://via.placeholder.com/300'}">
+
             <h3>${item.title}</h3>
             <p>P ${item.price}</p>
             <p>${item.description || ''}</p>
@@ -167,7 +196,8 @@ async function loadItems(){
 
 /* ================= IMAGE UPLOAD ================= */
 async function uploadImage(file){
-    if(!file) return "";
+
+    if(!file || !supabaseClient) return "";
 
     const fileName = Date.now() + "-" + file.name;
 
@@ -177,7 +207,7 @@ async function uploadImage(file){
         .upload(fileName, file);
 
     if(error){
-        console.log(error);
+        console.log("Upload error:", error.message);
         return "";
     }
 
@@ -191,6 +221,11 @@ async function uploadImage(file){
 
 /* ================= SUBMIT ================= */
 async function submitItem(){
+
+    if(!supabaseClient){
+        alert("Database not ready");
+        return;
+    }
 
     const file = document.getElementById("imageFile").files[0];
     const image_url = await uploadImage(file);
@@ -213,20 +248,26 @@ async function submitItem(){
 
     if(error){
         console.log(error);
-        alert("Error posting item");
+        alert("Error posting item: " + error.message);
         return;
     }
 
-    alert("Item posted!");
+    alert("Item posted successfully!");
     closeModal();
     loadItems();
 }
 
 /* ================= UI ================= */
-function openModal(){document.getElementById("modal").style.display="block";}
-function closeModal(){document.getElementById("modal").style.display="none";}
+function openModal(){
+    document.getElementById("modal").style.display="block";
+}
+
+function closeModal(){
+    document.getElementById("modal").style.display="none";
+}
 
 document.addEventListener("DOMContentLoaded", loadItems);
+
 </script>
 
 </body>
