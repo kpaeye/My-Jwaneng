@@ -87,16 +87,31 @@ body{
     opacity:0.8;
 }
 
-/* FOOTER */
+/* FOOTER TICKER */
 footer{
-    margin-top:40px;
-    text-align:center;
-    padding:30px;
     background:#001f3f;
     color:white;
-    position:fixed;
-    width:100%;
-    bottom:0;
+    padding:20px 0;
+    overflow:hidden;
+    white-space:nowrap;
+    margin-top:40px;
+}
+
+.footer-text{
+    display:inline-block;
+    padding-left:100%;
+    animation: footerScroll 20s linear infinite;
+    font-weight:500;
+    font-size:15px;
+}
+
+@keyframes footerScroll{
+    from{
+        transform:translateX(0);
+    }
+    to{
+        transform:translateX(-100%);
+    }
 }
 
 </style>
@@ -125,7 +140,7 @@ footer{
     <a class="card" href="marketplace.html">
         <div class="icon">🛒</div>
         <h3>Marketplace</h3>
-        <p>Buy & sell</p>
+        <p>Buy & Sell</p>
     </a>
 
     <a class="card" href="businesses.html">
@@ -149,17 +164,15 @@ footer{
     <a class="card" href="jwanengtowncouncil.html">
         <div class="icon">🏛️</div>
         <h3>Council</h3>
-        <p>Town info</p>
+        <p>Town information</p>
     </a>
 
 </div>
 
-
-
-
-
 <footer>
-© 2026 My Jwaneng | Powered by A-eye Group
+    <div class="footer-text">
+        © 2026 My Jwaneng | Powered by A-eye Group • Latest Jobs • Upcoming Events • Business Listings • Community News • Explore Your Town
+    </div>
 </footer>
 
 </body>
