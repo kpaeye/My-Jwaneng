@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Events - My Jwaneng</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+/* SAME STYLES YOU HAD */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f5f7fb;
+}
+
+/* NAV */
+.navbar{
+    background:#001f3f;
+    padding:18px 8%;
+    color:white;
+    font-size:22px;
+    font-weight:700;
+}
+
+/* HEADER */
+.header{
+    padding:25px 8%;
+    text-align:center;
+}
+
+.header h1{
+    font-size:32px;
+    color:#001f3f;
+}
+
+.header p{
+    color:#666;
+    margin-top:8px;
+}
+
+/* FILTERS */
+.filters{
+    padding:10px 8%;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+}
+
+.filter-btn{
+    padding:8px 14px;
+    border:none;
+    border-radius:20px;
+    background:#e6e9ef;
+    cursor:pointer;
+    font-weight:500;
+    transition:0.3s;
+}
+
+.filter-btn.active,
+.filter-btn:hover{
+    background:#001f3f;
+    color:white;
+}
+
+/* GRID */
+.grid{
+    padding:30px 8%;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+/* CARD */
+.card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card h3{
+    color:#001f3f;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#555;
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.date{
+    display:inline-block;
+    background:#001f3f;
+    color:white;
+    padding:5px 10px;
+    border-radius:12px;
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.category{
+    display:inline-block;
+    margin-top:5px;
+    font-size:12px;
+    padding:4px 10px;
+    border-radius:12px;
+    background:#f0f0f0;
+    color:#333;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:10px;
+    padding:8px 12px;
+    background:#001f3f;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    font-size:13px;
+}
+
+.hidden{ display:none; }
+
+/* FOOTER */
+footer{
+    background:#001f3f;
+    color:white;
+    padding:18px 0;
+    overflow:hidden;
+    white-space:nowrap;
+    margin-top:40px;
+}
+
+.footer-text{
+    display:inline-block;
+    padding-left:100%;
+    animation: scrollFooter 18s linear infinite;
+    font-size:14px;
+    font-weight:500;
+}
+
+@keyframes scrollFooter{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-100%); }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+    My Jwaneng Events
+</div>
+
+<div class="header">
+    <h1>Upcoming Events</h1>
+    <p>Filter events by category</p>
+</div>
+
+<!-- FILTERS -->
+<div class="filters">
+    <button class="filter-btn active" onclick="filterEvents('all', this)">All</button>
+    <button class="filter-btn" onclick="filterEvents('Music', this)">Music</button>
+    <button class="filter-btn" onclick="filterEvents('Business', this)">Business</button>
+    <button class="filter-btn" onclick="filterEvents('Community', this)">Community</button>
+    <button class="filter-btn" onclick="filterEvents('Sports', this)">Sports</button>
+</div>
+
+<!-- EVENTS GRID -->
+<div class="grid" id="eventsGrid"></div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-text">
+        © 2026 My Jwaneng | Powered by A-eye Group • Latest Events • Jobs • Businesses • Community Updates • Explore Your Town
+    </div>
+</footer>
+
+<script>
+
+const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
+const client = supabase.createClient(supabaseUrl, supabaseKey);
+
+let allEvents = [];
+
+/* LOAD EVENTS FROM SUPABASE */
+async function loadEvents(){
+    const { data, error } = await client
+        .from("events")
+        .select("*")
+        .order("date", { ascending: true });
+
+    if(error){
+        console.log(error);
+        return;
+    }
+
+    allEvents = data || [];
+    renderEvents(allEvents);
+}
+
+/* RENDER EVENTS */
+function renderEvents(list){
+
+    const grid = document.getElementById("eventsGrid");
+    grid.innerHTML = "";
+
+    if(list.length === 0){
+        grid.innerHTML = "<p>No events found.</p>";
+        return;
+    }
+
+    list.forEach(ev => {
+
+        grid.innerHTML += `
+        <div class="card event ${ev.category}">
+
+            <div class="date">${ev.date || ""}</div>
+
+            <h3>${ev.title || ""}</h3>
+
+            <p>${ev.description || ""}</p>
+
+            <span class="category">${ev.category || ""}</span><br>
+
+            <a href="#" class="btn">View Details</a>
+
+        </div>
+        `;
+    });
+}
+
+/* FILTER */
+function filterEvents(category, btn){
+
+    let buttons = document.querySelectorAll(".filter-btn");
+
+    buttons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    if(category === "all"){
+        renderEvents(allEvents);
+        return;
+    }
+
+    const filtered = allEvents.filter(ev => ev.category === category);
+    renderEvents(filtered);
+}
+
+/* INIT */
+loadEvents();
+
+</script>
+
+</body>
+</html>
