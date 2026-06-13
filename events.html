@@ -12,7 +12,7 @@
 
 <style>
 
-/* SAME STYLES YOU HAD */
+/* ================= GLOBAL ================= */
 *{
     margin:0;
     padding:0;
@@ -24,7 +24,7 @@ body{
     background:#f5f7fb;
 }
 
-/* NAV */
+/* ================= NAV ================= */
 .navbar{
     background:#001f3f;
     padding:18px 8%;
@@ -33,23 +33,23 @@ body{
     font-weight:700;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
 .header{
-    padding:25px 8%;
+    padding:20px 8%;
     text-align:center;
 }
 
 .header h1{
-    font-size:32px;
     color:#001f3f;
+    font-size:30px;
 }
 
 .header p{
     color:#666;
-    margin-top:8px;
+    font-size:14px;
 }
 
-/* FILTERS */
+/* ================= FILTERS ================= */
 .filters{
     padding:10px 8%;
     display:flex;
@@ -65,101 +65,179 @@ body{
     background:#e6e9ef;
     cursor:pointer;
     font-weight:500;
-    transition:0.3s;
 }
 
-.filter-btn.active,
-.filter-btn:hover{
+.filter-btn.active{
     background:#001f3f;
     color:white;
 }
 
-/* GRID */
+/* ================= GRID ================= */
 .grid{
-    padding:30px 8%;
+    padding:25px 8%;
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:16px;
+    max-width:1200px;
+    margin:auto;
 }
 
-/* CARD */
+/* ================= CARD ================= */
 .card{
     background:white;
-    border-radius:20px;
-    padding:20px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 6px 16px rgba(0,0,0,0.08);
     transition:0.3s;
+    display:flex;
+    flex-direction:column;
 }
 
 .card:hover{
-    transform:translateY(-8px);
+    transform:translateY(-6px);
 }
 
-.card h3{
-    color:#001f3f;
-    margin-bottom:10px;
+/* IMAGE */
+.card img{
+    width:100%;
+    height:140px;
+    object-fit:cover;
 }
 
-.card p{
-    color:#555;
-    font-size:14px;
-    margin-bottom:8px;
+/* CONTENT */
+.card-content{
+    padding:12px;
 }
 
 .date{
-    display:inline-block;
+    font-size:11px;
     background:#001f3f;
     color:white;
-    padding:5px 10px;
+    display:inline-block;
+    padding:4px 10px;
     border-radius:12px;
-    font-size:12px;
+    margin-bottom:8px;
+}
+
+.title{
+    font-size:15px;
+    font-weight:600;
+    color:#001f3f;
+    margin-bottom:6px;
+}
+
+.desc{
+    font-size:13px;
+    color:#555;
     margin-bottom:10px;
 }
 
-.category{
-    display:inline-block;
-    margin-top:5px;
-    font-size:12px;
-    padding:4px 10px;
-    border-radius:12px;
+.tag{
+    font-size:11px;
     background:#f0f0f0;
-    color:#333;
+    padding:3px 8px;
+    border-radius:12px;
 }
 
+/* BUTTONS */
 .btn{
-    display:inline-block;
-    margin-top:10px;
-    padding:8px 12px;
+    width:100%;
+    padding:8px;
+    border:none;
+    border-radius:8px;
     background:#001f3f;
     color:white;
-    text-decoration:none;
-    border-radius:8px;
-    font-size:13px;
+    font-size:12px;
+    margin-top:10px;
+    cursor:pointer;
 }
 
-.hidden{ display:none; }
+/* ================= MODAL ================= */
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.modal-box{
+    background:white;
+    width:90%;
+    max-width:450px;
+    border-radius:14px;
+    overflow:hidden;
+}
+
+.modal-box img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+}
+
+.modal-content{
+    padding:15px;
+}
+
+.modal-content h2{
+    color:#001f3f;
+    margin-bottom:5px;
+}
+
+.modal-content p{
+    font-size:13px;
+    margin-bottom:6px;
+    color:#555;
+}
+
+.modal-actions{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+}
+
+.rsvp{
+    flex:1;
+    padding:8px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:12px;
+}
+
+.going{
+    background:#28a745;
+    color:white;
+}
+
+.interested{
+    background:#ff9800;
+    color:white;
+}
+
+.share{
+    background:#001f3f;
+    color:white;
+}
+
+/* CLOSE */
+.close{
+    width:100%;
+    padding:10px;
+    border:none;
+    background:#ddd;
+    cursor:pointer;
+}
 
 /* FOOTER */
 footer{
     background:#001f3f;
     color:white;
-    padding:18px 0;
-    overflow:hidden;
-    white-space:nowrap;
-    margin-top:40px;
-}
-
-.footer-text{
-    display:inline-block;
-    padding-left:100%;
-    animation: scrollFooter 18s linear infinite;
-    font-size:14px;
-    font-weight:500;
-}
-
-@keyframes scrollFooter{
-    from{ transform:translateX(0); }
-    to{ transform:translateX(-100%); }
+    padding:18px;
+    margin-top:30px;
+    text-align:center;
 }
 
 </style>
@@ -167,13 +245,11 @@ footer{
 
 <body>
 
-<div class="navbar">
-    My Jwaneng Events
-</div>
+<div class="navbar">My Jwaneng Events</div>
 
 <div class="header">
     <h1>Upcoming Events</h1>
-    <p>Filter events by category</p>
+    <p>Discover what's happening in your town</p>
 </div>
 
 <!-- FILTERS -->
@@ -185,14 +261,36 @@ footer{
     <button class="filter-btn" onclick="filterEvents('Sports', this)">Sports</button>
 </div>
 
-<!-- EVENTS GRID -->
-<div class="grid" id="eventsGrid"></div>
+<!-- GRID -->
+<div class="grid" id="grid"></div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+    <div class="modal-box">
+        <img id="m_img" src="">
+        <div class="modal-content">
+
+            <h2 id="m_title"></h2>
+            <p id="m_date"></p>
+            <p id="m_category"></p>
+            <p id="m_location"></p>
+            <p id="m_desc"></p>
+
+            <div class="modal-actions">
+                <button class="rsvp going">Going</button>
+                <button class="rsvp interested">Interested</button>
+                <button class="rsvp share" onclick="shareEvent()">Share</button>
+            </div>
+
+            <button class="close" onclick="closeModal()">Close</button>
+
+        </div>
+    </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
-    <div class="footer-text">
-        © 2026 My Jwaneng | Powered by A-eye Group • Latest Events • Jobs • Businesses • Community Updates • Explore Your Town
-    </div>
+© 2026 My Jwaneng | Powered by A-eye Group
 </footer>
 
 <script>
@@ -202,69 +300,85 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const client = supabase.createClient(supabaseUrl, supabaseKey);
 
 let allEvents = [];
+let currentEvent = null;
 
-/* LOAD EVENTS FROM SUPABASE */
+/* LOAD */
 async function loadEvents(){
-    const { data, error } = await client
-        .from("events")
-        .select("*")
-        .order("date", { ascending: true });
-
-    if(error){
-        console.log(error);
-        return;
-    }
-
+    const { data } = await client.from("events").select("*");
     allEvents = data || [];
-    renderEvents(allEvents);
+    render(allEvents);
 }
 
-/* RENDER EVENTS */
-function renderEvents(list){
+/* RENDER */
+function render(list){
 
-    const grid = document.getElementById("eventsGrid");
+    const grid = document.getElementById("grid");
     grid.innerHTML = "";
-
-    if(list.length === 0){
-        grid.innerHTML = "<p>No events found.</p>";
-        return;
-    }
 
     list.forEach(ev => {
 
         grid.innerHTML += `
-        <div class="card event ${ev.category}">
+        <div class="card">
 
-            <div class="date">${ev.date || ""}</div>
+            <img src="${ev.image_url || 'https://via.placeholder.com/400'}">
 
-            <h3>${ev.title || ""}</h3>
+            <div class="card-content">
 
-            <p>${ev.description || ""}</p>
+                <div class="date">${ev.date || ""}</div>
 
-            <span class="category">${ev.category || ""}</span><br>
+                <div class="title">${ev.title || ""}</div>
 
-            <a href="#" class="btn">View Details</a>
+                <div class="desc">${(ev.description || "").substring(0,60)}...</div>
 
-        </div>
-        `;
+                <span class="tag">${ev.category || ""}</span>
+
+                <button class="btn" onclick='openModal(${JSON.stringify(ev)})'>
+                    View Details
+                </button>
+
+            </div>
+
+        </div>`;
     });
 }
 
 /* FILTER */
-function filterEvents(category, btn){
+function filterEvents(cat, btn){
 
-    let buttons = document.querySelectorAll(".filter-btn");
-
-    buttons.forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
 
-    if(category === "all"){
-        renderEvents(allEvents);
-        return;
+    if(cat === "all"){
+        render(allEvents);
+    } else {
+        render(allEvents.filter(e => e.category === cat));
     }
+}
 
-    const filtered = allEvents.filter(ev => ev.category === category);
-    renderEvents(filtered);
+/* MODAL */
+function openModal(ev){
+    currentEvent = ev;
+
+    document.getElementById("modal").style.display = "flex";
+    document.getElementById("m_img").src = ev.image_url || "https://via.placeholder.com/400";
+    document.getElementById("m_title").innerText = ev.title || "";
+    document.getElementById("m_date").innerText = "Date: " + (ev.date || "");
+    document.getElementById("m_category").innerText = "Category: " + (ev.category || "");
+    document.getElementById("m_location").innerText = "Location: " + (ev.location || "");
+    document.getElementById("m_desc").innerText = ev.description || "";
+}
+
+function closeModal(){
+    document.getElementById("modal").style.display = "none";
+}
+
+/* SHARE */
+function shareEvent(){
+    if(!currentEvent) return;
+
+    const text = `Check out this event: ${currentEvent.title} on My Jwaneng`;
+    navigator.clipboard.writeText(text);
+    alert("Event copied to clipboard!");
 }
 
 /* INIT */
