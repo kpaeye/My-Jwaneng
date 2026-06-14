@@ -1,88 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Jwaneng Admin Dashboard</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Jwaneng Admin Dashboard</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      background: #f4f6f9;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  background: #f4f6f9;
+}
 
-    .sidebar {
-      width: 220px;
-      background: #0b1f3a;
-      color: white;
-      height: 100vh;
-      padding: 20px;
-      position: fixed;
-    }
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  background: #0b1f3a;
+  color: white;
+  height: 100vh;
+  padding: 20px;
+  position: fixed;
+}
 
-    .sidebar h2 {
-      font-size: 18px;
-      margin-bottom: 20px;
-    }
+.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
 
-    .sidebar a {
-      display: block;
-      color: white;
-      padding: 10px;
-      text-decoration: none;
-      border-radius: 5px;
-      margin-bottom: 5px;
-      cursor: pointer;
-    }
+.sidebar a {
+  display: block;
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
 
-    .sidebar a:hover {
-      background: #1d3b66;
-    }
+.sidebar a:hover {
+  background: #1d3b66;
+}
 
-    .main {
-      margin-left: 240px;
-      padding: 20px;
-      width: 100%;
-    }
+/* MAIN */
+.main {
+  margin-left: 240px;
+  padding: 20px;
+  width: 100%;
+}
 
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
 
-    input, textarea, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      margin-bottom: 15px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
+input, textarea, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
 
-    button {
-      background: #0b1f3a;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+button {
+  background: #0b1f3a;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-    button:hover {
-      background: #163a66;
-    }
+button:hover {
+  background: #163a66;
+}
 
-    .hidden {
-      display: none;
-    }
-  </style>
+.hidden {
+  display: none;
+}
+</style>
 </head>
 
 <body>
@@ -95,9 +97,9 @@
   <a onclick="showSection('marketplace')">Marketplace</a>
   <a onclick="showSection('businesses')">Businesses</a>
   <a onclick="showSection('jobs')">Jobs</a>
+  <a onclick="showSection('events')">Events</a>
 
   <hr>
-
   <a onclick="logout()">Logout</a>
 </div>
 
@@ -110,14 +112,12 @@
   <div id="news" class="section">
     <div class="card">
       <h3>Add News</h3>
-
       <input id="news_title" placeholder="Title" />
       <input id="news_category" placeholder="Category" />
       <textarea id="news_summary" placeholder="Summary"></textarea>
       <textarea id="news_content" placeholder="Content"></textarea>
       <input id="news_image" placeholder="Image URL" />
       <input id="news_author" placeholder="Publisher Name" />
-
       <button onclick="addNews()">Publish News</button>
     </div>
   </div>
@@ -126,13 +126,11 @@
   <div id="marketplace" class="section hidden">
     <div class="card">
       <h3>Add Marketplace Item</h3>
-
       <input id="mp_title" placeholder="Item Name" />
       <input id="mp_price" placeholder="Price" />
       <textarea id="mp_description" placeholder="Description"></textarea>
       <input id="mp_image" placeholder="Image URL" />
       <input id="mp_contact" placeholder="Contact Info" />
-
       <button onclick="addMarketplace()">Post Item</button>
     </div>
   </div>
@@ -140,12 +138,32 @@
   <!-- BUSINESSES -->
   <div id="businesses" class="section hidden">
     <div class="card">
-      <h3>Add Business</h3>
+      <h3>Add Business (Full System)</h3>
 
       <input id="biz_name" placeholder="Business Name" />
-      <input id="biz_category" placeholder="Category" />
+
+      <select id="biz_category">
+        <option value="">Select Category</option>
+        <option>Construction</option>
+        <option>Retail</option>
+        <option>Services</option>
+        <option>Transport</option>
+        <option>Engineering</option>
+        <option>Hospitality</option>
+        <option>Agriculture</option>
+        <option>Food & Beverage</option>
+        <option>Health</option>
+        <option>Education</option>
+      </select>
+
+      <input type="file" id="biz_image" />
+
       <input id="biz_phone" placeholder="Phone" />
       <input id="biz_email" placeholder="Email" />
+      <input id="biz_website" placeholder="Website" />
+      <input id="biz_whatsapp" placeholder="WhatsApp" />
+      <input id="biz_location" placeholder="Location" />
+
       <textarea id="biz_description" placeholder="Description"></textarea>
 
       <button onclick="addBusiness()">Add Business</button>
@@ -156,120 +174,175 @@
   <div id="jobs" class="section hidden">
     <div class="card">
       <h3>Add Job</h3>
-
       <input id="job_title" placeholder="Job Title" />
       <input id="job_company" placeholder="Company Name" />
       <input id="job_location" placeholder="Location" />
-
       <select id="job_type">
-        <option value="">Job Type (Optional)</option>
+        <option value="">Job Type</option>
         <option>Full Time</option>
         <option>Part Time</option>
         <option>Contract</option>
-        <option>Temporary</option>
         <option>Internship</option>
       </select>
-
-      <textarea id="job_description" placeholder="Job Description"></textarea>
-      <textarea id="job_requirements" placeholder="Requirements (Optional)"></textarea>
-
-      <input id="job_email" placeholder="Application Email (Optional)" />
-      <input id="job_link" placeholder="Application Link (Optional)" />
-      <input id="job_phone" placeholder="Contact Number (Optional)" />
-      <input id="job_image" placeholder="Company Logo URL (Optional)" />
-
+      <textarea id="job_description"></textarea>
+      <input id="job_email" placeholder="Email" />
+      <input id="job_link" placeholder="Link" />
+      <input id="job_phone" placeholder="Phone" />
+      <input id="job_image" placeholder="Image URL" />
       <input id="job_closing" type="date" />
-
       <button onclick="addJob()">Post Job</button>
+    </div>
+  </div>
+
+  <!-- EVENTS -->
+  <div id="events" class="section hidden">
+    <div class="card">
+      <h3>Add Event</h3>
+      <input id="event_title" placeholder="Title" />
+      <select id="event_category">
+        <option>Music</option>
+        <option>Business</option>
+        <option>Community</option>
+      </select>
+      <input id="event_date" type="date" />
+      <input id="event_location" placeholder="Location" />
+      <textarea id="event_description"></textarea>
+      <input id="event_image" placeholder="Image URL" />
+      <button onclick="addEvent()">Publish Event</button>
     </div>
   </div>
 
 </div>
 
 <script>
-  const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
-  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
 
-  const client = supabase.createClient(supabaseUrl, supabaseKey);
+const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
+const client = supabase.createClient(supabaseUrl, supabaseKey);
 
-  function showSection(section) {
-    document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-    document.getElementById(section).classList.remove('hidden');
-  }
+function showSection(section) {
+  document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+  document.getElementById(section).classList.remove('hidden');
+}
 
-  // NEWS
-  async function addNews() {
-    const { error } = await client.from("news").insert([{
-      title: document.getElementById("news_title").value,
-      category: document.getElementById("news_category").value,
-      summary: document.getElementById("news_summary").value,
-      content: document.getElementById("news_content").value,
-      image_url: document.getElementById("news_image").value,
-      author: document.getElementById("news_author").value,
-      status: "published"
-    }]);
+/* ================= NEWS ================= */
+async function addNews() {
+  const { error } = await client.from("news").insert([{
+    title: news_title.value,
+    category: news_category.value,
+    summary: news_summary.value,
+    content: news_content.value,
+    image_url: news_image.value,
+    author: news_author.value,
+    status: "published"
+  }]);
+  alert(error ? error.message : "News published!");
+}
 
-    if (error) alert(error.message);
-    else alert("News published!");
-  }
+/* ================= MARKETPLACE ================= */
+async function addMarketplace() {
+  const { error } = await client.from("marketplace").insert([{
+    title: mp_title.value,
+    price: mp_price.value,
+    description: mp_description.value,
+    image_url: mp_image.value,
+    contact: mp_contact.value
+  }]);
+  alert(error ? "Error posting item" : "Item posted!");
+}
 
-  // MARKETPLACE
-  async function addMarketplace() {
-    const { error } = await client.from("marketplace").insert([{
-      title: document.getElementById("mp_title").value,
-      price: document.getElementById("mp_price").value,
-      description: document.getElementById("mp_description").value,
-      image_url: document.getElementById("mp_image").value,
-      contact: document.getElementById("mp_contact").value
-    }]);
+/* ================= BUSINESSES (UPGRADED) ================= */
+async function addBusiness() {
+  try {
 
-    if (error) alert("Error posting item");
-    else alert("Marketplace item added!");
-  }
+    let imageUrl = "";
+    const file = biz_image.files[0];
 
-  // BUSINESSES
-  async function addBusiness() {
+    if (file) {
+      const fileName = `${Date.now()}-${file.name}`;
+
+      const { error: uploadError } = await client.storage
+        .from("business-images")
+        .upload(fileName, file);
+
+      if (uploadError) {
+        alert("Image upload failed");
+        return;
+      }
+
+      const { data } = client.storage
+        .from("business-images")
+        .getPublicUrl(fileName);
+
+      imageUrl = data.publicUrl;
+    }
+
     const { error } = await client.from("businesses").insert([{
-      name: document.getElementById("biz_name").value,
-      category: document.getElementById("biz_category").value,
-      phone: document.getElementById("biz_phone").value,
-      email: document.getElementById("biz_email").value,
-      description: document.getElementById("biz_description").value
-    }]);
-
-    if (error) alert("Error adding business");
-    else alert("Business added!");
-  }
-
-  // JOBS
-  async function addJob() {
-
-    const { error } = await client.from("jobs").insert([{
-      title: document.getElementById("job_title").value,
-      company: document.getElementById("job_company").value,
-      location: document.getElementById("job_location").value,
-      job_type: document.getElementById("job_type").value || null,
-      description: document.getElementById("job_description").value,
-      requirements: document.getElementById("job_requirements").value || null,
-      application_email: document.getElementById("job_email").value || null,
-      application_link: document.getElementById("job_link").value || null,
-      contact_number: document.getElementById("job_phone").value || null,
-      image_url: document.getElementById("job_image").value || null,
-      closing_date: document.getElementById("job_closing").value || null,
-      status: "active"
+      name: biz_name.value,
+      category: biz_category.value,
+      phone: biz_phone.value,
+      email: biz_email.value,
+      website: biz_website.value,
+      whatsapp: biz_whatsapp.value,
+      location: biz_location.value,
+      description: biz_description.value,
+      image_url: imageUrl
     }]);
 
     if (error) {
-      alert("Error posting job");
-      console.log(error);
-    } else {
-      alert("Job posted successfully!");
+      alert("Error adding business");
+      return;
     }
-  }
 
-  function logout() {
-    alert("Logout (Auth will come later)");
+    alert("Business added successfully!");
+
+    document.querySelectorAll("#businesses input, #businesses textarea").forEach(i => i.value = "");
+    biz_category.value = "";
+
+  } catch (err) {
+    console.error(err);
+    alert("Unexpected error");
   }
+}
+
+/* ================= JOBS ================= */
+async function addJob() {
+  const { error } = await client.from("jobs").insert([{
+    title: job_title.value,
+    company: job_company.value,
+    location: job_location.value,
+    job_type: job_type.value || null,
+    description: job_description.value,
+    application_email: job_email.value || null,
+    application_link: job_link.value || null,
+    contact_number: job_phone.value || null,
+    image_url: job_image.value || null,
+    closing_date: job_closing.value || null,
+    status: "active"
+  }]);
+
+  alert(error ? "Error posting job" : "Job posted!");
+}
+
+/* ================= EVENTS ================= */
+async function addEvent() {
+  const { error } = await client.from("events").insert([{
+    title: event_title.value,
+    category: event_category.value,
+    date: event_date.value,
+    location: event_location.value || null,
+    description: event_description.value,
+    image_url: event_image.value || null,
+    status: "published"
+  }]);
+
+  alert(error ? "Error adding event" : "Event published!");
+}
+
+function logout() {
+  alert("Logout (future auth system)");
+}
+
 </script>
 
 </body>
