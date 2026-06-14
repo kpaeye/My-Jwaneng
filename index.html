@@ -7,34 +7,26 @@
 <title>My Jwaneng</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet">
 
 <meta name="theme-color" content="#0b1f3a">
 
 <style>
 
-/* ========================= GLOBAL ========================= */
-
+/* ================= GLOBAL ================= */
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-html, body{
-    height:100%;
-}
-
 body{
     font-family:'Poppins',sans-serif;
     background:#f5f7fb;
     color:#222;
-    display:flex;
-    flex-direction:column;
 }
 
-/* ========================= NAVBAR ========================= */
-
+/* ================= NAVBAR ================= */
 .navbar{
     width:100%;
     padding:18px 8%;
@@ -57,26 +49,24 @@ body{
     color:#4fc3f7;
 }
 
-/* ========================= BUTTON ========================= */
-
-.btn{
-    padding:12px 18px;
+/* INSTALL BUTTON */
+.install-btn{
     background:#4fc3f7;
     color:#001f3f;
+    border:none;
+    padding:10px 14px;
+    border-radius:8px;
     font-weight:700;
-    border-radius:10px;
-    text-decoration:none;
-    display:inline-block;
+    cursor:pointer;
+    transition:0.3s;
 }
 
-/* ========================= MAIN WRAPPER ========================= */
-
-main{
-    flex:1;
+.install-btn:hover{
+    transform:translateY(-2px);
+    background:#6ad8ff;
 }
 
-/* ========================= HERO ========================= */
-
+/* ================= HERO ================= */
 .hero{
     min-height:85vh;
     display:flex;
@@ -122,8 +112,70 @@ main{
     max-width:500px;
 }
 
-/* ========================= FOOTER ========================= */
+/* ================= BUTTON ================= */
+.btn{
+    padding:12px 18px;
+    background:#4fc3f7;
+    color:#001f3f;
+    font-weight:700;
+    border-radius:10px;
+    text-decoration:none;
+    display:inline-block;
+}
 
+/* ================= DID YOU KNOW SECTION ================= */
+.didyouknow{
+    padding:60px 8%;
+    background:#ffffff;
+}
+
+.section-title{
+    font-size:24px;
+    font-weight:700;
+    color:#001f3f;
+    margin-bottom:20px;
+}
+
+/* scroll container */
+.know-wrapper{
+    overflow:hidden;
+    border-radius:12px;
+    background:#f0f4f8;
+    padding:15px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* scrolling track */
+.know-track{
+    display:flex;
+    gap:20px;
+    width:max-content;
+    animation:scrollKnow 22s linear infinite;
+}
+
+/* cards */
+.know-card{
+    min-width:280px;
+    background:#001f3f;
+    color:white;
+    padding:15px;
+    border-radius:12px;
+    flex-shrink:0;
+    font-size:13px;
+    line-height:1.5;
+}
+
+/* animation */
+@keyframes scrollKnow{
+    0%{ transform:translateX(0); }
+    100%{ transform:translateX(-50%); }
+}
+
+.know-wrapper:hover .know-track{
+    animation-play-state:paused;
+}
+
+/* ================= FOOTER ================= */
 footer{
     background:#001f3f;
     color:white;
@@ -131,10 +183,8 @@ footer{
     text-align:center;
 }
 
-/* ========================= RESPONSIVE ========================= */
-
+/* ================= RESPONSIVE ================= */
 @media(max-width:900px){
-
     .hero{
         text-align:center;
     }
@@ -152,10 +202,14 @@ footer{
 
 <!-- NAVBAR -->
 <nav class="navbar">
-    <div class="logo">My<span>Jwaneng</span></div>
-</nav>
 
-<main>
+    <div class="logo">My<span>Jwaneng</span></div>
+
+    <button id="installBtn" class="install-btn" style="display:none;">
+        Download App
+    </button>
+
+</nav>
 
 <!-- HERO -->
 <section class="hero">
@@ -181,12 +235,78 @@ footer{
 
 </section>
 
-</main>
+<!-- 🧠 DID YOU KNOW SECTION -->
+<section class="didyouknow">
+
+    <div class="section-title">🧠 Did You Know?</div>
+
+    <div class="know-wrapper">
+        <div class="know-track" id="knowTrack">
+
+            <div class="know-card">Jwaneng is home to one of the richest diamond mines in the world.</div>
+            <div class="know-card">The name "Jwaneng" means "place of small stones" in Setswana.</div>
+            <div class="know-card">Debswana’s Jwaneng Mine is called the “Prince of Mines”.</div>
+            <div class="know-card">The town was built specifically for mining operations.</div>
+            <div class="know-card">Jwaneng contributes significantly to Botswana’s GDP.</div>
+
+        </div>
+    </div>
+
+</section>
 
 <!-- FOOTER -->
 <footer>
     © 2026 My Jwaneng | Powered by A-eye Group
 </footer>
+
+<!-- SCRIPTS -->
+<script>
+
+// ================= PWA INSTALL SYSTEM =================
+let deferredPrompt;
+const installBtn = document.getElementById("installBtn");
+
+// detect install availability
+window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = "block";
+});
+
+// install click
+installBtn.addEventListener("click", async () => {
+
+    if (!deferredPrompt) {
+        alert("To install: use browser menu → Add to Home Screen");
+        return;
+    }
+
+    deferredPrompt.prompt();
+
+    const result = await deferredPrompt.userChoice;
+
+    if (result.outcome === "accepted") {
+        console.log("User installed app");
+    }
+
+    deferredPrompt = null;
+    installBtn.style.display = "none";
+});
+
+// ================= IOS FALLBACK =================
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const isInStandalone = window.navigator.standalone;
+
+if (isIOS && !isInStandalone) {
+    installBtn.style.display = "block";
+    installBtn.innerText = "Install App (iOS: Add to Home Screen)";
+}
+
+// ================= DID YOU KNOW LOOP =================
+const track = document.getElementById("knowTrack");
+track.innerHTML += track.innerHTML;
+
+</script>
 
 </body>
 </html>
