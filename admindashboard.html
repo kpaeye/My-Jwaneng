@@ -98,6 +98,7 @@ button:hover {
   <a onclick="showSection('businesses')">Businesses</a>
   <a onclick="showSection('jobs')">Jobs</a>
   <a onclick="showSection('events')">Events</a>
+  <a onclick="showSection('updates')">Top Bar Updates</a>
 
   <hr>
   <a onclick="logout()">Logout</a>
@@ -138,7 +139,7 @@ button:hover {
   <!-- BUSINESSES -->
   <div id="businesses" class="section hidden">
     <div class="card">
-      <h3>Add Business (Full System)</h3>
+      <h3>Add Business</h3>
 
       <input id="biz_name" placeholder="Business Name" />
 
@@ -155,8 +156,6 @@ button:hover {
         <option>Health</option>
         <option>Education</option>
       </select>
-
-      <input type="file" id="biz_image" />
 
       <input id="biz_phone" placeholder="Phone" />
       <input id="biz_email" placeholder="Email" />
@@ -212,6 +211,24 @@ button:hover {
     </div>
   </div>
 
+  <!-- TOP BAR UPDATES -->
+  <div id="updates" class="section hidden">
+    <div class="card">
+      <h3>Top Bar Updates (Live Feed)</h3>
+
+      <select id="update_type">
+        <option value="alert">Alert</option>
+        <option value="announcement">Announcement</option>
+        <option value="upcoming">Upcoming Event</option>
+        <option value="notice">Notice</option>
+      </select>
+
+      <textarea id="update_message" placeholder="Enter update message..."></textarea>
+
+      <button onclick="addUpdate()">Post Update</button>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -251,58 +268,20 @@ async function addMarketplace() {
   alert(error ? "Error posting item" : "Item posted!");
 }
 
-/* ================= BUSINESSES (UPGRADED) ================= */
+/* ================= BUSINESSES ================= */
 async function addBusiness() {
-  try {
+  const { error } = await client.from("businesses").insert([{
+    name: biz_name.value,
+    category: biz_category.value,
+    phone: biz_phone.value,
+    email: biz_email.value,
+    website: biz_website.value,
+    whatsapp: biz_whatsapp.value,
+    location: biz_location.value,
+    description: biz_description.value
+  }]);
 
-    let imageUrl = "";
-    const file = biz_image.files[0];
-
-    if (file) {
-      const fileName = `${Date.now()}-${file.name}`;
-
-      const { error: uploadError } = await client.storage
-        .from("business-images")
-        .upload(fileName, file);
-
-      if (uploadError) {
-        alert("Image upload failed");
-        return;
-      }
-
-      const { data } = client.storage
-        .from("business-images")
-        .getPublicUrl(fileName);
-
-      imageUrl = data.publicUrl;
-    }
-
-    const { error } = await client.from("businesses").insert([{
-      name: biz_name.value,
-      category: biz_category.value,
-      phone: biz_phone.value,
-      email: biz_email.value,
-      website: biz_website.value,
-      whatsapp: biz_whatsapp.value,
-      location: biz_location.value,
-      description: biz_description.value,
-      image_url: imageUrl
-    }]);
-
-    if (error) {
-      alert("Error adding business");
-      return;
-    }
-
-    alert("Business added successfully!");
-
-    document.querySelectorAll("#businesses input, #businesses textarea").forEach(i => i.value = "");
-    biz_category.value = "";
-
-  } catch (err) {
-    console.error(err);
-    alert("Unexpected error");
-  }
+  alert(error ? "Error adding business" : "Business added!");
 }
 
 /* ================= JOBS ================= */
@@ -339,8 +318,33 @@ async function addEvent() {
   alert(error ? "Error adding event" : "Event published!");
 }
 
+/* ================= TOP BAR UPDATES ================= */
+async function addUpdate() {
+
+  const type = update_type.value;
+  const message = update_message.value;
+
+  if (!message) {
+    alert("Please enter a message");
+    return;
+  }
+
+  const { error } = await client.from("updates").insert([{
+    type: type,
+    message: message,
+    created_at: new Date()
+  }]);
+
+  if (error) {
+    alert("Error posting update");
+  } else {
+    alert("Update posted successfully!");
+    update_message.value = "";
+  }
+}
+
 function logout() {
-  alert("Logout (future auth system)");
+  alert("Logout system coming later");
 }
 
 </script>
