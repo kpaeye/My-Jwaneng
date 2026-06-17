@@ -106,12 +106,14 @@ footer{
 }
 
 @keyframes footerScroll{
-    from{
-        transform:translateX(0);
-    }
-    to{
-        transform:translateX(-100%);
-    }
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-100%); }
+}
+
+/* NEW: REPORT CARD SPECIAL STYLE (optional highlight) */
+.report-card:hover{
+    background:#c62828;
+    color:white;
 }
 
 </style>
@@ -167,11 +169,18 @@ footer{
         <p>Town information</p>
     </a>
 
+    <!-- 🔥 NEW REPORT & ISSUE CARD -->
+    <a class="card report-card" href="report-issues.html">
+        <div class="icon">⚡🚨</div>
+        <h3>Report Issue</h3>
+        <p>Electricity, Water, Roads & more</p>
+    </a>
+
 </div>
 
 <footer>
     <div class="footer-text">
-        © 2026 My Jwaneng | Powered by A-eye Group • Latest Jobs • Upcoming Events • Business Listings • Community News • Explore Your Town
+        © 2026 My Jwaneng | Powered by A-eye Group • Latest Jobs • Upcoming Events • Business Listings • Community News • Report Issues • Explore Your Town
     </div>
 </footer>
 
