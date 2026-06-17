@@ -7,49 +7,36 @@
 <title>Events - My Jwaneng</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
-/* ================= GLOBAL ================= */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+/* ================= BASE ================= */
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
     font-family:'Poppins',sans-serif;
     background:#f5f7fb;
 }
 
-/* ================= NAV ================= */
+/* NAV */
 .navbar{
     background:#001f3f;
-    padding:18px 8%;
     color:white;
-    font-size:22px;
+    padding:16px 8%;
+    font-size:20px;
     font-weight:700;
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 .header{
     padding:20px 8%;
     text-align:center;
 }
+.header h1{color:#001f3f;}
+.header p{color:#666;font-size:13px;}
 
-.header h1{
-    color:#001f3f;
-    font-size:30px;
-}
-
-.header p{
-    color:#666;
-    font-size:14px;
-}
-
-/* ================= FILTERS ================= */
+/* FILTERS (NEW CATEGORY BAR) */
 .filters{
     padding:10px 8%;
     display:flex;
@@ -59,11 +46,12 @@ body{
 }
 
 .filter-btn{
-    padding:8px 14px;
+    padding:7px 14px;
     border:none;
     border-radius:20px;
     background:#e6e9ef;
     cursor:pointer;
+    font-size:12px;
     font-weight:500;
 }
 
@@ -72,172 +60,126 @@ body{
     color:white;
 }
 
-/* ================= GRID ================= */
+/* GRID */
 .grid{
-    padding:25px 8%;
+    padding:20px 8%;
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
     gap:16px;
-    max-width:1200px;
-    margin:auto;
 }
 
-/* ================= CARD ================= */
+/* CARD */
 .card{
     background:white;
-    border-radius:16px;
+    border-radius:14px;
     overflow:hidden;
     box-shadow:0 6px 16px rgba(0,0,0,0.08);
-    transition:0.3s;
-    display:flex;
-    flex-direction:column;
 }
 
-.card:hover{
-    transform:translateY(-6px);
-}
-
-/* IMAGE */
 .card img{
     width:100%;
-    height:140px;
+    height:110px;
     object-fit:cover;
 }
 
-/* CONTENT */
 .card-content{
-    padding:12px;
+    padding:10px;
 }
 
 .date{
-    font-size:11px;
+    font-size:10px;
     background:#001f3f;
     color:white;
     display:inline-block;
-    padding:4px 10px;
-    border-radius:12px;
-    margin-bottom:8px;
-}
-
-.title{
-    font-size:15px;
-    font-weight:600;
-    color:#001f3f;
+    padding:3px 8px;
+    border-radius:10px;
     margin-bottom:6px;
 }
 
+.title{
+    font-size:14px;
+    font-weight:600;
+    color:#001f3f;
+    margin-bottom:4px;
+}
+
 .desc{
-    font-size:13px;
+    font-size:12px;
     color:#555;
-    margin-bottom:10px;
+    margin-bottom:6px;
 }
 
 .tag{
-    font-size:11px;
-    background:#f0f0f0;
-    padding:3px 8px;
-    border-radius:12px;
+    font-size:10px;
+    background:#eee;
+    padding:3px 6px;
+    border-radius:8px;
 }
 
-/* BUTTONS */
 .btn{
     width:100%;
-    padding:8px;
-    border:none;
-    border-radius:8px;
+    padding:7px;
+    margin-top:8px;
     background:#001f3f;
     color:white;
-    font-size:12px;
-    margin-top:10px;
+    border:none;
+    border-radius:8px;
+    font-size:11px;
     cursor:pointer;
 }
 
-/* ================= MODAL ================= */
+/* MODAL */
 .modal{
     display:none;
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,0.6);
+    background:rgba(0,0,0,0.65);
     justify-content:center;
     align-items:center;
-    z-index:999;
+    z-index:9999;
 }
 
 .modal-box{
     background:white;
     width:90%;
-    max-width:450px;
+    max-width:520px;
     border-radius:14px;
     overflow:hidden;
+    max-height:85vh;
+    display:flex;
+    flex-direction:column;
 }
 
 .modal-box img{
     width:100%;
-    height:160px;
+    height:200px;
     object-fit:cover;
 }
 
 .modal-content{
     padding:15px;
+    overflow-y:auto;
 }
 
-.modal-content h2{
-    color:#001f3f;
-    margin-bottom:5px;
-}
-
-.modal-content p{
-    font-size:13px;
-    margin-bottom:6px;
-    color:#555;
-}
-
-.modal-actions{
-    display:flex;
-    gap:10px;
-    margin-top:10px;
-}
-
-.rsvp{
-    flex:1;
-    padding:8px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:12px;
-}
-
-.going{
-    background:#28a745;
-    color:white;
-}
-
-.interested{
-    background:#ff9800;
-    color:white;
-}
-
-.share{
-    background:#001f3f;
-    color:white;
-}
-
-/* CLOSE */
-.close{
+.close-btn{
     width:100%;
     padding:10px;
     border:none;
-    background:#ddd;
+    background:#001f3f;
+    color:white;
     cursor:pointer;
+    margin-top:10px;
+    border-radius:8px;
 }
 
 /* FOOTER */
 footer{
+    margin-top:30px;
     background:#001f3f;
     color:white;
-    padding:18px;
-    margin-top:30px;
     text-align:center;
+    padding:18px;
+    font-size:13px;
 }
 
 </style>
@@ -252,22 +194,25 @@ footer{
     <p>Discover what's happening in your town</p>
 </div>
 
-<!-- FILTERS -->
+<!-- ================= CATEGORY FILTERS ================= -->
 <div class="filters">
-    <button class="filter-btn active" onclick="filterEvents('all', this)">All</button>
+    <button class="filter-btn active" onclick="filterEvents('All', this)">All</button>
     <button class="filter-btn" onclick="filterEvents('Music', this)">Music</button>
+    <button class="filter-btn" onclick="filterEvents('Sports', this)">Sports</button>
+    <button class="filter-btn" onclick="filterEvents('Cultural', this)">Cultural</button>
     <button class="filter-btn" onclick="filterEvents('Business', this)">Business</button>
     <button class="filter-btn" onclick="filterEvents('Community', this)">Community</button>
-    <button class="filter-btn" onclick="filterEvents('Sports', this)">Sports</button>
 </div>
 
 <!-- GRID -->
 <div class="grid" id="grid"></div>
 
 <!-- MODAL -->
-<div class="modal" id="modal">
+<div class="modal" id="modal" onclick="outsideClose(event)">
     <div class="modal-box">
-        <img id="m_img" src="">
+
+        <img id="m_img">
+
         <div class="modal-content">
 
             <h2 id="m_title"></h2>
@@ -276,15 +221,10 @@ footer{
             <p id="m_location"></p>
             <p id="m_desc"></p>
 
-            <div class="modal-actions">
-                <button class="rsvp going">Going</button>
-                <button class="rsvp interested">Interested</button>
-                <button class="rsvp share" onclick="shareEvent()">Share</button>
-            </div>
-
-            <button class="close" onclick="closeModal()">Close</button>
+            <button class="close-btn" onclick="closeModal()">Close</button>
 
         </div>
+
     </div>
 </div>
 
@@ -300,22 +240,23 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const client = supabase.createClient(supabaseUrl, supabaseKey);
 
 let allEvents = [];
-let currentEvent = null;
 
-/* LOAD */
+/* ================= LOAD ================= */
 async function loadEvents(){
     const { data } = await client.from("events").select("*");
     allEvents = data || [];
     render(allEvents);
 }
 
-/* RENDER */
+/* ================= RENDER ================= */
 function render(list){
 
     const grid = document.getElementById("grid");
     grid.innerHTML = "";
 
-    list.forEach(ev => {
+    list.forEach(ev=>{
+
+        const encoded = encodeURIComponent(JSON.stringify(ev));
 
         grid.innerHTML += `
         <div class="card">
@@ -325,14 +266,11 @@ function render(list){
             <div class="card-content">
 
                 <div class="date">${ev.date || ""}</div>
-
                 <div class="title">${ev.title || ""}</div>
-
                 <div class="desc">${(ev.description || "").substring(0,60)}...</div>
-
                 <span class="tag">${ev.category || ""}</span>
 
-                <button class="btn" onclick='openModal(${JSON.stringify(ev)})'>
+                <button class="btn" onclick="openModal('${encoded}')">
                     View Details
                 </button>
 
@@ -342,29 +280,34 @@ function render(list){
     });
 }
 
-/* FILTER */
-function filterEvents(cat, btn){
+/* ================= FILTER ================= */
+function filterEvents(category, btn){
 
-    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".filter-btn")
+        .forEach(b => b.classList.remove("active"));
+
     btn.classList.add("active");
 
-    if(cat === "all"){
+    if(category === "All"){
         render(allEvents);
-    } else {
-        render(allEvents.filter(e => e.category === cat));
+        return;
     }
+
+    render(allEvents.filter(e => e.category === category));
 }
 
-/* MODAL */
-function openModal(ev){
-    currentEvent = ev;
+/* ================= MODAL ================= */
+function openModal(encoded){
+
+    const ev = JSON.parse(decodeURIComponent(encoded));
 
     document.getElementById("modal").style.display = "flex";
-    document.getElementById("m_img").src = ev.image_url || "https://via.placeholder.com/400";
+
+    document.getElementById("m_img").src = ev.image_url || "";
     document.getElementById("m_title").innerText = ev.title || "";
-    document.getElementById("m_date").innerText = "Date: " + (ev.date || "");
-    document.getElementById("m_category").innerText = "Category: " + (ev.category || "");
-    document.getElementById("m_location").innerText = "Location: " + (ev.location || "");
+    document.getElementById("m_date").innerText = ev.date || "";
+    document.getElementById("m_category").innerText = ev.category || "";
+    document.getElementById("m_location").innerText = ev.location || "";
     document.getElementById("m_desc").innerText = ev.description || "";
 }
 
@@ -372,16 +315,13 @@ function closeModal(){
     document.getElementById("modal").style.display = "none";
 }
 
-/* SHARE */
-function shareEvent(){
-    if(!currentEvent) return;
-
-    const text = `Check out this event: ${currentEvent.title} on My Jwaneng`;
-    navigator.clipboard.writeText(text);
-    alert("Event copied to clipboard!");
+function outsideClose(e){
+    if(e.target.id === "modal"){
+        closeModal();
+    }
 }
 
-/* INIT */
+/* ================= INIT ================= */
 loadEvents();
 
 </script>

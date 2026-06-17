@@ -15,7 +15,6 @@ body {
   background: #f4f6f9;
 }
 
-/* SIDEBAR */
 .sidebar {
   width: 220px;
   background: #0b1f3a;
@@ -25,26 +24,17 @@ body {
   position: fixed;
 }
 
-.sidebar h2 {
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-
 .sidebar a {
   display: block;
   color: white;
   padding: 10px;
-  text-decoration: none;
-  border-radius: 5px;
   margin-bottom: 5px;
   cursor: pointer;
+  text-decoration: none;
 }
 
-.sidebar a:hover {
-  background: #1d3b66;
-}
+.sidebar a:hover { background: #1d3b66; }
 
-/* MAIN */
 .main {
   margin-left: 240px;
   padding: 20px;
@@ -56,297 +46,311 @@ body {
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 input, textarea, select {
   width: 100%;
   padding: 10px;
-  margin-top: 8px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  margin: 8px 0 15px;
 }
 
 button {
   background: #0b1f3a;
   color: white;
-  padding: 10px 15px;
+  padding: 10px;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
 }
 
-button:hover {
-  background: #163a66;
-}
+.hidden { display: none; }
 
-.hidden {
-  display: none;
+.item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
 }
 </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
 <div class="sidebar">
-  <h2>My Jwaneng Admin</h2>
-
+  <h2>Admin</h2>
   <a onclick="showSection('news')">News</a>
+  <a onclick="showSection('updates')">Updates</a>
+  <a onclick="showSection('events')">Events</a>
+  <a onclick="showSection('jobs')">Jobs</a>
   <a onclick="showSection('marketplace')">Marketplace</a>
   <a onclick="showSection('businesses')">Businesses</a>
-  <a onclick="showSection('jobs')">Jobs</a>
-  <a onclick="showSection('events')">Events</a>
-  <a onclick="showSection('updates')">Top Bar Updates</a>
-
-  <hr>
-  <a onclick="logout()">Logout</a>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
-  <h2>Admin Control Center</h2>
-
-  <!-- NEWS -->
-  <div id="news" class="section">
-    <div class="card">
-      <h3>Add News</h3>
-      <input id="news_title" placeholder="Title" />
-      <input id="news_category" placeholder="Category" />
-      <textarea id="news_summary" placeholder="Summary"></textarea>
-      <textarea id="news_content" placeholder="Content"></textarea>
-      <input id="news_image" placeholder="Image URL" />
-      <input id="news_author" placeholder="Publisher Name" />
-      <button onclick="addNews()">Publish News</button>
-    </div>
+<!-- NEWS -->
+<div id="news" class="section">
+  <div class="card">
+    <h3>Add News</h3>
+    <input id="news_title" placeholder="Title">
+    <input id="news_category" placeholder="Category">
+    <textarea id="news_summary" placeholder="Summary"></textarea>
+    <textarea id="news_content" placeholder="Content"></textarea>
+    <input id="news_image" placeholder="Image URL">
+    <input id="news_author" placeholder="Author">
+    <button onclick="addNews()">Publish</button>
   </div>
 
-  <!-- MARKETPLACE -->
-  <div id="marketplace" class="section hidden">
-    <div class="card">
-      <h3>Add Marketplace Item</h3>
-      <input id="mp_title" placeholder="Item Name" />
-      <input id="mp_price" placeholder="Price" />
-      <textarea id="mp_description" placeholder="Description"></textarea>
-      <input id="mp_image" placeholder="Image URL" />
-      <input id="mp_contact" placeholder="Contact Info" />
-      <button onclick="addMarketplace()">Post Item</button>
-    </div>
+  <div class="card">
+    <h3>Latest News</h3>
+    <div id="newsList"></div>
+  </div>
+</div>
+
+<!-- UPDATES -->
+<div id="updates" class="section hidden">
+  <div class="card">
+    <h3>Add Update</h3>
+    <select id="update_type">
+      <option>alert</option>
+      <option>announcement</option>
+      <option>notice</option>
+    </select>
+    <textarea id="update_message"></textarea>
+    <button onclick="addUpdate()">Post</button>
   </div>
 
-  <!-- BUSINESSES -->
-  <div id="businesses" class="section hidden">
-    <div class="card">
-      <h3>Add Business</h3>
+  <div class="card">
+    <h3>Latest Updates</h3>
+    <div id="updateList"></div>
+  </div>
+</div>
 
-      <input id="biz_name" placeholder="Business Name" />
-
-      <select id="biz_category">
-        <option value="">Select Category</option>
-        <option>Construction</option>
-        <option>Retail</option>
-        <option>Services</option>
-        <option>Transport</option>
-        <option>Engineering</option>
-        <option>Hospitality</option>
-        <option>Agriculture</option>
-        <option>Food & Beverage</option>
-        <option>Health</option>
-        <option>Education</option>
-      </select>
-
-      <input id="biz_phone" placeholder="Phone" />
-      <input id="biz_email" placeholder="Email" />
-      <input id="biz_website" placeholder="Website" />
-      <input id="biz_whatsapp" placeholder="WhatsApp" />
-      <input id="biz_location" placeholder="Location" />
-
-      <textarea id="biz_description" placeholder="Description"></textarea>
-
-      <button onclick="addBusiness()">Add Business</button>
-    </div>
+<!-- EVENTS -->
+<div id="events" class="section hidden">
+  <div class="card">
+    <h3>Add Event</h3>
+    <input id="event_title">
+    <select id="event_category">
+      <option>Music</option>
+      <option>Sports</option>
+      <option>Business</option>
+    </select>
+    <input id="event_date" type="date">
+    <input id="event_location">
+    <textarea id="event_description"></textarea>
+    <input id="event_image">
+    <button onclick="addEvent()">Publish</button>
   </div>
 
-  <!-- JOBS -->
-  <div id="jobs" class="section hidden">
-    <div class="card">
-      <h3>Add Job</h3>
-      <input id="job_title" placeholder="Job Title" />
-      <input id="job_company" placeholder="Company Name" />
-      <input id="job_location" placeholder="Location" />
-      <select id="job_type">
-        <option value="">Job Type</option>
-        <option>Full Time</option>
-        <option>Part Time</option>
-        <option>Contract</option>
-        <option>Internship</option>
-      </select>
-      <textarea id="job_description"></textarea>
-      <input id="job_email" placeholder="Email" />
-      <input id="job_link" placeholder="Link" />
-      <input id="job_phone" placeholder="Phone" />
-      <input id="job_image" placeholder="Image URL" />
-      <input id="job_closing" type="date" />
-      <button onclick="addJob()">Post Job</button>
-    </div>
+  <div class="card">
+    <h3>Events</h3>
+    <div id="eventList"></div>
+  </div>
+</div>
+
+<!-- JOBS -->
+<div id="jobs" class="section hidden">
+  <div class="card">
+    <h3>Add Job</h3>
+    <input id="job_title">
+    <input id="job_company">
+    <input id="job_location">
+    <textarea id="job_description"></textarea>
+    <button onclick="addJob()">Post</button>
   </div>
 
-  <!-- EVENTS -->
-  <div id="events" class="section hidden">
-    <div class="card">
-      <h3>Add Event</h3>
-      <input id="event_title" placeholder="Title" />
-      <select id="event_category">
-        <option>Music</option>
-        <option>Business</option>
-        <option>Community</option>
-      </select>
-      <input id="event_date" type="date" />
-      <input id="event_location" placeholder="Location" />
-      <textarea id="event_description"></textarea>
-      <input id="event_image" placeholder="Image URL" />
-      <button onclick="addEvent()">Publish Event</button>
-    </div>
+  <div class="card">
+    <h3>Jobs</h3>
+    <div id="jobList"></div>
+  </div>
+</div>
+
+<!-- MARKETPLACE -->
+<div id="marketplace" class="section hidden">
+  <div class="card">
+    <h3>Add Item</h3>
+    <input id="mp_title">
+    <input id="mp_price">
+    <textarea id="mp_description"></textarea>
+    <button onclick="addMarketplace()">Post</button>
   </div>
 
-  <!-- TOP BAR UPDATES -->
-  <div id="updates" class="section hidden">
-    <div class="card">
-      <h3>Top Bar Updates (Live Feed)</h3>
-
-      <select id="update_type">
-        <option value="alert">Alert</option>
-        <option value="announcement">Announcement</option>
-        <option value="upcoming">Upcoming Event</option>
-        <option value="notice">Notice</option>
-      </select>
-
-      <textarea id="update_message" placeholder="Enter update message..."></textarea>
-
-      <button onclick="addUpdate()">Post Update</button>
-    </div>
+  <div class="card">
+    <h3>Items</h3>
+    <div id="mpList"></div>
   </div>
+</div>
+
+<!-- BUSINESSES -->
+<div id="businesses" class="section hidden">
+  <div class="card">
+    <h3>Add Business</h3>
+    <input id="biz_name">
+    <input id="biz_category">
+    <input id="biz_phone">
+    <textarea id="biz_description"></textarea>
+    <button onclick="addBusiness()">Add</button>
+  </div>
+
+  <div class="card">
+    <h3>Businesses</h3>
+    <div id="bizList"></div>
+  </div>
+</div>
 
 </div>
 
 <script>
-
 const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
 const client = supabase.createClient(supabaseUrl, supabaseKey);
 
-function showSection(section) {
-  document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-  document.getElementById(section).classList.remove('hidden');
+/* NAV */
+function showSection(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
 }
 
 /* ================= NEWS ================= */
-async function addNews() {
+async function addNews(){
   const { error } = await client.from("news").insert([{
     title: news_title.value,
     category: news_category.value,
     summary: news_summary.value,
     content: news_content.value,
     image_url: news_image.value,
-    author: news_author.value,
-    status: "published"
+    author: news_author.value
   }]);
-  alert(error ? error.message : "News published!");
+
+  if(error) return alert(error.message);
+
+  alert("News added!");
+  loadNews();
 }
 
-/* ================= MARKETPLACE ================= */
-async function addMarketplace() {
-  const { error } = await client.from("marketplace").insert([{
-    title: mp_title.value,
-    price: mp_price.value,
-    description: mp_description.value,
-    image_url: mp_image.value,
-    contact: mp_contact.value
-  }]);
-  alert(error ? "Error posting item" : "Item posted!");
+async function loadNews(){
+  let { data } = await client.from("news").select("*").order("id",{ascending:false});
+  newsList.innerHTML = data.map(n =>
+    `<div class="item"><b>${n.title}</b><br>${n.summary}</div>`
+  ).join("");
 }
 
-/* ================= BUSINESSES ================= */
-async function addBusiness() {
-  const { error } = await client.from("businesses").insert([{
-    name: biz_name.value,
-    category: biz_category.value,
-    phone: biz_phone.value,
-    email: biz_email.value,
-    website: biz_website.value,
-    whatsapp: biz_whatsapp.value,
-    location: biz_location.value,
-    description: biz_description.value
+/* ================= UPDATES ================= */
+async function addUpdate(){
+  const { error } = await client.from("updates").insert([{
+    type: update_type.value,
+    message: update_message.value
   }]);
 
-  alert(error ? "Error adding business" : "Business added!");
+  if(error) return alert(error.message);
+
+  alert("Update posted!");
+  loadUpdates();
 }
 
-/* ================= JOBS ================= */
-async function addJob() {
-  const { error } = await client.from("jobs").insert([{
-    title: job_title.value,
-    company: job_company.value,
-    location: job_location.value,
-    job_type: job_type.value || null,
-    description: job_description.value,
-    application_email: job_email.value || null,
-    application_link: job_link.value || null,
-    contact_number: job_phone.value || null,
-    image_url: job_image.value || null,
-    closing_date: job_closing.value || null,
-    status: "active"
-  }]);
-
-  alert(error ? "Error posting job" : "Job posted!");
+async function loadUpdates(){
+  let { data } = await client.from("updates").select("*").order("id",{ascending:false});
+  updateList.innerHTML = data.map(u =>
+    `<div class="item"><b>${u.type}</b>: ${u.message}</div>`
+  ).join("");
 }
 
 /* ================= EVENTS ================= */
-async function addEvent() {
+async function addEvent(){
   const { error } = await client.from("events").insert([{
     title: event_title.value,
     category: event_category.value,
     date: event_date.value,
-    location: event_location.value || null,
+    location: event_location.value,
     description: event_description.value,
-    image_url: event_image.value || null,
-    status: "published"
+    image_url: event_image.value
   }]);
 
-  alert(error ? "Error adding event" : "Event published!");
+  if(error) return alert(error.message);
+
+  alert("Event added!");
+  loadEvents();
 }
 
-/* ================= TOP BAR UPDATES ================= */
-async function addUpdate() {
+async function loadEvents(){
+  let { data } = await client.from("events").select("*").order("id",{ascending:false});
+  eventList.innerHTML = data.map(e =>
+    `<div class="item"><b>${e.title}</b> - ${e.date}</div>`
+  ).join("");
+}
 
-  const type = update_type.value;
-  const message = update_message.value;
-
-  if (!message) {
-    alert("Please enter a message");
-    return;
-  }
-
-  const { error } = await client.from("updates").insert([{
-    type: type,
-    message: message,
-    created_at: new Date()
+/* ================= JOBS ================= */
+async function addJob(){
+  const { error } = await client.from("jobs").insert([{
+    title: job_title.value,
+    company: job_company.value,
+    location: job_location.value,
+    description: job_description.value
   }]);
 
-  if (error) {
-    alert("Error posting update");
-  } else {
-    alert("Update posted successfully!");
-    update_message.value = "";
-  }
+  if(error) return alert(error.message);
+
+  alert("Job added!");
+  loadJobs();
 }
 
-function logout() {
-  alert("Logout system coming later");
+async function loadJobs(){
+  let { data } = await client.from("jobs").select("*").order("id",{ascending:false});
+  jobList.innerHTML = data.map(j =>
+    `<div class="item"><b>${j.title}</b> - ${j.company}</div>`
+  ).join("");
 }
 
+/* ================= MARKETPLACE ================= */
+async function addMarketplace(){
+  const { error } = await client.from("marketplace").insert([{
+    title: mp_title.value,
+    price: mp_price.value,
+    description: mp_description.value
+  }]);
+
+  if(error) return alert(error.message);
+
+  alert("Item added!");
+  loadMarketplace();
+}
+
+async function loadMarketplace(){
+  let { data } = await client.from("marketplace").select("*").order("id",{ascending:false});
+  mpList.innerHTML = data.map(m =>
+    `<div class="item"><b>${m.title}</b> - ${m.price}</div>`
+  ).join("");
+}
+
+/* ================= BUSINESSES ================= */
+async function addBusiness(){
+  const { error } = await client.from("businesses").insert([{
+    name: biz_name.value,
+    category: biz_category.value,
+    phone: biz_phone.value,
+    description: biz_description.value
+  }]);
+
+  if(error) return alert(error.message);
+
+  alert("Business added!");
+  loadBusinesses();
+}
+
+async function loadBusinesses(){
+  let { data } = await client.from("businesses").select("*").order("id",{ascending:false});
+  bizList.innerHTML = data.map(b =>
+    `<div class="item"><b>${b.name}</b> - ${b.category}</div>`
+  ).join("");
+}
+
+/* INIT */
+window.onload = () => {
+  loadNews();
+  loadUpdates();
+  loadEvents();
+  loadJobs();
+  loadMarketplace();
+  loadBusinesses();
+};
 </script>
 
 </body>

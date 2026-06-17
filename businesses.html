@@ -7,25 +7,15 @@
 <title>My Jwaneng - Businesses</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
-/* ================= GLOBAL ================= */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
     font-family:'Poppins',sans-serif;
     background:#f5f7fb;
-    color:#222;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
     padding-top:70px;
 }
 
@@ -35,18 +25,13 @@ body{
     padding:18px 8%;
     display:flex;
     justify-content:space-between;
-    align-items:center;
     position:fixed;
     top:0;
     width:100%;
     z-index:1500;
 }
 
-.logo{
-    color:white;
-    font-size:28px;
-    font-weight:700;
-}
+.logo{color:white;font-size:28px;font-weight:700;}
 .logo span{color:#4fc3f7;}
 
 /* HEADER */
@@ -57,17 +42,6 @@ body{
     text-align:center;
 }
 
-.add-btn{
-    margin-top:20px;
-    background:#4fc3f7;
-    color:#001f3f;
-    border:none;
-    padding:12px 20px;
-    font-weight:700;
-    border-radius:10px;
-    cursor:pointer;
-}
-
 /* CONTROLS */
 .biz-controls{
     padding:20px 8%;
@@ -76,7 +50,6 @@ body{
 .search-box{
     display:flex;
     gap:10px;
-    margin-bottom:15px;
 }
 
 .search-box input{
@@ -88,83 +61,46 @@ body{
 
 .search-box button{
     padding:12px 18px;
-    border:none;
     background:#001f3f;
     color:white;
+    border:none;
     border-radius:10px;
-    cursor:pointer;
 }
 
-.filters{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-}
-
-.filters button{
-    padding:8px 14px;
-    border:none;
-    border-radius:20px;
+/* CATEGORY BUTTON */
+.category-btn{
+    margin-top:12px;
     background:white;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ddd;
     cursor:pointer;
-    box-shadow:0 2px 6px rgba(0,0,0,0.1);
-}
-
-.filters button.active{
-    background:#001f3f;
-    color:white;
+    font-weight:600;
 }
 
 /* GRID */
 .biz-grid{
     padding:20px 8% 80px;
     display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
+    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
     gap:18px;
 }
 
-/* CARD */
 .biz-card{
     background:white;
-    border-radius:18px;
+    border-radius:16px;
     overflow:hidden;
     box-shadow:0 6px 18px rgba(0,0,0,0.08);
-    display:flex;
-    flex-direction:column;
+    cursor:pointer;
 }
 
-.biz-img{
-    width:100%;
-    height:150px;
-}
+.biz-img{height:150px;}
+.biz-img img{width:100%;height:100%;object-fit:cover;}
 
-.biz-img img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.biz-content{
-    padding:12px;
-}
-
-.biz-name{
-    font-weight:700;
-    color:#001f3f;
-}
-
-.biz-category{
-    font-size:12px;
-    color:#4fc3f7;
-    margin-bottom:6px;
-}
-
-.biz-details{
-    font-size:12px;
-    color:#555;
-    line-height:1.6;
-    margin-top:8px;
-}
+.biz-content{padding:12px;}
+.biz-name{font-weight:700;color:#001f3f;}
+.biz-category{font-size:12px;color:#4fc3f7;margin-bottom:6px;}
+.biz-details{font-size:12px;color:#555;line-height:1.6;}
 
 /* MODAL */
 .modal{
@@ -183,55 +119,67 @@ body{
     max-width:500px;
     padding:20px;
     border-radius:12px;
+    max-height:80vh;
+    overflow:auto;
 }
 
-input,select,textarea{
+/* CATEGORY LIST */
+.cat-list button{
     width:100%;
     padding:10px;
-    margin:8px 0;
-    border:1px solid #ddd;
+    margin:4px 0;
+    border:none;
+    background:#f1f1f1;
     border-radius:8px;
+    cursor:pointer;
+    text-align:left;
 }
 
-.submit-btn{
-    width:100%;
-    padding:12px;
+.cat-list button:hover{
     background:#001f3f;
     color:white;
-    border:none;
-    border-radius:8px;
-    font-weight:700;
-    cursor:pointer;
 }
 
-.cancel-btn{
+.close-btn{
     width:100%;
+    margin-top:10px;
     padding:12px;
-    margin-top:8px;
     background:#777;
     color:white;
     border:none;
     border-radius:8px;
+    cursor:pointer;
 }
+
+/* ACTION BUTTONS */
+.action-btn{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    margin-top:8px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.call-btn{background:#001f3f;color:white;}
+.wa-btn{background:#25D366;color:white;}
+.dir-btn{background:#4fc3f7;color:#001f3f;}
 
 </style>
 </head>
 
 <body>
 
-<!-- NAV -->
 <nav class="navbar">
     <div class="logo">My<span>Jwaneng</span></div>
 </nav>
 
-<!-- HEADER -->
 <section class="biz-header">
     <h1>Local Businesses</h1>
     <p>Discover trusted businesses in Jwaneng</p>
-
 </section>
 
-<!-- CONTROLS -->
 <section class="biz-controls">
 
     <div class="search-box">
@@ -239,25 +187,43 @@ input,select,textarea{
         <button onclick="searchBiz()">Search</button>
     </div>
 
-    <div class="filters">
-        <button class="active" onclick="filterCategory('All')">All</button>
-        <button onclick="filterCategory('Construction')">Construction</button>
-        <button onclick="filterCategory('Retail')">Retail</button>
-        <button onclick="filterCategory('Food & Beverage')">Food & Beverage</button>
-        <button onclick="filterCategory('Services')">Services</button>
-        <button onclick="filterCategory('Transport')">Transport</button>
-        <button onclick="filterCategory('Engineering')">Engineering</button>
-        <button onclick="filterCategory('Hospitality')">Hospitality</button>
-        <button onclick="filterCategory('Agriculture')">Agriculture</button>
-        <button onclick="filterCategory('Health')">Health</button>
-        <button onclick="filterCategory('Education')">Education</button>
-    </div>
+    <button class="category-btn" onclick="openCatModal()">
+        📂 Choose Category
+    </button>
 
 </section>
 
-<!-- GRID -->
 <div class="biz-grid" id="grid"></div>
 
+<!-- CATEGORY MODAL -->
+<div class="modal" id="catModal">
+    <div class="modal-content">
+
+        <h3>Select Category</h3>
+
+        <div class="cat-list" id="catList"></div>
+
+        <button class="close-btn" onclick="closeCatModal()">Close</button>
+
+    </div>
+</div>
+
+<!-- BUSINESS MODAL -->
+<div class="modal" id="bizModal">
+    <div class="modal-content">
+
+        <h3 id="bizTitle"></h3>
+
+        <div id="bizInfo" style="font-size:14px;line-height:1.6;"></div>
+
+        <button id="callBtn" class="action-btn call-btn">📞 Call</button>
+        <button id="waBtn" class="action-btn wa-btn">💬 WhatsApp</button>
+        <button id="dirBtn" class="action-btn dir-btn">📍 Directions</button>
+
+        <button class="close-btn" onclick="closeBiz()">Close</button>
+
+    </div>
+</div>
 
 <script>
 
@@ -267,49 +233,49 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 let allBusinesses = [];
 
-function openModal(){ document.getElementById("modal").style.display="flex"; }
-function closeModal(){ document.getElementById("modal").style.display="none"; }
+const categories = [
+"Accommodation","Agriculture","Automotive","Beauty & Wellness",
+"Business Services","Cleaning Services","Construction","Education",
+"Engineering","Entertainment","Food & Beverage","Health",
+"Hospitality","Mining","Retail","Security","Services",
+"Technology","Transport"
+].sort();
 
+/* ================= LOAD ================= */
 async function loadBusinesses(){
     const { data } = await supabaseClient.from("businesses").select("*");
     allBusinesses = data || [];
     render(allBusinesses);
 }
 
+/* ================= GRID ================= */
 function render(list){
     const grid = document.getElementById("grid");
     grid.innerHTML = "";
 
-    list.forEach(b => {
-
-        const img = b.image_url || "https://via.placeholder.com/400";
+    list.forEach(b=>{
 
         grid.innerHTML += `
-        <div class="biz-card">
+        <div class="biz-card" onclick="openBusiness('${b.name}')">
 
             <div class="biz-img">
-                <img src="${img}">
+                <img src="${b.image_url || 'https://via.placeholder.com/400'}">
             </div>
 
             <div class="biz-content">
-
-                <div class="biz-name">${b.name || "No Name"}</div>
-                <div class="biz-category">${b.category || ""}</div>
-
+                <div class="biz-name">${b.name}</div>
+                <div class="biz-category">${b.category}</div>
                 <div class="biz-details">
-                    📞 ${b.phone || "N/A"}<br>
-                    📍 ${b.location || "N/A"}<br>
-                    🌐 ${b.website || "N/A"}<br>
-                    ✉️ ${b.email || "N/A"}<br>
-                    💬 ${b.whatsapp || "N/A"}
+                    📞 ${b.phone || 'N/A'}<br>
+                    📍 ${b.location || 'N/A'}
                 </div>
-
             </div>
 
         </div>`;
     });
 }
 
+/* ================= SEARCH ================= */
 function searchBiz(){
     const q = document.getElementById("searchInput").value.toLowerCase();
     render(allBusinesses.filter(b =>
@@ -317,77 +283,73 @@ function searchBiz(){
     ));
 }
 
+/* ================= CATEGORY ================= */
+function openCatModal(){
+    document.getElementById("catModal").style.display="flex";
+
+    const list = document.getElementById("catList");
+    list.innerHTML = "";
+
+    list.innerHTML += `<button onclick="filterCategory('All')">🌍 All Businesses</button>`;
+
+    categories.forEach(c=>{
+        list.innerHTML += `<button onclick="filterCategory('${c}')">${c}</button>`;
+    });
+}
+
+function closeCatModal(){
+    document.getElementById("catModal").style.display="none";
+}
+
 function filterCategory(cat){
+    closeCatModal();
     if(cat === "All") return render(allBusinesses);
     render(allBusinesses.filter(b => b.category === cat));
 }
 
-async function submitBusiness(){
-    try {
-        const file = document.getElementById("imageFile").files[0];
-        let imageUrl = "";
+/* ================= BUSINESS MODAL ================= */
+function openBusiness(name){
+    const b = allBusinesses.find(x => x.name === name);
+    if(!b) return;
 
-        if(file){
-            const fileName = `${Date.now()}-${file.name}`;
+    document.getElementById("bizTitle").innerText = b.name;
 
-            const { error } = await supabaseClient.storage
-                .from("business-images")
-                .upload(fileName, file);
+    document.getElementById("bizInfo").innerHTML = `
+        <b>Category:</b> ${b.category || 'N/A'}<br><br>
+        📞 ${b.phone || 'N/A'}<br>
+        📍 ${b.location || 'N/A'}<br>
+        🌐 ${b.website || 'N/A'}<br>
+        ✉️ ${b.email || 'N/A'}<br><br>
+        📝 ${b.description || ''}
+    `;
 
-            if(error){
-                alert("Image upload failed");
-                return;
-            }
+    // CALL
+    document.getElementById("callBtn").onclick = () => {
+        if(b.phone) window.location.href = `tel:${b.phone}`;
+    };
 
-            const { data } = supabaseClient.storage
-                .from("business-images")
-                .getPublicUrl(fileName);
+    // WHATSAPP
+    document.getElementById("waBtn").onclick = () => {
+        const num = (b.whatsapp || b.phone || "").replace(/\D/g,'');
+        if(num) window.open(`https://wa.me/${num}`, "_blank");
+    };
 
-            imageUrl = data.publicUrl;
+    // DIRECTIONS
+    document.getElementById("dirBtn").onclick = () => {
+        if(b.location){
+            const q = encodeURIComponent(b.location);
+            window.open(`https://www.google.com/maps/search/?api=1&query=${q}`, "_blank");
         }
+    };
 
-        const business = {
-            name: document.getElementById("name").value,
-            category: document.getElementById("category").value,
-            phone: document.getElementById("phone").value,
-            email: document.getElementById("email").value,
-            website: document.getElementById("website").value,
-            facebook: document.getElementById("facebook").value,
-            whatsapp: document.getElementById("whatsapp").value,
-            location: document.getElementById("location").value,
-            description: document.getElementById("description").value,
-            image_url: imageUrl
-        };
-
-        if(!business.name || !business.category){
-            alert("Name and category required");
-            return;
-        }
-
-        const { error } = await supabaseClient
-            .from("businesses")
-            .insert([business]);
-
-        if(error){
-            alert("Failed to save business");
-            return;
-        }
-
-        alert("Business added successfully!");
-
-        closeModal();
-        loadBusinesses();
-
-        document.querySelectorAll("#modal input, #modal textarea").forEach(i => i.value = "");
-        document.getElementById("category").value = "";
-        document.getElementById("imageFile").value = "";
-
-    } catch(err){
-        console.error(err);
-        alert("Unexpected error");
-    }
+    document.getElementById("bizModal").style.display="flex";
 }
 
+function closeBiz(){
+    document.getElementById("bizModal").style.display="none";
+}
+
+/* ================= INIT ================= */
 loadBusinesses();
 
 </script>
