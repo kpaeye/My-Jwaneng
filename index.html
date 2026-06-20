@@ -364,6 +364,23 @@ footer{
         <h1>Connecting <span>Jwaneng</span> Digitally</h1>
         <p>Your smart community platform for jobs, businesses, events, news, and opportunities all in one place.</p>
         <a href="exploremyjwaneng.html" class="btn">Explore My Jwaneng</a>
+
+        <!-- WEATHER WIDGET (SAFE ADDITION) -->
+<div id="weatherBox" style="
+    margin-top:20px;
+    padding:12px;
+    border-radius:10px;
+    background:rgba(255,255,255,0.06);
+    max-width:300px;
+    font-size:13px;
+">
+    <div style="color:#4fc3f7; font-weight:600; margin-bottom:6px;">
+        🌤 Weather Update
+    </div>
+    <div id="weatherLoc">Loading location...</div>
+    <div id="weatherTemp"></div>
+    <div id="weatherWind"></div>
+</div>
     </div>
 
     <div class="hero-image">
@@ -430,7 +447,7 @@ footer{
 
 <script>
 const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
-const supabaseKey = "YOUR_KEY";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
 const client = supabase.createClient(supabaseUrl, supabaseKey);
 
 const track = document.getElementById("updateTrack");
@@ -467,6 +484,37 @@ if(isPWA()){
 }
 
 document.getElementById("knowTrack").innerHTML += document.getElementById("knowTrack").innerHTML;
+
+async function loadWeather(lat, lon){
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        const w = data.current_weather;
+
+        document.getElementById("weatherLoc").innerText = "📍 Jwaneng Area";
+        document.getElementById("weatherTemp").innerText = "🌡 Temp: " + w.temperature + "°C";
+        document.getElementById("weatherWind").innerText = "💨 Wind: " + w.windspeed + " km/h";
+    } catch (e) {
+        document.getElementById("weatherLoc").innerText = "Weather unavailable";
+    }
+}
+
+/* fallback */
+function fallbackWeather(){
+    loadWeather(-24.65, 24.73); // Jwaneng
+}
+
+if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(
+        pos => loadWeather(pos.coords.latitude, pos.coords.longitude),
+        fallbackWeather
+    );
+} else {
+    fallbackWeather();
+}
 </script>
 
 </body>
