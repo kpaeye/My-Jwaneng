@@ -12,6 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -37,7 +38,7 @@ header p {
   font-size: 16px;
 }
 
-/* HERO SECTION */
+/* HERO */
 .hero {
   background: white;
   margin: 15px;
@@ -46,17 +47,6 @@ header p {
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-.hero h2 {
-  color: #0b1f3a;
-  margin-top: 0;
-}
-
-.hero p {
-  color: #555;
-  line-height: 1.7;
-}
-
-/* STATS */
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -77,21 +67,6 @@ header p {
   font-size: 24px;
 }
 
-.stat-card span {
-  color: #666;
-  font-size: 13px;
-}
-
-/* MAIN CONTENT */
-.container {
-  padding: 15px;
-}
-
-.section-title {
-  color: #0b1f3a;
-  margin-bottom: 15px;
-}
-
 /* JOB CARDS */
 .job-card {
   background: white;
@@ -102,6 +77,7 @@ header p {
   box-shadow: 0 3px 10px rgba(0,0,0,0.08);
   cursor: pointer;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .job-card:hover {
@@ -123,6 +99,35 @@ header p {
   font-size: 13px;
   color: #777;
   margin-top: 8px;
+}
+
+/* STATUS BADGE */
+.job-status {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.active {
+  background: #e6fff0;
+  color: #00a651;
+  border: 1px solid #00a651;
+}
+
+.soon {
+  background: #fff6e0;
+  color: #ff9800;
+  border: 1px solid #ff9800;
+}
+
+.expired {
+  background: #ffe6e6;
+  color: #d10000;
+  border: 1px solid #d10000;
 }
 
 /* MODAL */
@@ -168,15 +173,6 @@ header p {
   background: #174a8b;
 }
 
-@media(max-width:600px){
-  header h1{
-    font-size:28px;
-  }
-
-  .hero{
-    margin:10px;
-  }
-}
 </style>
 </head>
 
@@ -190,55 +186,29 @@ header p {
 <div class="hero">
   <h2>Find Your Next Opportunity</h2>
 
-  <p>
-    Welcome to the My Jwaneng Jobs & Opportunities platform.
-    Discover employment opportunities, internships, apprenticeships,
-    graduate programs, scholarships, tenders, training opportunities,
-    and community projects from Jwaneng and across Botswana.
-  </p>
-
-  <p>
-    Our mission is to connect job seekers, employers, entrepreneurs,
-    students, and professionals through one smart community platform.
-  </p>
-
   <div class="stats">
     <div class="stat-card">
       <h3 id="jobCount">0</h3>
-      <span>Active Opportunities</span>
-    </div>
-
-    <div class="stat-card">
-      <h3>24/7</h3>
-      <span>Access Anywhere</span>
-    </div>
-
-    <div class="stat-card">
-      <h3>BW</h3>
-      <span>Botswana Focused</span>
+      <span>Active Jobs</span>
     </div>
   </div>
 </div>
 
-<div class="container">
-  <h2 class="section-title">Latest Opportunities</h2>
-
-  <div id="jobsContainer">
-    Loading jobs...
-  </div>
+<div style="padding:15px;">
+  <h2>Latest Opportunities</h2>
+  <div id="jobsContainer">Loading jobs...</div>
 </div>
 
-<!-- JOB DETAILS MODAL -->
+<!-- MODAL -->
 <div class="modal" id="jobModal">
   <div class="modal-content">
-
     <span class="close" onclick="closeModal()">✖</span>
 
     <h2 id="m_title"></h2>
 
     <p><b>Company:</b> <span id="m_company"></span></p>
     <p><b>Location:</b> <span id="m_location"></span></p>
-    <p><b>Job Type:</b> <span id="m_type"></span></p>
+    <p><b>Type:</b> <span id="m_type"></span></p>
 
     <p><b>Description:</b></p>
     <p id="m_description"></p>
@@ -251,76 +221,82 @@ header p {
     <p><b>Contact:</b></p>
     <p id="m_contact"></p>
 
-    <a id="m_apply" class="apply-btn" target="_blank">
-      Apply Now
-    </a>
-
+    <a id="m_apply" class="apply-btn" target="_blank">Apply Now</a>
   </div>
 </div>
 
 <script>
+
 const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
-
-const client = supabase.createClient(
-  supabaseUrl,
-  supabaseKey
-);
+const client = supabase.createClient(supabaseUrl, supabaseKey);
 
 let jobsData = [];
 
-async function loadJobs() {
+/* ================= STATUS LOGIC ================= */
+function getStatus(dateStr){
 
-  const { data, error } = await client
+  if(!dateStr) return {text:"Unknown", class:"soon"};
+
+  const today = new Date();
+  const expiry = new Date(dateStr);
+
+  const diff = Math.ceil((expiry - today) / (1000*60*60*24));
+
+  if(diff < 0){
+    return {text:"Expired", class:"expired"};
+  }
+  if(diff <= 3){
+    return {text:"Closing Soon", class:"soon"};
+  }
+  return {text:"Active", class:"active"};
+}
+
+/* ================= LOAD JOBS ================= */
+async function loadJobs(){
+
+  const { data } = await client
     .from("jobs")
     .select("*")
-    .eq("status", "active")
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    document.getElementById("jobsContainer").innerHTML =
-      "Error loading jobs.";
-    return;
-  }
+    .order("created_at", { ascending:false });
 
   jobsData = data || [];
 
-  document.getElementById("jobCount").innerText =
-    jobsData.length;
+  let activeCount = 0;
+
+  jobsData.forEach(job => {
+    const status = getStatus(job.closing_date);
+    if(status.text === "Active") activeCount++;
+  });
+
+  document.getElementById("jobCount").innerText = activeCount;
 
   renderJobs();
 }
 
-function renderJobs() {
+/* ================= RENDER ================= */
+function renderJobs(){
 
-  const container =
-    document.getElementById("jobsContainer");
-
+  const container = document.getElementById("jobsContainer");
   container.innerHTML = "";
 
-  if (jobsData.length === 0) {
-    container.innerHTML =
-      "<p>No opportunities available yet.</p>";
-    return;
-  }
-
   jobsData.forEach((job, index) => {
+
+    const status = getStatus(job.closing_date);
 
     container.innerHTML += `
       <div class="job-card" onclick="openJob(${index})">
 
-        <div class="job-title">
-          ${job.title || ""}
+        <div class="job-status ${status.class}">
+          ${status.text}
         </div>
 
-        <div class="job-company">
-          ${job.company || ""}
-        </div>
+        <div class="job-title">${job.title || ""}</div>
+        <div class="job-company">${job.company || ""}</div>
 
         <div class="job-meta">
-          📍 ${job.location || "Location not specified"}
-          &nbsp; | &nbsp;
-          💼 ${job.job_type || "Not specified"}
+          📍 ${job.location || "N/A"} |
+          💼 ${job.job_type || "N/A"}
         </div>
 
       </div>
@@ -328,72 +304,49 @@ function renderJobs() {
   });
 }
 
-function openJob(index) {
+/* ================= MODAL ================= */
+function openJob(index){
 
   const job = jobsData[index];
 
-  document.getElementById("m_title").innerText =
-    job.title || "";
-
-  document.getElementById("m_company").innerText =
-    job.company || "N/A";
-
-  document.getElementById("m_location").innerText =
-    job.location || "N/A";
-
-  document.getElementById("m_type").innerText =
-    job.job_type || "N/A";
-
-  document.getElementById("m_description").innerText =
-    job.description || "N/A";
-
-  document.getElementById("m_requirements").innerText =
-    job.requirements || "N/A";
-
-  document.getElementById("m_closing").innerText =
-    job.closing_date || "N/A";
+  document.getElementById("m_title").innerText = job.title || "";
+  document.getElementById("m_company").innerText = job.company || "";
+  document.getElementById("m_location").innerText = job.location || "";
+  document.getElementById("m_type").innerText = job.job_type || "";
+  document.getElementById("m_description").innerText = job.description || "";
+  document.getElementById("m_requirements").innerText = job.requirements || "";
+  document.getElementById("m_closing").innerText = job.closing_date || "";
 
   let contact = "";
+  if(job.application_email) contact += job.application_email;
+  if(job.contact_number) contact += " | " + job.contact_number;
 
-  if (job.application_email) {
-    contact += "Email: " + job.application_email + "\n";
-  }
+  document.getElementById("m_contact").innerText = contact || "N/A";
 
-  if (job.contact_number) {
-    contact += "Phone: " + job.contact_number;
-  }
+  const btn = document.getElementById("m_apply");
 
-  document.getElementById("m_contact").innerText =
-    contact || "N/A";
-
-  const applyBtn =
-    document.getElementById("m_apply");
-
-  if (job.application_link) {
-    applyBtn.style.display = "inline-block";
-    applyBtn.href = job.application_link;
+  if(job.application_link){
+    btn.style.display = "inline-block";
+    btn.href = job.application_link;
   } else {
-    applyBtn.style.display = "none";
+    btn.style.display = "none";
   }
 
-  document.getElementById("jobModal").style.display =
-    "block";
+  document.getElementById("jobModal").style.display = "block";
 }
 
-function closeModal() {
-  document.getElementById("jobModal").style.display =
-    "none";
+function closeModal(){
+  document.getElementById("jobModal").style.display = "none";
 }
 
-window.onclick = function(event) {
-  const modal = document.getElementById("jobModal");
-
-  if (event.target === modal) {
+window.onclick = function(e){
+  if(e.target === document.getElementById("jobModal")){
     closeModal();
   }
 };
 
 loadJobs();
+
 </script>
 
 </body>
