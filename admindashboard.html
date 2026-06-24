@@ -31,6 +31,7 @@ body {
   margin-bottom: 5px;
   cursor: pointer;
   text-decoration: none;
+  border-radius: 6px;
 }
 
 .sidebar a:hover { background: #1d3b66; }
@@ -51,16 +52,22 @@ body {
 input, textarea, select {
   width: 100%;
   padding: 10px;
-  margin: 8px 0 15px;
+  margin: 6px 0 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
 }
 
 button {
   background: #0b1f3a;
   color: white;
-  padding: 10px;
+  padding: 8px 12px;
   border: none;
   cursor: pointer;
+  border-radius: 5px;
+  margin-right: 5px;
 }
+
+button:hover { background: #174a8b; }
 
 .hidden { display: none; }
 
@@ -68,11 +75,17 @@ button {
   padding: 10px;
   border-bottom: 1px solid #eee;
 }
+
+.small-btn {
+  font-size: 12px;
+  padding: 5px 8px;
+}
 </style>
 </head>
 
 <body>
 
+<!-- SIDEBAR -->
 <div class="sidebar">
   <h2>Admin</h2>
   <a onclick="showSection('news')">News</a>
@@ -97,11 +110,7 @@ button {
     <input id="news_author" placeholder="Author">
     <button onclick="addNews()">Publish</button>
   </div>
-
-  <div class="card">
-    <h3>Latest News</h3>
-    <div id="newsList"></div>
-  </div>
+  <div class="card"><h3>News List</h3><div id="newsList"></div></div>
 </div>
 
 <!-- UPDATES -->
@@ -113,81 +122,91 @@ button {
       <option>announcement</option>
       <option>notice</option>
     </select>
-    <textarea id="update_message"></textarea>
+    <textarea id="update_message" placeholder="Message"></textarea>
     <button onclick="addUpdate()">Post</button>
   </div>
-
-  <div class="card">
-    <h3>Latest Updates</h3>
-    <div id="updateList"></div>
-  </div>
+  <div class="card"><h3>Updates</h3><div id="updateList"></div></div>
 </div>
 
 <!-- EVENTS -->
 <div id="events" class="section hidden">
   <div class="card">
     <h3>Add Event</h3>
-    <input id="event_title">
-    <select id="event_category">
-      <option>Music</option>
-      <option>Sports</option>
-      <option>Business</option>
-    </select>
+    <input id="event_title" placeholder="Title">
     <input id="event_date" type="date">
-    <input id="event_location">
-    <textarea id="event_description"></textarea>
-    <input id="event_image">
+    <input id="event_location" placeholder="Location">
+    <textarea id="event_description" placeholder="Description"></textarea>
     <button onclick="addEvent()">Publish</button>
   </div>
-
-  <div class="card">
-    <h3>Events</h3>
-    <div id="eventList"></div>
-  </div>
+  <div class="card"><h3>Events</h3><div id="eventList"></div></div>
 </div>
 
 <!-- JOBS -->
 <div id="jobs" class="section hidden">
   <div class="card">
     <h3>Add Job</h3>
-    <input id="job_title">
-    <input id="job_company">
-    <input id="job_location">
-    <textarea id="job_description"></textarea>
-    <button onclick="addJob()">Post</button>
+    <input id="job_title" placeholder="Job Title">
+    <input id="job_company" placeholder="Company">
+    <input id="job_location" placeholder="Location">
+    <textarea id="job_description" placeholder="Description"></textarea>
+    <input id="job_closing_date" type="date">
+    <button onclick="addJob()">Post Job</button>
   </div>
-
-  <div class="card">
-    <h3>Jobs</h3>
-    <div id="jobList"></div>
-  </div>
+  <div class="card"><h3>Jobs</h3><div id="jobList"></div></div>
 </div>
 
 <!-- MARKETPLACE -->
 <div id="marketplace" class="section hidden">
   <div class="card">
     <h3>Add Item</h3>
-    <input id="mp_title">
-    <input id="mp_price">
-    <textarea id="mp_description"></textarea>
+    <input id="mp_title" placeholder="Title">
+    <input id="mp_price" placeholder="Price">
+    <textarea id="mp_description" placeholder="Description"></textarea>
     <button onclick="addMarketplace()">Post</button>
   </div>
-
-  <div class="card">
-    <h3>Items</h3>
-    <div id="mpList"></div>
-  </div>
+  <div class="card"><h3>Items</h3><div id="mpList"></div></div>
 </div>
 
 <!-- BUSINESSES -->
 <div id="businesses" class="section hidden">
   <div class="card">
     <h3>Add Business</h3>
-    <input id="biz_name">
-    <input id="biz_category">
-    <input id="biz_phone">
-    <textarea id="biz_description"></textarea>
-    <button onclick="addBusiness()">Add</button>
+
+    <input id="biz_name" placeholder="Business Name">
+
+    <select id="biz_category">
+      <option value="">Select Category</option>
+      <option>Restaurant</option>
+      <option>Retail Shop</option>
+      <option>Salon / Barber</option>
+      <option>Health / Clinic</option>
+      <option>Automotive</option>
+      <option>Construction</option>
+      <option>ICT / Tech</option>
+      <option>Education</option>
+      <option>Entertainment</option>
+      <option>Other</option>
+    </select>
+
+    <input id="biz_phone" placeholder="Phone Number">
+    <textarea id="biz_description" placeholder="Description"></textarea>
+
+    <input id="biz_facebook" placeholder="Facebook Link">
+    <input id="biz_whatsapp" placeholder="WhatsApp Number">
+    <input id="biz_photo" placeholder="Photo URL">
+
+    <h4>Operating Hours</h4>
+    <select id="biz_open_day">
+      <option>Mon-Fri</option>
+      <option>Mon-Sun</option>
+      <option>Weekends Only</option>
+      <option>Custom</option>
+    </select>
+
+    <input id="biz_open_time" type="time">
+    <input id="biz_close_time" type="time">
+
+    <button onclick="addBusiness()">Add Business</button>
   </div>
 
   <div class="card">
@@ -203,153 +222,171 @@ const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
 const client = supabase.createClient(supabaseUrl, supabaseKey);
 
-/* NAV */
-function showSection(id){
+/* GLOBAL FIX */
+window.showSection = function(id){
   document.querySelectorAll('.section').forEach(s=>s.classList.add('hidden'));
   document.getElementById(id).classList.remove('hidden');
+};
+
+function val(id){
+  return document.getElementById(id)?.value || "";
 }
 
-/* ================= NEWS ================= */
-async function addNews(){
-  const { error } = await client.from("news").insert([{
-    title: news_title.value,
-    category: news_category.value,
-    summary: news_summary.value,
-    content: news_content.value,
-    image_url: news_image.value,
-    author: news_author.value
+async function deleteRow(table,id){
+  await client.from(table).delete().eq("id",id);
+  location.reload();
+}
+
+/* =========================
+UPDATES (FIXED)
+========================= */
+
+async function addUpdate(){
+  await client.from("updates").insert([{
+    type: val("update_type"),
+    message: val("update_message"),
+    created_at: new Date().toISOString()
   }]);
 
-  if(error) return alert(error.message);
+  loadUpdates();
+}
 
-  alert("News added!");
+async function loadUpdates(){
+  let { data } = await client
+    .from("updates")
+    .select("*")
+    .order("id",{ascending:false});
+
+  updateList.innerHTML = (data || []).map(u => `
+    <div class="item">
+      <b>${u.type}</b><br>
+      ${u.message}
+    </div>
+  `).join("");
+}
+/* =========================
+NEWS 
+========================= */
+async function addNews(){
+  await client.from("news").insert([{ 
+    title: val("news_title"),
+    category: val("news_category"),
+    summary: val("news_summary"),
+    content: val("news_content"),
+    image_url: val("news_image"),
+    author: val("news_author")
+  }]);
   loadNews();
 }
 
 async function loadNews(){
   let { data } = await client.from("news").select("*").order("id",{ascending:false});
-  newsList.innerHTML = data.map(n =>
-    `<div class="item"><b>${n.title}</b><br>${n.summary}</div>`
-  ).join("");
+  newsList.innerHTML = (data||[]).map(n=>`
+    <div class="item"><b>${n.title}</b><br>${n.summary}</div>
+  `).join("");
 }
 
-/* ================= UPDATES ================= */
-async function addUpdate(){
-  const { error } = await client.from("updates").insert([{
-    type: update_type.value,
-    message: update_message.value
-  }]);
-
-  if(error) return alert(error.message);
-
-  alert("Update posted!");
-  loadUpdates();
-}
-
-async function loadUpdates(){
-  let { data } = await client.from("updates").select("*").order("id",{ascending:false});
-  updateList.innerHTML = data.map(u =>
-    `<div class="item"><b>${u.type}</b>: ${u.message}</div>`
-  ).join("");
-}
-
-/* ================= EVENTS ================= */
-async function addEvent(){
-  const { error } = await client.from("events").insert([{
-    title: event_title.value,
-    category: event_category.value,
-    date: event_date.value,
-    location: event_location.value,
-    description: event_description.value,
-    image_url: event_image.value
-  }]);
-
-  if(error) return alert(error.message);
-
-  alert("Event added!");
-  loadEvents();
-}
-
-async function loadEvents(){
-  let { data } = await client.from("events").select("*").order("id",{ascending:false});
-  eventList.innerHTML = data.map(e =>
-    `<div class="item"><b>${e.title}</b> - ${e.date}</div>`
-  ).join("");
-}
-
-/* ================= JOBS ================= */
+/* =========================
+JOBS
+========================= */
 async function addJob(){
-  const { error } = await client.from("jobs").insert([{
-    title: job_title.value,
-    company: job_company.value,
-    location: job_location.value,
-    description: job_description.value
+  await client.from("jobs").insert([{ 
+    title: val("job_title"),
+    company: val("job_company"),
+    location: val("job_location"),
+    description: val("job_description"),
+    closing_date: val("job_closing_date")
   }]);
-
-  if(error) return alert(error.message);
-
-  alert("Job added!");
   loadJobs();
 }
 
 async function loadJobs(){
   let { data } = await client.from("jobs").select("*").order("id",{ascending:false});
-  jobList.innerHTML = data.map(j =>
-    `<div class="item"><b>${j.title}</b> - ${j.company}</div>`
-  ).join("");
+  jobList.innerHTML = (data||[]).map(j=>`
+    <div class="item">
+      <b>${j.title}</b> - ${j.company}<br>
+      Closing: ${j.closing_date || "N/A"}
+    </div>
+  `).join("");
 }
 
-/* ================= MARKETPLACE ================= */
-async function addMarketplace(){
-  const { error } = await client.from("marketplace").insert([{
-    title: mp_title.value,
-    price: mp_price.value,
-    description: mp_description.value
-  }]);
-
-  if(error) return alert(error.message);
-
-  alert("Item added!");
-  loadMarketplace();
-}
-
-async function loadMarketplace(){
-  let { data } = await client.from("marketplace").select("*").order("id",{ascending:false});
-  mpList.innerHTML = data.map(m =>
-    `<div class="item"><b>${m.title}</b> - ${m.price}</div>`
-  ).join("");
-}
-
-/* ================= BUSINESSES ================= */
+/* =========================
+BUSINESSES
+========================= */
 async function addBusiness(){
-  const { error } = await client.from("businesses").insert([{
-    name: biz_name.value,
-    category: biz_category.value,
-    phone: biz_phone.value,
-    description: biz_description.value
+  await client.from("businesses").insert([{ 
+    name: val("biz_name"),
+    category: val("biz_category"),
+    phone: val("biz_phone"),
+    description: val("biz_description"),
+    facebook: val("biz_facebook"),
+    whatsapp: val("biz_whatsapp"),
+    photo_url: val("biz_photo"),
+    open_days: val("biz_open_day"),
+    open_time: val("biz_open_time"),
+    close_time: val("biz_close_time")
   }]);
-
-  if(error) return alert(error.message);
-
-  alert("Business added!");
   loadBusinesses();
 }
 
 async function loadBusinesses(){
   let { data } = await client.from("businesses").select("*").order("id",{ascending:false});
-  bizList.innerHTML = data.map(b =>
-    `<div class="item"><b>${b.name}</b> - ${b.category}</div>`
-  ).join("");
+  bizList.innerHTML = (data||[]).map(b=>`
+    <div class="item">
+      <b>${b.name}</b> - ${b.category}<br>
+      📞 ${b.phone || ""}<br>
+      🕒 ${b.open_days || ""} ${b.open_time || ""} - ${b.close_time || ""}
+    </div>
+  `).join("");
+}
+
+/* =========================
+🔥 MARKETPLACE
+========================= */
+
+async function loadMarketplace(){
+  let { data } = await client
+    .from("marketplace_items")
+    .select("*")
+    .eq("status","pending")
+    .order("created_at",{ascending:false});
+
+  mpList.innerHTML = (data||[]).map(item=>`
+    <div class="item">
+      <b>${item.title}</b><br>
+      P${item.price || 0}<br>
+      📍 ${item.location || ""}<br>
+
+      <button onclick="approveItem('${item.id}')">Approve</button>
+      <button onclick="rejectItem('${item.id}')">Reject</button>
+    </div>
+  `).join("");
+}
+
+async function approveItem(id){
+  await client
+    .from("marketplace_items")
+    .update({ status:"active" })
+    .eq("id",id);
+
+  loadMarketplace();
+}
+
+async function rejectItem(id){
+  await client
+    .from("marketplace_items")
+    .delete()
+    .eq("id",id);
+
+  loadMarketplace();
 }
 
 /* INIT */
 window.onload = () => {
   loadNews();
-  loadUpdates();
-  loadEvents();
   loadJobs();
-  loadMarketplace();
   loadBusinesses();
+  loadMarketplace(); // ✅ ONLY ADDITION
 };
 </script>
 
