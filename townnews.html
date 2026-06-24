@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,15 +10,12 @@
 <link rel="manifest" href="manifest.json">
 
 <meta name="theme-color" content="#0b1f3a">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
-/* =========================
-GLOBAL
-========================= */
-
+/* ================= GLOBAL ================= */
 *{
     margin:0;
     padding:0;
@@ -28,17 +24,15 @@ GLOBAL
 
 body{
     font-family:'Poppins',sans-serif;
-    background:#f5f7fb;
+    background:#f4f6fb;
     color:#222;
+    padding-bottom:70px;
 }
 
-/* =========================
-NAVBAR
-========================= */
-
+/* ================= NAVBAR ================= */
 .navbar{
     background:#001f3f;
-    padding:18px 8%;
+    padding:16px 8%;
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -49,7 +43,7 @@ NAVBAR
 
 .logo{
     color:white;
-    font-size:28px;
+    font-size:26px;
     font-weight:700;
 }
 
@@ -57,169 +51,156 @@ NAVBAR
     color:#4fc3f7;
 }
 
-.nav-links{
-    display:flex;
-    gap:25px;
-}
-
-.nav-links a{
-    color:white;
-    text-decoration:none;
-    font-weight:500;
-}
-
-.nav-buttons button{
-    padding:10px 18px;
-    border:none;
-    border-radius:8px;
-    margin-left:10px;
-    cursor:pointer;
-    font-weight:600;
-}
-
-.login-btn{
-    background:transparent;
-    border:2px solid #4fc3f7;
-    color:white;
-}
-
-.register-btn{
-    background:#4fc3f7;
-    color:#001f3f;
-}
-
-/* =========================
-HEADER
-========================= */
-
+/* ================= HEADER ================= */
 .news-header{
-    background:linear-gradient(to right,#001f3f,#003566);
+    background:linear-gradient(135deg,#001f3f,#003566);
     color:white;
-    padding:70px 8%;
+    padding:50px 8%;
     text-align:center;
 }
 
 .news-header h1{
-    font-size:50px;
-    margin-bottom:15px;
+    font-size:42px;
+    margin-bottom:10px;
 }
 
 .news-header p{
     max-width:700px;
     margin:auto;
-    line-height:1.7;
+    opacity:0.9;
 }
 
-/* =========================
-LAYOUT
-========================= */
-
-.news-layout{
-    display:grid;
-    grid-template-columns:2fr 1fr;
-    gap:40px;
-    padding:60px 8%;
+/* ================= FEED ================= */
+.feed{
+    max-width:750px;
+    margin:0 auto;
+    padding:20px 12px;
 }
 
-/* =========================
-NEWS CARD
-========================= */
-
-.news-card{
+/* ================= FEATURED ================= */
+.featured{
     background:white;
-    border-radius:20px;
+    border-radius:18px;
     overflow:hidden;
-    margin-bottom:25px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.08);
-    transition:0.3s;
+    margin-bottom:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
 }
 
-.news-card:hover{
-    transform:translateY(-5px);
+/* ================= CARD ================= */
+.card{
+    background:white;
+    border-radius:16px;
+    overflow:hidden;
+    margin-bottom:18px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.06);
 }
 
-.news-card img{
+/* ================= IMAGE GALLERY ================= */
+.gallery{
+    display:flex;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+}
+
+.gallery img{
     width:100%;
-    height:250px;
+    height:220px;
     object-fit:cover;
+    flex:0 0 100%;
+    scroll-snap-align:start;
+    cursor:pointer;
 }
 
-.news-content{
-    padding:25px;
+/* ================= CONTENT ================= */
+.content{
+    padding:16px;
 }
 
-.news-title{
-    font-size:20px;
+.title{
+    font-size:18px;
     font-weight:700;
     color:#001f3f;
+    margin-bottom:6px;
+}
+
+.meta{
+    font-size:12px;
+    color:#777;
     margin-bottom:10px;
 }
 
-.news-meta{
-    font-size:13px;
-    color:#777;
-    margin-bottom:12px;
-}
-
-.news-text{
+.text{
     font-size:14px;
     color:#444;
-    line-height:1.7;
-    margin-bottom:15px;
+    line-height:1.6;
 }
 
-.read-more{
+.pill{
+    display:inline-block;
+    font-size:11px;
+    padding:4px 10px;
+    background:#eef6ff;
+    color:#1a4d8f;
+    border-radius:20px;
+    margin-bottom:8px;
+}
+
+.read{
+    display:inline-block;
+    margin-top:10px;
     color:#4fc3f7;
-    font-weight:700;
+    font-weight:600;
     text-decoration:none;
 }
 
-/* =========================
-SIDEBAR
-========================= */
-
-.sidebar-widget{
-    background:white;
-    padding:25px;
-    border-radius:20px;
-    margin-bottom:25px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+/* ================= LIGHTBOX ================= */
+.lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.9);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
 }
 
-.sidebar-widget h3{
-    margin-bottom:20px;
-    color:#001f3f;
+.lightbox img{
+    max-width:95%;
+    max-height:80%;
+    border-radius:10px;
 }
 
-.trending-item{
-    padding:12px 0;
-    border-bottom:1px solid #eee;
-    font-size:14px;
-}
-
-/* FOOTER */
-
-footer{
+/* ================= PWA BAR ================= */
+.pwa-bar{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
     background:#001f3f;
+    display:none;
+    justify-content:space-around;
+    padding:10px 0;
+    border-top:1px solid rgba(79,195,247,0.3);
+    z-index:10000;
+}
+
+.pwa-bar a{
     color:white;
-    padding:60px 8%;
-    text-align:center;
+    text-decoration:none;
+    font-size:12px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.pwa-bar span{
+    color:#4fc3f7;
+    font-size:18px;
 }
 
 /* RESPONSIVE */
-
-@media(max-width:900px){
-    .news-layout{
-        grid-template-columns:1fr;
-    }
-
-    .news-header h1{
-        font-size:36px;
-    }
-
-    .nav-links{
-        display:none;
-    }
+@media(max-width:768px){
+    .news-header h1{font-size:30px;}
 }
 
 </style>
@@ -228,139 +209,128 @@ footer{
 
 <body>
 
-<!-- NAVBAR -->
+<!-- NAV -->
 <nav class="navbar">
-
-    <div class="logo">
-        My<span>Jwaneng</span>
-    </div>
-
-    <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="jobs.html">Jobs</a>
-        <a href="marketplace.html">Marketplace</a>
-        <a href="businesses.html">Businesses</a>
-        <a href="events.html">Events</a>
-        <a href="jwanengtowncouncil.html">Jwaneng Town Council</a>
-        <a href="townnews.html">Town News</a>
-    </div>
-    
-
+    <div class="logo">My<span>Jwaneng</span></div>
 </nav>
 
 <!-- HEADER -->
 <section class="news-header">
     <h1>Town News</h1>
-    <p>Stay updated with the latest news, announcements, mine updates, and community happenings in Jwaneng.</p>
+    <p>Live updates, mining news, community alerts and local stories.</p>
 </section>
 
-<!-- CONTENT -->
-<section class="news-layout">
+<!-- FEED -->
+<div class="feed" id="feed"></div>
 
-    <!-- MAIN -->
-    <div>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightboxImg">
+</div>
 
-        <!-- NEWS CONTAINER -->
-        <div id="newsContainer"></div>
+<!-- PWA BAR -->
+<div class="pwa-bar" id="pwaBar">
+    <a href="index.html"><span>🏠</span>Home</a>
+    <a href="exploremyjwaneng.html"><span>🔍</span>Explore</a>
+    <a href="jobs.html"><span>💼</span>Jobs</a>
+    <a href="marketplace.html"><span>🛒</span>Market</a>
+    <a href="townnews.html"><span>📰</span>News</a>
+</div>
 
-    </div>
-
-    <!-- SIDEBAR -->
-    <div>
-
-        <div class="sidebar-widget">
-            <h3>Trending</h3>
-            <div class="trending-item">#MiningSafety</div>
-            <div class="trending-item">#JwanengUpdates</div>
-            <div class="trending-item">#CommunityGrowth</div>
-            <div class="trending-item">#WaterNotice</div>
-        </div>
-
-        <div class="sidebar-widget">
-            <h3>Categories</h3>
-            <div class="trending-item">Mining News</div>
-            <div class="trending-item">Community Updates</div>
-            <div class="trending-item">Government Notices</div>
-            <div class="trending-item">Safety Alerts</div>
-            <div class="trending-item">Events</div>
-        </div>
-
-    </div>
-
-</section>
-
-<footer>
-    © 2026 My Jwaneng | Powered by A-eye Group
-</footer>
-
-<!-- SUPABASE SCRIPT -->
 <script>
+
 const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
-
 const client = supabase.createClient(supabaseUrl, supabaseKey);
 
-const container = document.getElementById("newsContainer");
+const feed = document.getElementById("feed");
 
+/* TIME AGO */
+function timeAgo(date){
+    const diff = (new Date() - new Date(date)) / 1000;
+    const m = diff/60;
+    const h = m/60;
+    const d = h/24;
+
+    if(d > 1) return Math.floor(d)+"d ago";
+    if(h > 1) return Math.floor(h)+"h ago";
+    if(m > 1) return Math.floor(m)+"m ago";
+    return "now";
+}
+
+/* LIGHTBOX */
+function openLightbox(src){
+    document.getElementById("lightbox").style.display = "flex";
+    document.getElementById("lightboxImg").src = src;
+}
+
+function closeLightbox(){
+    document.getElementById("lightbox").style.display = "none";
+}
+
+/* LOAD NEWS */
 async function loadNews(){
 
-    const { data, error } = await client
+    const { data } = await client
         .from("news")
         .select("*")
-        .eq("status", "published")
-        .order("created_at", { ascending:false });
+        .eq("status","published")
+        .order("created_at",{ascending:false});
 
-    if(error){
-        console.log(error);
-        return;
-    }
+    feed.innerHTML = "";
 
-    container.innerHTML = "";
+    if(!data) return;
 
-    if(!data || data.length === 0){
-        container.innerHTML = `
-            <div class="news-card">
-                <div class="news-content">
-                    <div class="news-title">No News Available</div>
-                    <div class="news-text">Check back later for updates.</div>
-                </div>
+    data.forEach((n,i)=>{
+
+        const images = n.images || (n.image_url ? [n.image_url] : []);
+
+        const html = `
+        <div class="${i===0?'featured':'card'}">
+
+            <div class="gallery">
+                ${images.map(img => `
+                    <img src="${img}" onclick="openLightbox('${img}')">
+                `).join('')}
             </div>
-        `;
-        return;
-    }
 
-    data.forEach(news => {
+            <div class="content">
 
-        const card = document.createElement("div");
-        card.className = "news-card";
+                ${n.category ? `<div class="pill">${n.category}</div>`:''}
 
-        card.innerHTML = `
-            <img src="${news.image_url || 'https://via.placeholder.com/1200x600'}">
+                <div class="title">${n.title}</div>
 
-            <div class="news-content">
-
-                <div class="news-title">${news.title}</div>
-
-                <div class="news-meta">
-                    ${news.category || 'General'} • ${new Date(news.created_at).toLocaleDateString()} • By ${news.author || 'Admin'}
+                <div class="meta">
+                    ${timeAgo(n.created_at)} • ${n.author || 'Admin'}
                 </div>
 
-                <div class="news-text">
-                    ${news.summary || ''}
+                <div class="text">
+                    ${n.summary || ''}
                 </div>
 
-                <a class="read-more" href="news-article.html?id=${news.id}">
-                    Read More →
+                <a class="read" href="news-article.html?id=${n.id}">
+                    Read full story →
                 </a>
 
             </div>
-        `;
-
-        container.appendChild(card);
+        </div>`;
+        
+        feed.innerHTML += html;
     });
 }
 
 loadNews();
+
+/* PWA DETECTION */
+function isPWA(){
+    return window.matchMedia('(display-mode: standalone)').matches ||
+           window.navigator.standalone === true;
+}
+
+if(isPWA()){
+    document.getElementById("pwaBar").style.display = "flex";
+}
+
 </script>
 
 </body>
