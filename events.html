@@ -17,6 +17,7 @@
 body{
     font-family:'Poppins',sans-serif;
     background:#f5f7fb;
+    padding-bottom:80px;
 }
 
 /* NAV */
@@ -175,6 +176,7 @@ body{
 /* FOOTER */
 footer{
     margin-top:30px;
+    margin-bottom:20px;
     background:#001f3f;
     color:white;
     text-align:center;
@@ -187,14 +189,14 @@ footer{
     bottom:0;
     left:0;
     width:100%;
+    height:65px;
     background:rgba(0,31,63,0.98);
-    display:flex;
+    display:none;
     justify-content:space-around;
-    padding:10px 0;
+    align-items:center;
     border-top:1px solid rgba(79,195,247,0.3);
     z-index:10000;
 }
-
 .pwa-bar a{
     color:#fff;
     text-decoration:none;
@@ -317,7 +319,6 @@ function render(list){
     });
 }
 
-
 /* ================= FILTER ================= */
 function filterEvents(category, btn){
 
@@ -362,20 +363,31 @@ function outsideClose(e){
 /* ================= INIT ================= */
 loadEvents();
 
-function showPWABar() {
-
-    const isPWA =
+/* ================= PWA DETECTION FIX ================= */
+function isRunningAsPWA() {
+    return (
         window.matchMedia('(display-mode: standalone)').matches ||
-        window.navigator.standalone === true;
+        window.navigator.standalone === true ||   // iOS Safari
+        document.referrer.includes('android-app://') // Android fallback
+    );
+}
 
-    if(isPWA){
-        document.getElementById('pwaBar').style.display = 'flex';
+function handlePWABar() {
+    const bar = document.getElementById('pwaBar');
+
+    if (!bar) return;
+
+    // DEFAULT: hide on web
+    bar.style.display = "none";
+
+    // SHOW ONLY IN PWA MODE
+    if (isRunningAsPWA()) {
+        bar.style.display = "flex";
     }
 }
 
-showPWABar();
+handlePWABar();
 
 </script>
-
 </body>
 </html>
