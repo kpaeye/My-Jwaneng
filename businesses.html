@@ -457,36 +457,34 @@ loadBusinesses();
 </div>
 <script>
 function isRunningAsPWA() {
-  return (
-    window.matchMedia('(display-mode: standalone)').matches ||
-    window.matchMedia('(display-mode: fullscreen)').matches ||
-    window.navigator.standalone === true
-  );
-}
-
-function shouldHideBarOnPage() {
-  const currentPage = window.location.pathname.split("/").pop();
-  return PWA_CONFIG.hideOnPages.includes(currentPage);
+    return (
+        window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone === true ||   // iOS Safari
+        document.referrer.includes('android-app://') // Android fallback
+    );
 }
 
 function handlePWABar() {
-  const bar = document.getElementById("pwaBar");
-  if (!bar) return;
+    const bar = document.getElementById('pwaBar');
 
-  // default hidden
-  bar.classList.remove("show");
+    if (!bar) return;
 
-  const isPWA = isRunningAsPWA();
-  const shouldHide = shouldHideBarOnPage();
+    const isPWA =
+        window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone === true ||
+        document.referrer.includes('android-app://');
 
-  if (isPWA && PWA_CONFIG.showBar && !shouldHide) {
-    setTimeout(() => {
-      bar.classList.add("show");
-    }, 200);
-  }
+    if (isPWA) {
+        // small delay makes animation visible
+        setTimeout(() => {
+            bar.classList.add('show');
+        }, 150);
+    } else {
+        bar.classList.remove('show');
+    }
 }
 
-window.addEventListener("load", handlePWABar);
+handlePWABar();
 </script>
 </body>
 </html>
