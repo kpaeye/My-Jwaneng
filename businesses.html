@@ -312,6 +312,11 @@ footer{
 
 <script>
 
+    const PWA_CONFIG = {
+  showBar: true, // default ON
+  hideOnPages: ["login.html", "signup.html", "splash.html"]
+};
+
 const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
@@ -451,18 +456,37 @@ loadBusinesses();
     <a href="townnews.html"><span>📰</span>News</a>
 </div>
 <script>
-function showPWABar() {
-
-    const isPWA =
-        window.matchMedia('(display-mode: standalone)').matches ||
-        window.navigator.standalone === true;
-
-    if(isPWA){
-        document.getElementById('pwaBar').style.display = 'flex';
-    }
+function isRunningAsPWA() {
+  return (
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.matchMedia('(display-mode: fullscreen)').matches ||
+    window.navigator.standalone === true
+  );
 }
 
-showPWABar();
+function shouldHideBarOnPage() {
+  const currentPage = window.location.pathname.split("/").pop();
+  return PWA_CONFIG.hideOnPages.includes(currentPage);
+}
+
+function handlePWABar() {
+  const bar = document.getElementById("pwaBar");
+  if (!bar) return;
+
+  // default hidden
+  bar.classList.remove("show");
+
+  const isPWA = isRunningAsPWA();
+  const shouldHide = shouldHideBarOnPage();
+
+  if (isPWA && PWA_CONFIG.showBar && !shouldHide) {
+    setTimeout(() => {
+      bar.classList.add("show");
+    }, 200);
+  }
+}
+
+window.addEventListener("load", handlePWABar);
 </script>
 </body>
 </html>
