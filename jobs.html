@@ -392,25 +392,27 @@ loadJobs();
 function isRunningAsPWA() {
   return (
     window.matchMedia('(display-mode: standalone)').matches ||
-    window.navigator.standalone === true ||
-    document.referrer.includes('android-app://')
+    window.matchMedia('(display-mode: fullscreen)').matches ||
+    window.navigator.standalone === true
   );
 }
 
 function handlePWABar() {
   const bar = document.getElementById('pwaBar');
+
   if (!bar) return;
+
+  // ALWAYS reset first
+  bar.classList.remove('show');
 
   if (isRunningAsPWA()) {
     setTimeout(() => {
       bar.classList.add('show');
-    }, 150);
-  } else {
-    bar.classList.remove('show');
+    }, 200);
   }
 }
 
-handlePWABar();
+window.addEventListener('load', handlePWABar);
 </script>
 <!-- PWA CONTROL BAR -->
 <div class="pwa-bar" id="pwaBar">
