@@ -285,9 +285,18 @@ footer{
 
 <script>
 
+
 const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+const categories = [
+"Accommodation","Agriculture","Automotive","Beauty & Wellness",
+"Business Services","Cleaning Services","Construction","Education",
+"Engineering","Entertainment","Food & Beverage","Health",
+"Hospitality","Mining","Retail","Security","Services",
+"Technology","Transport"
+].sort();
 
 let allBusinesses = [];
 
@@ -350,7 +359,30 @@ function closeBiz(){
 }
 
 function openCatModal(){
-    document.getElementById("catModal").style.display="flex";
+    const modal = document.getElementById("catModal");
+    const list = document.getElementById("catList");
+
+    modal.style.display = "flex";
+    list.innerHTML = "";
+
+    // ALL BUTTON
+    list.innerHTML += `<button onclick="filterCategory('All')">🌍 All Businesses</button>`;
+
+    // CATEGORY BUTTONS
+    categories.forEach(c=>{
+        list.innerHTML += `<button onclick="filterCategory('${c}')">${c}</button>`;
+    });
+}
+
+function filterCategory(cat){
+    closeCatModal();
+
+    if(cat === "All"){
+        render(allBusinesses);
+        return;
+    }
+
+    render(allBusinesses.filter(b => b.category === cat));
 }
 
 function closeCatModal(){
