@@ -80,7 +80,7 @@ body{
 
 /* GRID */
 .biz-grid{
-    padding:20px 8% 80px;
+    padding:20px 8% 120px;
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
     gap:18px;
@@ -208,7 +208,7 @@ footer{
     left:0;
     width:100%;
     background:rgba(0,31,63,0.98);
-    display:none;
+    display:flex;
     justify-content:space-around;
     padding:10px 0;
     border-top:1px solid rgba(79,195,247,0.3);
@@ -444,5 +444,19 @@ loadBusinesses();
     <a href="marketplace.html"><span>🛒</span>Market</a>
     <a href="townnews.html"><span>📰</span>News</a>
 </div>
+<script>
+function showPWABar() {
+
+    const isPWA =
+        window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone === true;
+
+    if(isPWA){
+        document.getElementById('pwaBar').style.display = 'flex';
+    }
+}
+
+showPWABar();
+</script>
 </body>
 </html>
