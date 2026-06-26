@@ -215,6 +215,22 @@ header p {
   font-size:18px;
 }
 
+footer{
+  background:#0b1f3a;
+  color:white;
+  text-align:center;
+  padding:15px;
+  font-size:13px;
+
+  /* IMPORTANT: prevents overlap with PWA bar */
+  margin-bottom:65px;
+}
+
+@media (display-mode: browser){
+  .pwa-bar{
+    display:none !important;
+  }
+}
 </style>
 </head>
 
@@ -402,18 +418,26 @@ function handlePWABar() {
 
   if (!bar) return;
 
-  // ALWAYS reset first
+  const isPWA =
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.matchMedia('(display-mode: fullscreen)').matches ||
+    window.navigator.standalone === true;
+
   bar.classList.remove('show');
 
-  if (isRunningAsPWA()) {
+  if (isPWA) {
     setTimeout(() => {
       bar.classList.add('show');
-    }, 200);
+    }, 150);
   }
 }
 
 window.addEventListener('load', handlePWABar);
 </script>
+<!-- FOOTER -->
+<footer>
+  © 2026 My Jwaneng | Powered by A-eye Group
+</footer>
 <!-- PWA CONTROL BAR -->
 <div class="pwa-bar" id="pwaBar">
   <a href="index.html"><span>🏠</span>Home</a>
