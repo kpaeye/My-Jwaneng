@@ -1,424 +1,779 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>My Jwaneng Marketplace</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-
-/* RESET */
 *{
-    margin:0;
-    padding:0;
     box-sizing:border-box;
 }
 
 body{
-    font-family:Poppins, sans-serif;
-    background:#f5f7fb;
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f6fb;
 }
 
 /* HEADER */
 .header{
-    background:#0b1f3a;
+    background:#001f3f;
     color:white;
-    padding:16px;
     text-align:center;
-    position:sticky;
-    top:0;
-    z-index:100;
+    padding:25px 15px;
 }
 
-/* SEARCH */
-.search-wrap{
-    padding:10px;
+.logo{
+    font-size:50px;
+    margin-bottom:5px;
+}
+
+.marketplace-title{
+    font-size:42px;
+    font-weight:900;
+    line-height:1.1;
+}
+
+.marketplace-subtitle{
+    margin-top:8px;
+    font-size:15px;
+    opacity:0.9;
+}
+
+/* SUBMIT BANNER */
+.banner{
+    margin:12px;
     background:white;
-    position:sticky;
-    top:70px;
-    z-index:99;
+    padding:14px;
+    border-radius:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-.search{
-    width:100%;
+.banner button{
+    background:#25D366;
+    color:white;
+    border:none;
+    padding:10px 14px;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* FILTERS */
+.filter-bar{
+    margin:12px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.filter-bar input{
+    flex:1;
+    min-width:120px;
     padding:10px;
     border:1px solid #ddd;
     border-radius:10px;
 }
 
-/* CATEGORY BAR */
-.cat-bar{
-    display:flex;
-    gap:8px;
-    overflow-x:auto;
-    padding:10px;
-    background:white;
-    position:sticky;
-    top:120px;
-    z-index:98;
-}
-
-.chip{
+.filter-bar button{
+    padding:10px 14px;
     border:none;
-    padding:8px 12px;
-    border-radius:20px;
-    font-size:12px;
-    background:#eee;
+    border-radius:10px;
+    background:#001f3f;
+    color:white;
     cursor:pointer;
-    white-space:nowrap;
+    font-weight:bold;
 }
 
-.chip.active{
-    background:#0b1f3a;
+/* TABS */
+.tabs{
+    display:flex;
+    gap:10px;
+    padding:0 12px 12px;
+}
+
+.tab-btn{
+    border:none;
+    padding:10px 18px;
+    border-radius:20px;
+    background:#dfe6ee;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.tab-btn.active{
+    background:#001f3f;
     color:white;
+}
+
+/* SECTION TITLE */
+.section-title{
+    padding:0 15px;
+    margin-bottom:5px;
+    color:#001f3f;
+    font-size:20px;
+    font-weight:700;
 }
 
 /* GRID */
 .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
-    gap:10px;
     padding:10px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(155px,180px));
+    justify-content:center;
+    gap:12px;
 }
 
 /* CARD */
 .card{
     background:white;
-    border-radius:14px;
+    border-radius:12px;
     overflow:hidden;
-    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+    transition:.2s;
 }
 
-.card img{
+.card:hover{
+    transform:translateY(-2px);
+}
+
+.img-box{
+    position:relative;
+}
+
+.img-box img{
     width:100%;
-    height:105px;
+    height:110px;
     object-fit:cover;
 }
 
-.card-body{
-    padding:10px;
-}
-
-.title{
-    font-size:13px;
-    font-weight:600;
-    margin-bottom:4px;
-
-    display:-webkit-box;
-    -webkit-line-clamp:2;
-    -webkit-box-orient:vertical;
-    overflow:hidden;
-}
-
 .price{
-    font-size:15px;
-    font-weight:700;
-    color:#0b1f3a;
-    margin-bottom:4px;
-}
-
-.location{
+    position:absolute;
+    top:6px;
+    left:6px;
+    background:#001f3f;
+    color:white;
+    padding:4px 7px;
+    border-radius:6px;
     font-size:11px;
-    color:#666;
-    margin-bottom:6px;
 }
 
-.description{
+.content{
+    padding:8px;
+}
+
+.item-title{
+    font-size:13px;
+    font-weight:bold;
+}
+
+.desc{
     font-size:11px;
     color:#555;
-    margin-bottom:8px;
-
-    display:-webkit-box;
-    -webkit-line-clamp:2;
-    -webkit-box-orient:vertical;
+    margin-top:4px;
+    height:28px;
     overflow:hidden;
 }
 
+.area{
+    font-size:10px;
+    color:#777;
+    margin-top:5px;
+}
+
+/* ACTIONS */
 .actions{
     display:flex;
-    gap:6px;
+    gap:5px;
+    padding:8px;
 }
 
 .btn{
-    border:none;
-    background:#0b1f3a;
-    color:white;
-    padding:8px;
-    border-radius:8px;
-    font-size:11px;
     flex:1;
+    text-align:center;
+    text-decoration:none;
+    padding:7px;
+    border-radius:8px;
+    font-size:10px;
+    font-weight:bold;
 }
 
-/* MODAL */
-.modal{
-    display:none;
+.whatsapp{
+    background:#25D366;
+    color:white;
+}
+
+.call{
+    background:#001f3f;
+    color:white;
+}
+
+/* FLOAT BUTTON */
+.fab{
     position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.6);
-    z-index:999;
+    right:20px;
+    bottom:20px;
+    width:55px;
+    height:55px;
+    background:#25D366;
+    color:white;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    font-size:24px;
+    box-shadow:0 3px 10px rgba(0,0,0,.2);
 }
 
-.modal-content{
-    background:white;
-    width:92%;
-    max-width:450px;
-    margin:40px auto;
-    padding:18px;
-    border-radius:14px;
-}
+@media(max-width:600px){
 
-input,textarea,select{
-    width:100%;
+    .marketplace-title{
+        font-size:34px;
+    }
+
+    .banner{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+}
+.filter-bar select{
     padding:10px;
-    margin-bottom:10px;
     border:1px solid #ddd;
     border-radius:10px;
+    min-width:180px;
+}
+/* CATEGORY CHIPS */
+
+.categories{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding:0 12px 12px;
+    scrollbar-width:none;
 }
 
-textarea{
-    min-height:90px;
+.categories::-webkit-scrollbar{
+    display:none;
+}
+
+.cat-btn{
+    border:none;
+    background:white;
+    padding:10px 15px;
+    border-radius:20px;
+    cursor:pointer;
+    white-space:nowrap;
+    font-weight:600;
+    box-shadow:0 2px 6px rgba(0,0,0,.08);
+}
+
+.cat-btn.active{
+    background:#001f3f;
+    color:white;
+}
+
+.img-slider{
+    position:relative;
+    overflow:hidden;
+}
+
+.slides{
+    display:flex;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+}
+
+.slides img{
+    width:100%;
+    height:110px;
+    object-fit:cover;
+    flex:0 0 100%;
+    scroll-snap-align:start;
+}
+
+/* Hide scrollbar */
+.slides::-webkit-scrollbar{
+    display:none;
+}
+
+.slides{
+    scrollbar-width:none;
+}
+
+/* DOTS */
+.dots{
+    position:absolute;
+    bottom:6px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:4px;
+}
+
+.dots span{
+    width:6px;
+    height:6px;
+    background:white;
+    opacity:0.5;
+    border-radius:50%;
 }
 
 </style>
 </head>
-
 <body>
 
+<!-- HEADER -->
 <div class="header">
-    <h2>🛒 My Jwaneng Marketplace</h2>
-    <button class="btn" onclick="openModal()">+ Post Item</button>
+    <div class="logo">🛒</div>
+
+    <div class="marketplace-title">
+        My Jwaneng
+    </div>
+
+    <div style="font-size:24px;font-weight:700;">
+        Marketplace
+    </div>
+
+    <div class="marketplace-subtitle">
+        Buy • Sell • Discover items in Jwaneng and surrounding areas
+    </div>
 </div>
 
+<!-- SUBMIT BANNER -->
+<div class="banner">
+
+    <div>
+        <b>Sell something?</b><br>
+        Send photos, price, location and contact details via WhatsApp for approval and publishing.
+    </div>
+
+    <a href="https://wa.me/26771485362?text=Hello%20My%20Jwaneng%20Team%20I%20want%20to%20submit%20an%20item"
+       target="_blank">
+
+       <button>Submit Item</button>
+
+    </a>
+
+</div>
+
+<!-- FILTERS -->
 <!-- SEARCH -->
-<div class="search-wrap">
-    <input id="search" class="search" placeholder="Search items..." onkeyup="applyFilters()">
+<div class="filter-bar">
+    <input type="text"
+           id="searchInput"
+           placeholder="Search items...">
+
+    <button onclick="filterItems()">
+        Search
+    </button>
+
+    <button onclick="resetFilter()">
+        Reset
+    </button>
 </div>
 
-<!-- CATEGORY BAR -->
-<div class="cat-bar">
-    <button class="chip active" onclick="setCategory('all')">All</button>
-    <button class="chip" onclick="setCategory('Electronics')">Electronics</button>
-    <button class="chip" onclick="setCategory('Vehicles')">Vehicles</button>
-    <button class="chip" onclick="setCategory('Property')">Property</button>
-    <button class="chip" onclick="setCategory('Services')">Services</button>
-    <button class="chip" onclick="setCategory('Agriculture')">Agriculture</button>
-    <button class="chip" onclick="setCategory('Furniture')">Furniture</button>
+<!-- CATEGORY CHIPS -->
+<div class="categories">
+
+    <button class="cat-btn active" onclick="filterCategory('', this)">
+        All
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('electronics', this)">
+        📱 Electronics
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('vehicles', this)">
+        🚗 Vehicles
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('property', this)">
+        🏠 Property
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('furniture', this)">
+        🪑 Furniture
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('fashion', this)">
+        👕 Fashion
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('baby', this)">
+        🧸 Baby Items
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('gaming', this)">
+        🎮 Gaming
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('jobs', this)">
+        💼 Jobs
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('services', this)">
+        🛠 Services
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('business', this)">
+        📢 Business Ads
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('livestock', this)">
+        🐄 Livestock
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('agriculture', this)">
+        🌽 Agriculture
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('construction', this)">
+        🏗 Construction
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('food', this)">
+        🍔 Food & Catering
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('transport', this)">
+        🚕 Transport
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('education', this)">
+        📚 Education
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('events', this)">
+        🎟 Events
+    </button>
+
+    <button class="cat-btn" onclick="filterCategory('other', this)">
+        ❓ Other
+    </button>
+
 </div>
 
-<div class="grid" id="grid"></div>
 
-<!-- MODAL -->
-<div class="modal" id="modal">
+<!-- TABS -->
+<div class="tabs">
 
-<div class="modal-content">
+    <button class="tab-btn active"
+            onclick="showSection('latest', this)">
+        Latest
+    </button>
 
-<h3>Post Item</h3>
-
-<input id="title" placeholder="Item title">
-<input id="price" type="number" placeholder="Price">
-
-<select id="category">
-    <option>Electronics</option>
-    <option>Vehicles</option>
-    <option>Property</option>
-    <option>Services</option>
-    <option>Agriculture</option>
-    <option>Furniture</option>
-</select>
-
-<input id="location" placeholder="Location (e.g. Jwaneng)">
-<textarea id="description" placeholder="Description"></textarea>
-
-<input type="file" id="imageFile" accept="image/*" capture="environment">
-
-<input id="phone" placeholder="Phone">
-<input id="whatsapp" placeholder="WhatsApp">
-<input id="facebook" placeholder="Facebook">
-
-<button class="btn" onclick="submitItem()">Submit</button>
-<button class="btn" style="background:red;margin-top:8px;" onclick="closeModal()">Close</button>
+    <button class="tab-btn"
+            onclick="showSection('all', this)">
+        View All
+    </button>
 
 </div>
-</div>
 
-<script>
+<!-- LATEST -->
+<div id="latest-section">
 
-const supabaseUrl="https://jxigyoxikaqwwzfnccej.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
+    <div class="section-title">
+        🔥 Latest Listings
+    </div>
 
-const supabaseClient =
-window.supabase?.createClient
-? window.supabase.createClient(supabaseUrl,supabaseKey)
-: null;
-
-let allItems=[];
-let currentCategory="all";
-
-/* LOAD */
-async function loadItems(){
-
-    const {data}=await supabaseClient
-    .from("marketplace_items")
-    .select("*")
-    .order("created_at",{ascending:false});
-
-    allItems=data || [];
-    applyFilters();
-}
-
-/* CATEGORY */
-function setCategory(cat){
-
-    currentCategory=cat;
-
-    document.querySelectorAll(".chip")
-    .forEach(b=>b.classList.remove("active"));
-
-    event.target.classList.add("active");
-
-    applyFilters();
-}
-
-/* FILTER */
-function applyFilters(){
-
-    const q=document.getElementById("search").value.toLowerCase();
-
-    let items=allItems;
-
-    if(currentCategory!=="all"){
-        items=items.filter(i=>
-            (i.category||"").toLowerCase()===currentCategory.toLowerCase()
-        );
-    }
-
-    items=items.filter(i=>
-        (i.title||"").toLowerCase().includes(q) ||
-        (i.location||"").toLowerCase().includes(q) ||
-        (i.description||"").toLowerCase().includes(q)
-    );
-
-    render(items);
-}
-
-/* RENDER */
-function render(items){
-
-    const grid=document.getElementById("grid");
-
-    if(items.length===0){
-        grid.innerHTML="<p style='padding:20px'>No items found</p>";
-        return;
-    }
-
-    grid.innerHTML="";
-
-    items.forEach(item=>{
-
-        const wa=item.whatsapp
-        ? `https://wa.me/${item.whatsapp.replace(/\D/g,'')}`
-        : null;
-
-        grid.innerHTML+=`
+    <div class="grid">
 
         <div class="card">
-
-            <img src="${item.image_url || 'https://via.placeholder.com/300'}">
-
-            <div class="card-body">
-
-                <div class="title">${item.title}</div>
-
-                <div class="price">P ${item.price}</div>
-
-                <div class="location">📍 ${item.location || 'Unknown'}</div>
-
-                <div class="description">${item.description || ''}</div>
-
-                <div class="actions">
-
-                    ${
-                    item.phone
-                    ? `<a href="tel:${item.phone}" style="flex:1"><button class="btn">Call</button></a>`
-                    : ""
-                    }
-
-                    ${
-                    wa
-                    ? `<a href="${wa}" target="_blank" style="flex:1"><button class="btn">WhatsApp</button></a>`
-                    : ""
-                    }
-
-                </div>
-
+            <div class="img-box">
+                <img src="https://via.placeholder.com/400x300">
+                <div class="price">P900</div>
             </div>
 
-        </div>`;
+            <div class="content">
+                <div class="item-title">Samsung A12</div>
+                <div class="desc">Good condition phone working perfectly.</div>
+                <div class="area">📍 Jwaneng Central</div>
+                <div class="item-category" data-category="electronics"></div>
+            </div>
+
+            <div class="actions">
+                <a class="btn whatsapp" href="#">WhatsApp</a>
+                <a class="btn call" href="tel:26771485362">Call</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="img-slider">
+
+    <div class="slides">
+        <img src="https://via.placeholder.com/400x300">
+        <img src="https://via.placeholder.com/400x300/001f3f">
+        <img src="https://via.placeholder.com/400x300/25D366">
+    </div>
+
+    <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="price">P900</div>
+
+</div>
+
+            <div class="content">
+                <div class="item-title">Office Chair</div>
+                <div class="item-category" data-category="furniture"></div>
+                <div class="desc">Comfortable chair almost new condition.</div>
+                <div class="area">📍 Jwaneng West</div>
+            </div>
+
+            <div class="actions">
+                <a class="btn whatsapp" href="#">WhatsApp</a>
+                <a class="btn call" href="tel:26771485362">Call</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- VIEW ALL -->
+<div id="all-section" style="display:none;">
+
+    <div class="section-title">
+        📋 All Listings
+    </div>
+
+    <div class="grid" id="allGrid">
+
+        <!-- Copy all your marketplace cards here -->
+
+    </div>
+
+</div>
+
+<!-- FLOATING WHATSAPP -->
+<a class="fab"
+   href="https://wa.me/26771485362"
+   target="_blank">
+💬
+</a>
+
+<script>
+const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
+const { createClient } = supabase;
+
+const sb = createClient(supabaseUrl, supabaseKey);
+/* STATE */
+let selectedCategory = "";
+
+/* SECTION SWITCH */
+function showSection(section, btn){
+
+    document.getElementById('latest-section').style.display = 'none';
+    document.getElementById('all-section').style.display = 'none';
+
+    document.getElementById(section + '-section').style.display = 'block';
+
+    document.querySelectorAll('.tab-btn')
+        .forEach(b => b.classList.remove('active'));
+
+    btn.classList.add('active');
+}
+
+/* CATEGORY FILTER */
+function filterCategory(category, btn){
+
+    selectedCategory = category;
+
+    document.querySelectorAll('.cat-btn')
+        .forEach(b => b.classList.remove('active'));
+
+    btn.classList.add('active');
+
+    applyFilters();
+}
+
+/* SEARCH + CATEGORY FILTER (FIXED SINGLE ENGINE) */
+function applyFilters(){
+
+    let search = document.getElementById("searchInput").value.toLowerCase();
+
+    document.querySelectorAll(".card").forEach(card => {
+
+        let title = card.querySelector(".item-title")?.innerText.toLowerCase() || "";
+        let desc = card.querySelector(".desc")?.innerText.toLowerCase() || "";
+        let category = card.dataset.category || "";
+
+        let matchSearch =
+            title.includes(search) ||
+            desc.includes(search);
+
+        let matchCategory =
+            selectedCategory === "" ||
+            category === selectedCategory;
+
+        card.style.display =
+            (matchSearch && matchCategory) ? "block" : "none";
     });
 }
 
-/* UPLOAD */
+/* RESET */
+function resetFilter(){
+
+    document.getElementById("searchInput").value = "";
+    selectedCategory = "";
+
+    document.querySelectorAll(".cat-btn")
+        .forEach(b => b.classList.remove("active"));
+
+    document.querySelectorAll(".card")
+        .forEach(c => c.style.display = "block");
+}
+
+/* SAFE SLIDER (ONLY IF EXISTS) */
+document.querySelectorAll(".img-slider").forEach(slider => {
+
+    const slides = slider.querySelector(".slides");
+    const dots = slider.querySelectorAll(".dots span");
+
+    if(!slides || dots.length === 0) return;
+
+    slides.addEventListener("scroll", () => {
+
+        let index = Math.round(slides.scrollLeft / slides.clientWidth);
+
+        dots.forEach((dot, i) => {
+            dot.style.opacity = (i === index) ? "1" : "0.3";
+        });
+
+    });
+
+});
+async function loadItems(){
+
+    const { data, error } = await sb
+        .from("marketplace_items")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if(error){
+        console.error(error);
+        return;
+    }
+
+    renderItems(data);
+}
+function renderItems(items){
+
+    const grid = document.getElementById("allGrid");
+    grid.innerHTML = "";
+
+    items.forEach(item => {
+
+        let media = "";
+
+        /* IMAGES */
+        if(item.images && item.images.length > 0){
+            media += `<div class="slides">`;
+            item.images.forEach(img => {
+                media += `<img src="${img}">`;
+            });
+            media += `</div>`;
+        }
+
+        /* VIDEO */
+        if(item.video){
+            media += `
+                <video controls style="width:100%;height:110px;object-fit:cover;">
+                    <source src="${item.video}">
+                </video>
+            `;
+        }
+
+        let card = document.createElement("div");
+        card.className = "card";
+        card.dataset.category = item.category;
+
+        card.innerHTML = `
+            <div class="img-slider">
+                ${media}
+            </div>
+
+            <div class="content">
+                <div class="item-title">${item.title}</div>
+                <div class="desc">${item.description}</div>
+                <div class="area">${item.area}</div>
+            </div>
+
+            <div class="actions">
+                <a class="btn whatsapp">WhatsApp</a>
+                <a class="btn call">Call</a>
+            </div>
+        `;
+
+        grid.appendChild(card);
+    });
+}
+async function addItem(item){
+
+    const { error } = await sb
+        .from("marketplace_items")
+        .insert([item]);
+
+    if(error){
+        console.error(error);
+        alert("Upload failed");
+    } else {
+        alert("Item added successfully");
+        loadItems();
+    }
+}
 async function uploadImage(file){
 
-    if(!file) return "";
+    const fileName = Date.now() + "_" + file.name;
 
-    const fileName=Date.now()+"-"+file.name;
+    const { data, error } = await sb
+        .storage
+        .from("marketplace-media")
+        .upload("images/" + fileName, file);
 
-    await supabaseClient.storage
-    .from("marketplace-images")
-    .upload(fileName,file);
+    if(error){
+        console.error(error);
+        return null;
+    }
 
-    const {data}=supabaseClient.storage
-    .from("marketplace-images")
-    .getPublicUrl(fileName);
-
-    return data.publicUrl;
+    return sb.storage
+        .from("marketplace-media")
+        .getPublicUrl("images/" + fileName).data.publicUrl;
 }
+async function uploadVideo(file){
 
-/* SUBMIT */
-async function submitItem(){
+    const fileName = Date.now() + "_" + file.name;
 
-    const file=document.getElementById("imageFile").files[0];
-    const image_url=await uploadImage(file);
+    const { error } = await sb
+        .storage
+        .from("marketplace-media")
+        .upload("videos/" + fileName, file);
 
-    const item={
-        title:title.value,
-        price:price.value,
-        category:category.value,
-        location:location.value,
-        description:description.value,
-        image_url,
-        phone:phone.value,
-        whatsapp:whatsapp.value,
-        facebook:facebook.value,
-        status:"active"
-    };
+    if(error){
+        console.error(error);
+        return null;
+    }
 
-    await supabaseClient
-    .from("marketplace_items")
-    .insert([item]);
-
-    closeModal();
+    return sb.storage
+        .from("marketplace-media")
+        .getPublicUrl("videos/" + fileName).data.publicUrl;
+}
+window.onload = () => {
     loadItems();
-}
-
-/* MODAL */
-function openModal(){
-    document.getElementById("modal").style.display="block";
-}
-
-function closeModal(){
-    document.getElementById("modal").style.display="none";
-}
-
-document.addEventListener("DOMContentLoaded",loadItems);
+};
 
 </script>
 
