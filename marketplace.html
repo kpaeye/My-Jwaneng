@@ -1,278 +1,82 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Jwaneng Marketplace</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{
-    box-sizing:border-box;
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f4f6f9;
 }
 
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f4f6fb;
+/* NAV */
+.nav {
+    background: #001f3f;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* HEADER */
-.header{
-    background:#001f3f;
-    color:white;
-    text-align:center;
-    padding:25px 15px;
-}
-
-.logo{
-    font-size:50px;
-    margin-bottom:5px;
-}
-
-.marketplace-title{
-    font-size:42px;
-    font-weight:900;
-    line-height:1.1;
-}
-
-.marketplace-subtitle{
-    margin-top:8px;
-    font-size:15px;
-    opacity:0.9;
-}
-
-/* SUBMIT BANNER */
-.banner{
-    margin:12px;
-    background:white;
-    padding:14px;
-    border-radius:12px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-
-.banner button{
-    background:#25D366;
-    color:white;
-    border:none;
-    padding:10px 14px;
-    border-radius:10px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-/* FILTERS */
-.filter-bar{
-    margin:12px;
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-}
-
-.filter-bar input{
-    flex:1;
-    min-width:120px;
-    padding:10px;
-    border:1px solid #ddd;
-    border-radius:10px;
-}
-
-.filter-bar button{
-    padding:10px 14px;
-    border:none;
-    border-radius:10px;
-    background:#001f3f;
-    color:white;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-/* TABS */
-.tabs{
-    display:flex;
-    gap:10px;
-    padding:0 12px 12px;
-}
-
-.tab-btn{
-    border:none;
-    padding:10px 18px;
-    border-radius:20px;
-    background:#dfe6ee;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.tab-btn.active{
-    background:#001f3f;
-    color:white;
-}
-
-/* SECTION TITLE */
-.section-title{
-    padding:0 15px;
-    margin-bottom:5px;
-    color:#001f3f;
-    font-size:20px;
-    font-weight:700;
-}
-
-/* GRID */
-.grid{
-    padding:10px;
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(155px,180px));
-    justify-content:center;
-    gap:12px;
+/* CONTAINER */
+.container {
+    padding: 15px;
 }
 
 /* CARD */
+.market-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:15px;
+}
+
 .card{
     background:white;
     border-radius:12px;
     overflow:hidden;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-    transition:.2s;
+    cursor:pointer;
+    transition:0.3s;
 }
 
 .card:hover{
-    transform:translateY(-2px);
+    transform:translateY(-3px);
 }
 
-.img-box{
-    position:relative;
-}
-
-.img-box img{
+.card img{
     width:100%;
-    height:110px;
+    height:220px;
     object-fit:cover;
 }
 
+.card-body{
+    padding:12px;
+}
+
 .price{
-    position:absolute;
-    top:6px;
-    left:6px;
-    background:#001f3f;
-    color:white;
-    padding:4px 7px;
-    border-radius:6px;
-    font-size:11px;
-}
-
-.content{
-    padding:8px;
-}
-
-.item-title{
-    font-size:13px;
+    color:#001f3f;
+    font-size:22px;
     font-weight:bold;
 }
-
-.desc{
-    font-size:11px;
-    color:#555;
-    margin-top:4px;
-    height:28px;
-    overflow:hidden;
-}
-
-.area{
-    font-size:10px;
-    color:#777;
-    margin-top:5px;
-}
-
-/* ACTIONS */
-.actions{
-    display:flex;
-    gap:5px;
-    padding:8px;
-}
-
-.btn{
-    flex:1;
-    text-align:center;
-    text-decoration:none;
-    padding:7px;
-    border-radius:8px;
-    font-size:10px;
-    font-weight:bold;
-}
-
-.whatsapp{
-    background:#25D366;
-    color:white;
-}
-
-.call{
-    background:#001f3f;
-    color:white;
-}
-
-/* FLOAT BUTTON */
-.fab{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    width:55px;
-    height:55px;
-    background:#25D366;
-    color:white;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-decoration:none;
-    font-size:24px;
-    box-shadow:0 3px 10px rgba(0,0,0,.2);
-}
-
-@media(max-width:600px){
-
-    .marketplace-title{
-        font-size:34px;
-    }
-
-    .banner{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-
-}
-.filter-bar select{
-    padding:10px;
-    border:1px solid #ddd;
-    border-radius:10px;
-    min-width:180px;
-}
-/* CATEGORY CHIPS */
 
 .categories{
     display:flex;
-    gap:8px;
-    overflow-x:auto;
-    padding:0 12px 12px;
-    scrollbar-width:none;
-}
-
-.categories::-webkit-scrollbar{
-    display:none;
+    gap:10px;
+    overflow:auto;
+    margin-bottom:15px;
 }
 
 .cat-btn{
     border:none;
-    background:white;
     padding:10px 15px;
-    border-radius:20px;
+    border-radius:30px;
+    background:#e5e7eb;
     cursor:pointer;
-    white-space:nowrap;
-    font-weight:600;
-    box-shadow:0 2px 6px rgba(0,0,0,.08);
 }
 
 .cat-btn.active{
@@ -280,502 +84,716 @@ body{
     color:white;
 }
 
-.img-slider{
-    position:relative;
+/* BUTTONS */
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-primary { background: #001f3f; color: white; }
+.btn-green { background: green; color: white; }
+.btn-blue { background: #007bff; color: white; }
+.btn-red { background: red; color: white; }
+
+/* AUTH BOX */
+.auth-box {
+    max-width: 350px;
+    margin: 80px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+}
+.market-grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+ gap:16px;
+}
+.sell-btn{
+ position:fixed;
+ bottom:20px;
+ right:20px;
+ width:60px;
+ height:60px;
+ border-radius:50%;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.7);
+    z-index:999;
+}
+
+.modal-content{
+    background:white;
+    width:90%;
+    max-width:600px;
+    margin:30px auto;
+    border-radius:15px;
     overflow:hidden;
 }
 
-.slides{
-    display:flex;
-    overflow-x:auto;
-    scroll-snap-type:x mandatory;
-    scroll-behavior:smooth;
-}
 
-.slides img{
+.modal-content img{
     width:100%;
-    height:110px;
+    height:300px;
     object-fit:cover;
-    flex:0 0 100%;
-    scroll-snap-align:start;
+}
+.modal-content input,
+.modal-content select{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+}
+.close{
+    float:right;
+    padding:10px;
+    font-size:30px;
+    cursor:pointer;
+}
+.card-body h3 {
+    font-size: 18px;
+    margin: 5px 0;
 }
 
-/* Hide scrollbar */
-.slides::-webkit-scrollbar{
-    display:none;
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #001f3f;
 }
 
-.slides{
-    scrollbar-width:none;
+.card {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
-
-/* DOTS */
-.dots{
-    position:absolute;
-    bottom:6px;
-    left:50%;
-    transform:translateX(-50%);
+.card-actions{
     display:flex;
-    gap:4px;
+    gap:10px;
+    margin-top:12px;
 }
 
-.dots span{
-    width:6px;
-    height:6px;
-    background:white;
-    opacity:0.5;
-    border-radius:50%;
+.card-actions a{
+    flex:1;
+    text-decoration:none;
 }
 
+.card-actions button{
+    width:100%;
+    padding:10px;
+    font-weight:bold;
+}
 </style>
 </head>
+
 <body>
 
-<!-- HEADER -->
-<div class="header">
-    <div class="logo">🛒</div>
-
-    <div class="marketplace-title">
-        My Jwaneng
-    </div>
-
-    <div style="font-size:24px;font-weight:700;">
-        Marketplace
-    </div>
-
-    <div class="marketplace-subtitle">
-        Buy • Sell • Discover items in Jwaneng and surrounding areas
-    </div>
-</div>
-
-<!-- SUBMIT BANNER -->
-<div class="banner">
+<!-- NAV -->
+<div class="nav">
+    <div>My Jwaneng Marketplace</div>
 
     <div>
-        <b>Sell something?</b><br>
-        Send photos, price, location and contact details via WhatsApp for approval and publishing.
+        <button id="loginBtn" class="btn-blue" onclick="showLogin()">Login</button>
+        <button id="logoutBtn" class="btn-red" onclick="logout()" style="display:none;">
+            Logout
+        </button>
+
+        <button id="myListingsBtn"
+        class="btn-primary"
+        onclick="loadMyListings()"
+        style="display:none;">
+    My Listings
+</button>
+    </div>
+    
+</div>
+<!-- PUBLIC MARKETPLACE -->
+<div class="container">
+
+    <h3>Marketplace</h3>
+
+    <!-- SEARCH -->
+    <input type="text" id="searchInput"
+        placeholder="Search..."
+        onkeyup="filterListings()">
+
+    <!-- CATEGORIES -->
+    <div class="categories">
+        <button class="cat-btn active" onclick="filterCategory('All')">All</button>
+        <button class="cat-btn" onclick="filterCategory('Vehicles')">Vehicles</button>
+        <button class="cat-btn" onclick="filterCategory('Property')">Property</button>
+        <button class="cat-btn" onclick="filterCategory('Electronics')">Electronics</button>
+        <button class="cat-btn" onclick="filterCategory('Furniture')">Furniture</button>
+        <button class="cat-btn" onclick="filterCategory('Jobs')">Jobs</button>
+        <button class="cat-btn" onclick="filterCategory('Services')">Services</button>
+        <button class="cat-btn" onclick="filterCategory('Livestock')">Livestock</button>
+        <button class="cat-btn" onclick="filterCategory('Agriculture')">Agriculture</button>
+        <button class="cat-btn" onclick="filterCategory('Food & Beverages')">Food & Beverages</button>
+        <button class="cat-btn" onclick="filterCategory('Fashion')">Fashion</button>
+        <button class="cat-btn" onclick="filterCategory('Health & Beauty')">Health & Beauty</button>
+        <button class="cat-btn" onclick="filterCategory('Sports & Outdoors')">Sports & Outdoors</button>
+        <button class="cat-btn" onclick="filterCategory('Toys & Games')">Toys & Games</button>
+        <button class="cat-btn" onclick="filterCategory('Books & Media')">Books & Media</button>
+        <button class="cat-btn" onclick="filterCategory('Home & Garden')">Home & Garden</button>
+        <button class="cat-btn" onclick="filterCategory('Services')">Services</button>
+        <button class="cat-btn" onclick="filterCategory('Other')">Other</button>
     </div>
 
-    <a href="https://wa.me/26771485362?text=Hello%20My%20Jwaneng%20Team%20I%20want%20to%20submit%20an%20item"
-       target="_blank">
-
-       <button>Submit Item</button>
-
-    </a>
-
+    <div id="listings" class="market-grid"></div>
 </div>
 
-<!-- FILTERS -->
-<!-- SEARCH -->
-<div class="filter-bar">
-    <input type="text"
-           id="searchInput"
-           placeholder="Search items...">
+<!-- FLOAT SELL BUTTON -->
+<button class="sell-btn btn-primary" onclick="requireLogin()">
+    +
+</button>
 
-    <button onclick="filterItems()">
-        Search
-    </button>
+<div id="loginModal" class="modal">
 
-    <button onclick="resetFilter()">
-        Reset
-    </button>
-</div>
+<div class="modal-content">
 
-<!-- CATEGORY CHIPS -->
-<div class="categories">
+<span onclick="closeLogin()" class="close">&times;</span>
 
-    <button class="cat-btn active" onclick="filterCategory('', this)">
-        All
-    </button>
+<h3>Login</h3>
 
-    <button class="cat-btn" onclick="filterCategory('electronics', this)">
-        📱 Electronics
-    </button>
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
 
-    <button class="cat-btn" onclick="filterCategory('vehicles', this)">
-        🚗 Vehicles
-    </button>
-
-    <button class="cat-btn" onclick="filterCategory('property', this)">
-        🏠 Property
-    </button>
-
-    <button class="cat-btn" onclick="filterCategory('furniture', this)">
-        🪑 Furniture
-    </button>
-
-    <button class="cat-btn" onclick="filterCategory('fashion', this)">
-        👕 Fashion
-    </button>
-
-    <button class="cat-btn" onclick="filterCategory('baby', this)">
-        🧸 Baby Items
-    </button>
-
-    <button class="cat-btn" onclick="filterCategory('gaming', this)">
-        🎮 Gaming
-    </button>
-
-    <button class="cat-btn" onclick="filterCategory('jobs', this)">
-        💼 Jobs
-    </button>
-
-    <button class="cat-btn" onclick="filterCategory('services', this)">
-        🛠 Services
-    </button>
-
-    <button class="cat-btn" onclick="filterCategory('business', this)">
-        📢 Business Ads
-    </button>
-
-    <button class="cat-btn" onclick="filterCategory('livestock', this)">
-        🐄 Livestock
-    </button>
-
-    <button class="cat-btn" onclick="filterCategory('agriculture', this)">
-        🌽 Agriculture
-    </button>
-
-    <button class="cat-btn" onclick="filterCategory('construction', this)">
-        🏗 Construction
-    </button>
-
-    <button class="cat-btn" onclick="filterCategory('food', this)">
-        🍔 Food & Catering
-    </button>
-
-    <button class="cat-btn" onclick="filterCategory('transport', this)">
-        🚕 Transport
-    </button>
-
-    <button class="cat-btn" onclick="filterCategory('education', this)">
-        📚 Education
-    </button>
-
-    <button class="cat-btn" onclick="filterCategory('events', this)">
-        🎟 Events
-    </button>
-
-    <button class="cat-btn" onclick="filterCategory('other', this)">
-        ❓ Other
-    </button>
+<button class="btn-primary" onclick="login()">Login</button>
+<button class="btn-blue" onclick="signup()">Sign Up</button>
 
 </div>
-
-
-<!-- TABS -->
-<div class="tabs">
-
-    <button class="tab-btn active"
-            onclick="showSection('latest', this)">
-        Latest
-    </button>
-
-    <button class="tab-btn"
-            onclick="showSection('all', this)">
-        View All
-    </button>
-
 </div>
-
-<!-- LATEST -->
-<div id="latest-section">
-
-    <div class="section-title">
-        🔥 Latest Listings
-    </div>
-
-    <div class="grid">
-
-        <div class="card">
-            <div class="img-box">
-                <img src="https://via.placeholder.com/400x300">
-                <div class="price">P900</div>
-            </div>
-
-            <div class="content">
-                <div class="item-title">Samsung A12</div>
-                <div class="desc">Good condition phone working perfectly.</div>
-                <div class="area">📍 Jwaneng Central</div>
-                <div class="item-category" data-category="electronics"></div>
-            </div>
-
-            <div class="actions">
-                <a class="btn whatsapp" href="#">WhatsApp</a>
-                <a class="btn call" href="tel:26771485362">Call</a>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="img-slider">
-
-    <div class="slides">
-        <img src="https://via.placeholder.com/400x300">
-        <img src="https://via.placeholder.com/400x300/001f3f">
-        <img src="https://via.placeholder.com/400x300/25D366">
-    </div>
-
-    <div class="dots">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-
-    <div class="price">P900</div>
-
-</div>
-
-            <div class="content">
-                <div class="item-title">Office Chair</div>
-                <div class="item-category" data-category="furniture"></div>
-                <div class="desc">Comfortable chair almost new condition.</div>
-                <div class="area">📍 Jwaneng West</div>
-            </div>
-
-            <div class="actions">
-                <a class="btn whatsapp" href="#">WhatsApp</a>
-                <a class="btn call" href="tel:26771485362">Call</a>
-            </div>
-        </div>
-
-    </div>
-
-</div>
-
-<!-- VIEW ALL -->
-<div id="all-section" style="display:none;">
-
-    <div class="section-title">
-        📋 All Listings
-    </div>
-
-    <div class="grid" id="allGrid">
-
-        <!-- Copy all your marketplace cards here -->
-
-    </div>
-
-</div>
-
-<!-- FLOATING WHATSAPP -->
-<a class="fab"
-   href="https://wa.me/26771485362"
-   target="_blank">
-💬
-</a>
 
 <script>
+window.currentUser = null;
+
 const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
-const { createClient } = supabase;
+const client = supabase.createClient(supabaseUrl, supabaseKey);
 
-const sb = createClient(supabaseUrl, supabaseKey);
-/* STATE */
-let selectedCategory = "";
+console.log("Supabase Loaded");
+/* AUTH */
+async function signup() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-/* SECTION SWITCH */
-function showSection(section, btn){
+    const { error } = await client.auth.signUp({ email, password });
+    if (error) return alert(error.message);
 
-    document.getElementById('latest-section').style.display = 'none';
-    document.getElementById('all-section').style.display = 'none';
-
-    document.getElementById(section + '-section').style.display = 'block';
-
-    document.querySelectorAll('.tab-btn')
-        .forEach(b => b.classList.remove('active'));
-
-    btn.classList.add('active');
+    alert("Check your email to confirm account");
 }
 
-/* CATEGORY FILTER */
-function filterCategory(category, btn){
+async function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-    selectedCategory = category;
+    const { error } = await client.auth.signInWithPassword({ email, password });
+    if (error) return alert(error.message);
 
-    document.querySelectorAll('.cat-btn')
-        .forEach(b => b.classList.remove('active'));
-
-    btn.classList.add('active');
-
-    applyFilters();
+    checkUser();
 }
+window.requireLogin = async function () {
 
-/* SEARCH + CATEGORY FILTER (FIXED SINGLE ENGINE) */
-function applyFilters(){
+    console.log("Sell button clicked");
 
-    let search = document.getElementById("searchInput").value.toLowerCase();
+    const { data } = await client.auth.getUser();
 
-    document.querySelectorAll(".card").forEach(card => {
-
-        let title = card.querySelector(".item-title")?.innerText.toLowerCase() || "";
-        let desc = card.querySelector(".desc")?.innerText.toLowerCase() || "";
-        let category = card.dataset.category || "";
-
-        let matchSearch =
-            title.includes(search) ||
-            desc.includes(search);
-
-        let matchCategory =
-            selectedCategory === "" ||
-            category === selectedCategory;
-
-        card.style.display =
-            (matchSearch && matchCategory) ? "block" : "none";
-    });
-}
-
-/* RESET */
-function resetFilter(){
-
-    document.getElementById("searchInput").value = "";
-    selectedCategory = "";
-
-    document.querySelectorAll(".cat-btn")
-        .forEach(b => b.classList.remove("active"));
-
-    document.querySelectorAll(".card")
-        .forEach(c => c.style.display = "block");
-}
-
-/* SAFE SLIDER (ONLY IF EXISTS) */
-document.querySelectorAll(".img-slider").forEach(slider => {
-
-    const slides = slider.querySelector(".slides");
-    const dots = slider.querySelectorAll(".dots span");
-
-    if(!slides || dots.length === 0) return;
-
-    slides.addEventListener("scroll", () => {
-
-        let index = Math.round(slides.scrollLeft / slides.clientWidth);
-
-        dots.forEach((dot, i) => {
-            dot.style.opacity = (i === index) ? "1" : "0.3";
-        });
-
-    });
-
-});
-async function loadItems(){
-
-    const { data, error } = await sb
-        .from("marketplace_items")
-        .select("*")
-        .order("created_at", { ascending: false });
-
-    if(error){
-        console.error(error);
+    if (!data.user) {
+        if (typeof showLogin === "function") {
+            showLogin();
+        } else {
+            console.error("showLogin is missing");
+        }
         return;
     }
 
-    renderItems(data);
-}
-function renderItems(items){
+    if (typeof openPostModal === "function") {
+        openPostModal();
+    } else {
+        console.error("openPostModal is missing");
+    }
+};
+window.showLogin = function () {
+    console.log("Opening login modal");
+    document.getElementById("loginModal").style.display = "block";
+};
+window.closeLogin = function () {
+    document.getElementById("loginModal").style.display = "none";
+};
+window.openPostModal = function () {
+    console.log("Opening post modal");
+    document.getElementById("postModal").style.display = "block";
+};
+window.closePostModal = function () {
+    document.getElementById("postModal").style.display = "none";    
+};
+window.openPostModal = async function () {
 
-    const grid = document.getElementById("allGrid");
-    grid.innerHTML = "";
+    const { data } = await client.auth.getUser();
+
+    if (!data.user) {
+        showLogin();
+        return;
+    }
+
+    document.getElementById("postModal").style.display = "block";
+};
+window.closePostModal = function () {
+    document.getElementById("postModal").style.display = "none";
+};
+
+
+function searchListings(){
+ let term =
+ document.getElementById("search")
+ .value.toLowerCase();
+
+ let filtered =
+ listings.filter(item =>
+ item.title.toLowerCase()
+ .includes(term)
+ );
+
+ renderListings(filtered);
+}
+async function uploadImage(file) {
+
+    const fileName = `${Date.now()}-${file.name}`;
+
+    const { data, error } = await client
+        .storage
+        .from("marketplace-images")
+        .upload(fileName, file);
+
+    if (error) {
+        console.error(error);
+        return null;
+    }
+
+    const { data: publicUrl } = client
+        .storage
+        .from("marketplace-images")
+        .getPublicUrl(fileName);
+
+    return publicUrl.publicUrl;
+}
+async function logout() {
+    await client.auth.signOut();
+    location.reload();
+}
+
+window.login = async function () {
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const { data, error } = await client.auth.signInWithPassword({
+        email,
+        password
+    });
+
+    if (error) {
+        alert(error.message);
+        return;
+    }
+
+    window.currentUser = data.user;
+
+    alert("Login successful");
+
+    updateAuthUI();
+    closeLogin();
+
+    loadListings();
+};
+
+window.updateAuthUI = function () {
+
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (window.currentUser) {
+        // user logged in
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+    } else {
+        // user logged out
+        loginBtn.style.display = "inline-block";
+        logoutBtn.style.display = "none";
+    }
+    const myListingsBtn =
+    document.getElementById("myListingsBtn");
+
+if (window.currentUser) {
+    loginBtn.style.display = "none";
+    logoutBtn.style.display = "inline-block";
+    myListingsBtn.style.display = "inline-block";
+} else {
+    loginBtn.style.display = "inline-block";
+    logoutBtn.style.display = "none";
+    myListingsBtn.style.display = "none";
+}
+};
+window.loadMyListings = async function () {
+
+    const { data: userData } =
+        await client.auth.getUser();
+
+    if (!userData.user) {
+        alert("Please login");
+        return;
+    }
+
+    const { data, error } =
+        await client
+            .from("listings")
+            .select("*")
+            .eq("user_id", userData.user.id)
+            .order("created_at", {
+                ascending: false
+            });
+
+    if (error) {
+        console.error(error);
+        return;
+    }
+window.renderMyListings = function(items){
+
+    const container =
+        document.getElementById("listings");
+
+    container.innerHTML = "";
 
     items.forEach(item => {
 
-        let media = "";
+        container.innerHTML += `
+        <div class="card">
 
-        /* IMAGES */
-        if(item.images && item.images.length > 0){
-            media += `<div class="slides">`;
-            item.images.forEach(img => {
-                media += `<img src="${img}">`;
-            });
-            media += `</div>`;
-        }
+            <img src="${item.image_url || ''}">
 
-        /* VIDEO */
-        if(item.video){
-            media += `
-                <video controls style="width:100%;height:110px;object-fit:cover;">
-                    <source src="${item.video}">
-                </video>
-            `;
-        }
+            <div class="card-body">
 
-        let card = document.createElement("div");
-        card.className = "card";
-        card.dataset.category = item.category;
+                <h3>${item.title}</h3>
 
-        card.innerHTML = `
-            <div class="img-slider">
-                ${media}
+                <div class="price">
+                    P${item.price}
+                </div>
+
+                <p>${item.location}</p>
+
+                <div class="card-actions">
+
+                    <button
+                        class="btn-blue"
+                        onclick="editListing('${item.id}')">
+                        Edit
+                    </button>
+
+                    <button
+                        class="btn-red"
+                        onclick="deleteListing('${item.id}')">
+                        Delete
+                    </button>
+
+                </div>
+
             </div>
 
-            <div class="content">
-                <div class="item-title">${item.title}</div>
-                <div class="desc">${item.description}</div>
-                <div class="area">${item.area}</div>
-            </div>
-
-            <div class="actions">
-                <a class="btn whatsapp">WhatsApp</a>
-                <a class="btn call">Call</a>
-            </div>
+        </div>
         `;
-
-        grid.appendChild(card);
     });
-}
-async function addItem(item){
+};
+window.deleteListing = async function(id){
 
-    const { error } = await sb
-        .from("marketplace_items")
-        .insert([item]);
+    if (!confirm("Delete this listing?"))
+        return;
 
-    if(error){
-        console.error(error);
-        alert("Upload failed");
+    const { error } =
+        await client
+            .from("listings")
+            .delete()
+            .eq("id", id);
+
+    if (error) {
+        alert(error.message);
+        return;
+    }
+
+    loadMyListings();
+};
+    renderMyListings(data);
+};
+window.logout = async function () {
+
+    await client.auth.signOut();
+
+    window.currentUser = null;
+
+    alert("Logged out");
+
+    updateAuthUI();
+};
+window.checkSession = async function () {
+
+    const { data } = await client.auth.getUser();
+
+    if (data.user) {
+        window.currentUser = data.user;
     } else {
-        alert("Item added successfully");
-        loadItems();
-    }
-}
-async function uploadImage(file){
-
-    const fileName = Date.now() + "_" + file.name;
-
-    const { data, error } = await sb
-        .storage
-        .from("marketplace-media")
-        .upload("images/" + fileName, file);
-
-    if(error){
-        console.error(error);
-        return null;
+        window.currentUser = null;
     }
 
-    return sb.storage
-        .from("marketplace-media")
-        .getPublicUrl("images/" + fileName).data.publicUrl;
-}
-async function uploadVideo(file){
+    updateAuthUI();
 
-    const fileName = Date.now() + "_" + file.name;
-
-    const { error } = await sb
-        .storage
-        .from("marketplace-media")
-        .upload("videos/" + fileName, file);
-
-    if(error){
-        console.error(error);
-        return null;
-    }
-
-    return sb.storage
-        .from("marketplace-media")
-        .getPublicUrl("videos/" + fileName).data.publicUrl;
-}
-window.onload = () => {
-    loadItems();
+    loadListings();
 };
 
-</script>
+checkSession();
+async function updateUI() {
+    const { data } = await client.auth.getUser();
 
+    if (data.user) {
+        console.log("User logged in:", data.user.email);
+    } else {
+        console.log("No user session");
+    }
+}
+window.selectedCategory = "All";
+
+window.filterCategory = function(category) {
+
+    console.log("Category selected:", category);
+
+    window.selectedCategory = category;
+
+    const buttons = document.querySelectorAll(".cat-btn");
+    buttons.forEach(btn => btn.classList.remove("active"));
+
+    event.target.classList.add("active");
+
+    filterListings();
+};
+window.filterListings = function() {
+
+    const term = document.getElementById("searchInput").value.toLowerCase();
+
+    let filtered = allListings.filter(item => {
+
+        const matchesSearch =
+            (item.title || "").toLowerCase().includes(term);
+
+        const matchesCategory =
+            window.selectedCategory === "All" ||
+            item.category === window.selectedCategory;
+
+        return matchesSearch && matchesCategory;
+    });
+
+    renderListings(filtered);
+};
+function showListing(item) {
+    console.log("Showing listing:", item);
+
+    document.getElementById("modalImage").src = item.image_url || '';
+    document.getElementById("modalTitle").innerText = item.title;
+    document.getElementById("modalPrice").innerText = `P${item.price}`;
+    document.getElementById("modalLocation").innerText = item.location;
+    document.getElementById("modalDescription").innerText = `Contact: ${item.whatsapp || item.phone || 'N/A'}`;
+
+    const buttonsDiv = document.getElementById("modalButtons");
+    buttonsDiv.innerHTML = "";
+
+    if (item.whatsapp) {
+        const whatsappBtn = document.createElement("button");
+        whatsappBtn.className = "btn-green";
+        whatsappBtn.innerText = "Contact via WhatsApp";
+        whatsappBtn.onclick = () => {
+            window.open(`https://wa.me/${item.whatsapp}`, "_blank");
+        };
+        buttonsDiv.appendChild(whatsappBtn);
+    }
+
+    if (item.phone) {
+        const phoneBtn = document.createElement("button");
+        phoneBtn.className = "btn-blue";
+        phoneBtn.innerText = "Call";
+        phoneBtn.onclick = () => {
+            window.open(`tel:${item.phone}`, "_self");
+        };
+        buttonsDiv.appendChild(phoneBtn);
+    }
+
+    document.getElementById("listingModal").style.display = "block";
+}
+window.closeModal = function () {
+    document.getElementById("listingModal").style.display = "none";
+};
+/* LOAD LISTINGS */
+let allListings = [];
+let selectedCategory = "All";
+
+async function loadListings(){
+
+const { data } = await client
+.from("listings")
+.select("*")
+.order("created_at",{ascending:false});
+
+allListings = data;
+
+renderListings(allListings);
+}
+
+function renderListings(items){
+
+const container =
+document.getElementById("listings");
+
+container.innerHTML = "";
+
+items.forEach(item=>{
+
+container.innerHTML += `
+<div class="card">
+
+    <img src="${item.image_url || ''}"
+         onclick='showListing(${JSON.stringify(item)})'>
+
+    <div class="card-body">
+
+        <h3>${item.title}</h3>
+
+        <div class="price">
+            P${item.price}
+        </div>
+
+        <p>📍 ${item.location}</p>
+
+        <p>${item.category || 'Other'}</p>
+
+        <div class="card-actions">
+
+            <a href="https://wa.me/${item.whatsapp}"
+               target="_blank"
+               onclick="event.stopPropagation()">
+
+                <button class="btn-green">
+                    WhatsApp
+                </button>
+
+            </a>
+
+            <a href="tel:${item.phone}"
+               onclick="event.stopPropagation()">
+
+                <button class="btn-blue">
+                    Call
+                </button>
+
+            </a>
+
+        </div>
+        `;
+});
+
+}
+window.submitListing = async function () {
+
+    const { data: userData } = await client.auth.getUser();
+    const user = userData.user;
+
+    const file = document.getElementById("postImageFile").files[0];
+
+    let imageUrl = "";
+
+    if (file) {
+        imageUrl = await uploadImage(file);
+    }
+
+    const listing = {
+        title: document.getElementById("postTitle").value,
+        price: document.getElementById("postPrice").value,
+        location: document.getElementById("postLocation").value,
+        image_url: imageUrl,
+        whatsapp: document.getElementById("postWhatsapp").value,
+        phone: document.getElementById("postPhone").value,
+        category: document.getElementById("postCategory").value,
+        seller_name: document.getElementById("postSellerName").value,
+        user_id: user.id
+    };
+
+    const { error } = await client
+        .from("listings")
+        .insert(listing);
+
+    if (error) {
+        alert(error.message);
+        return;                 
+    }
+
+    alert("Item posted successfully!");
+
+    closePostModal();
+    loadListings();
+    };
+
+</script>
+<div id="listingModal" class="modal">
+
+<div class="modal-content">
+
+<span onclick="closeModal()" class="close">&times;</span>
+
+<img id="modalImage">
+
+<h2 id="modalTitle"></h2>
+
+<h3 id="modalPrice"></h3>
+
+<p id="modalLocation"></p>
+
+<p id="modalDescription"></p>
+
+<div id="modalButtons"></div>
+
+</div>
+</div>
+<div id="postModal" class="modal">
+
+<div class="modal-content">
+
+<span onclick="closePostModal()" class="close">&times;</span>
+
+<h3>Post New Item</h3>
+
+<input id="postTitle" placeholder="Title">
+<input id="postPrice" placeholder="Price">
+<input id="postLocation" placeholder="Location">
+<input type="file" id="postImageFile">
+<input id="postWhatsapp" placeholder="WhatsApp Number">
+<input id="postPhone" placeholder="Phone Number">
+<input id="postSellerName" placeholder="Seller Name">
+<select id="postCategory">
+    <option>Vehicles</option>
+    <option>Property</option>
+    <option>Electronics</option>
+    <option>Furniture</option>
+    <option>Jobs</option>
+    <option>Services</option>
+    <option>Other</option>
+</select>
+
+<button class="btn-primary" onclick="submitListing()">
+    Post Item
+</button>
+
+</div>
+</div>
 </body>
 </html>
