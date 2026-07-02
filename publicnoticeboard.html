@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Public Notice Board | My Jwaneng</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f5f7fa;
+}
+
+.header{
+background:#003366;
+color:white;
+padding:15px;
+text-align:center;
+position:sticky;
+top:0;
+z-index:100;
+}
+.notice-intro{
+background:white;
+padding:18px;
+margin:15px;
+border-radius:15px;
+box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.notice-intro h3{
+color:#003366;
+margin-bottom:8px;
+font-size:18px;
+}
+
+.notice-intro p{
+color:#555;
+line-height:1.6;
+font-size:14px;
+}
+.search-box{
+padding:15px;
+background:white;
+}
+
+.search-box input{
+width:100%;
+padding:12px;
+border:1px solid #ddd;
+border-radius:10px;
+}
+
+.filters{
+display:flex;
+overflow-x:auto;
+gap:10px;
+padding:10px;
+background:white;
+}
+
+.filter-btn{
+border:none;
+padding:8px 15px;
+border-radius:20px;
+background:#e5e7eb;
+white-space:nowrap;
+cursor:pointer;
+}
+
+.filter-btn.active{
+background:#003366;
+color:white;
+}
+
+.notice-container{
+padding:15px;
+}
+
+.notice-card{
+background:white;
+border-radius:15px;
+padding:15px;
+margin-bottom:15px;
+box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+.notice-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:10px;
+}
+
+.authority{
+background:#003366;
+color:white;
+padding:5px 10px;
+border-radius:15px;
+font-size:12px;
+}
+
+.new-badge{
+background:red;
+color:white;
+padding:4px 8px;
+border-radius:12px;
+font-size:11px;
+}
+
+.notice-title{
+font-size:18px;
+font-weight:bold;
+margin-bottom:8px;
+}
+
+.notice-summary{
+color:#555;
+line-height:1.5;
+margin-bottom:12px;
+}
+
+.notice-date{
+font-size:13px;
+color:#777;
+margin-bottom:10px;
+}
+
+.notice-actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+.notice-card img {
+width: 100%;
+border-radius: 12px;
+margin-bottom: 10px;
+}
+
+.btn{
+text-decoration:none;
+padding:10px 15px;
+border-radius:10px;
+font-size:14px;
+font-weight:bold;
+display:inline-block;
+}
+
+.download{
+background:#003366;
+color:white;
+}
+
+.view{
+background:#0ea5e9;
+color:white;
+}
+.image-btn{
+background:#16a34a;
+color:white;
+}
+
+.source-btn{
+background:#0ea5e9;
+color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h2>📢 Public Notice Board</h2>
+</div>
+<div class="notice-intro">
+    <h3>Official Community Notices</h3>
+    <p>
+        Stay informed with official announcements, tenders, public consultations,
+        community meetings, service interruptions, and important updates from
+        Jwaneng Town Council, government offices, utilities, community leaders,
+        and other organizations serving the Jwaneng community.
+    </p>
+</div>
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="Search notices..." onkeyup="renderNotices()">
+</div>
+
+<div class="filters" id="filters">
+<button class="filter-btn active" onclick="setFilter('All')">All</button>
+<button class="filter-btn" onclick="setFilter('Jwaneng Town Council')">Town Council</button>
+<button class="filter-btn" onclick="setFilter('District Commissioner')">District Commissioner</button>
+<button class="filter-btn" onclick="setFilter('Member of Parliament')">MP</button>
+<button class="filter-btn" onclick="setFilter('Councillor')">Councillors</button>
+<button class="filter-btn" onclick="setFilter('Tender')">Tenders</button>
+</div>
+
+<div class="notice-container" id="noticeContainer">
+Loading notices...
+</div>
+
+<script>
+
+// ======================
+// SUPABASE SETUP
+// ======================
+const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
+
+const sb = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+// ======================
+// STATE
+// ======================
+let notices = [];
+let currentFilter = "All";
+
+// ======================
+// FETCH DATA
+// ======================
+async function loadNotices() {
+
+const { data, error } = await 
+sb
+.from("public_notices")
+.select("*")
+.order("posted_date", { ascending: false });
+
+if (error) {
+document.getElementById("noticeContainer").innerHTML =
+"Failed to load notices.";
+return;
+}
+
+notices = data;
+renderNotices();
+}
+
+// ======================
+// RENDER NOTICES
+// ======================
+function renderNotices() {
+
+const container = document.getElementById("noticeContainer");
+const search = document.getElementById("searchInput").value.toLowerCase();
+
+let filtered = notices;
+
+if (currentFilter !== "All") {
+filtered = filtered.filter(n =>
+(n.authority || "").includes(currentFilter) ||
+(n.category || "").includes(currentFilter)
+);
+}
+
+if (search) {
+filtered = filtered.filter(n =>
+(n.title || "").toLowerCase().includes(search) ||
+(n.summary || "").toLowerCase().includes(search)
+);
+}
+
+if (filtered.length === 0) {
+container.innerHTML = "No notices found.";
+return;
+}
+
+container.innerHTML = filtered.map(n => {
+
+const isNew = isRecent(n.posted_date);
+
+return `
+<div class="notice-card">
+
+<!-- TOP BADGE -->
+<div class="notice-top">
+<span class="authority">${n.authority || "Unknown"}</span>
+${isNew ? `<span class="new-badge">NEW</span>` : ""}
+</div>
+
+<!-- TITLE -->
+<div class="notice-title">
+${n.title || "Untitled Notice"}
+</div>
+
+<!-- SUMMARY -->
+<div class="notice-summary">
+${n.summary || ""}
+</div>
+
+<div style="margin-bottom:10px;font-size:13px;color:#666;">
+
+${n.document_url ? '📄 Document Attached' : ''}
+
+${n.document_url && n.image_url ? ' • ' : ''}
+
+${n.image_url ? '🖼️ Image Attached' : ''}
+
+</div>
+<!-- DATE -->
+<div class="notice-date">
+Posted: ${formatDate(n.posted_date)}
+</div>
+
+<!-- ACTION BUTTONS -->
+<div class="notice-actions">
+
+${n.document_url ? `
+<a href="${n.document_url}" target="_blank" class="btn download">
+📄 Open Document
+</a>
+` : ""}
+
+${n.image_url ? `
+<a href="${n.image_url}" target="_blank" class="btn image-btn">
+🖼️ View Image
+</a>
+` : ""}
+
+${n.external_link ? `
+<a href="${n.external_link}" target="_blank" class="btn source-btn">
+🔗 Official Source
+</a>
+` : ""}
+
+</div>
+
+</div>
+`;
+}).join("");
+
+}
+
+// ======================
+// FILTER
+// ======================
+function setFilter(filter) {
+currentFilter = filter;
+
+document.querySelectorAll(".filter-btn")
+.forEach(btn => btn.classList.remove("active"));
+
+event.target.classList.add("active");
+
+renderNotices();
+}
+
+// ======================
+// HELPERS
+// ======================
+function formatDate(date) {
+if (!date) return "";
+return new Date(date).toLocaleDateString();
+}
+
+function isRecent(date) {
+if (!date) return false;
+const now = new Date();
+const posted = new Date(date);
+const diff = (now - posted) / (1000 * 60 * 60 * 24);
+return diff <= 3; // NEW badge for 3 days
+}
+
+// ======================
+// INIT
+// ======================
+loadNotices();
+
+</script>
+<script>
+
+// ===============================
+// MY JWANENG PWA CONTROL PANEL
+// (Public Notice Board)
+// ===============================
+
+// Install prompt
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+
+  showInstallButton();
+});
+
+function showInstallButton(){
+
+  // Prevent duplicates
+  if(document.getElementById("installBtn")) return;
+
+  const btn = document.createElement("button");
+  btn.id = "installBtn";
+  btn.innerText = "📲 Install Notice Board";
+  
+  btn.style.cssText = `
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#003366;
+    color:white;
+    border:none;
+    padding:12px 15px;
+    border-radius:10px;
+    z-index:9999;
+    font-weight:bold;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+  `;
+
+  btn.onclick = async () => {
+
+    if(!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+    const choice = await deferredPrompt.userChoice;
+
+    if(choice.outcome === "accepted"){
+      console.log("Notice Board PWA installed");
+    }
+
+    deferredPrompt = null;
+    btn.remove();
+  };
+
+  document.body.appendChild(btn);
+}
+
+
+// ===============================
+// SERVICE WORKER REGISTRATION
+// ===============================
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(reg => {
+        console.log("Notice Board SW active:", reg.scope);
+      })
+      .catch(err => {
+        console.log("SW failed:", err);
+      });
+  });
+}
+
+</script>
+<script>
+// ===============================
+// SERVICE WORKER (USE EXISTING ONE)
+// ===============================
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/service-worker.js")
+      .then(reg => {
+        console.log("PWA active for Notice Board:", reg.scope);
+      })
+      .catch(err => {
+        console.log("SW error:", err);
+      });
+  });
+}
+
+</script>
+<script>
+
+// ===============================
+// NOTIFICATION SYSTEM
+// ===============================
+
+// Ask permission once
+async function enableNotifications(){
+  if(!("Notification" in window)) return;
+
+  if(Notification.permission === "default"){
+    await Notification.requestPermission();
+  }
+}
+
+// Simple local notification trigger
+function notifyNewNotice(notice){
+
+  if(Notification.permission !== "granted") return;
+
+  new Notification("📢 New Public Notice", {
+    body: notice.title || "New notice posted",
+    icon: "/icon-192.png"
+  });
+
+}
+
+// Enable on page load
+enableNotifications();
+
+
+sb
+  .channel('public_notices')
+  .on('postgres_changes', 
+    { event: 'INSERT', schema: 'public', table: 'public_notices' },
+    (payload) => {
+
+      const newNotice = payload.new;
+
+      // refresh UI
+      loadNotices();
+
+      // push notification
+      notifyNewNotice(newNotice);
+    }
+  )
+  .subscribe();
+</script>
+</body>
+</html>
