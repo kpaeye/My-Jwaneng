@@ -173,64 +173,7 @@ header p {
   background: #174a8b;
 }
 
-/* ================= PWA CONTROL BAR (SLIDE-IN) ================= */
-.pwa-bar{
-  position:fixed;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:65px;
-  background:rgba(0,31,63,0.98);
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  border-top:1px solid rgba(79,195,247,0.3);
-  z-index:10000;
 
-  transform: translateY(100%);
-  opacity: 0;
-  pointer-events: none;
-
-  transition: transform 0.35s ease, opacity 0.35s ease;
-}
-
-.pwa-bar.show{
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.pwa-bar a{
-  color:#fff;
-  text-decoration:none;
-  font-size:12px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:4px;
-}
-
-.pwa-bar span{
-  color:#4fc3f7;
-  font-size:18px;
-}
-
-footer{
-  background:#0b1f3a;
-  color:white;
-  text-align:center;
-  padding:15px;
-  font-size:13px;
-
-  /* IMPORTANT: prevents overlap with PWA bar */
-  margin-bottom:65px;
-}
-
-@media (display-mode: browser){
-  .pwa-bar{
-    display:none !important;
-  }
-}
 </style>
 </head>
 
@@ -405,46 +348,7 @@ window.onclick = function(e){
 
 loadJobs();
 
-function isRunningAsPWA() {
-  return (
-    window.matchMedia('(display-mode: standalone)').matches ||
-    window.matchMedia('(display-mode: fullscreen)').matches ||
-    window.navigator.standalone === true
-  );
-}
-
-function handlePWABar() {
-  const bar = document.getElementById('pwaBar');
-
-  if (!bar) return;
-
-  const isPWA =
-    window.matchMedia('(display-mode: standalone)').matches ||
-    window.matchMedia('(display-mode: fullscreen)').matches ||
-    window.navigator.standalone === true;
-
-  bar.classList.remove('show');
-
-  if (isPWA) {
-    setTimeout(() => {
-      bar.classList.add('show');
-    }, 150);
-  }
-}
-
-window.addEventListener('load', handlePWABar);
 </script>
-<!-- FOOTER -->
-<footer>
-  © 2026 My Jwaneng | Powered by A-eye Group
-</footer>
-<!-- PWA CONTROL BAR -->
-<div class="pwa-bar" id="pwaBar">
-  <a href="index.html"><span>🏠</span>Home</a>
-  <a href="exploremyjwaneng.html"><span>🔍</span>Explore</a>
-  <a href="jobs.html"><span>💼</span>Jobs</a>
-  <a href="marketplace.html"><span>🛒</span>Market</a>
-  <a href="townnews.html"><span>📰</span>News</a>
-</div>
+
 </body>
 </html>
