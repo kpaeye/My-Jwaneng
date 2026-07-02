@@ -19,9 +19,6 @@
 body{
     font-family:'Poppins',sans-serif;
     background:#f5f7fb;
-
-    /* IMPORTANT: prevents footer being hidden by PWA bar */
-    padding-bottom:80px;
 }
 
 /* TOP BAR */
@@ -57,7 +54,7 @@ body{
     gap:25px;
 }
 
-/* CARDS */
+/* BIG APP ICON CARDS */
 .card{
     background:white;
     border-radius:25px;
@@ -97,15 +94,15 @@ footer{
     padding:20px 0;
     overflow:hidden;
     white-space:nowrap;
-    margin-top:20px;
+    margin-top:40px;
 }
 
 .footer-text{
     display:inline-block;
     padding-left:100%;
-   font-weight:500;
+    animation: footerScroll 20s linear infinite;
+    font-weight:500;
     font-size:15px;
-    animation:footerScroll 15s linear infinite;
 }
 
 @keyframes footerScroll{
@@ -113,46 +110,10 @@ footer{
     to{ transform:translateX(-100%); }
 }
 
-/* ================= PWA CONTROL BAR ================= */
-.pwa-bar{
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    height:65px;
-    background:rgba(0,31,63,0.98);
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-    border-top:1px solid rgba(79,195,247,0.3);
-    z-index:10000;
-
-    transform: translateY(100%);
-    opacity: 0;
-    pointer-events: none;
-
-    transition: transform 0.35s ease, opacity 0.35s ease;
-}
-
-.pwa-bar.show{
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.pwa-bar a{
-    color:#fff;
-    text-decoration:none;
-    font-size:12px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:4px;
-}
-
-.pwa-bar span{
-    color:#4fc3f7;
-    font-size:18px;
+/* NEW: REPORT CARD SPECIAL STYLE (optional highlight) */
+.report-card:hover{
+    background:#c62828;
+    color:white;
 }
 
 </style>
@@ -202,6 +163,13 @@ footer{
         <p>Community updates</p>
     </a>
 
+    <!-- NEW -->
+    <a class="card" href="publicnoticeboard.html">
+        <div class="icon">📢</div>
+        <h3>Public Notices</h3>
+        <p>Official town announcements</p>
+    </a>
+
 </div>
 
 <footer>
@@ -209,40 +177,6 @@ footer{
         © 2026 My Jwaneng | Powered by A-eye Group •
     </div>
 </footer>
-
-<!-- PWA CONTROL BAR -->
-<div class="pwa-bar" id="pwaBar">
-    <a href="index.html"><span>🏠</span>Home</a>
-    <a href="exploremyjwaneng.html"><span>🔍</span>Explore</a>
-    <a href="jobs.html"><span>💼</span>Jobs</a>
-    <a href="marketplace.html"><span>🛒</span>Market</a>
-    <a href="townnews.html"><span>📰</span>News</a>
-</div>
-
-<script>
-function isRunningAsPWA() {
-    return (
-        window.matchMedia('(display-mode: standalone)').matches ||
-        window.matchMedia('(display-mode: fullscreen)').matches ||
-        window.navigator.standalone === true
-    );
-}
-
-function handlePWABar() {
-    const bar = document.getElementById("pwaBar");
-    if (!bar) return;
-
-    bar.classList.remove("show");
-
-    if (isRunningAsPWA()) {
-        setTimeout(() => {
-            bar.classList.add("show");
-        }, 200);
-    }
-}
-
-window.addEventListener("load", handlePWABar);
-</script>
 
 </body>
 </html>
