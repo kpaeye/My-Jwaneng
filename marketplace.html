@@ -23,7 +23,19 @@ body {
     justify-content: space-between;
     align-items: center;
 }
+#searchInput{
+    width:100%;
+    max-width:500px;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    margin-bottom:15px;
+}
 
+.nav input,
+.nav button{
+    width:auto !important;
+}
 /* CONTAINER */
 .container {
     padding: 15px;
@@ -38,24 +50,42 @@ body {
 
 .card{
     background:white;
-    border-radius:12px;
+    border-radius:16px;
     overflow:hidden;
     cursor:pointer;
     transition:0.3s;
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
 }
 
 .card:hover{
-    transform:translateY(-3px);
+    transform:translateY(-6px);
+    box-shadow:0 12px 25px rgba(0,0,0,0.15);
 }
 
 .card img{
     width:100%;
-    height:220px;
+    height:200px;
     object-fit:cover;
+    transition:0.4s;
 }
 
+.card:hover img{
+    transform:scale(1.05);
+}
 .card-body{
-    padding:12px;
+    padding:14px;
+}
+
+.card-body h3{
+    font-size:16px;
+    margin:6px 0;
+    color:#222;
+}
+
+.price{
+    color:#001f3f;
+    font-size:20px;
+    font-weight:700;
 }
 
 .price{
@@ -83,6 +113,15 @@ body {
     background:#001f3f;
     color:white;
 }
+.category-badge{
+    display:inline-block;
+    padding:4px 10px;
+    font-size:12px;
+    border-radius:20px;
+    background:#e6f0ff;
+    color:#001f3f;
+    margin-bottom:6px;
+}
 
 /* BUTTONS */
 button {
@@ -98,17 +137,36 @@ button {
 .btn-red { background: red; color: white; }
 
 /* AUTH BOX */
-.auth-box {
-    max-width: 350px;
-    margin: 80px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
+.auth-box{
+    max-width:380px;
+    margin:80px auto;
+    background:rgba(255,255,255,0.95);
+    padding:25px;
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    backdrop-filter:blur(10px);
 }
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
+
+.auth-box h3{
+    text-align:center;
+    margin-bottom:15px;
+    color:#001f3f;
+    font-size:22px;
+}
+
+.auth-box input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:1px solid #ddd;
+    border-radius:10px;
+    outline:none;
+    transition:0.3s;
+}
+
+.auth-box input:focus{
+    border-color:#001f3f;
+    box-shadow:0 0 8px rgba(0,31,63,0.2);
 }
 .market-grid{
  display:grid;
@@ -189,6 +247,115 @@ input {
     padding:10px;
     font-weight:bold;
 }
+.post-form{
+    background:#ffffff;
+    border-radius:18px;
+    padding:20px;
+    max-width:500px;
+    margin:40px auto;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    animation:slideUp 0.3s ease;
+}
+
+@keyframes slideUp{
+    from{
+        transform:translateY(20px);
+        opacity:0;
+    }
+    to{
+        transform:translateY(0);
+        opacity:1;
+    }
+}
+
+.post-form h3{
+    text-align:center;
+    margin-bottom:15px;
+    color:#001f3f;
+}
+
+/* inputs */
+.post-form input,
+.post-form select{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border-radius:10px;
+    border:1px solid #ddd;
+    outline:none;
+    transition:0.2s;
+    font-size:14px;
+}
+
+.post-form input:focus,
+.post-form select:focus{
+    border-color:#001f3f;
+    box-shadow:0 0 6px rgba(0,31,63,0.2);
+}
+
+/* file input styling */
+.post-form input[type="file"]{
+    background:#f5f5f5;
+    padding:10px;
+}
+
+/* submit button */
+.post-form .wizard-nav{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.post-form .wizard-nav button{
+    flex:1;
+}
+
+.post-form button:hover{
+    background:#003366;
+}
+@media (max-width:600px){
+    .post-form{
+        width:95%;
+        margin:20px auto;
+        padding:15px;
+    }
+}
+
+.step{
+    animation:fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+#imagePreview{
+    max-height:200px;
+    object-fit:cover;
+}
+.post-form textarea{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:1px solid #ddd;
+    border-radius:10px;
+    resize:vertical;
+    font-family:inherit;
+}
+#imagePreviewContainer{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-top:10px;
+}
+
+#imagePreviewContainer img{
+    width:100%;
+    height:120px;
+    object-fit:cover;
+    border-radius:10px;
+}
 </style>
 </head>
 
@@ -255,23 +422,39 @@ input {
 
 <div id="loginModal" class="modal">
 
-<div class="modal-content">
+<div class="modal-content auth-box">
 
-<span onclick="closeLogin()" class="close">&times;</span>
+    <span onclick="closeLogin()" class="close">&times;</span>
 
-<h3>Login</h3>
+    <h3>Welcome Back 👋</h3>
 
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="password" placeholder="Password">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
 
-<button class="btn-primary" onclick="login()">Login</button>
-<button class="btn-blue" onclick="signup()">Sign Up</button>
+    <button class="btn-primary" onclick="login()" style="width:100%;margin-top:10px;">
+        Login
+    </button>
+
+    <button class="btn-blue" onclick="signup()" style="width:100%;margin-top:10px;">
+        Create Account
+    </button>
+
+    <button class="btn-red" onclick="loginWithGoogle()" style="width:100%;margin-top:10px;">
+        Continue with Google
+    </button>
+
+    <p onclick="forgotPassword()"
+       style="text-align:center;margin-top:12px;cursor:pointer;color:#007bff;">
+        Forgot password?
+    </p>
 
 </div>
 </div>
 
 <script>
 window.currentUser = null;
+window.editingListingId = null;
+
 
 const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
@@ -288,7 +471,19 @@ async function signup() {
 
     alert("Check your email to confirm account");
 }
+window.loginWithGoogle = async function () {
 
+    const { error } = await client.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+            redirectTo: window.location.origin + "/marketplace.html"
+        }
+    });
+
+    if (error) {
+        alert(error.message);
+    }
+};
 async function login() {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
@@ -348,6 +543,26 @@ window.closePostModal = function () {
     document.getElementById("postModal").style.display = "none";
 };
 
+window.forgotPassword = async function () {
+
+    const email = document.getElementById("email").value;
+
+    if (!email) {
+        alert("Enter your email first");
+        return;
+    }
+
+    const { error } = await client.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + "/marketplace.html"
+    });
+
+    if (error) {
+        alert(error.message);
+    } else {
+        alert("Password reset link sent to your email");
+    }
+};
+
 
 function searchListings(){
  let term =
@@ -366,22 +581,24 @@ async function uploadImage(file) {
 
     const fileName = `${Date.now()}-${file.name}`;
 
+    // 1. Upload file
     const { data, error } = await client
         .storage
         .from("marketplace-images")
         .upload(fileName, file);
 
     if (error) {
-        console.error(error);
+        console.error("Upload error:", error);
         return null;
     }
 
-    const { data: publicUrl } = client
+    // 2. Get public URL (CORRECT WAY)
+    const { data: urlData } = client
         .storage
         .from("marketplace-images")
         .getPublicUrl(fileName);
 
-    return publicUrl.publicUrl;
+    return urlData.publicUrl;
 }
 async function logout() {
     await client.auth.signOut();
@@ -675,7 +892,9 @@ container.innerHTML += `
 
         <p>📍 ${item.location}</p>
 
-        <p>${item.category || 'Other'}</p>
+        <span class="category-badge">
+    ${item.category || 'Other'}
+</span>
 
         <div class="card-actions">
 
@@ -704,29 +923,52 @@ container.innerHTML += `
 
 }
 window.submitListing = async function () {
-
+window.editingListingId = null;
     const { data: userData } = await client.auth.getUser();
     const user = userData.user;
 
-    const file = document.getElementById("postImageFile").files[0];
-
-    let imageUrl = "";
-
-    if (file) {
-        imageUrl = await uploadImage(file);
+    if (!user) {
+        alert("Please login first");
+        return;
     }
 
+    // SAFE GETTERS (prevents null crash)
+    const get = (id) => {
+        const el = document.getElementById(id);
+        return el ? el.value : "";
+    };
+
+    const files =
+    [...document.getElementById("postImageFile").files];
+    const file = files[0]   ;
+
+    let imageUrls = [];
+
+for(const file of files){
+
+    const url = await uploadImage(file);
+
+    if(url){
+        imageUrls.push(url);
+    }
+}
+
     const listing = {
-        title: document.getElementById("postTitle").value,
-        price: document.getElementById("postPrice").value,
-        location: document.getElementById("postLocation").value,
-        image_url: imageUrl,
-        whatsapp: document.getElementById("postWhatsapp").value,
-        phone: document.getElementById("postPhone").value,
-        category: document.getElementById("postCategory").value,
-        seller_name: document.getElementById("postSellerName").value,
+        title: get("postTitle"),
+        price: get("postPrice"),
+        location: get("postLocation") || "",
+        description: get("postDescription") || "",
+        image_url: imageUrls[0] || "",
+image_urls: imageUrls,
+        whatsapp: get("postWhatsapp"),
+        phone: get("postPhone"),
+        category: get("postCategory"),
+        seller_name: get("postSellerName"),
         user_id: user.id
     };
+
+    // DEBUG (VERY IMPORTANT)
+    console.log("Submitting listing:", listing);
 
     const { error } = await client
         .from("listings")
@@ -734,15 +976,146 @@ window.submitListing = async function () {
 
     if (error) {
         alert(error.message);
-        return;                 
+        console.error(error);
+        return;
     }
 
     alert("Item posted successfully!");
 
     closePostModal();
     loadListings();
-    };
+};
 
+
+let currentStep = 1;
+
+function showStep(step){
+
+    document.querySelectorAll(".step")
+        .forEach(s => s.style.display = "none");
+
+    document.querySelector(".step-" + step)
+        .style.display = "block";
+
+    document.getElementById("stepIndicator").innerText =
+        "Step " + step + " of 4";
+
+    document.getElementById("nextBtn").style.display =
+        step === 4 ? "none" : "block";
+
+    document.getElementById("submitBtn").style.display =
+        step === 4 ? "block" : "none";
+}
+
+function nextStep(){
+
+    if(currentStep < 4){
+        currentStep++;
+        showStep(currentStep);
+
+        if(currentStep === 4){
+            generatePreview();
+        }
+    }
+}
+
+function prevStep(){
+
+    if(currentStep > 1){
+        currentStep--;
+        showStep(currentStep);
+    }
+}
+
+function previewImages(event){
+
+    const files = [...event.target.files];
+
+    if(files.length > 5){
+        alert("Maximum 5 photos allowed");
+        event.target.value = "";
+        return;
+    }
+
+    const container =
+        document.getElementById("imagePreviewContainer");
+
+    container.innerHTML = "";
+
+    files.forEach(file => {
+
+        const img = document.createElement("img");
+
+        img.src = URL.createObjectURL(file);
+
+        container.appendChild(img);
+    });
+}
+function generatePreview(){
+
+    const preview = document.getElementById("previewBox");
+
+    preview.innerHTML = `
+        <h3>${document.getElementById("postTitle").value}</h3>
+        <p><b>Price:</b> P${document.getElementById("postPrice").value}</p>
+        <p><b>Location:</b> ${document.getElementById("postLocation").value}</p>
+        <p><b>Category:</b> ${document.getElementById("postCategory").value}</p>
+        <p><b>WhatsApp:</b> ${document.getElementById("postWhatsapp").value}</p>
+        <p><b>Phone:</b> ${document.getElementById("postPhone").value}</p>
+        <p><b>Seller:</b> ${document.getElementById("postSellerName").value}</p>
+        <p><b>Description:</b> ${document.getElementById("postDescription").value}</p>
+    `;
+}
+
+window.openPostModal = function(){
+    document.getElementById("postModal").style.display = "block";
+    currentStep = 1;
+    showStep(currentStep);
+};
+
+window.editListing = async function(id){
+
+    const { data, error } = await client
+        .from("listings")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+    if(error){
+        alert(error.message);
+        return;
+    }
+
+    const item = data;
+
+    window.editingListingId = id;
+
+    openPostModal();
+
+    // Fill Step 1
+    document.getElementById("postTitle").value = item.title || "";
+    document.getElementById("postPrice").value = item.price || "";
+    document.getElementById("postLocation").value = item.location || "";
+    document.getElementById("postCategory").value = item.category || "Other";
+
+    // Step 3
+    document.getElementById("postDescription").value = item.description || "";
+    document.getElementById("postWhatsapp").value = item.whatsapp || "";
+    document.getElementById("postPhone").value = item.phone || "";
+    document.getElementById("postSellerName").value = item.seller_name || "";
+
+    // Reset wizard to step 1
+    currentStep = 1;
+    showStep(currentStep);
+
+    const submitBtn = document.getElementById("submitBtn");
+
+if(window.editingListingId){
+    submitBtn.innerText = "Update Item";
+} else {
+    submitBtn.innerText = "Post Item";
+}
+};
 </script>
 <div id="listingModal" class="modal">
 
@@ -766,33 +1139,79 @@ window.submitListing = async function () {
 </div>
 <div id="postModal" class="modal">
 
-<div class="modal-content">
+<div class="modal-content post-form">
 
 <span onclick="closePostModal()" class="close">&times;</span>
 
-<h3>Post New Item</h3>
+<h3>🛒 Create Listing</h3>
 
-<input id="postTitle" placeholder="Title">
-<input id="postPrice" placeholder="Price">
-<input id="postLocation" placeholder="Location">
-<input type="file" id="postImageFile">
-<input id="postWhatsapp" placeholder="WhatsApp Number">
-<input id="postPhone" placeholder="Phone Number">
-<input id="postSellerName" placeholder="Seller Name">
-<select id="postCategory">
-    <option>Vehicles</option>
-    <option>Property</option>
-    <option>Electronics</option>
-    <option>Furniture</option>
-    <option>Jobs</option>
-    <option>Services</option>
-    <option>Other</option>
-</select>
+<!-- STEP INDICATOR -->
+<div id="stepIndicator" style="text-align:center;margin-bottom:10px;font-size:13px;color:#666;">
+    Step 1 of 4
+</div>
 
-<button class="btn-primary" onclick="submitListing()">
-    Post Item
-</button>
+<!-- STEP 1 -->
+<div class="step step-1">
+    <input id="postTitle" placeholder="Product Title">
+    <input id="postPrice" placeholder="Price">
+    <input id="postLocation" placeholder="Location">
 
+    <select id="postCategory">
+        <option>Vehicles</option>
+        <option>Property</option>
+        <option>Electronics</option>
+        <option>Furniture</option>
+        <option>Jobs</option>
+        <option>Services</option>
+        <option>Other</option>
+    </select>
+</div>
+
+<!-- STEP 2 -->
+<div class="step step-2" style="display:none;">
+   <input
+    type="file"
+    id="postImageFile"
+    accept="image/*"
+    multiple
+    onchange="previewImages(event)">
+    <div id="imagePreviewContainer"></div>
+</div>
+<!-- STEP 3 -->
+<div class="step step-3" style="display:none;">
+    <textarea id="postDescription"
+     placeholder="Describe your item..."
+    rows="4"></textarea>
+    <input id="postWhatsapp" placeholder="WhatsApp Number">
+    <input id="postPhone" placeholder="Phone Number">
+    <input id="postSellerName" placeholder="Seller Name">
+</div>
+
+
+<!-- STEP 4 -->
+<div class="step step-4" style="display:none;">
+    <div id="previewBox" style="background:#f5f5f5;padding:10px;border-radius:10px;"></div>
+</div>
+
+<!-- NAVIGATION -->
+<div class="wizard-nav">
+
+    <button class="btn-blue" onclick="prevStep()">
+        Back
+    </button>
+
+    <button class="btn-primary" onclick="nextStep()" id="nextBtn">
+        Next
+    </button>
+
+    <button class="btn-green"
+            onclick="submitListing()"
+            style="display:none;"
+            id="submitBtn">
+        Post Item
+    </button>
+
+</div>
 </div>
 </div>
 </body>
