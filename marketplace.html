@@ -545,24 +545,31 @@ window.closePostModal = function () {
 
 window.forgotPassword = async function () {
 
-    const email = document.getElementById("email").value;
+    const email =
+    document.getElementById("email").value;
 
     if (!email) {
         alert("Enter your email first");
         return;
     }
 
-    const { error } = await client.auth.resetPasswordForEmail(email, {
-        redirectTo: window.location.origin + "/marketplace.html"
-    });
+    const { error } =
+    await client.auth.resetPasswordForEmail(
+        email,
+        {
+            redirectTo:
+            "https://www.myjwaneng.co.bw/reset-password.html"
+        }
+    );
 
     if (error) {
         alert(error.message);
     } else {
-        alert("Password reset link sent to your email");
+        alert(
+        "Password reset link sent to your email"
+        );
     }
 };
-
 
 function searchListings(){
  let term =
