@@ -1,979 +1,3512 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>My Jwaneng</title>
+<title>My Jwaneng | Welcome Home</title>
+
+<meta name="description"
+content="My Jwaneng — discover the town, people, businesses, opportunities, events, places and experiences that make Jwaneng home.">
+
+<meta name="theme-color" content="#071b2d">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet">
 
-<meta name="theme-color" content="#0b1f3a">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;500;600;700;800&display=swap"
+rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
 <style>
 
-/* ================= GLOBAL ================= */
+/* =========================================================
+   MY JWANENG
+   A DIGITAL FRONT DOOR TO JWANENG
+========================================================= */
+
+:root{
+
+    --night:#061522;
+    --night2:#0a2435;
+
+    --sky:#43b8e8;
+    --sky-light:#8de0ff;
+
+    --sand:#d9b36c;
+    --sand-light:#f0d493;
+
+    --white:#ffffff;
+    --muted:#b7c5ce;
+
+    --glass:rgba(255,255,255,.075);
+
+    --border:rgba(255,255,255,.13);
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-html, body{
-    width:100%;
-    overflow-x:hidden;
+html{
+    scroll-behavior:smooth;
 }
 
 body{
+
     font-family:'Poppins',sans-serif;
-    background:#000814;
-    color:#fff;
-    padding-top:120px;
-    padding-bottom:70px; /* space for PWA bar */
+
+    background:#061522;
+
+    color:white;
+
+    overflow-x:hidden;
+
+    padding-top:82px;
 }
 
-/* ================= BACKGROUND ================= */
-.digital-bg{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:-3;
-    background: radial-gradient(circle at 20% 20%, #0b1f3a, #000814);
-}
 
-.digital-bg::before{
-    content:"";
-    position:absolute;
-    width:200%;
-    height:200%;
-    background-image: radial-gradient(#4fc3f7 1px, transparent 1px);
-    background-size:40px 40px;
-    opacity:0.12;
-    animation: moveDots 25s linear infinite;
-}
+/* =========================================================
+   NAVBAR
+========================================================= */
 
-.digital-bg::after{
-    content:"";
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:
-        radial-gradient(circle at 15% 25%, rgba(79,195,247,0.5) 2px, transparent 3px),
-        radial-gradient(circle at 35% 65%, rgba(255,255,255,0.2) 2px, transparent 3px),
-        radial-gradient(circle at 70% 40%, rgba(79,195,247,0.4) 2px, transparent 3px),
-        radial-gradient(circle at 85% 80%, rgba(255,255,255,0.15) 2px, transparent 3px);
-    animation: floatParticles 14s ease-in-out infinite;
-    opacity:0.5;
-}
-
-.grid-overlay{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:-2;
-    background-image:
-        linear-gradient(rgba(79,195,247,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(79,195,247,0.05) 1px, transparent 1px);
-    background-size:60px 60px;
-    opacity:0.25;
-}
-
-/* ================= NAVBAR ================= */
 .navbar{
-    width:100%;
-    padding:18px 8%;
-    background:rgba(0,31,63,0.92);
-    backdrop-filter:blur(10px);
+
     position:fixed;
+
     top:0;
     left:0;
+
+    width:100%;
+
+    height:82px;
+
     z-index:10000;
+
     display:flex;
-    justify-content:space-between;
+
     align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 6%;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(4,18,30,.96),
+            rgba(4,18,30,.82)
+        );
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
 }
+
 
 .logo{
-    font-size:28px;
-    font-weight:700;
+
+    font-size:27px;
+
+    font-weight:800;
+
+    letter-spacing:-1px;
 }
 
 .logo span{
-    color:#4fc3f7;
+
+    color:var(--sky);
 }
 
-/* ================= UPDATE BAR ================= */
-.update-bar{
-    width:100%;
-    display:flex;
-    align-items:center;
-    background:linear-gradient(90deg,#4fc3f7,#001f3f);
-    font-weight:600;
-    position:fixed;
-    top:70px;
-    left:0;
-    z-index: index 9999;
+.logo-mark{
+
+    display:inline-block;
+
+    width:8px;
+    height:8px;
+
+    background:var(--sand);
+
+    transform:rotate(45deg);
+
+    margin-left:6px;
 }
+
+
+.nav-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+}
+
+
+.nav-identity{
+
+    font-size:10px;
+
+    color:#aebdc7;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+}
+
+
+.nav-location{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    font-size:11px;
+
+    color:#dbe8ee;
+
+    padding:8px 12px;
+
+    border-radius:30px;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    background:rgba(255,255,255,.04);
+}
+
+
+/* =========================================================
+   LIVE BAR
+========================================================= */
+
+.update-bar{
+
+    position:fixed;
+
+    top:82px;
+    left:0;
+
+    width:100%;
+
+    height:42px;
+
+    z-index:9999;
+
+    display:flex;
+
+    align-items:center;
+
+    background:
+        linear-gradient(
+            90deg,
+            #116b96,
+            #0b344d,
+            #102b3d
+        );
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+}
+
 
 .update-label{
-    flex-shrink:0;
-    padding:12px 15px;
-    background:rgba(0,0,0,0.25);
-    font-weight:700;
+
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 18px;
+
+    background:rgba(0,0,0,.18);
+
+    font-size:10px;
+
+    font-weight:800;
+
     white-space:nowrap;
+
+    letter-spacing:.5px;
 }
+
 
 .update-marquee{
+
     flex:1;
+
     overflow:hidden;
+
     white-space:nowrap;
 }
 
+
 .update-track{
+
     display:inline-block;
+
     padding-left:100%;
-    animation:scrollUpdate 55s linear infinite;
+
+    animation:
+        scrollUpdate 55s linear infinite;
+
+    font-size:11px;
+
+    color:#e6f5fb;
 }
 
-/* ================= HERO ================= */
+
+/* =========================================================
+   HERO
+========================================================= */
+
 .hero{
-    min-height:85vh;
+
+    position:relative;
+
+    min-height:
+        calc(100vh - 124px);
+
     display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:40px 8% 80px;
-    flex-wrap:wrap;
-    gap:30px;
+
+    align-items:flex-end;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(2,12,20,.05),
+            rgba(2,12,20,.35) 45%,
+            rgba(2,12,20,.96) 100%
+        );
 }
 
-.hero-text{
-    flex:1;
-    min-width:280px;
-}
 
-.hero-text h1{
-    font-size:clamp(28px, 6vw, 60px);
-    line-height:1.1;
-    margin-bottom:20px;
-}
+/*
+    HERO IMAGE
 
-.hero-text h1 span{
-    color:#4fc3f7;
-}
+    Replace this with:
+    images/jwaneng-hero.jpg
 
-.hero-text p{
-    font-size:clamp(14px, 2.2vw, 18px);
-    line-height:1.8;
-    margin-bottom:30px;
-    max-width:600px;
-    color:#e6e6e6;
-}
+    when you have your own high-quality Jwaneng photograph.
+*/
 
 .hero-image{
-    flex:1;
-    display:flex;
-    justify-content:center;
-    min-width:280px;
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:0;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(3,17,27,.82) 0%,
+            rgba(3,17,27,.38) 45%,
+            rgba(3,17,27,.15) 100%
+        ),
+
+        linear-gradient(
+            180deg,
+            rgba(3,17,27,.15),
+            rgba(3,17,27,.05) 45%,
+            rgba(3,17,27,.95) 100%
+        ),
+
+        url("images/jwaneng-hero.jpg")
+        center center /
+        cover no-repeat,
+
+        linear-gradient(
+            135deg,
+            #1c5369,
+            #b59661 50%,
+            #263b32
+        );
 }
 
-.hero-image img{
+
+/* =========================================================
+   HERO FALLBACK VISUAL
+========================================================= */
+
+.hero-image::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        radial-gradient(
+            circle at 75% 25%,
+            rgba(255,222,153,.16),
+            transparent 20%
+        ),
+
+        linear-gradient(
+            180deg,
+            transparent 60%,
+            rgba(0,0,0,.55)
+        );
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.hero-content{
+
+    position:relative;
+
+    z-index:3;
+
     width:100%;
-    max-width:500px;
-    border-radius:12px;
+
+    padding:
+        90px 7% 75px;
+
+    max-width:1050px;
 }
 
-/* BUTTON */
-.btn{
-    padding:12px 18px;
-    background:#4fc3f7;
-    color:#001f3f;
+
+.hero-kicker{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-bottom:20px;
+
+    padding:8px 14px;
+
+    border-radius:30px;
+
+    background:
+        rgba(255,255,255,.09);
+
+    border:
+        1px solid rgba(255,255,255,.18);
+
+    backdrop-filter:blur(10px);
+
+    color:#dff6ff;
+
+    font-size:10px;
+
     font-weight:700;
-    border-radius:10px;
-    text-decoration:none;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
 }
 
-/* DID YOU KNOW */
-.didyouknow{
-    width:100%;
-    padding:60px 8%;
-    background:rgba(255,255,255,0.05);
+
+.hero-kicker::before{
+
+    content:"";
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#73d7ff;
+
+    box-shadow:
+        0 0 12px #73d7ff;
+}
+
+
+.hero h1{
+
+    font-size:
+        clamp(52px,8vw,100px);
+
+    line-height:.98;
+
+    letter-spacing:-4px;
+
+    max-width:900px;
+
+    margin-bottom:25px;
+
+    text-shadow:
+        0 8px 35px rgba(0,0,0,.35);
+}
+
+
+.hero h1 span{
+
+    color:var(--sky-light);
+}
+
+
+.hero-description{
+
+    max-width:650px;
+
+    color:#e0ebf0;
+
+    font-size:
+        clamp(14px,1.6vw,18px);
+
+    line-height:1.8;
+
+    margin-bottom:30px;
+}
+
+
+.hero-buttons{
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+}
+
+
+.btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:14px 22px;
+
+    border-radius:9px;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    transition:.3s;
+}
+
+
+.btn-primary{
+
+    background:#ffffff;
+
+    color:#062237;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
+}
+
+
+.btn-primary:hover{
+
+    transform:translateY(-3px);
+
+    background:#dff6ff;
+}
+
+
+.btn-secondary{
+
+    color:white;
+
+    border:
+        1px solid rgba(255,255,255,.28);
+
+    background:
+        rgba(0,0,0,.18);
+
     backdrop-filter:blur(10px);
 }
 
-.section-title{
-    font-size:24px;
-    font-weight:700;
-    color:#4fc3f7;
-    margin-bottom:20px;
+
+.btn-secondary:hover{
+
+    transform:translateY(-3px);
+
+    border-color:white;
+
+    background:
+        rgba(255,255,255,.1);
 }
 
-.know-wrapper{
-    width:100%;
-    overflow:hidden;
-    border-radius:12px;
-    background:rgba(255,255,255,0.05);
-    padding:15px;
-}
 
-.know-track{
-    display:flex;
-    gap:20px;
-    width:max-content;
-    animation:scrollKnow 25s linear infinite;
-}
+/* =========================================================
+   HERO LOCATION CARD
+========================================================= */
 
-.know-card{
-    min-width:260px;
-    max-width:260px;
-    background:rgba(0,31,63,0.9);
-    padding:15px;
-    border-radius:12px;
-    font-size:13px;
-    flex-shrink:0;
-}
-/* ================= SPOTLIGHT LISTINGS ================= */
+.hero-location{
 
-.spotlight-slider{
-    position:relative;
-    width:100%;
-    max-width:700px;
-    height:520px;
-    overflow:hidden;
-    border-radius:20px;
-}
-
-.spotlight-card{
     position:absolute;
-    inset:0;
-    opacity:0;
-    transition:opacity .6s ease;
+
+    right:7%;
+
+    bottom:70px;
+
+    z-index:4;
+
+    width:245px;
+
+    padding:18px;
+
+    border-radius:15px;
+
+    background:
+        rgba(4,18,28,.65);
+
+    backdrop-filter:blur(18px);
+
+    border:
+        1px solid rgba(255,255,255,.14);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.25);
 }
 
-.spotlight-card.active{
-    opacity:1;
+
+.hero-location small{
+
+    display:block;
+
+    color:#91a9b6;
+
+    font-size:9px;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+
+    margin-bottom:5px;
 }
 
-.spotlight-card img{
-    width:100%;
-    height:100%;
-    object-fit: cover;
-    object-position: center;
-}
 
+.hero-location strong{
 
-.spotlight-overlay{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:0;
-    padding:20px;
-    background:linear-gradient(
-        transparent,
-        rgba(0,0,0,.85)
-    );
-}
+    display:block;
 
-.spotlight-badge{
-    display:inline-block;
-    background:#4fc3f7;
-    color:#001f3f;
-    padding:4px 10px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:700;
-    margin-bottom:10px;
-}
+    font-size:17px;
 
-.spotlight-overlay h3{
     margin-bottom:8px;
-    font-size:22px;
 }
 
-.spotlight-overlay p{
-    font-size:14px;
+
+.hero-location span{
+
+    font-size:10px;
+
+    color:#c2d1d9;
+
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   QUICK DISCOVERY
+========================================================= */
+
+.discovery{
+
+    position:relative;
+
+    z-index:5;
+
+    margin-top:-30px;
+
+    padding:
+        0 7% 75px;
+}
+
+
+.discovery-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    gap:10px;
+
+    padding:10px;
+
+    border-radius:18px;
+
+    background:
+        rgba(5,20,32,.88);
+
+    backdrop-filter:blur(18px);
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.3);
+}
+
+
+.discovery-card{
+
+    min-height:115px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    color:white;
+
+    background:
+        rgba(255,255,255,.035);
+
+    transition:.3s;
+}
+
+
+.discovery-card:hover{
+
+    background:
+        rgba(67,184,232,.11);
+
+    transform:translateY(-3px);
+}
+
+
+.discovery-icon{
+
+    font-size:24px;
+
+    margin-bottom:9px;
+}
+
+
+.discovery-card strong{
+
+    font-size:12px;
+
+    margin-bottom:3px;
+}
+
+
+.discovery-card span{
+
+    font-size:9px;
+
+    color:#92a5b0;
+
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   JWANENG INTRO
+========================================================= */
+
+.intro{
+
+    padding:
+        90px 7%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #061522,
+            #091e2c
+        );
+}
+
+
+.intro-layout{
+
+    display:grid;
+
+    grid-template-columns:
+        1.05fr .95fr;
+
+    gap:65px;
+
+    align-items:center;
+}
+
+
+.section-kicker{
+
+    color:var(--sand-light);
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:2.5px;
+
+    text-transform:uppercase;
+
     margin-bottom:12px;
 }
 
-.spotlight-btn{
-    display:inline-block;
-    background:#4fc3f7;
-    color:#001f3f;
-    padding:8px 14px;
-    border-radius:8px;
-    text-decoration:none;
-    font-weight:700;
+
+.intro h2{
+
+    font-size:
+        clamp(32px,4.5vw,56px);
+
+    line-height:1.08;
+
+    letter-spacing:-2px;
+
+    margin-bottom:20px;
 }
 
-.spotlight-card{
-    position:absolute;
-    inset:0;
-    opacity:0;
-    transition:all 0.6s ease;
-    transform:scale(1.02);
+
+.intro h2 span{
+
+    color:var(--sky);
 }
 
-.spotlight-card.active{
-    opacity:1;
-    transform:scale(1);
-}
 
-.spotlight-progress{
-    position:absolute;
-    bottom:0;
-    left:0;
-    width:100%;
-    height:3px;
-    background:rgba(255,255,255,0.2);
-    z-index:5;
-}
+.intro p{
 
-.spotlight-progress-bar{
-    width:0%;
-    height:100%;
-    background:#4fc3f7;
-}
-@media (max-width:768px){
-    .spotlight-slider{
-        height:380px;
-        max-width:100%;
-    }
+    color:#adbec8;
 
-    .spotlight-overlay h3{
-        font-size:18px;
-    }
-}
-/* ================= FOOTER ================= */
-footer{
-    background:rgba(0,31,63,0.95);
-    color:#fff;
-    padding:60px 8% 30px;
-}
-
-.footer-container{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:35px;
-}
-
-.footer-column h3{
-    color:#4fc3f7;
-    margin-bottom:15px;
-    font-size:18px;
-}
-
-.footer-column p,
-.footer-column a{
-    color:#ddd;
     font-size:14px;
-    text-decoration:none;
+
+    line-height:1.9;
+
+    max-width:650px;
 }
 
-.footer-column a:hover{
-    color:#4fc3f7;
+
+/* =========================================================
+   IMAGE COLLAGE
+========================================================= */
+
+.photo-collage{
+
+    position:relative;
+
+    height:470px;
 }
 
-.footer-column ul{
-    list-style:none;
+
+.photo{
+
+    position:absolute;
+
+    overflow:hidden;
+
+    border-radius:17px;
+
+    border:
+        4px solid #091e2c;
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.35);
+
+    background-size:cover;
+
+    background-position:center;
 }
 
-.footer-column li{
-    margin-bottom:10px;
+
+.photo::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            180deg,
+            transparent 55%,
+            rgba(0,0,0,.65)
+        );
 }
 
-.footer-bottom{
-    text-align:center;
-    color:#ccc;
-    font-size:13px;
-    margin-top:20px;
+
+.photo-main{
+
+    width:72%;
+    height:82%;
+
+    top:0;
+    left:0;
+
+    background-image:
+        url("images/jwaneng-town.jpg");
 }
 
-.footer-bottom span{
-    color:#4fc3f7;
+
+.photo-small{
+
+    width:50%;
+    height:48%;
+
+    right:0;
+    bottom:0;
+
+    background-image:
+        url("images/jwana-game-park.jpg");
+}
+
+
+.photo-label{
+
+    position:absolute;
+
+    z-index:2;
+
+    bottom:16px;
+    left:18px;
+
+    font-size:11px;
+
     font-weight:700;
 }
 
-/* ================= PWA CONTROL BAR ================= */
-.pwa-bar{
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    background:rgba(0,31,63,0.98);
-    display:none;
-    justify-content:space-around;
-    padding:10px 0;
-    border-top:1px solid rgba(79,195,247,0.3);
-    z-index:10000;
+
+.photo-small .photo-label{
+
+    font-size:10px;
 }
 
-.pwa-bar a{
-    color:#fff;
-    text-decoration:none;
-    font-size:12px;
+
+/* =========================================================
+   JWANENG EXPERIENCES
+========================================================= */
+
+.experiences{
+
+    padding:
+        90px 7%;
+
+    background:#071a28;
+}
+
+
+.experience-heading{
+
     display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:4px;
+
+    align-items:flex-end;
+
+    justify-content:space-between;
+
+    gap:30px;
+
+    margin-bottom:30px;
 }
 
-.pwa-bar span{
-    color:#4fc3f7;
-    font-size:18px;
+
+.experience-heading h2{
+
+    font-size:
+        clamp(30px,4vw,46px);
+
+    letter-spacing:-1.5px;
 }
 
-/* ANIMATIONS */
-@keyframes scrollUpdate{
-    0%{transform:translateX(0);}
-    100%{transform:translateX(-100%);}
+
+.experience-heading p{
+
+    color:#9fb0ba;
+
+    font-size:12px;
+
+    max-width:400px;
+
+    line-height:1.7;
 }
 
-@keyframes scrollKnow{
-    0%{transform:translateX(0);}
-    100%{transform:translateX(-50%);}
-}
 
-@keyframes moveDots{
-    from{transform:translate(0,0);}
-    to{transform:translate(-120px,-120px);}
-}
+.experience-grid{
 
-@keyframes floatParticles{
-    0%{transform:translateY(0);}
-    50%{transform:translateY(-25px);}
-    100%{transform:translateY(0);}
-}
-/* ================= HOME WIDGETS ================= */
-
-.widgets-section{
-    padding:60px 8%;
-}
-
-.widgets-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-    gap:20px;
+
+    grid-template-columns:
+        1.5fr 1fr 1fr;
+
+    grid-template-rows:
+        260px 210px;
+
+    gap:14px;
 }
+
+
+.experience-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:17px;
+
+    background-size:cover;
+
+    background-position:center;
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    text-decoration:none;
+
+    color:white;
+
+    transition:.4s;
+}
+
+
+.experience-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.35);
+}
+
+
+.experience-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.02),
+            rgba(0,0,0,.75)
+        );
+}
+
+
+.experience-card-content{
+
+    position:absolute;
+
+    z-index:2;
+
+    left:22px;
+    right:22px;
+
+    bottom:20px;
+}
+
+
+.experience-card h3{
+
+    font-size:19px;
+
+    margin-bottom:5px;
+}
+
+
+.experience-card p{
+
+    color:#d1dce2;
+
+    font-size:10px;
+
+    line-height:1.6;
+}
+
+
+.experience-town{
+
+    grid-row:
+        span 2;
+
+    background-image:
+        url("images/jwaneng-town-life.jpg");
+}
+
+
+.experience-wildlife{
+
+    background-image:
+        url("images/jwaneng-wildlife.jpg");
+}
+
+
+.experience-community{
+
+    background-image:
+        url("images/jwaneng-community.jpg");
+}
+
+
+.experience-business{
+
+    background-image:
+        url("images/jwaneng-business.jpg");
+}
+
+
+.experience-events{
+
+    background-image:
+        url("images/jwaneng-events.jpg");
+}
+
+
+/* =========================================================
+   TODAY
+========================================================= */
+
+.today{
+
+    padding:
+        85px 7%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #091e2c,
+            #061522
+        );
+}
+
+
+.today-header{
+
+    margin-bottom:30px;
+}
+
+
+.today-header h2{
+
+    font-size:
+        clamp(30px,4vw,44px);
+
+    letter-spacing:-1px;
+}
+
+
+.today-header p{
+
+    color:#94a8b3;
+
+    font-size:12px;
+
+    margin-top:6px;
+}
+
+
+.today-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+}
+
 
 .widget-card{
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(10px);
-    border:1px solid rgba(79,195,247,0.15);
-    border-radius:14px;
-    padding:20px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    border-radius:16px;
+
+    padding:23px;
+
+    min-height:250px;
 }
 
+
 .widget-card h3{
-    color:#4fc3f7;
+
+    color:#78d4f5;
+
+    font-size:16px;
+
     margin-bottom:15px;
 }
 
+
 .widget-item{
-    padding:12px 0;
-    border-bottom:1px solid rgba(255,255,255,0.08);
+
+    padding:11px 0;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.07);
 }
 
+
 .widget-item:last-child{
+
     border-bottom:none;
 }
 
-.widget-item a{
-    color:#fff;
-    text-decoration:none;
+
+.widget-item strong{
+
+    display:block;
+
+    font-size:12px;
+
+    margin-bottom:4px;
 }
+
 
 .widget-item small{
-    color:#bbb;
-    display:block;
-    margin-top:4px;
+
+    color:#899da8;
+
+    font-size:10px;
 }
+
 
 .widget-btn{
+
     display:inline-block;
-    margin-top:15px;
-    color:#4fc3f7;
+
+    margin-top:14px;
+
+    color:#78d4f5;
+
     text-decoration:none;
-    font-weight:600;
-}
-.lightbox{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.9);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:99999;
+
+    font-size:10px;
+
+    font-weight:700;
 }
 
-.lightbox img{
-    max-width:90%;
-    max-height:90%;
-    border-radius:10px;
+
+/* =========================================================
+   WEATHER
+========================================================= */
+
+.weather-strip{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    padding:
+        22px 7%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0b3449,
+            #0b2638
+        );
+
+    border-top:
+        1px solid rgba(255,255,255,.08);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
 }
+
+
+.weather-title{
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+
+.weather-data{
+
+    display:flex;
+
+    gap:22px;
+
+    color:#bdd0da;
+
+    font-size:11px;
+}
+
+
+/* =========================================================
+   DID YOU KNOW
+========================================================= */
+
+.didyouknow{
+
+    padding:
+        70px 7%;
+
+    background:
+        #081d2b;
+}
+
+
+.section-title{
+
+    color:var(--sand-light);
+
+    font-size:22px;
+
+    font-weight:800;
+
+    margin-bottom:20px;
+}
+
+
+.know-wrapper{
+
+    overflow:hidden;
+
+    padding:3px;
+}
+
+
+.know-track{
+
+    display:flex;
+
+    gap:15px;
+
+    width:max-content;
+
+    animation:
+        scrollKnow 45s linear infinite;
+}
+
+
+.know-card{
+
+    width:280px;
+
+    min-height:125px;
+
+    padding:20px;
+
+    border-radius:14px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
+    color:#b9c8d0;
+
+    font-size:11px;
+
+    line-height:1.8;
+
+    flex-shrink:0;
+}
+
+
+.know-card::before{
+
+    content:"◆";
+
+    display:block;
+
+    color:var(--sand);
+
+    font-size:8px;
+
+    margin-bottom:10px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+
+    padding:
+        70px 7% 30px;
+
+    background:#04111c;
+
+    border-top:
+        1px solid rgba(255,255,255,.08);
+}
+
+
+.footer-container{
+
+    display:grid;
+
+    grid-template-columns:
+        1.5fr 1fr 1fr 1fr;
+
+    gap:40px;
+}
+
+
+.footer-brand{
+
+    font-size:25px;
+
+    font-weight:800;
+
+    margin-bottom:8px;
+}
+
+
+.footer-brand span{
+
+    color:var(--sky);
+}
+
+
+.footer-tagline{
+
+    color:var(--sand-light);
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:1.8px;
+
+    margin-bottom:12px;
+}
+
+
+.footer-column h3{
+
+    color:#76d2f2;
+
+    font-size:14px;
+
+    margin-bottom:15px;
+}
+
+
+.footer-column p,
+.footer-column a{
+
+    color:#8ea2ad;
+
+    font-size:10px;
+
+    line-height:1.8;
+
+    text-decoration:none;
+}
+
+
+.footer-column ul{
+
+    list-style:none;
+}
+
+
+.footer-column li{
+
+    margin-bottom:7px;
+}
+
+
+.footer-column a:hover{
+
+    color:white;
+}
+
+
+.footer-bottom{
+
+    text-align:center;
+
+    margin-top:45px;
+
+    padding-top:20px;
+
+    border-top:
+        1px solid rgba(255,255,255,.06);
+
+    color:#61727d;
+
+    font-size:9px;
+}
+
+
+.footer-bottom span{
+
+    color:#75d3f5;
+
+    font-weight:700;
+}
+
+
+/* =========================================================
+   PWA BAR
+========================================================= */
+
+.pwa-bar{
+
+    position:fixed;
+
+    bottom:0;
+    left:0;
+
+    width:100%;
+
+    display:none;
+
+    justify-content:space-around;
+
+    padding:8px 0;
+
+    background:
+        rgba(4,18,29,.98);
+
+    border-top:
+        1px solid rgba(67,184,232,.25);
+
+    z-index:10000;
+}
+
+
+.pwa-bar a{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:3px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:9px;
+}
+
+
+.pwa-bar span{
+
+    font-size:17px;
+
+    color:var(--sky);
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes scrollUpdate{
+
+    from{
+        transform:translateX(0);
+    }
+
+    to{
+        transform:translateX(-100%);
+    }
+}
+
+
+@keyframes scrollKnow{
+
+    from{
+        transform:translateX(0);
+    }
+
+    to{
+        transform:translateX(-50%);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:1000px){
+
+    .discovery-grid{
+
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+
+    .intro-layout{
+
+        grid-template-columns:1fr;
+    }
+
+
+    .photo-collage{
+
+        max-width:650px;
+
+        margin:auto;
+    }
+
+
+    .experience-grid{
+
+        grid-template-columns:
+            1fr 1fr;
+
+        grid-template-rows:
+            260px 210px 210px;
+    }
+
+
+    .experience-town{
+
+        grid-row:span 1;
+    }
+
+
+    .today-grid{
+
+        grid-template-columns:1fr;
+    }
+
+
+    .footer-container{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:700px){
+
+    body{
+
+        padding-top:72px;
+
+        padding-bottom:58px;
+    }
+
+
+    .navbar{
+
+        height:72px;
+
+        padding:0 5%;
+    }
+
+
+    .logo{
+
+        font-size:22px;
+    }
+
+
+    .nav-identity{
+
+        display:none;
+    }
+
+
+    .nav-location{
+
+        font-size:9px;
+
+        padding:7px 9px;
+    }
+
+
+    .update-bar{
+
+        top:72px;
+
+        height:38px;
+    }
+
+
+    .update-label{
+
+        font-size:9px;
+
+        padding:0 10px;
+    }
+
+
+    .update-track{
+
+        font-size:10px;
+    }
+
+
+    .hero{
+
+        min-height:
+            calc(100vh - 110px);
+
+        align-items:flex-end;
+    }
+
+
+    .hero-image{
+
+        background-position:
+            62% center;
+    }
+
+
+    .hero-content{
+
+        padding:
+            70px 5% 55px;
+    }
+
+
+    .hero h1{
+
+        font-size:
+            clamp(48px,14vw,72px);
+
+        letter-spacing:-3px;
+    }
+
+
+    .hero-description{
+
+        font-size:13px;
+
+        line-height:1.75;
+    }
+
+
+    .hero-location{
+
+        display:none;
+    }
+
+
+    .discovery{
+
+        margin-top:-15px;
+
+        padding:
+            0 5% 55px;
+    }
+
+
+    .discovery-grid{
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+
+    .discovery-card{
+
+        min-height:100px;
+    }
+
+
+    .intro,
+    .experiences,
+    .today,
+    .didyouknow{
+
+        padding-left:5%;
+        padding-right:5%;
+    }
+
+
+    .photo-collage{
+
+        height:380px;
+    }
+
+
+    .experience-heading{
+
+        display:block;
+    }
+
+
+    .experience-heading p{
+
+        margin-top:10px;
+    }
+
+
+    .experience-grid{
+
+        grid-template-columns:1fr;
+
+        grid-template-rows:
+            repeat(5,220px);
+    }
+
+
+    .experience-town{
+
+        grid-row:auto;
+    }
+
+
+    .weather-strip{
+
+        display:block;
+
+        padding:
+            20px 5%;
+    }
+
+
+    .weather-data{
+
+        margin-top:8px;
+
+        flex-wrap:wrap;
+
+        gap:10px;
+    }
+
+
+    .footer-container{
+
+        grid-template-columns:1fr;
+    }
+
+
+    .pwa-bar{
+
+        display:flex;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media(max-width:430px){
+
+    .hero h1{
+
+        font-size:47px;
+    }
+
+
+    .hero-buttons{
+
+        flex-direction:column;
+    }
+
+
+    .btn{
+
+        width:100%;
+    }
+
+
+    .discovery-grid{
+
+        grid-template-columns:1fr 1fr;
+
+        gap:7px;
+
+        padding:7px;
+    }
+
+
+    .discovery-card{
+
+        padding:14px;
+
+        min-height:95px;
+    }
+
+
+    .photo-collage{
+
+        height:330px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+
+        animation:none !important;
+
+        scroll-behavior:auto !important;
+    }
+
+}
+
 </style>
+
 </head>
+
 
 <body>
 
-<div class="digital-bg"></div>
-<div class="grid-overlay"></div>
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
 
 <nav class="navbar">
-    <div class="logo">My<span>Jwaneng</span></div>
+
+    <div class="logo">
+
+        My<span>Jwaneng</span>
+
+        <i class="logo-mark"></i>
+
+    </div>
+
+
+    <div class="nav-right">
+
+        <div class="nav-identity">
+
+            Discover • Connect • Belong
+
+        </div>
+
+        <div class="nav-location">
+
+            📍 Jwaneng, Botswana
+
+        </div>
+
+    </div>
+
 </nav>
 
+
+<!-- =====================================================
+     LIVE UPDATES
+===================================================== -->
+
 <div class="update-bar">
-    <div class="update-label">📢 Live Updates</div>
-    <div class="update-marquee">
-        <div class="update-track" id="updateTrack">Loading updates...</div>
+
+    <div class="update-label">
+
+        📢 JWANENG LIVE
+
     </div>
+
+    <div class="update-marquee">
+
+        <div
+            class="update-track"
+            id="updateTrack"
+        >
+
+            Welcome to My Jwaneng — your digital town.
+
+        </div>
+
+    </div>
+
 </div>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
 
 <section class="hero">
 
-    <div class="hero-text">
-        <h1>Connecting <span>Jwaneng</span> Digitally</h1>
 
-        <p>
-            Your smart community platform for jobs,
-            businesses, events, news, and opportunities
-            all in one place.
+    <!--
+        IMPORTANT:
+
+        Add your actual Jwaneng photograph here:
+
+        images/jwaneng-hero.jpg
+
+        Recommended:
+        2000px+ wide
+        Landscape
+        Town / road / sunset / Jwaneng scenery
+    -->
+
+    <div class="hero-image"></div>
+
+
+    <div class="hero-content">
+
+        <div class="hero-kicker">
+
+            Welcome to Jwaneng
+
+        </div>
+
+
+        <h1>
+
+            This is
+
+            <span>Jwaneng.</span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            A town of people, stories, places,
+            businesses, opportunities and memories.
+
+            Discover the everyday life, beauty and
+            character of Jwaneng — all in one place.
+
         </p>
 
-        <a href="exploremyjwaneng.html" class="btn">
-            Explore My Jwaneng
+
+        <div class="hero-buttons">
+
+            <a
+                href="exploremyjwaneng.html"
+                class="btn btn-primary"
+            >
+
+                Explore Jwaneng →
+
+            </a>
+
+
+            <a
+                href="#experiences"
+                class="btn btn-secondary"
+            >
+
+                Discover the Town
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-location">
+
+        <small>
+
+            You are exploring
+
+        </small>
+
+        <strong>
+
+            Jwaneng
+
+        </strong>
+
+        <span>
+
+            Southern Botswana • Kalahari region
+
+            <br>
+
+            Community • Nature • Lifestyle • Opportunity
+
+        </span>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     QUICK DISCOVERY
+===================================================== -->
+
+<section class="discovery">
+
+    <div class="discovery-grid">
+
+
+        <a
+            href="townnews.html"
+            class="discovery-card"
+        >
+
+            <div class="discovery-icon">
+
+                📰
+
+            </div>
+
+            <strong>
+
+                What's happening?
+
+            </strong>
+
+            <span>
+
+                Latest town news & updates
+
+            </span>
+
         </a>
 
-        <div id="weatherBox" style="
-            margin-top:20px;
-            padding:12px;
-            border-radius:10px;
-            background:rgba(255,255,255,0.06);
-            max-width:300px;
-            font-size:13px;
-        ">
-            <div style="color:#4fc3f7;font-weight:600;margin-bottom:6px;">
-                🌤 Weather Update
+
+        <a
+            href="businesses.html"
+            class="discovery-card"
+        >
+
+            <div class="discovery-icon">
+
+                🏪
+
             </div>
 
-            <div id="weatherLoc">Loading location...</div>
-            <div id="weatherTemp"></div>
-            <div id="weatherWind"></div>
-        </div>
+            <strong>
 
-    </div>
+                Local businesses
 
-    <div class="hero-image">
-        <div class="spotlight-slider" id="spotlightSlider">
-            Loading spotlight listings...
-        </div>
+            </strong>
+
+            <span>
+
+                Discover services around town
+
+            </span>
+
+        </a>
+
+
+        <a
+            href="jobs.html"
+            class="discovery-card"
+        >
+
+            <div class="discovery-icon">
+
+                💼
+
+            </div>
+
+            <strong>
+
+                Opportunities
+
+            </strong>
+
+            <span>
+
+                Jobs & local opportunities
+
+            </span>
+
+        </a>
+
+
+        <a
+            href="events.html"
+            class="discovery-card"
+        >
+
+            <div class="discovery-icon">
+
+                🎉
+
+            </div>
+
+            <strong>
+
+                What's on?
+
+            </strong>
+
+            <span>
+
+                Events & activities
+
+            </span>
+
+        </a>
+
+
+        <a
+            href="marketplace.html"
+            class="discovery-card"
+        >
+
+            <div class="discovery-icon">
+
+                🛍️
+
+            </div>
+
+            <strong>
+
+                Marketplace
+
+            </strong>
+
+            <span>
+
+                Buy, sell & discover locally
+
+            </span>
+
+        </a>
+
+
     </div>
 
 </section>
-<section class="widgets-section">
 
-    <div class="widgets-grid">
+
+<!-- =====================================================
+     JWANENG INTRODUCTION
+===================================================== -->
+
+<section class="intro">
+
+    <div class="intro-layout">
+
+
+        <div>
+
+            <div class="section-kicker">
+
+                MORE THAN A PLACE
+
+            </div>
+
+
+            <h2>
+
+                Get to know
+
+                <span>Jwaneng.</span>
+
+            </h2>
+
+
+            <p>
+
+                Jwaneng is more than its famous story.
+
+                It is neighbourhoods, schools, families,
+                sports, businesses, churches, community
+                activities, local entrepreneurs, open
+                spaces, wildlife and the everyday moments
+                that give the town its character.
+
+                <br><br>
+
+                My Jwaneng brings these experiences
+                together so that residents and visitors
+                can discover the town from a different
+                perspective.
+
+            </p>
+
+        </div>
+
+
+        <!--
+            Replace these images with actual local
+            Jwaneng photographs.
+        -->
+
+        <div class="photo-collage">
+
+
+            <div class="photo photo-main">
+
+                <div class="photo-label">
+
+                    Life in Jwaneng
+
+                </div>
+
+            </div>
+
+
+            <div class="photo photo-small">
+
+                <div class="photo-label">
+
+                    Nature & Wildlife
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     JWANENG EXPERIENCES
+===================================================== -->
+
+<section
+    class="experiences"
+    id="experiences"
+>
+
+
+    <div class="experience-heading">
+
+        <div>
+
+            <div class="section-kicker">
+
+                EXPERIENCE JWANENG
+
+            </div>
+
+            <h2>
+
+                There is more to
+
+                <span>discover.</span>
+
+            </h2>
+
+        </div>
+
+
+        <p>
+
+            Explore the different sides of Jwaneng —
+            from everyday town life to nature,
+            community, business and local experiences.
+
+        </p>
+
+    </div>
+
+
+    <div class="experience-grid">
+
+
+        <a
+            href="exploremyjwaneng.html"
+            class="experience-card experience-town"
+        >
+
+            <div class="experience-card-content">
+
+                <h3>
+
+                    Life Around Town
+
+                </h3>
+
+                <p>
+
+                    Discover the places, people and
+                    everyday experiences that make
+                    Jwaneng feel like home.
+
+                </p>
+
+            </div>
+
+        </a>
+
+
+        <a
+            href="#"
+            class="experience-card experience-wildlife"
+        >
+
+            <div class="experience-card-content">
+
+                <h3>
+
+                    Nature & Wildlife
+
+                </h3>
+
+                <p>
+
+                    Discover the natural side of Jwaneng
+                    and the wildlife around the town.
+
+                </p>
+
+            </div>
+
+        </a>
+
+
+        <a
+            href="businesses.html"
+            class="experience-card experience-community"
+        >
+
+            <div class="experience-card-content">
+
+                <h3>
+
+                    Community
+
+                </h3>
+
+                <p>
+
+                    People and organisations shaping
+                    everyday life in town.
+
+                </p>
+
+            </div>
+
+        </a>
+
+
+        <a
+            href="businesses.html"
+            class="experience-card experience-business"
+        >
+
+            <div class="experience-card-content">
+
+                <h3>
+
+                    Local Business
+
+                </h3>
+
+                <p>
+
+                    Meet the businesses and entrepreneurs
+                    serving the community.
+
+                </p>
+
+            </div>
+
+        </a>
+
+
+        <a
+            href="events.html"
+            class="experience-card experience-events"
+        >
+
+            <div class="experience-card-content">
+
+                <h3>
+
+                    Events & Activities
+
+                </h3>
+
+                <p>
+
+                    Find out what is happening around
+                    Jwaneng.
+
+                </p>
+
+            </div>
+
+        </a>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     JWANENG TODAY
+===================================================== -->
+
+<section class="today">
+
+
+    <div class="today-header">
+
+        <div class="section-kicker">
+
+            JWANENG TODAY
+
+        </div>
+
+
+        <h2>
+
+            What's happening in town?
+
+        </h2>
+
+
+        <p>
+
+            Fresh community information from My Jwaneng.
+
+        </p>
+
+    </div>
+
+
+    <div class="today-grid">
+
 
         <!-- NEWS -->
+
         <div class="widget-card">
-            <h3>📰 Latest News</h3>
+
+            <h3>
+
+                📰 Latest News
+
+            </h3>
+
+
             <div id="latestNews">
+
                 Loading news...
+
             </div>
-            <a href="townnews.html" class="widget-btn">View All News →</a>
+
+
+            <a
+                href="townnews.html"
+                class="widget-btn"
+            >
+
+                View All News →
+
+            </a>
+
         </div>
+
 
         <!-- JOBS -->
+
         <div class="widget-card">
-            <h3>💼 Latest Jobs</h3>
+
+            <h3>
+
+                💼 Opportunities
+
+            </h3>
+
+
             <div id="latestJobs">
-                Loading jobs...
+
+                Loading opportunities...
+
             </div>
-            <a href="jobs.html" class="widget-btn">View All Jobs →</a>
+
+
+            <a
+                href="jobs.html"
+                class="widget-btn"
+            >
+
+                View All Jobs →
+
+            </a>
+
         </div>
+
 
         <!-- EVENTS -->
+
         <div class="widget-card">
-            <h3>📅 Upcoming Events</h3>
+
+            <h3>
+
+                📅 Upcoming Events
+
+            </h3>
+
+
             <div id="latestEvents">
+
                 Loading events...
+
             </div>
-            <a href="events.html" class="widget-btn">View All Events →</a>
+
+
+            <a
+                href="events.html"
+                class="widget-btn"
+            >
+
+                View All Events →
+
+            </a>
+
         </div>
+
 
     </div>
 
 </section>
+
+
+<!-- =====================================================
+     WEATHER
+===================================================== -->
+
+<section class="weather-strip">
+
+    <div class="weather-title">
+
+        🌤 Jwaneng Weather
+
+    </div>
+
+
+    <div class="weather-data">
+
+        <span id="weatherLoc">
+
+            Jwaneng Area
+
+        </span>
+
+
+        <span id="weatherTemp">
+
+            Loading temperature...
+
+        </span>
+
+
+        <span id="weatherWind">
+
+            Loading wind...
+
+        </span>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DID YOU KNOW
+===================================================== -->
+
 <section class="didyouknow">
-    <div class="section-title">🧠 Did You Know?</div>
-    <div class="know-wrapper">
-        <div class="know-track" id="knowTrack">
-            <div class="know-card">Jwaneng is one of the richest diamond mines in the world.</div>
-            <div class="know-card">The name means "place of small stones" in Setswana.</div>
-            <div class="know-card">It contributes heavily to Botswana’s economy.</div>
-            <div class="know-card">Built specifically for mining operations.</div>
-            <div class="know-card">Known as the “Prince of Mines”.</div>
-        </div>
+
+
+    <div class="section-title">
+
+        💡 Did You Know? — Jwaneng
+
     </div>
+
+
+    <div class="know-wrapper">
+
+
+        <div
+            class="know-track"
+            id="knowTrack"
+        >
+
+
+            <div class="know-card">
+
+                Jwaneng is a planned town in
+                Botswana's Southern District.
+
+            </div>
+
+
+            <div class="know-card">
+
+                The town has a strong community identity
+                shaped by people from many backgrounds.
+
+            </div>
+
+
+            <div class="know-card">
+
+                Jwana Game Park is associated with
+                the wider Jwaneng area and its natural
+                environment.
+
+            </div>
+
+
+            <div class="know-card">
+
+                Jwaneng's story is closely connected
+                to Botswana's diamond industry — but
+                town life extends far beyond it.
+
+            </div>
+
+
+            <div class="know-card">
+
+                Jwaneng has local businesses,
+                sporting activities, community
+                organisations and events.
+
+            </div>
+
+
+            <div class="know-card">
+
+                The Kalahari landscape gives Jwaneng
+                a distinctive natural setting.
+
+            </div>
+
+
+        </div>
+
+    </div>
+
 </section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <footer>
+
+
     <div class="footer-container">
 
-        <div class="footer-column">
-            <h3>My Jwaneng</h3>
-            <p>Connecting residents, businesses, jobs, events, opportunities and local information.</p>
-        </div>
 
         <div class="footer-column">
-            <h3>Quick Links</h3>
-            <ul>
-                <li><a href="exploremyjwaneng.html">Explore</a></li>
-                <li><a href="jobs.html">Jobs</a></li>
-                <li><a href="townnews.html">News</a></li>
-                <li><a href="events.html">Events</a></li>
-            </ul>
+
+            <div class="footer-brand">
+
+                My<span>Jwaneng</span>
+
+            </div>
+
+
+            <div class="footer-tagline">
+
+                DISCOVER • CONNECT • BELONG
+
+            </div>
+
+
+            <p>
+
+                Your digital gateway to the people,
+                businesses, opportunities, places,
+                events and experiences that make
+                Jwaneng home.
+
+            </p>
+
         </div>
 
+
         <div class="footer-column">
-            <h3>Legal</h3>
+
+            <h3>
+
+                Explore
+
+            </h3>
+
+
             <ul>
-                <li><a href="privacy.html">Privacy</a></li>
-                <li><a href="terms.html">Terms</a></li>
-                <li><a href="business-directory-disclaimer.html">Business Disclaimer</a></li>
-                <li><a href="photo-usage-disclaimer.html">Photo Disclaimer</a></li>
+
+                <li>
+                    <a href="exploremyjwaneng.html">
+                        Explore Jwaneng
+                    </a>
+                </li>
+
+                <li>
+                    <a href="jobs.html">
+                        Jobs & Opportunities
+                    </a>
+                </li>
+
+                <li>
+                    <a href="marketplace.html">
+                        Marketplace
+                    </a>
+                </li>
+
+                <li>
+                    <a href="events.html">
+                        Events
+                    </a>
+                </li>
+
             </ul>
+
         </div>
+
+
+        <div class="footer-column">
+
+            <h3>
+
+                Community
+
+            </h3>
+
+
+            <ul>
+
+                <li>
+                    <a href="townnews.html">
+                        Town News
+                    </a>
+                </li>
+
+                <li>
+                    <a href="businesses.html">
+                        Local Businesses
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Tourism & Attractions
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        Community
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>
+
+                Legal
+
+            </h3>
+
+
+            <ul>
+
+                <li>
+                    <a href="privacy.html">
+                        Privacy
+                    </a>
+                </li>
+
+                <li>
+                    <a href="terms.html">
+                        Terms
+                    </a>
+                </li>
+
+                <li>
+                    <a href="business-directory-disclaimer.html">
+                        Business Disclaimer
+                    </a>
+                </li>
+
+                <li>
+                    <a href="photo-usage-disclaimer.html">
+                        Photo Disclaimer
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
 
     </div>
+
 
     <div class="footer-bottom">
-        © 2026 My Jwaneng | Built by <span>A-eye Group</span>
+
+        © 2026 My Jwaneng |
+
+        Built by
+
+        <span>A-eye Group</span>
+
     </div>
+
 </footer>
 
-<!-- PWA CONTROL BAR -->
-<div class="pwa-bar" id="pwaBar">
-    <a href="index.html"><span>🏠</span>Home</a>
-    <a href="exploremyjwaneng.html"><span>🔍</span>Explore</a>
-    <a href="jobs.html"><span>💼</span>Jobs</a>
-    <a href="marketplace.html"><span>🛒</span>Market</a>
-    <a href="townnews.html"><span>📰</span>News</a>
+
+<!-- =====================================================
+     PWA BAR
+===================================================== -->
+
+<div
+    class="pwa-bar"
+    id="pwaBar"
+>
+
+
+    <a href="index.html">
+
+        <span>🏠</span>
+
+        Home
+
+    </a>
+
+
+    <a href="exploremyjwaneng.html">
+
+        <span>🔍</span>
+
+        Explore
+
+    </a>
+
+
+    <a href="jobs.html">
+
+        <span>💼</span>
+
+        Jobs
+
+    </a>
+
+
+    <a href="marketplace.html">
+
+        <span>🛒</span>
+
+        Market
+
+    </a>
+
+
+    <a href="townnews.html">
+
+        <span>📰</span>
+
+        News
+
+    </a>
+
+
 </div>
 
+
 <script>
-const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
-const client = supabase.createClient(supabaseUrl, supabaseKey);
 
-const track = document.getElementById("updateTrack");
+/* =========================================================
+   SUPABASE
+========================================================= */
 
-let updates = [];
-let index = 0;
+const supabaseUrl =
+"https://jxigyoxikaqwwzfnccej.supabase.co";
+
+
+const supabaseKey =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
+
+
+const client =
+supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+);
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value){
+
+    return String(value || "")
+
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   LIVE UPDATES
+========================================================= */
+
+const track =
+document.getElementById(
+    "updateTrack"
+);
+
 
 async function loadUpdates(){
 
-    const { data } = await client
-        .from("updates")
-        .select("*")
-        .order("id",{ascending:false});
+    try{
 
-    if(!data || data.length === 0){
-        track.innerHTML = "📢 Welcome to My Jwaneng";
-        return;
+        const { data, error } =
+        await client
+            .from("updates")
+            .select("*")
+            .order(
+                "id",
+                {ascending:false}
+            );
+
+
+        if(error){
+
+            console.log(error);
+
+            throw error;
+        }
+
+
+        if(!data || data.length === 0){
+
+            track.innerHTML =
+                "📢 Welcome to My Jwaneng — Discover. Connect. Belong.";
+
+            return;
+        }
+
+
+        const content =
+            data.map(u =>
+
+                `<span style="margin-right:100px;">
+                    📢 ${escapeHtml(u.message)}
+                </span>`
+
+            ).join("");
+
+
+        track.innerHTML =
+            content + content;
+
+
+    }catch(error){
+
+        console.log(error);
+
+        track.innerHTML =
+            "📢 Welcome to My Jwaneng — Discover. Connect. Belong.";
+
     }
 
-    const content = data.map(
-        u => `<span style="margin-right:80px;">📢 ${u.message}</span>`
-    ).join("");
-
-    track.innerHTML = content + content;
 }
 
-function showUpdate(){
-    track.innerText = updates[index];
-    index = (index + 1) % updates.length;
-    setTimeout(showUpdate, 10000);
-}
 
-loadUpdates();
-loadLatestNews();
-loadLatestJobs();
-loadLatestEvents();
-loadSpotlightListings();
-
-/* PWA DETECTION */
-function isPWA(){
-    return window.matchMedia('(display-mode: standalone)').matches ||
-           window.navigator.standalone === true;
-}
-
-if(isPWA()){
-    document.getElementById("pwaBar").style.display = "flex";
-}
-
-document.getElementById("knowTrack").innerHTML += document.getElementById("knowTrack").innerHTML;
-
-async function loadWeather(lat, lon){
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
-
-    try {
-        const res = await fetch(url);
-        const data = await res.json();
-
-        const w = data.current_weather;
-    
-
-        document.getElementById("weatherLoc").innerText = "📍 Jwaneng Area";
-        document.getElementById("weatherTemp").innerText = "🌡 Temp: " + w.temperature + "°C";
-        document.getElementById("weatherWind").innerText = "💨 Wind: " + w.windspeed + " km/h";
-        document.getElementById("weatherBox").style.display = "block";
-    } catch (e) {
-        document.getElementById("weatherLoc").innerText = "Weather unavailable";
-    }
-}
-
-/* fallback */
-function fallbackWeather(){
-    loadWeather(-24.65, 24.73); // Jwaneng
-}
-
-if(navigator.geolocation){
-    navigator.geolocation.getCurrentPosition(
-        pos => loadWeather(pos.coords.latitude, pos.coords.longitude),
-        fallbackWeather
-    );
-} else {
-    fallbackWeather();
-}
-
-/* ================= NEWS ================= */
+/* =========================================================
+   NEWS
+========================================================= */
 
 async function loadLatestNews(){
 
-    const { data } = await client
-        .from("news")
-        .select("*")
-        .order("id",{ascending:false})
-        .limit(3);
+    const container =
+        document.getElementById(
+            "latestNews"
+        );
 
-    latestNews.innerHTML = (data || []).map(n => `
-        <div class="widget-item">
-            <strong>${n.title}</strong>
-            <small>${n.category || ""}</small>
-        </div>
-    `).join("");
+
+    try{
+
+        const { data, error } =
+        await client
+            .from("news")
+            .select("*")
+            .order(
+                "id",
+                {ascending:false}
+            )
+            .limit(3);
+
+
+        if(error) throw error;
+
+
+        if(!data || data.length === 0){
+
+            container.innerHTML = `
+
+                <div class="widget-item">
+
+                    <small>
+                        No latest news available.
+                    </small>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        container.innerHTML =
+
+        data.map(n => `
+
+            <div class="widget-item">
+
+                <strong>
+
+                    ${escapeHtml(
+                        n.title ||
+                        "Jwaneng Update"
+                    )}
+
+                </strong>
+
+                <small>
+
+                    ${escapeHtml(
+                        n.category ||
+                        "Community"
+                    )}
+
+                </small>
+
+            </div>
+
+        `).join("");
+
+
+    }catch(error){
+
+        console.log(error);
+
+        container.innerHTML = `
+
+            <div class="widget-item">
+
+                <small>
+                    News temporarily unavailable.
+                </small>
+
+            </div>
+
+        `;
+
+    }
+
 }
 
-/* ================= JOBS ================= */
+
+/* =========================================================
+   JOBS
+========================================================= */
 
 async function loadLatestJobs(){
 
-    const { data } = await client
-        .from("jobs")
-        .select("*")
-        .order("id",{ascending:false})
-        .limit(3);
+    const container =
+        document.getElementById(
+            "latestJobs"
+        );
 
-    latestJobs.innerHTML = (data || []).map(j => `
-        <div class="widget-item">
-            <strong>${j.title}</strong>
-            <small>${j.company || ""}</small>
-        </div>
-    `).join("");
+
+    try{
+
+        const { data, error } =
+        await client
+            .from("jobs")
+            .select("*")
+            .order(
+                "id",
+                {ascending:false}
+            )
+            .limit(3);
+
+
+        if(error) throw error;
+
+
+        if(!data || data.length === 0){
+
+            container.innerHTML = `
+
+                <div class="widget-item">
+
+                    <small>
+                        No current opportunities listed.
+                    </small>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        container.innerHTML =
+
+        data.map(j => `
+
+            <div class="widget-item">
+
+                <strong>
+
+                    ${escapeHtml(
+                        j.title ||
+                        "Job Opportunity"
+                    )}
+
+                </strong>
+
+                <small>
+
+                    ${escapeHtml(
+                        j.company ||
+                        "Jwaneng"
+                    )}
+
+                </small>
+
+            </div>
+
+        `).join("");
+
+
+    }catch(error){
+
+        console.log(error);
+
+        container.innerHTML = `
+
+            <div class="widget-item">
+
+                <small>
+                    Opportunities temporarily unavailable.
+                </small>
+
+            </div>
+
+        `;
+
+    }
+
 }
 
-/* ================= EVENTS ================= */
+
+/* =========================================================
+   EVENTS
+========================================================= */
 
 async function loadLatestEvents(){
 
-    const { data } = await client
-        .from("events")
-        .select("*")
-        .order("event_date",{ascending:true})
-        .limit(3);
+    const container =
+        document.getElementById(
+            "latestEvents"
+        );
 
-    latestEvents.innerHTML = (data || []).map(e => `
-        <div class="widget-item">
-            <strong>${e.title}</strong>
-            <small>${e.event_date || ""}</small>
-        </div>
-    `).join("");
-}
-/* ================= SPOTLIGHT LISTINGS ================= */
 
-async function loadSpotlightListings(){
+    try{
 
-    const { data, error } = await client
-        .from("spotlight_listings")
-        .select("*")
-        .eq("featured", true)
-        .order("created_at",{ascending:false})
-        .limit(5);
+        const { data, error } =
+        await client
+            .from("events")
+            .select("*")
+            .order(
+                "event_date",
+                {ascending:true}
+            )
+            .limit(3);
 
-    const slider = document.getElementById("spotlightSlider");
 
-    if(error){
+        if(error) throw error;
+
+
+        if(!data || data.length === 0){
+
+            container.innerHTML = `
+
+                <div class="widget-item">
+
+                    <small>
+                        No upcoming events listed.
+                    </small>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        container.innerHTML =
+
+        data.map(e => `
+
+            <div class="widget-item">
+
+                <strong>
+
+                    ${escapeHtml(
+                        e.title ||
+                        "Jwaneng Event"
+                    )}
+
+                </strong>
+
+                <small>
+
+                    ${escapeHtml(
+                        e.event_date ||
+                        ""
+                    )}
+
+                </small>
+
+            </div>
+
+        `).join("");
+
+
+    }catch(error){
+
         console.log(error);
-        slider.innerHTML = "Failed to load spotlight";
-        return;
-    }
 
-    if(!data || data.length === 0){
-        slider.innerHTML = `
-            <div class="spotlight-overlay">
-                <h3>No Spotlight Listings Yet</h3>
+        container.innerHTML = `
+
+            <div class="widget-item">
+
+                <small>
+                    Events temporarily unavailable.
+                </small>
+
             </div>
+
         `;
-        return;
+
     }
 
-    slider.innerHTML = data.map((item,index) => `
-        <div class="spotlight-card ${index === 0 ? 'active' : ''}">
-
-            <img src="${item.image_url || ''}" alt="">
-
-            <div class="spotlight-overlay">
-
-                <span class="spotlight-badge">
-                    ${item.category || 'Spotlight'}
-                </span>
-
-                <h3>${item.title}</h3>
-
-                <p>${item.description || ''}</p>
-
-                <button class="spotlight-btn" onclick="openSpotlight('${item.image_url}')">
-                               View Details
-                 </button>
-
-            </div>
-
-        </div>
-    `).join("");
-
-    startSpotlightRotation();
 }
-/* SPOTLIGHT ROTATION */
 
-function startSpotlightRotation(){
 
-    const cards = document.querySelectorAll(".spotlight-card");
-    if(cards.length <= 1) return;
+/* =========================================================
+   WEATHER
+========================================================= */
 
-    let current = 0;
-    let interval;
-    let isPaused = false;
+async function loadWeather(
+    lat,
+    lon
+){
 
-    const showCard = (index) => {
-        cards.forEach((card, i) => {
-            card.style.opacity = (i === index) ? "1" : "0";
-            card.style.transform = (i === index)
-                ? "scale(1)"
-                : "scale(1.02)";
-            card.style.zIndex = (i === index) ? "2" : "1";
-        });
-    };
+    const url =
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
 
-    const next = () => {
-        current = (current + 1) % cards.length;
-        showCard(current);
-        resetProgress();
-    };
 
-    const start = () => {
-        interval = setInterval(() => {
-            if(!isPaused) next();
-        }, 5000);
-    };
+    try{
 
-    const stop = () => clearInterval(interval);
+        const response =
+            await fetch(url);
 
-    /* Touch / hover pause */
-    const slider = document.getElementById("spotlightSlider");
 
-    slider.addEventListener("mouseenter", () => isPaused = true);
-    slider.addEventListener("mouseleave", () => isPaused = false);
+        const data =
+            await response.json();
 
-    slider.addEventListener("touchstart", () => isPaused = true);
-    slider.addEventListener("touchend", () => isPaused = false);
 
-    /* Swipe support */
-    let startX = 0;
+        const weather =
+            data.current_weather;
 
-    slider.addEventListener("touchstart", (e) => {
-        startX = e.touches[0].clientX;
-    });
 
-    slider.addEventListener("touchend", (e) => {
-        let endX = e.changedTouches[0].clientX;
+        document.getElementById(
+            "weatherLoc"
+        ).innerText =
+            "📍 Jwaneng";
 
-        if(endX < startX - 50){
-            next(); // swipe left
-        } else if(endX > startX + 50){
-            current = (current - 1 + cards.length) % cards.length;
-            showCard(current);
-        }
-    });
 
-    /* initial render */
-    showCard(0);
-    start();
+        document.getElementById(
+            "weatherTemp"
+        ).innerText =
+            "🌡 " +
+            weather.temperature +
+            "°C";
 
-    /* optional progress bar */
-    addProgressBar();
 
-    function resetProgress(){
-        const bar = document.querySelector(".spotlight-progress-bar");
-        if(bar){
-            bar.style.transition = "none";
-            bar.style.width = "0%";
+        document.getElementById(
+            "weatherWind"
+        ).innerText =
+            "💨 " +
+            weather.windspeed +
+            " km/h";
 
-            setTimeout(() => {
-                bar.style.transition = "width 5s linear";
-                bar.style.width = "100%";
-            }, 50);
-        }
+
+    }catch(error){
+
+        document.getElementById(
+            "weatherTemp"
+        ).innerText =
+            "Weather unavailable.";
+
     }
 
-    function addProgressBar(){
-
-        const existing = document.querySelector(".spotlight-progress");
-        if(existing) return;
-
-        const bar = document.createElement("div");
-        bar.className = "spotlight-progress";
-        bar.innerHTML = `<div class="spotlight-progress-bar"></div>`;
-
-        slider.appendChild(bar);
-
-        resetProgress();
-    }
 }
 
-function openSpotlight(imageUrl){
-    const box = document.getElementById("spotlightLightbox");
-    const img = document.getElementById("lightboxImg");
 
-    img.src = imageUrl;
-    box.style.display = "flex";
+/* =========================================================
+   JWANENG WEATHER FALLBACK
+========================================================= */
+
+function fallbackWeather(){
+
+    loadWeather(
+        -24.65,
+        24.73
+    );
+
 }
 
-function closeSpotlight(){
-    document.getElementById("spotlightLightbox").style.display = "none";
+
+if(navigator.geolocation){
+
+    navigator.geolocation.getCurrentPosition(
+
+        position => {
+
+            loadWeather(
+                position.coords.latitude,
+                position.coords.longitude
+            );
+
+        },
+
+        fallbackWeather
+
+    );
+
+}else{
+
+    fallbackWeather();
+
 }
+
+
+/* =========================================================
+   PWA DETECTION
+========================================================= */
+
+function isPWA(){
+
+    return (
+
+        window.matchMedia(
+            "(display-mode: standalone)"
+        ).matches
+
+        ||
+
+        window.navigator.standalone === true
+
+    );
+
+}
+
+
+if(isPWA()){
+
+    document.getElementById(
+        "pwaBar"
+    ).style.display =
+        "flex";
+
+}
+
+
+/* =========================================================
+   DID YOU KNOW LOOP
+========================================================= */
+
+const knowTrack =
+    document.getElementById(
+        "knowTrack"
+    );
+
+
+knowTrack.innerHTML +=
+    knowTrack.innerHTML;
+
+
+/* =========================================================
+   INITIAL LOAD
+========================================================= */
+
+loadUpdates();
+
+loadLatestNews();
+
+loadLatestJobs();
+
+loadLatestEvents();
+
 </script>
-<div id="spotlightLightbox" class="lightbox" onclick="closeSpotlight()">
-    <img id="lightboxImg">
-</div>
+
+
 </body>
+
 </html>
+
