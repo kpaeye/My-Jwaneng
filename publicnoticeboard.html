@@ -174,6 +174,32 @@ color:white;
 background:#0ea5e9;
 color:white;
 }
+/* ================= PWA BAR ================= */
+.pwa-bar{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background:#001f3f;
+    display:none;
+    justify-content:space-around;
+    padding:10px 0;
+    border-top:1px solid rgba(79,195,247,0.3);
+    z-index:10000;
+}
+
+.pwa-bar a{
+    color:white;
+    text-decoration:none;
+    font-size:12px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.pwa-bar span{
+    color:#4fc3f7;
+    font-size:18px;
 
 </style>
 </head>
@@ -207,6 +233,15 @@ color:white;
 
 <div class="notice-container" id="noticeContainer">
 Loading notices...
+</div>
+
+<!-- PWA BAR -->
+<div class="pwa-bar" id="pwaBar">
+    <a href="index.html"><span>🏠</span>Home</a>
+    <a href="exploremyjwaneng.html"><span>🔍</span>Explore</a>
+    <a href="jobs.html"><span>💼</span>Jobs</a>
+    <a href="marketplace.html"><span>🛒</span>Market</a>
+    <a href="townnews.html"><span>📰</span>News</a>
 </div>
 
 <script>
@@ -516,6 +551,16 @@ sb
     }
   )
   .subscribe();
+
+  /* PWA DETECTION */
+function isPWA(){
+    return window.matchMedia('(display-mode: standalone)').matches ||
+           window.navigator.standalone === true;
+}
+
+if(isPWA()){
+    document.getElementById("pwaBar").style.display = "flex";
+}
 </script>
 </body>
 </html>

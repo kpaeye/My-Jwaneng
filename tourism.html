@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jwana Game Park - My Jwaneng</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    font-family:Poppins, sans-serif;
+    background:#f4f6f9;
+    color:#333;
+}
+
+/* HERO */
+.hero{
+    background:linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    url('https://images.unsplash.com/photo-1546182990-dffeafbe841d') center/cover;
+    height:260px;
+    color:white;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.hero h1{
+    font-size:28px;
+    margin:0;
+}
+
+.hero p{
+    font-size:14px;
+    margin-top:8px;
+    opacity:0.9;
+}
+
+/* CONTENT */
+.container{
+    padding:15px;
+}
+
+.card{
+    background:white;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:15px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
+
+h2{
+    font-size:18px;
+    color:#001f3f;
+    margin-bottom:10px;
+}
+
+/* INFO GRID */
+.info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.info-box{
+    background:#f0f4f8;
+    padding:10px;
+    border-radius:10px;
+    font-size:13px;
+}
+
+/* BUTTONS */
+.btn{
+    display:inline-block;
+    margin-top:10px;
+    padding:10px 12px;
+    background:#001f3f;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    font-size:13px;
+    text-align:center;
+}
+
+/* WARNING */
+.note{
+    background:#fff3cd;
+    padding:10px;
+    border-radius:10px;
+    font-size:12px;
+    color:#7a5d00;
+    border:1px solid #ffe08a;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+    <h1>Jwana Game Park</h1>
+    <p>Jwaneng’s premier wildlife conservation and nature experience</p>
+</div>
+
+<div class="container">
+
+    <!-- OVERVIEW -->
+    <div class="card">
+        <h2>Overview</h2>
+        <p>
+            Jwana Game Park is a protected wildlife area located in Jwaneng, known for conservation,
+            educational tours, and natural Botswana wildlife experiences.
+        </p>
+    </div>
+
+    <!-- WHAT YOU CAN SEE -->
+    <div class="card">
+        <h2>Wildlife Experience</h2>
+        <div class="info-grid">
+
+            <div class="info-box">🦓 Zebras</div>
+            <div class="info-box">🦒 Giraffes</div>
+            <div class="info-box">🦌 Antelopes</div>
+            <div class="info-box">🐦 Birdlife</div>
+
+        </div>
+    </div>
+
+    <!-- VISITING INFO -->
+    <div class="card">
+        <h2>Visitor Information</h2>
+
+        <div class="info-box">📍 Location: Jwaneng, Botswana</div>
+        <div class="info-box">🕒 Access: Controlled / Scheduled Visits</div>
+        <div class="info-box">🎟️ Entry: By arrangement or guided tour</div>
+
+        <div class="note" style="margin-top:10px;">
+            Note: Access may require prior booking or approval depending on conservation rules.
+        </div>
+
+        <a class="btn" href="https://wa.me/26771485362">
+            📲 Request Visit via WhatsApp
+        </a>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="card">
+        <h2>What to Expect</h2>
+        <p>
+            - Guided wildlife viewing<br>
+            - Educational conservation tours<br>
+            - Photography opportunities<br>
+            - Peaceful natural environment inside Jwaneng
+        </p>
+    </div>
+
+    <!-- CTA -->
+    <div class="card">
+        <h2>Plan Your Visit</h2>
+        <p>Get updates, tour arrangements, and visitor info through My Jwaneng.</p>
+        <a class="btn" href="https://www.myjwaneng.co.bw">Visit My Jwaneng</a>
+    </div>
+
+</div>
+
+</body>
+</html>

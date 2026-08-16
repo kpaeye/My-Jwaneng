@@ -11,14 +11,12 @@
 
 <style>
 
-/* ================= BASE ================= */
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
     font-family:'Poppins',sans-serif;
     background:#f5f7fb;
     padding-top:70px;
-    padding-bottom:80px;
 }
 
 /* NAV */
@@ -82,7 +80,7 @@ body{
 
 /* GRID */
 .biz-grid{
-    padding:20px 8% 120px;
+    padding:20px 8% 80px;
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
     gap:18px;
@@ -153,12 +151,11 @@ body{
     cursor:pointer;
 }
 
-/* FOOTER */
+/* ================= FOOTER ================= */
 footer{
     background:rgba(0,31,63,0.95);
     color:#fff;
-    padding:60px 8% 100px;
-    margin-bottom:65px;
+    padding:60px 8% 30px;
 }
 
 .footer-container{
@@ -167,46 +164,55 @@ footer{
     gap:35px;
 }
 
-/* ACTION BUTTONS */
-.action-btn{
-    width:100%;
-    padding:10px;
-    border:none;
-    border-radius:8px;
-    margin-top:8px;
-    cursor:pointer;
-    font-weight:600;
+.footer-column h3{
+    color:#4fc3f7;
+    margin-bottom:15px;
+    font-size:18px;
 }
 
-.call-btn{background:#001f3f;color:white;}
-.wa-btn{background:#25D366;color:white;}
-.dir-btn{background:#4fc3f7;color:#001f3f;}
+.footer-column p,
+.footer-column a{
+    color:#ddd;
+    font-size:14px;
+    text-decoration:none;
+}
 
-/* ================= PWA CONTROL BAR (FIXED) ================= */
+.footer-column a:hover{
+    color:#4fc3f7;
+}
+
+.footer-column ul{
+    list-style:none;
+}
+
+.footer-column li{
+    margin-bottom:10px;
+}
+
+.footer-bottom{
+    text-align:center;
+    color:#ccc;
+    font-size:13px;
+    margin-top:20px;
+}
+
+.footer-bottom span{
+    color:#4fc3f7;
+    font-weight:700;
+}
+
+/* ================= PWA CONTROL BAR ================= */
 .pwa-bar{
     position:fixed;
     bottom:0;
     left:0;
     width:100%;
-    height:65px;
     background:rgba(0,31,63,0.98);
-    display:flex;
+    display:none;
     justify-content:space-around;
-    align-items:center;
+    padding:10px 0;
     border-top:1px solid rgba(79,195,247,0.3);
     z-index:10000;
-
-    transform: translateY(100%);
-    opacity: 0;
-    pointer-events: none;
-
-    transition: transform 0.35s ease, opacity 0.35s ease;
-}
-
-.pwa-bar.show{
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
 }
 
 .pwa-bar a{
@@ -224,6 +230,21 @@ footer{
     font-size:18px;
 }
 
+/* ACTION BUTTONS */
+.action-btn{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    margin-top:8px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.call-btn{background:#001f3f;color:white;}
+.wa-btn{background:#25D366;color:white;}
+.dir-btn{background:#4fc3f7;color:#001f3f;}
+
 </style>
 </head>
 
@@ -239,6 +260,7 @@ footer{
 </section>
 
 <section class="biz-controls">
+
     <div class="search-box">
         <input id="searchInput" placeholder="Search businesses...">
         <button onclick="searchBiz()">Search</button>
@@ -247,6 +269,7 @@ footer{
     <button class="category-btn" onclick="openCatModal()">
         📂 Choose Category
     </button>
+
 </section>
 
 <div class="biz-grid" id="grid"></div>
@@ -254,16 +277,22 @@ footer{
 <!-- CATEGORY MODAL -->
 <div class="modal" id="catModal">
     <div class="modal-content">
+
         <h3>Select Category</h3>
+
         <div class="cat-list" id="catList"></div>
+
         <button class="close-btn" onclick="closeCatModal()">Close</button>
+
     </div>
 </div>
 
 <!-- BUSINESS MODAL -->
 <div class="modal" id="bizModal">
     <div class="modal-content">
+
         <h3 id="bizTitle"></h3>
+
         <div id="bizInfo" style="font-size:14px;line-height:1.6;"></div>
 
         <button id="callBtn" class="action-btn call-btn">📞 Call</button>
@@ -271,24 +300,17 @@ footer{
         <button id="dirBtn" class="action-btn dir-btn">📍 Directions</button>
 
         <button class="close-btn" onclick="closeBiz()">Close</button>
-    </div>
-</div>
 
-<!-- PWA BAR -->
-<div class="pwa-bar" id="pwaBar">
-    <a href="index.html"><span>🏠</span>Home</a>
-    <a href="exploremyjwaneng.html"><span>🔍</span>Explore</a>
-    <a href="jobs.html"><span>💼</span>Jobs</a>
-    <a href="marketplace.html"><span>🛒</span>Market</a>
-    <a href="townnews.html"><span>📰</span>News</a>
+    </div>
 </div>
 
 <script>
 
-
 const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+let allBusinesses = [];
 
 const categories = [
 "Accommodation","Agriculture","Automotive","Beauty & Wellness",
@@ -298,24 +320,27 @@ const categories = [
 "Technology","Transport"
 ].sort();
 
-let allBusinesses = [];
-
+/* ================= LOAD ================= */
 async function loadBusinesses(){
     const { data } = await supabaseClient.from("businesses").select("*");
     allBusinesses = data || [];
     render(allBusinesses);
 }
 
+/* ================= GRID ================= */
 function render(list){
     const grid = document.getElementById("grid");
     grid.innerHTML = "";
 
     list.forEach(b=>{
+
         grid.innerHTML += `
         <div class="biz-card" onclick="openBusiness('${b.name}')">
+
             <div class="biz-img">
                 <img src="${b.image_url || 'https://via.placeholder.com/400'}">
             </div>
+
             <div class="biz-content">
                 <div class="biz-name">${b.name}</div>
                 <div class="biz-category">${b.category}</div>
@@ -324,10 +349,12 @@ function render(list){
                     📍 ${b.location || 'N/A'}
                 </div>
             </div>
+
         </div>`;
     });
 }
 
+/* ================= SEARCH ================= */
 function searchBiz(){
     const q = document.getElementById("searchInput").value.toLowerCase();
     render(allBusinesses.filter(b =>
@@ -335,7 +362,31 @@ function searchBiz(){
     ));
 }
 
-/* MODALS */
+/* ================= CATEGORY ================= */
+function openCatModal(){
+    document.getElementById("catModal").style.display="flex";
+
+    const list = document.getElementById("catList");
+    list.innerHTML = "";
+
+    list.innerHTML += `<button onclick="filterCategory('All')">🌍 All Businesses</button>`;
+
+    categories.forEach(c=>{
+        list.innerHTML += `<button onclick="filterCategory('${c}')">${c}</button>`;
+    });
+}
+
+function closeCatModal(){
+    document.getElementById("catModal").style.display="none";
+}
+
+function filterCategory(cat){
+    closeCatModal();
+    if(cat === "All") return render(allBusinesses);
+    render(allBusinesses.filter(b => b.category === cat));
+}
+
+/* ================= BUSINESS MODAL ================= */
 function openBusiness(name){
     const b = allBusinesses.find(x => x.name === name);
     if(!b) return;
@@ -351,6 +402,25 @@ function openBusiness(name){
         📝 ${b.description || ''}
     `;
 
+    // CALL
+    document.getElementById("callBtn").onclick = () => {
+        if(b.phone) window.location.href = `tel:${b.phone}`;
+    };
+
+    // WHATSAPP
+    document.getElementById("waBtn").onclick = () => {
+        const num = (b.whatsapp || b.phone || "").replace(/\D/g,'');
+        if(num) window.open(`https://wa.me/${num}`, "_blank");
+    };
+
+    // DIRECTIONS
+    document.getElementById("dirBtn").onclick = () => {
+        if(b.location){
+            const q = encodeURIComponent(b.location);
+            window.open(`https://www.google.com/maps/search/?api=1&query=${q}`, "_blank");
+        }
+    };
+
     document.getElementById("bizModal").style.display="flex";
 }
 
@@ -358,64 +428,21 @@ function closeBiz(){
     document.getElementById("bizModal").style.display="none";
 }
 
-function openCatModal(){
-    const modal = document.getElementById("catModal");
-    const list = document.getElementById("catList");
-
-    modal.style.display = "flex";
-    list.innerHTML = "";
-
-    // ALL BUTTON
-    list.innerHTML += `<button onclick="filterCategory('All')">🌍 All Businesses</button>`;
-
-    // CATEGORY BUTTONS
-    categories.forEach(c=>{
-        list.innerHTML += `<button onclick="filterCategory('${c}')">${c}</button>`;
-    });
-}
-
-function filterCategory(cat){
-    closeCatModal();
-
-    if(cat === "All"){
-        render(allBusinesses);
-        return;
-    }
-
-    render(allBusinesses.filter(b => b.category === cat));
-}
-
-function closeCatModal(){
-    document.getElementById("catModal").style.display="none";
-}
-
-/* ================= PWA ================= */
-function isRunningAsPWA() {
-    return (
-        window.matchMedia('(display-mode: standalone)').matches ||
-        window.matchMedia('(display-mode: fullscreen)').matches ||
-        window.navigator.standalone === true
-    );
-}
-
-function handlePWABar() {
-    const bar = document.getElementById("pwaBar");
-    if (!bar) return;
-
-    bar.classList.remove("show");
-
-    if (isRunningAsPWA()) {
-        setTimeout(() => {
-            bar.classList.add("show");
-        }, 200);
-    }
-}
-
-window.addEventListener("load", handlePWABar);
-
+/* ================= INIT ================= */
 loadBusinesses();
 
 </script>
-
+<script src="pwa-bar.js"></script>
+<footer style="text-align:center;padding:20px;font-size:12px;color:#777;">
+    &copy; 2026 My Jwaneng. All rights reserved.
+</footer>
+<!-- PWA CONTROL BAR -->
+<div class="pwa-bar" id="pwaBar">
+    <a href="index.html"><span>🏠</span>Home</a>
+    <a href="exploremyjwaneng.html"><span>🔍</span>Explore</a>
+    <a href="jobs.html"><span>💼</span>Jobs</a>
+    <a href="marketplace.html"><span>🛒</span>Market</a>
+    <a href="townnews.html"><span>📰</span>News</a>
+</div>
 </body>
 </html>

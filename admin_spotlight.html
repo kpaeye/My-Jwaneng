@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Spotlight Admin</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+body{
+    font-family:Arial;
+    background:#0b1f3a;
+    color:white;
+    padding:20px;
+}
+
+input, textarea, select{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border-radius:6px;
+    border:none;
+}
+
+button{
+    background:#4fc3f7;
+    padding:12px;
+    border:none;
+    width:100%;
+    font-weight:bold;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h2>📢 Add Spotlight Listing</h2>
+
+<input id="title" placeholder="Title">
+<textarea id="description" placeholder="Description"></textarea>
+<input id="image" placeholder="Image URL">
+<input id="link" placeholder="Link URL">
+
+<select id="category">
+    <option>Event</option>
+    <option>Promotion</option>
+    <option>New Business</option>
+    <option>Announcement</option>
+</select>
+
+<button onclick="addSpotlight()">Publish Spotlight</button>
+
+<script>
+const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
+const client = supabase.createClient(supabaseUrl, supabaseKey);
+
+async function addSpotlight(){
+
+    const title = document.getElementById("title").value;
+    const description = document.getElementById("description").value;
+    const image_url = document.getElementById("image").value;
+    const link_url = document.getElementById("link").value;
+    const category = document.getElementById("category").value;
+
+    const { error } = await client
+        .from("spotlight_listings")
+        .insert([{
+            title,
+            description,
+            image_url,
+            link_url,
+            category,
+            featured: true,
+            status: 'active'
+        }]);
+
+    if(error){
+        alert("Error posting spotlight");
+        console.log(error);
+    } else {
+        alert("Spotlight published successfully!");
+    }
+}
+</script>
+
+</body>
+</html>

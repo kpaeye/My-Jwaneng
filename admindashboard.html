@@ -158,13 +158,40 @@ button:hover { background: #174a8b; }
 <!-- MARKETPLACE -->
 <div id="marketplace" class="section hidden">
   <div class="card">
-    <h3>Add Item</h3>
+    <h3>Add Marketplace Item</h3>
+
     <input id="mp_title" placeholder="Title">
     <input id="mp_price" placeholder="Price">
+    <input id="mp_area" placeholder="Area / Location">
+    <input id="mp_whatsapp" placeholder="WhatsApp Number (e.g. 2677XXXXXX)">
+    <input id="mp_phone" placeholder="Call Number (optional)">
+    <select id="mp_category">
+      <option value="">Select Category</option>
+      <option>electronics</option>
+      <option>vehicles</option>
+      <option>furniture</option>
+      <option>fashion</option>
+      <option>services</option>
+      <option>property</option>
+      <option>beauty care</option>
+      <option>other</option>
+    </select>
+
     <textarea id="mp_description" placeholder="Description"></textarea>
-    <button onclick="addMarketplace()">Post</button>
+
+    <!-- MULTI IMAGE -->
+    <input id="mp_images" type="file" multiple accept="image/*">
+
+    <!-- VIDEO (OPTIONAL) -->
+    <input id="mp_video" type="file" accept="video/*">
+
+    <button onclick="addMarketplace()">Upload Item</button>
   </div>
-  <div class="card"><h3>Items</h3><div id="mpList"></div></div>
+
+  <div class="card">
+    <h3>Pending Items</h3>
+    <div id="mpList"></div>
+  </div>
 </div>
 
 <!-- BUSINESSES -->
@@ -185,6 +212,17 @@ button:hover { background: #174a8b; }
       <option>ICT / Tech</option>
       <option>Education</option>
       <option>Entertainment</option>
+      <option>Accommodation</option>
+      <option>Financial Services</option>
+      <option>Professional Services</option>
+      <option>Transport / Logistics</option>
+      <option>Beauty / Wellness</option>
+      <option>Food And Beverages</option>
+      <option>Sports / Fitness</option>
+      <option>Tourism / Travel</option>
+      <option>Event Planning</option>
+      <option>Media / Advertising</option>
+      <option>Furniture</option>
       <option>Other</option>
     </select>
 
@@ -345,22 +383,42 @@ async function loadBusinesses(){
 ========================= */
 
 async function loadMarketplace(){
+
   let { data } = await client
     .from("marketplace_items")
     .select("*")
     .eq("status","pending")
     .order("created_at",{ascending:false});
 
-  mpList.innerHTML = (data||[]).map(item=>`
-    <div class="item">
-      <b>${item.title}</b><br>
-      P${item.price || 0}<br>
-      📍 ${item.location || ""}<br>
+  mpList.innerHTML = (data || []).map(item => {
 
-      <button onclick="approveItem('${item.id}')">Approve</button>
-      <button onclick="rejectItem('${item.id}')">Reject</button>
-    </div>
-  `).join("");
+    let images = (item.images || [])
+      .map(img => `<img src="${img}" style="width:60px;height:60px;object-fit:cover;margin:2px;border-radius:6px;">`)
+      .join("");
+
+    let video = item.video
+      ? `<video src="${item.video}" width="120" controls></video>`
+      : "";
+
+    return `
+      <div class="item">
+        <b>${item.title}</b><br>
+        💰 P${item.price || 0}<br>
+        📍 ${item.area || ""}<br>
+        📦 ${item.category || ""}<br>
+
+        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;">
+          ${images}
+        </div>
+
+        ${video}
+
+        <br><br>
+        <button onclick="approveItem('${item.id}')">Approve</button>
+        <button onclick="rejectItem('${item.id}')">Reject</button>
+      </div>
+    `;
+  }).join("");
 }
 
 async function approveItem(id){
@@ -386,8 +444,77 @@ window.onload = () => {
   loadNews();
   loadJobs();
   loadBusinesses();
-  loadMarketplace(); // ✅ ONLY ADDITION
+  loadMarketplace(); 
 };
+async function uploadImage(file){
+
+  const fileName = Date.now() + "_" + file.name;
+
+  const { error } = await client
+    .storage
+    .from("marketplace-media")
+    .upload("images/" + fileName, file);
+
+  if(error) return null;
+
+  return client.storage
+    .from("marketplace-media")
+    .getPublicUrl("images/" + fileName)
+    .data.publicUrl;
+}
+async function uploadVideo(file){
+
+  const fileName = Date.now() + "_" + file.name;
+
+  const { error } = await client
+    .storage
+    .from("marketplace-media")
+    .upload("videos/" + fileName, file);
+
+  if(error) return null;
+
+  return client.storage
+    .from("marketplace-media")
+    .getPublicUrl("videos/" + fileName)
+    .data.publicUrl;
+}
+async function addMarketplace(){
+
+  let imagesFiles = document.getElementById("mp_images").files;
+  let videoFile = document.getElementById("mp_video").files[0];
+
+  let imageUrls = [];
+
+  // UPLOAD IMAGES
+  for(let file of imagesFiles){
+    let url = await uploadImage(file);
+    if(url) imageUrls.push(url);
+  }
+
+  // UPLOAD VIDEO
+  let videoUrl = "";
+  if(videoFile){
+    videoUrl = await uploadVideo(videoFile);
+  }
+
+  // SAVE TO DATABASE
+  await client.from("marketplace_items").insert([{
+    title: val("mp_title"),
+    price: val("mp_price"),
+    area: val("mp_area"),
+    category: val("mp_category"),
+    description: val("mp_description"),
+    images: imageUrls,
+    video: videoUrl,
+    status: "pending",
+    created_at: new Date().toISOString()
+  }]);
+
+  alert("Item submitted for approval");
+
+  loadMarketplace();
+}
+
 </script>
 
 </body>

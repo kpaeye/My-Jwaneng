@@ -19,7 +19,16 @@
 body{
     font-family:'Poppins',sans-serif;
     background:#f5f7fb;
+    padding-bottom:90px; 
 }
+.grid{
+    flex:1;
+    padding:40px 8% 110px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:25px;
+}
+
 
 /* TOP BAR */
 .navbar{
@@ -95,6 +104,7 @@ footer{
     overflow:hidden;
     white-space:nowrap;
     margin-top:40px;
+    margin-bottom:80px; 
 }
 
 .footer-text{
@@ -121,6 +131,8 @@ footer{
 </head>
 
 <body>
+    
+<div class="page-wrapper"></div>
 
 <div class="navbar">
     Explore My Jwaneng
@@ -172,11 +184,6 @@ footer{
 
 </div>
 
-<footer>
-    <div class="footer-text">
-        © 2026 My Jwaneng | Powered by A-eye Group •
-    </div>
-</footer>
 
 </body>
 </html>
