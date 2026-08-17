@@ -9,7 +9,7 @@
 <title>My Jwaneng | Welcome Home</title>
 
 <meta name="description"
-content="My Jwaneng — the digital gateway to Jwaneng, connecting residents, businesses, opportunities, events, places and experiences.">
+content="My Jwaneng — the digital gateway to Jwaneng and the surrounding communities, connecting residents, businesses, opportunities, events, places, leadership and community services.">
 
 <meta name="theme-color" content="#061522">
 
@@ -24,7 +24,7 @@ rel="stylesheet">
 
 /* =========================================================
    MY JWANENG
-   CONNECTED TO MY TOWN 360
+   DIGITAL GATEWAY TO JWANENG & SURROUNDING COMMUNITIES
 ========================================================= */
 
 :root{
@@ -37,6 +37,9 @@ rel="stylesheet">
 
     --sand:#d9b36c;
     --sand-light:#f0d493;
+
+    --green:#5ed6a1;
+    --green-light:#9af0c4;
 
     --white:#ffffff;
     --muted:#aebfc9;
@@ -122,8 +125,6 @@ body{
 }
 
 
-/* MENU BUTTON */
-
 .menu-button{
 
     width:46px;
@@ -178,8 +179,6 @@ body{
 }
 
 
-/* LOGO */
-
 .logo{
 
     font-size:27px;
@@ -208,8 +207,6 @@ body{
     margin-left:6px;
 }
 
-
-/* NAV RIGHT */
 
 .nav-right{
 
@@ -449,6 +446,28 @@ body{
 }
 
 
+/* TOWNCONNECT DRAWER LINK */
+
+.drawer-townconnect{
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(94,214,161,.10),
+            rgba(67,184,232,.08)
+        );
+
+    border-color:
+        rgba(94,214,161,.22);
+
+    color:#e8fff4;
+}
+
+
+/* =========================================================
+   DRAWER FOOTER
+========================================================= */
+
 .drawer-footer{
 
     margin:15px;
@@ -478,8 +497,6 @@ body{
     margin-bottom:5px;
 }
 
-
-/* OVERLAY */
 
 .drawer-overlay{
 
@@ -589,6 +606,137 @@ body{
 
 
 /* =========================================================
+   TOP WEATHER WIDGET
+========================================================= */
+
+.top-weather{
+
+    position:relative;
+
+    margin-top:42px;
+
+    width:100%;
+
+    padding:11px 7%;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(7,30,45,.98),
+            rgba(10,45,63,.98),
+            rgba(7,30,45,.98)
+        );
+
+    border-bottom:
+        1px solid rgba(255,255,255,.07);
+
+    z-index:20;
+}
+
+
+.top-weather-inner{
+
+    max-width:1150px;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+
+.top-weather-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+
+.weather-live-dot{
+
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:#73d7ff;
+
+    box-shadow:
+        0 0 12px rgba(115,215,255,.75);
+
+    flex-shrink:0;
+}
+
+
+.top-weather-title{
+
+    font-size:10px;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.5px;
+
+    color:#dceff6;
+}
+
+
+.top-weather-sub{
+
+    color:#7f9aa8;
+
+    font-size:8px;
+
+    margin-top:2px;
+}
+
+
+.top-weather-data{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+}
+
+
+.weather-pill{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    padding:6px 10px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.055);
+
+    border:1px solid rgba(255,255,255,.09);
+
+    color:#cfe1e8;
+
+    font-size:9px;
+}
+
+
+/* =========================================================
    HERO
 ========================================================= */
 
@@ -597,7 +745,7 @@ body{
     position:relative;
 
     min-height:
-        calc(100vh - 124px);
+        calc(100vh - 165px);
 
     display:flex;
 
@@ -832,7 +980,9 @@ body{
 }
 
 
-/* LOCATION */
+/* =========================================================
+   HERO LOCATION
+========================================================= */
 
 .hero-location{
 
@@ -898,7 +1048,164 @@ body{
 
 
 /* =========================================================
-   WELCOME SECTION
+   SURROUNDING PLACES DECORATION
+========================================================= */
+
+.area-decoration{
+
+    position:absolute;
+
+    z-index:2;
+
+    right:7%;
+
+    top:35px;
+
+    width:390px;
+
+    padding:18px 20px;
+
+    border-radius:18px;
+
+    background:rgba(4,18,28,.34);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.18);
+
+    overflow:hidden;
+}
+
+
+.area-decoration::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:170px;
+    height:170px;
+
+    right:-60px;
+    top:-70px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(141,224,255,.18);
+}
+
+
+.area-decoration::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:230px;
+    height:230px;
+
+    right:-90px;
+    top:-100px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(217,179,108,.10);
+}
+
+
+.area-label{
+
+    position:relative;
+
+    z-index:2;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:#d9eef6;
+
+    font-size:8px;
+
+    font-weight:800;
+
+    letter-spacing:2.5px;
+
+    text-transform:uppercase;
+
+    margin-bottom:10px;
+}
+
+
+.area-label::before{
+
+    content:"";
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:var(--sand);
+
+    box-shadow:
+        0 0 10px rgba(217,179,108,.65);
+}
+
+
+.area-places{
+
+    position:relative;
+
+    z-index:2;
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:6px;
+}
+
+
+.area-place{
+
+    padding:6px 9px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.055);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    color:#b9cbd4;
+
+    font-size:8px;
+
+    letter-spacing:.4px;
+
+    white-space:nowrap;
+}
+
+
+.area-place.main{
+
+    color:white;
+
+    background:rgba(67,184,232,.13);
+
+    border-color:rgba(67,184,232,.28);
+
+    font-weight:700;
+}
+
+
+/* =========================================================
+   WELCOME
 ========================================================= */
 
 .welcome{
@@ -974,7 +1281,471 @@ body{
 
 
 /* =========================================================
-   DISCOVERY CARDS
+   TOWNCONNECT
+========================================================= */
+
+.townconnect{
+
+    position:relative;
+
+    padding:90px 7%;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(94,214,161,.07),
+            transparent 28%
+        ),
+        linear-gradient(
+            180deg,
+            #091e2c,
+            #071a28
+        );
+
+    border-top:
+        1px solid rgba(255,255,255,.05);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.05);
+}
+
+
+.townconnect-container{
+
+    max-width:1150px;
+
+    margin:auto;
+}
+
+
+.townconnect-header{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:40px;
+
+    align-items:end;
+
+    margin-bottom:35px;
+}
+
+
+.townconnect-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:10px;
+}
+
+
+.townconnect-badge{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    width:42px;
+    height:42px;
+
+    border-radius:12px;
+
+    background:
+        rgba(94,214,161,.11);
+
+    border:
+        1px solid rgba(94,214,161,.25);
+
+    font-size:21px;
+}
+
+
+.townconnect-header h2{
+
+    font-size:
+        clamp(32px,4vw,50px);
+
+    line-height:1;
+
+    letter-spacing:-2px;
+}
+
+
+.townconnect-header h2 span{
+
+    color:var(--green-light);
+}
+
+
+.townconnect-intro{
+
+    color:#9fb4be;
+
+    font-size:12px;
+
+    line-height:1.8;
+
+    max-width:480px;
+}
+
+
+.townconnect-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:14px;
+}
+
+
+.connect-card{
+
+    position:relative;
+
+    min-height:205px;
+
+    padding:23px;
+
+    border-radius:17px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
+    overflow:hidden;
+
+    transition:.3s;
+}
+
+
+.connect-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    right:-45px;
+    bottom:-45px;
+
+    border-radius:50%;
+
+    border:
+        1px solid rgba(94,214,161,.13);
+}
+
+
+.connect-card:hover{
+
+    transform:translateY(-5px);
+
+    background:
+        rgba(94,214,161,.075);
+
+    border-color:
+        rgba(94,214,161,.28);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.18);
+}
+
+
+.connect-icon{
+
+    width:43px;
+    height:43px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:
+        rgba(67,184,232,.10);
+
+    border:
+        1px solid rgba(67,184,232,.18);
+
+    font-size:21px;
+
+    margin-bottom:17px;
+}
+
+
+.connect-card:nth-child(2) .connect-icon{
+
+    background:
+        rgba(255,185,80,.10);
+
+    border-color:
+        rgba(255,185,80,.18);
+}
+
+
+.connect-card:nth-child(3) .connect-icon{
+
+    background:
+        rgba(94,214,161,.10);
+
+    border-color:
+        rgba(94,214,161,.18);
+}
+
+
+.connect-card:nth-child(4) .connect-icon{
+
+    background:
+        rgba(155,130,255,.10);
+
+    border-color:
+        rgba(155,130,255,.18);
+}
+
+
+.connect-card:nth-child(5) .connect-icon{
+
+    background:
+        rgba(67,184,232,.10);
+
+    border-color:
+        rgba(67,184,232,.18);
+}
+
+
+.connect-card:nth-child(6) .connect-icon{
+
+    background:
+        rgba(217,179,108,.10);
+
+    border-color:
+        rgba(217,179,108,.18);
+}
+
+
+.connect-card h3{
+
+    font-size:15px;
+
+    margin-bottom:7px;
+}
+
+
+.connect-card p{
+
+    color:#879da8;
+
+    font-size:10px;
+
+    line-height:1.7;
+
+    margin-bottom:15px;
+}
+
+
+.connect-action{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    color:#80dcb0;
+
+    text-decoration:none;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:.3px;
+}
+
+
+.connect-action:hover{
+
+    color:white;
+}
+
+
+.townconnect-footer{
+
+    margin-top:18px;
+
+    padding:16px 20px;
+
+    border-radius:12px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+
+.townconnect-footer p{
+
+    color:#8298a3;
+
+    font-size:9px;
+
+    line-height:1.6;
+}
+
+
+.townconnect-footer strong{
+
+    color:#dff9eb;
+}
+
+
+.townconnect-cta{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:9px 15px;
+
+    border-radius:8px;
+
+    background:
+        rgba(94,214,161,.11);
+
+    border:
+        1px solid rgba(94,214,161,.25);
+
+    color:#9af0c4;
+
+    text-decoration:none;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+}
+
+
+.townconnect-cta:hover{
+
+    background:
+        rgba(94,214,161,.18);
+
+    color:white;
+}
+
+
+/* =========================================================
+   AREA DECORATION STRIP
+========================================================= */
+
+.area-strip{
+
+    padding:25px 7%;
+
+    background:#091e2c;
+
+    border-top:
+        1px solid rgba(255,255,255,.05);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.05);
+}
+
+
+.area-strip-inner{
+
+    max-width:1150px;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:8px 10px;
+}
+
+
+.area-strip-title{
+
+    color:var(--sand-light);
+
+    font-size:8px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    margin-right:5px;
+}
+
+
+.area-strip-place{
+
+    color:#8fa9b6;
+
+    font-size:9px;
+
+    padding:5px 9px;
+
+    border-radius:20px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(255,255,255,.025);
+}
+
+
+.area-strip-place.featured{
+
+    color:#dff6ff;
+
+    border-color:rgba(67,184,232,.22);
+
+    background:rgba(67,184,232,.07);
+
+    font-weight:700;
+}
+
+
+/* =========================================================
+   DISCOVERY
 ========================================================= */
 
 .discovery{
@@ -1377,57 +2148,6 @@ body{
 
 
 /* =========================================================
-   WEATHER
-========================================================= */
-
-.weather-strip{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:20px;
-
-    padding:22px 7%;
-
-    background:
-        linear-gradient(
-            90deg,
-            #0b3449,
-            #0b2638
-        );
-
-    border-top:
-        1px solid rgba(255,255,255,.08);
-
-    border-bottom:
-        1px solid rgba(255,255,255,.08);
-}
-
-
-.weather-title{
-
-    font-size:12px;
-
-    font-weight:700;
-}
-
-
-.weather-data{
-
-    display:flex;
-
-    gap:22px;
-
-    color:#bdd0da;
-
-    font-size:11px;
-}
-
-
-/* =========================================================
    FOOTER
 ========================================================= */
 
@@ -1552,7 +2272,7 @@ footer{
 
 
 /* =========================================================
-   LEAVE MY JWANENG MODAL
+   LEAVE MODAL
 ========================================================= */
 
 .modal-overlay{
@@ -1825,6 +2545,17 @@ footer{
         grid-template-columns:1fr;
     }
 
+    .townconnect-header{
+
+        grid-template-columns:1fr;
+    }
+
+    .townconnect-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
     .footer-container{
 
         grid-template-columns:
@@ -1835,6 +2566,14 @@ footer{
 
         display:none;
     }
+
+    .area-decoration{
+
+        right:5%;
+
+        width:350px;
+    }
+
 }
 
 
@@ -1900,10 +2639,46 @@ footer{
         font-size:10px;
     }
 
+
+    /* MOBILE WEATHER */
+
+    .top-weather{
+
+        margin-top:38px;
+
+        padding:
+            10px 5%;
+    }
+
+    .top-weather-inner{
+
+        display:block;
+    }
+
+    .top-weather-left{
+
+        margin-bottom:8px;
+    }
+
+    .top-weather-data{
+
+        justify-content:flex-start;
+
+        gap:6px;
+    }
+
+    .weather-pill{
+
+        font-size:8px;
+
+        padding:5px 8px;
+    }
+
+
     .hero{
 
         min-height:
-            calc(100vh - 110px);
+            calc(100vh - 150px);
     }
 
     .hero-image{
@@ -1945,9 +2720,47 @@ footer{
         width:auto;
     }
 
+    .area-decoration{
+
+        position:absolute;
+
+        top:22px;
+
+        right:5%;
+
+        left:5%;
+
+        width:auto;
+
+        padding:12px 14px;
+
+        opacity:.95;
+    }
+
+    .area-label{
+
+        font-size:7px;
+
+        margin-bottom:7px;
+    }
+
+    .area-place{
+
+        font-size:7px;
+
+        padding:5px 7px;
+    }
+
     .welcome,
     .experiences,
-    .today{
+    .today,
+    .townconnect{
+
+        padding-left:5%;
+        padding-right:5%;
+    }
+
+    .area-strip{
 
         padding-left:5%;
         padding-right:5%;
@@ -1958,6 +2771,73 @@ footer{
         padding-left:5%;
         padding-right:5%;
     }
+
+
+    /* MOBILE TOWNCONNECT */
+
+    .townconnect{
+
+        padding-top:65px;
+
+        padding-bottom:65px;
+    }
+
+    .townconnect-header{
+
+        display:block;
+
+        margin-bottom:25px;
+    }
+
+    .townconnect-intro{
+
+        margin-top:18px;
+    }
+
+    .townconnect-grid{
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap:8px;
+    }
+
+    .connect-card{
+
+        min-height:190px;
+
+        padding:17px;
+    }
+
+    .connect-card h3{
+
+        font-size:13px;
+    }
+
+    .connect-card p{
+
+        font-size:9px;
+    }
+
+    .connect-action{
+
+        font-size:8px;
+    }
+
+    .townconnect-footer{
+
+        display:block;
+
+        padding:15px;
+    }
+
+    .townconnect-cta{
+
+        margin-top:12px;
+
+        width:100%;
+    }
+
 
     .discovery-container{
 
@@ -1994,23 +2874,6 @@ footer{
     .experience-town{
 
         grid-row:auto;
-    }
-
-    .weather-strip{
-
-        display:block;
-
-        padding:
-            20px 5%;
-    }
-
-    .weather-data{
-
-        margin-top:8px;
-
-        flex-wrap:wrap;
-
-        gap:10px;
     }
 
     .footer-container{
@@ -2060,10 +2923,43 @@ footer{
         min-height:140px;
     }
 
+    .townconnect-grid{
+
+        grid-template-columns:1fr 1fr;
+    }
+
+    .connect-card{
+
+        padding:14px;
+
+        min-height:175px;
+    }
+
+    .connect-icon{
+
+        width:38px;
+        height:38px;
+
+        font-size:18px;
+    }
+
     .modal-buttons{
 
         grid-template-columns:1fr;
     }
+
+    .area-decoration{
+
+        top:18px;
+    }
+
+    .area-place{
+
+        padding:4px 6px;
+
+        font-size:6.5px;
+    }
+
 }
 
 
@@ -2130,7 +3026,8 @@ footer{
 
     <div class="drawer-intro">
 
-        Explore Jwaneng through one connected
+        Explore Jwaneng and the surrounding
+        communities through one connected
         digital town experience.
 
     </div>
@@ -2144,9 +3041,6 @@ footer{
 
 
     <ul class="drawer-menu">
-
-
-        <!-- HOME -->
 
         <li>
 
@@ -2168,7 +3062,23 @@ footer{
         </li>
 
 
-        <!-- NEWS -->
+        <li>
+
+            <a
+                href="#townconnect"
+                class="drawer-link drawer-townconnect"
+            >
+
+                <span class="drawer-icon">
+                    🤝
+                </span>
+
+                TownConnect
+
+            </a>
+
+        </li>
+
 
         <li>
 
@@ -2188,8 +3098,6 @@ footer{
         </li>
 
 
-        <!-- JOBS -->
-
         <li>
 
             <a
@@ -2207,8 +3115,6 @@ footer{
 
         </li>
 
-
-        <!-- EVENTS -->
 
         <li>
 
@@ -2228,8 +3134,6 @@ footer{
         </li>
 
 
-        <!-- MARKETPLACE -->
-
         <li>
 
             <a
@@ -2247,8 +3151,6 @@ footer{
 
         </li>
 
-
-        <!-- BUSINESSES -->
 
         <li>
 
@@ -2279,9 +3181,6 @@ footer{
 
     <ul class="drawer-menu">
 
-
-        <!-- TOURISM -->
-
         <li>
 
             <a
@@ -2300,27 +3199,23 @@ footer{
         </li>
 
 
-        <!-- COMMUNITY -->
-
         <li>
 
             <a
-                href="community.html"
+                href="communityengagement.html"
                 class="drawer-link"
             >
 
                 <span class="drawer-icon">
-                    🤝
+                    👥
                 </span>
 
-                Community
+                Community Engagement
 
             </a>
 
         </li>
 
-
-        <!-- EMERGENCY -->
 
         <li>
 
@@ -2399,7 +3294,7 @@ footer{
 
         <div class="nav-location">
 
-            📍 Jwaneng, Botswana
+            📍 Jwaneng Area
 
         </div>
 
@@ -2438,12 +3333,134 @@ footer{
 
 
 <!-- =====================================================
+     TOP WEATHER
+===================================================== -->
+
+<section class="top-weather">
+
+    <div class="top-weather-inner">
+
+        <div class="top-weather-left">
+
+            <div class="weather-live-dot"></div>
+
+            <div>
+
+                <div class="top-weather-title">
+
+                    Jwaneng Weather
+
+                </div>
+
+                <div class="top-weather-sub">
+
+                    Live local conditions
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="top-weather-data">
+
+            <div class="weather-pill">
+
+                📍
+
+                <span id="weatherLoc">
+                    Jwaneng
+                </span>
+
+            </div>
+
+
+            <div class="weather-pill">
+
+                🌡
+
+                <span id="weatherTemp">
+                    Loading temperature...
+                </span>
+
+            </div>
+
+
+            <div class="weather-pill">
+
+                💨
+
+                <span id="weatherWind">
+                    Loading wind...
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
      HERO
 ===================================================== -->
 
 <section class="hero">
 
     <div class="hero-image"></div>
+
+
+    <!-- SURROUNDING PLACES DECORATION -->
+
+    <div class="area-decoration">
+
+        <div class="area-label">
+
+            JWANENG AREA
+
+        </div>
+
+
+        <div class="area-places">
+
+            <span class="area-place main">
+                Jwaneng
+            </span>
+
+            <span class="area-place">
+                Sese
+            </span>
+
+            <span class="area-place">
+                Mokhomma
+            </span>
+
+            <span class="area-place">
+                Lefoko
+            </span>
+
+            <span class="area-place">
+                Betesankwe
+            </span>
+
+            <span class="area-place">
+                Sekoma
+            </span>
+
+            <span class="area-place">
+                Maokane
+            </span>
+
+            <span class="area-place">
+                Machana
+            </span>
+
+        </div>
+
+    </div>
 
 
     <div class="hero-content">
@@ -2470,8 +3487,9 @@ footer{
             businesses, opportunities and memories.
 
             Discover the everyday life, beauty and
-            character of Jwaneng — all through
-            one connected digital experience.
+            character of Jwaneng and the communities
+            around it — all through one connected
+            digital experience.
 
         </p>
 
@@ -2512,7 +3530,7 @@ footer{
 
         <strong>
 
-            Jwaneng
+            Jwaneng Area
 
         </strong>
 
@@ -2572,6 +3590,327 @@ footer{
             residents, visitors and the wider community.
 
         </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TOWNCONNECT
+===================================================== -->
+
+<section
+    class="townconnect"
+    id="townconnect"
+>
+
+    <div class="townconnect-container">
+
+
+        <div class="townconnect-header">
+
+            <div>
+
+                <div class="townconnect-title">
+
+                    <div class="townconnect-badge">
+                        🤝
+                    </div>
+
+                    <div class="section-kicker"
+                         style="margin-bottom:0;">
+                        COMMUNITY CONNECTION
+                    </div>
+
+                </div>
+
+
+                <h2>
+
+                    Town<span>Connect.</span>
+
+                </h2>
+
+            </div>
+
+
+            <div class="townconnect-intro">
+
+                A digital bridge between residents,
+                community organisations, local leadership
+                and the people responsible for making
+                Jwaneng a better place to live.
+
+                <br><br>
+
+                <strong style="color:#dff9eb;">
+                    Connect. Report. Participate. Be heard.
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="townconnect-grid">
+
+
+            <!-- CONNECT WITH LEADERSHIP -->
+
+            <div class="connect-card">
+
+                <div class="connect-icon">
+                    🏛️
+                </div>
+
+                <h3>
+                    Connect with Leadership
+                </h3>
+
+                <p>
+                    Find a simple digital pathway for
+                    residents to communicate with
+                    local leadership and community
+                    representatives.
+                </p>
+
+                <a
+                    href="communityengagement.html"
+                    class="connect-action"
+                >
+
+                    Connect with leadership →
+
+                </a>
+
+            </div>
+
+
+            <!-- REPORT ISSUE -->
+
+            <div class="connect-card">
+
+                <div class="connect-icon">
+                    🚧
+                </div>
+
+                <h3>
+                    Report an Issue
+                </h3>
+
+                <p>
+                    Give residents a place to highlight
+                    issues affecting roads, lighting,
+                    waste, public spaces and services.
+                </p>
+
+                <a
+                    href="communityengagement.html"
+                    class="connect-action"
+                >
+
+                    Report a community issue →
+
+                </a>
+
+            </div>
+
+
+            <!-- COMMUNITY VOICE -->
+
+            <div class="connect-card">
+
+                <div class="connect-icon">
+                    🗣️
+                </div>
+
+                <h3>
+                    Community Voice
+                </h3>
+
+                <p>
+                    Share ideas, suggestions and
+                    community priorities that can help
+                    shape future initiatives.
+                </p>
+
+                <a
+                    href="communityengagement.html"
+                    class="connect-action"
+                >
+
+                    Share your voice →
+
+                </a>
+
+            </div>
+
+
+            <!-- TOWN UPDATES -->
+
+            <div class="connect-card">
+
+                <div class="connect-icon">
+                    📢
+                </div>
+
+                <h3>
+                    Community Updates
+                </h3>
+
+                <p>
+                    Stay informed about important
+                    notices, community activities,
+                    consultations and local developments.
+                </p>
+
+                <a
+                    href="townnews.html"
+                    class="connect-action"
+                >
+
+                    View town updates →
+
+                </a>
+
+            </div>
+
+
+            <!-- TRACK REPORT -->
+
+            <div class="connect-card">
+
+                <div class="connect-icon">
+                    📍
+                </div>
+
+                <h3>
+                    Track a Report
+                </h3>
+
+                <p>
+                    Follow up on community matters
+                    and create greater visibility around
+                    issues submitted by residents.
+                </p>
+
+                <a
+                    href="communityengagement.html"
+                    class="connect-action"
+                >
+
+                    Track community matters →
+
+                </a>
+
+            </div>
+
+
+            <!-- IMPORTANT CONTACTS -->
+
+            <div class="connect-card">
+
+                <div class="connect-icon">
+                    📞
+                </div>
+
+                <h3>
+                    Important Contacts
+                </h3>
+
+                <p>
+                    Quickly access important community,
+                    safety and emergency resources when
+                    you need them.
+                </p>
+
+                <a
+                    href="emergency.html"
+                    class="connect-action"
+                >
+
+                    View important contacts →
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="townconnect-footer">
+
+            <p>
+
+                <strong>TownConnect is about more than reporting problems.</strong>
+
+                It creates a structured digital channel
+                for dialogue, participation, accountability
+                and collaboration across the community.
+
+            </p>
+
+
+            <a
+                href="communityengagement.html"
+                class="townconnect-cta"
+            >
+
+                Open Community Engagement →
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     AREA LOCATION STRIP
+===================================================== -->
+
+<section class="area-strip">
+
+    <div class="area-strip-inner">
+
+        <span class="area-strip-title">
+            Jwaneng Area
+        </span>
+
+        <span class="area-strip-place featured">
+            Jwaneng
+        </span>
+
+        <span class="area-strip-place">
+            Sese
+        </span>
+
+        <span class="area-strip-place">
+            Mokhomma
+        </span>
+
+        <span class="area-strip-place">
+            Lefoko
+        </span>
+
+        <span class="area-strip-place">
+            Betesankwe
+        </span>
+
+        <span class="area-strip-place">
+            Sekoma
+        </span>
+
+        <span class="area-strip-place">
+            Maokane
+        </span>
+
+        <span class="area-strip-place">
+            Machana
+        </span>
 
     </div>
 
@@ -2881,8 +4220,6 @@ footer{
         <div class="today-grid">
 
 
-            <!-- NEWS -->
-
             <div class="widget-card">
 
                 <h3>
@@ -2907,8 +4244,6 @@ footer{
             </div>
 
 
-            <!-- JOBS -->
-
             <div class="widget-card">
 
                 <h3>
@@ -2932,8 +4267,6 @@ footer{
 
             </div>
 
-
-            <!-- EVENTS -->
 
             <div class="widget-card">
 
@@ -2960,38 +4293,6 @@ footer{
 
 
         </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     WEATHER
-===================================================== -->
-
-<section class="weather-strip">
-
-    <div class="weather-title">
-
-        🌤 Jwaneng Weather
-
-    </div>
-
-
-    <div class="weather-data">
-
-        <span id="weatherLoc">
-            Jwaneng Area
-        </span>
-
-        <span id="weatherTemp">
-            Loading temperature...
-        </span>
-
-        <span id="weatherWind">
-            Loading wind...
-        </span>
 
     </div>
 
@@ -3026,7 +4327,8 @@ footer{
                 Your digital gateway to the people,
                 businesses, opportunities, places,
                 events and experiences that make
-                Jwaneng home.
+                Jwaneng and its surrounding communities
+                home.
 
             </p>
 
@@ -3079,6 +4381,12 @@ footer{
             <ul>
 
                 <li>
+                    <a href="#townconnect">
+                        TownConnect
+                    </a>
+                </li>
+
+                <li>
                     <a href="businesses.html">
                         Businesses
                     </a>
@@ -3092,7 +4400,7 @@ footer{
 
                 <li>
                     <a href="communityengagement.html">
-                        Community
+                        Community Engagement
                     </a>
                 </li>
 
@@ -3243,6 +4551,17 @@ footer{
     </button>
 
 
+    <a href="#townconnect">
+
+        <span>
+            🤝
+        </span>
+
+        Connect
+
+    </a>
+
+
     <a href="townnews.html">
 
         <span>
@@ -3261,17 +4580,6 @@ footer{
         </span>
 
         Jobs
-
-    </a>
-
-
-    <a href="marketplace.html">
-
-        <span>
-            🛒
-        </span>
-
-        Market
 
     </a>
 
@@ -3299,7 +4607,7 @@ const supabaseUrl =
 "https://jxigyoxikaqwwzfnccej.supabase.co";
 
 const supabaseKey =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwiaWF0IjoxNzgwMDk2ODQwLCJleHAiOjIwOTU2NzI4NDB9.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
 
 const client =
 supabase.createClient(
@@ -3396,7 +4704,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   LEAVE MY JWANENG CONFIRMATION
+   LEAVE MY JWANENG
 ========================================================= */
 
 const leaveModal =
@@ -3956,13 +5264,12 @@ async function loadWeather(
         document.getElementById(
             "weatherLoc"
         ).innerText =
-            "📍 Jwaneng";
+            "Jwaneng";
 
 
         document.getElementById(
             "weatherTemp"
         ).innerText =
-            "🌡 " +
             weather.temperature +
             "°C";
 
@@ -3970,7 +5277,6 @@ async function loadWeather(
         document.getElementById(
             "weatherWind"
         ).innerText =
-            "💨 " +
             weather.windspeed +
             " km/h";
 
@@ -3986,16 +5292,18 @@ async function loadWeather(
         document.getElementById(
             "weatherTemp"
         ).innerText =
-            "Weather unavailable.";
+            "Unavailable";
+
+
+        document.getElementById(
+            "weatherWind"
+        ).innerText =
+            "Unavailable";
 
     }
 
 }
 
-
-/* =========================================================
-   JWANENG WEATHER FALLBACK
-========================================================= */
 
 function fallbackWeather(){
 
@@ -4006,10 +5314,6 @@ function fallbackWeather(){
 
 }
 
-
-/* =========================================================
-   WEATHER LOCATION
-========================================================= */
 
 if(
     navigator.geolocation
@@ -4038,6 +5342,46 @@ if(
     fallbackWeather();
 
 }
+
+
+/* =========================================================
+   TOWNCONNECT SMOOTH SCROLL
+========================================================= */
+
+document
+    .querySelectorAll(
+        'a[href="#townconnect"]'
+    )
+    .forEach(
+        link => {
+
+            link.addEventListener(
+                "click",
+                function(event){
+
+                    event.preventDefault();
+
+                    closeDrawer();
+
+                    const target =
+                        document.getElementById(
+                            "townconnect"
+                        );
+
+                    if(target){
+
+                        target.scrollIntoView({
+                            behavior:"smooth",
+                            block:"start"
+                        });
+
+                    }
+
+                }
+            );
+
+        }
+    );
 
 
 /* =========================================================
@@ -4085,7 +5429,7 @@ loadLatestEvents();
 
 
 /* =========================================================
-   CLOSE DRAWER AFTER NORMAL LINK
+   CLOSE DRAWER AFTER LINK
 ========================================================= */
 
 document
@@ -4097,7 +5441,19 @@ document
 
             link.addEventListener(
                 "click",
-                closeDrawer
+                function(){
+
+                    if(
+                        !this.getAttribute(
+                            "href"
+                        ).startsWith("#")
+                    ){
+
+                        closeDrawer();
+
+                    }
+
+                }
             );
 
         }
