@@ -1,50 +1,373 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>My Jwaneng - Businesses</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="description"
+content="Discover businesses, services, deals and opportunities in Jwaneng with My Jwaneng.">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
-*{margin:0;padding:0;box-sizing:border-box;}
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
 
 body{
     font-family:'Poppins',sans-serif;
     background:#f5f7fb;
+    color:#1d2935;
     padding-top:70px;
 }
 
-/* NAV */
-.navbar{
-    background:#001f3f;
-    padding:18px 8%;
-    display:flex;
-    justify-content:space-between;
-    position:fixed;
-    top:0;
-    width:100%;
-    z-index:1500;
+button,
+input{
+    font-family:inherit;
 }
 
-.logo{color:white;font-size:28px;font-weight:700;}
-.logo span{color:#4fc3f7;}
+button{
+    cursor:pointer;
+}
 
-/* HEADER */
-.biz-header{
-    background:linear-gradient(to right,#001f3f,#003566);
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar{
+    background:#001f3f;
+    padding:15px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1500;
+    box-shadow:0 3px 15px rgba(0,0,0,.15);
+}
+
+.logo{
     color:white;
-    padding:60px 8%;
+    font-size:28px;
+    font-weight:700;
+}
+
+.logo span{
+    color:#4fc3f7;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.biz-header{
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(79,195,247,.18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(79,195,247,.12),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #001f3f,
+            #003566
+        );
+    color:white;
+    padding:55px 8% 70px;
+}
+
+.biz-header::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+    background-size:35px 35px;
+}
+
+.header-inner{
+    position:relative;
+    z-index:2;
+    max-width:1200px;
+    margin:auto;
+}
+
+.header-label{
+    display:inline-block;
+    background:rgba(79,195,247,.15);
+    border:1px solid rgba(79,195,247,.35);
+    color:#4fc3f7;
+    padding:6px 13px;
+    border-radius:30px;
+    font-size:11px;
+    font-weight:700;
+    margin-bottom:14px;
+}
+
+.biz-header h1{
+    font-size:clamp(30px,5vw,52px);
+    line-height:1.15;
+    margin-bottom:12px;
+}
+
+.biz-header p{
+    color:#d8e8f5;
+    max-width:650px;
+    font-size:15px;
+}
+
+
+/* =========================================================
+   BUSINESS SPOTLIGHT
+========================================================= */
+
+.spotlight-wrap{
+    max-width:1200px;
+    margin:-35px auto 0;
+    padding:0 8%;
+    position:relative;
+    z-index:20;
+}
+
+.spotlight{
+    min-height:275px;
+    position:relative;
+    overflow:hidden;
+    border-radius:20px;
+    background:#001f3f;
+    box-shadow:0 15px 40px rgba(0,31,63,.22);
+}
+
+.spotlight-bg{
+    position:absolute;
+    inset:0;
+    background-size:cover;
+    background-position:center;
+    opacity:1;
+    transform:scale(1);
+    transition:
+        opacity .6s ease,
+        transform 5.5s ease;
+}
+
+.spotlight-bg.zoom{
+    transform:scale(1.08);
+}
+
+.spotlight-bg::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,31,63,.96) 0%,
+            rgba(0,31,63,.80) 40%,
+            rgba(0,31,63,.48) 70%,
+            rgba(0,31,63,.25) 100%
+        );
+}
+
+.spotlight-content{
+    position:relative;
+    z-index:5;
+    padding:32px;
+    max-width:700px;
+    color:white;
+    transition:
+        opacity .4s ease,
+        transform .4s ease;
+}
+
+.spotlight-content.hide{
+    opacity:0;
+    transform:translateX(-18px);
+}
+
+.spotlight-badge{
+    display:inline-block;
+    background:#4fc3f7;
+    color:#001f3f;
+    padding:5px 11px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.spotlight-category{
+    color:#8bdfff;
+    font-size:12px;
+    font-weight:600;
+    margin-bottom:5px;
+}
+
+.spotlight h2{
+    font-size:29px;
+    line-height:1.2;
+    margin-bottom:8px;
+}
+
+.spotlight-description{
+    color:#e2edf5;
+    font-size:13px;
+    line-height:1.65;
+    max-width:600px;
+}
+
+.spotlight-btn{
+    margin-top:14px;
+    padding:10px 17px;
+    border:none;
+    border-radius:8px;
+    background:white;
+    color:#001f3f;
+    font-weight:700;
+    font-size:12px;
+}
+
+.spotlight-btn:hover{
+    background:#4fc3f7;
+}
+
+
+/* SPOTLIGHT ARROWS */
+
+.spotlight-arrow{
+    position:absolute;
+    z-index:10;
+    top:50%;
+    transform:translateY(-50%);
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.25);
+    background:rgba(0,31,63,.55);
+    color:white;
+    font-size:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    transition:.25s;
+}
+
+.spotlight:hover .spotlight-arrow{
+    opacity:1;
+}
+
+.spotlight-prev{
+    left:15px;
+}
+
+.spotlight-next{
+    right:15px;
+}
+
+
+/* SPOTLIGHT DOTS */
+
+.spotlight-dots{
+    position:absolute;
+    z-index:10;
+    right:25px;
+    bottom:22px;
+    display:flex;
+    gap:6px;
+}
+
+.spot-dot{
+    width:7px;
+    height:7px;
+    border:0;
+    border-radius:50%;
+    padding:0;
+    background:rgba(255,255,255,.45);
+}
+
+.spot-dot.active{
+    width:20px;
+    border-radius:10px;
+    background:#4fc3f7;
+}
+
+
+/* =========================================================
+   DIRECTORY STATS
+========================================================= */
+
+.directory-stats{
+    max-width:1200px;
+    margin:25px auto 0;
+    padding:0 8%;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+}
+
+.stat-box{
+    background:white;
+    border:1px solid #e6ebf0;
+    border-radius:14px;
+    padding:15px;
     text-align:center;
 }
 
-/* CONTROLS */
+.stat-number{
+    color:#001f3f;
+    font-size:24px;
+    font-weight:800;
+}
+
+.stat-label{
+    color:#77828e;
+    font-size:11px;
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
 .biz-controls{
-    padding:20px 8%;
+    max-width:1200px;
+    margin:auto;
+    padding:30px 8% 10px;
 }
 
 .search-box{
@@ -52,87 +375,467 @@ body{
     gap:10px;
 }
 
-.search-box input{
+.search-wrapper{
     flex:1;
-    padding:12px;
-    border-radius:10px;
-    border:1px solid #ddd;
+    position:relative;
 }
 
-.search-box button{
-    padding:12px 18px;
+.search-icon{
+    position:absolute;
+    left:15px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#84909c;
+}
+
+.search-box input{
+    width:100%;
+    padding:14px 42px;
+    border-radius:12px;
+    border:1px solid #dce3ea;
+    outline:none;
+    background:white;
+    font-size:13px;
+}
+
+.search-box input:focus{
+    border-color:#4fc3f7;
+    box-shadow:0 0 0 3px rgba(79,195,247,.12);
+}
+
+.clear-search{
+    display:none;
+    position:absolute;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    width:25px;
+    height:25px;
+    border:none;
+    border-radius:50%;
+    background:#edf1f5;
+}
+
+.search-btn{
+    padding:0 20px;
+    border:none;
+    border-radius:12px;
     background:#001f3f;
     color:white;
-    border:none;
-    border-radius:10px;
-}
-
-/* CATEGORY BUTTON */
-.category-btn{
-    margin-top:12px;
-    background:white;
-    padding:12px;
-    border-radius:10px;
-    border:1px solid #ddd;
-    cursor:pointer;
     font-weight:600;
 }
 
-/* GRID */
+.control-row{
+    display:flex;
+    gap:10px;
+    margin-top:12px;
+    flex-wrap:wrap;
+}
+
+.category-btn,
+.sort-btn{
+    background:white;
+    color:#001f3f;
+    border:1px solid #dce3ea;
+    padding:11px 15px;
+    border-radius:10px;
+    font-size:12px;
+    font-weight:600;
+}
+
+
+/* =========================================================
+   CATEGORY SECTION
+========================================================= */
+
+.section{
+    max-width:1200px;
+    margin:auto;
+    padding:20px 8%;
+}
+
+.section-heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:13px;
+}
+
+.section-heading h2{
+    color:#001f3f;
+    font-size:20px;
+}
+
+.section-heading span{
+    color:#77828e;
+    font-size:11px;
+}
+
+.category-scroll{
+    display:flex;
+    gap:9px;
+    overflow-x:auto;
+    padding-bottom:5px;
+    scrollbar-width:none;
+}
+
+.category-scroll::-webkit-scrollbar{
+    display:none;
+}
+
+.category-chip{
+    flex:0 0 auto;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    background:white;
+    border:1px solid #e0e6ed;
+    border-radius:12px;
+    padding:10px 13px;
+    color:#253342;
+    font-size:11px;
+    font-weight:600;
+}
+
+.category-chip.active,
+.category-chip:hover{
+    background:#001f3f;
+    color:white;
+    border-color:#001f3f;
+}
+
+.cat-icon{
+    font-size:16px;
+}
+
+
+/* =========================================================
+   STATUS / DIAGNOSTICS
+========================================================= */
+
+.system-status{
+    max-width:1200px;
+    margin:5px auto 10px;
+    padding:0 8%;
+}
+
+.status-message{
+    display:none;
+    padding:10px 13px;
+    border-radius:9px;
+    font-size:11px;
+}
+
+.status-message.error{
+    display:block;
+    color:#9b3030;
+    background:#fff0f0;
+    border:1px solid #efcaca;
+}
+
+.status-message.warning{
+    display:block;
+    color:#856300;
+    background:#fff8e6;
+    border:1px solid #efdfa9;
+}
+
+
+/* =========================================================
+   BUSINESS GRID
+========================================================= */
+
 .biz-grid{
-    padding:20px 8% 80px;
+    max-width:1200px;
+    margin:auto;
+    padding:10px 8% 80px;
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
-    gap:18px;
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(235px,1fr)
+        );
+    gap:20px;
 }
 
 .biz-card{
     background:white;
     border-radius:16px;
     overflow:hidden;
-    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    border:1px solid #e8edf2;
+    box-shadow:0 5px 18px rgba(0,0,0,.06);
     cursor:pointer;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
 }
 
-.biz-img{height:150px;}
-.biz-img img{width:100%;height:100%;object-fit:cover;}
+.biz-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 28px rgba(0,31,63,.13);
+}
 
-.biz-content{padding:12px;}
-.biz-name{font-weight:700;color:#001f3f;}
-.biz-category{font-size:12px;color:#4fc3f7;margin-bottom:6px;}
-.biz-details{font-size:12px;color:#555;line-height:1.6;}
+.biz-img{
+    height:160px;
+    position:relative;
+    background:#e8edf2;
+}
 
-/* MODAL */
+.biz-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.biz-featured{
+    position:absolute;
+    top:10px;
+    left:10px;
+    padding:5px 9px;
+    border-radius:20px;
+    background:#4fc3f7;
+    color:#001f3f;
+    font-size:9px;
+    font-weight:800;
+}
+
+.biz-content{
+    padding:14px;
+}
+
+.biz-name{
+    color:#001f3f;
+    font-size:15px;
+    font-weight:700;
+    margin-bottom:4px;
+}
+
+.biz-category{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    color:#1597ca;
+    font-size:10px;
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.biz-details{
+    color:#66727e;
+    font-size:11px;
+    line-height:1.7;
+}
+
+.biz-description{
+    color:#6d7782;
+    font-size:10px;
+    line-height:1.5;
+    margin-top:7px;
+}
+
+.biz-footer{
+    margin-top:10px;
+    padding-top:9px;
+    border-top:1px solid #edf0f3;
+    color:#001f3f;
+    font-size:10px;
+    font-weight:700;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading{
+    grid-column:1/-1;
+    padding:60px 20px;
+    text-align:center;
+    color:#697582;
+    font-size:13px;
+}
+
+.spinner{
+    width:35px;
+    height:35px;
+    border:3px solid #dce5ed;
+    border-top-color:#4fc3f7;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin:0 auto 15px;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-state{
+    grid-column:1/-1;
+    background:white;
+    border-radius:16px;
+    border:1px solid #e7ebef;
+    padding:45px 20px;
+    text-align:center;
+}
+
+.empty-state-icon{
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.empty-state h3{
+    color:#001f3f;
+    margin-bottom:6px;
+}
+
+.empty-state p{
+    color:#6d7883;
+    font-size:12px;
+}
+
+.reset-btn{
+    margin-top:15px;
+    background:#001f3f;
+    color:white;
+    border:none;
+    padding:10px 17px;
+    border-radius:8px;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
 .modal{
     display:none;
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,0.6);
+    z-index:9999;
+    background:rgba(0,0,0,.65);
     justify-content:center;
     align-items:center;
-    z-index:9999;
+    padding:20px;
 }
 
 .modal-content{
-    background:white;
-    width:90%;
-    max-width:500px;
-    padding:20px;
-    border-radius:12px;
-    max-height:80vh;
+    width:100%;
+    max-width:520px;
+    max-height:88vh;
     overflow:auto;
+    background:white;
+    border-radius:18px;
+    padding:23px;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
 }
 
-/* CATEGORY LIST */
-.cat-list button{
-    width:100%;
-    padding:10px;
-    margin:4px 0;
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:15px;
+}
+
+.modal-header h3{
+    color:#001f3f;
+    font-size:21px;
+}
+
+.modal-close{
+    width:32px;
+    height:32px;
     border:none;
-    background:#f1f1f1;
+    border-radius:50%;
+    background:#eef2f5;
+    color:#333;
+    font-size:18px;
+}
+
+.biz-modal-image{
+    width:100%;
+    height:190px;
+    object-fit:cover;
+    border-radius:12px;
+    margin:15px 0;
+}
+
+.biz-info{
+    color:#4d5965;
+    font-size:13px;
+    line-height:1.8;
+}
+
+.biz-info-description{
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px solid #e7ebef;
+}
+
+.action-btn{
+    width:100%;
+    padding:11px;
+    border:none;
+    border-radius:9px;
+    margin-top:9px;
+    font-weight:600;
+}
+
+.call-btn{
+    background:#001f3f;
+    color:white;
+}
+
+.wa-btn{
+    background:#25D366;
+    color:white;
+}
+
+.dir-btn{
+    background:#4fc3f7;
+    color:#001f3f;
+}
+
+.website-btn{
+    background:#edf2f6;
+    color:#001f3f;
+}
+
+.close-btn{
+    width:100%;
+    margin-top:12px;
+    padding:11px;
+    border:none;
     border-radius:8px;
-    cursor:pointer;
+    background:#777;
+    color:white;
+}
+
+
+/* =========================================================
+   CATEGORY MODAL
+========================================================= */
+
+.cat-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px;
+    margin-top:15px;
+}
+
+.cat-list button{
+    padding:10px;
+    border:none;
+    background:#f1f4f7;
+    border-radius:8px;
     text-align:left;
+    font-size:12px;
 }
 
 .cat-list button:hover{
@@ -140,45 +843,40 @@ body{
     color:white;
 }
 
-.close-btn{
-    width:100%;
-    margin-top:10px;
-    padding:12px;
-    background:#777;
-    color:white;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-}
 
-/* ================= FOOTER ================= */
+/* =========================================================
+   FOOTER
+========================================================= */
+
 footer{
-    background:rgba(0,31,63,0.95);
-    color:#fff;
-    padding:60px 8% 30px;
+    background:rgba(0,31,63,.95);
+    color:white;
+    padding:45px 8% 25px;
 }
 
 .footer-container{
+    max-width:1200px;
+    margin:auto;
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:35px;
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(220px,1fr)
+        );
+    gap:30px;
 }
 
 .footer-column h3{
     color:#4fc3f7;
-    margin-bottom:15px;
-    font-size:18px;
+    margin-bottom:12px;
+    font-size:17px;
 }
 
 .footer-column p,
 .footer-column a{
     color:#ddd;
-    font-size:14px;
+    font-size:13px;
     text-decoration:none;
-}
-
-.footer-column a:hover{
-    color:#4fc3f7;
 }
 
 .footer-column ul{
@@ -186,14 +884,21 @@ footer{
 }
 
 .footer-column li{
-    margin-bottom:10px;
+    margin-bottom:8px;
+}
+
+.footer-column a:hover{
+    color:#4fc3f7;
 }
 
 .footer-bottom{
+    max-width:1200px;
+    margin:25px auto 0;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,.1);
     text-align:center;
     color:#ccc;
-    font-size:13px;
-    margin-top:20px;
+    font-size:12px;
 }
 
 .footer-bottom span{
@@ -201,248 +906,3024 @@ footer{
     font-weight:700;
 }
 
-/* ================= PWA CONTROL BAR ================= */
+
+/* =========================================================
+   PWA BAR
+========================================================= */
+
 .pwa-bar{
     position:fixed;
     bottom:0;
     left:0;
     width:100%;
-    background:rgba(0,31,63,0.98);
+    background:rgba(0,31,63,.98);
     display:none;
     justify-content:space-around;
-    padding:10px 0;
-    border-top:1px solid rgba(79,195,247,0.3);
+    padding:9px 0;
+    border-top:1px solid rgba(79,195,247,.3);
     z-index:10000;
 }
 
 .pwa-bar a{
-    color:#fff;
+    color:white;
     text-decoration:none;
-    font-size:12px;
+    font-size:11px;
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:4px;
+    gap:3px;
 }
 
 .pwa-bar span{
     color:#4fc3f7;
-    font-size:18px;
+    font-size:17px;
 }
 
-/* ACTION BUTTONS */
-.action-btn{
-    width:100%;
-    padding:10px;
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:700px){
+
+    body{
+        padding-top:62px;
+    }
+
+    .navbar{
+        padding:12px 5%;
+    }
+
+    .logo{
+        font-size:23px;
+    }
+
+    .biz-header{
+        padding:40px 5% 65px;
+    }
+
+    .biz-header h1{
+        font-size:31px;
+    }
+
+    .biz-header p{
+        font-size:13px;
+    }
+
+    .spotlight-wrap{
+        padding:0 5%;
+    }
+
+    .spotlight{
+        min-height:270px;
+    }
+
+    .spotlight-content{
+        padding:25px;
+        padding-right:50px;
+    }
+
+    .spotlight h2{
+        font-size:21px;
+    }
+
+    .spotlight-description{
+        font-size:11px;
+    }
+
+    .spotlight-arrow{
+        opacity:1;
+        width:32px;
+        height:32px;
+    }
+
+    .spotlight-prev{
+        left:7px;
+    }
+
+    .spotlight-next{
+        right:7px;
+    }
+
+    .directory-stats{
+        padding:0 5%;
+    }
+
+    .stat-box{
+        padding:12px 5px;
+    }
+
+    .stat-number{
+        font-size:20px;
+    }
+
+    .stat-label{
+        font-size:9px;
+    }
+
+    .biz-controls{
+        padding-left:5%;
+        padding-right:5%;
+    }
+
+    .search-box{
+        gap:7px;
+    }
+
+    .search-btn{
+        padding:0 14px;
+    }
+
+    .section{
+        padding-left:5%;
+        padding-right:5%;
+    }
+
+    .biz-grid{
+        padding-left:5%;
+        padding-right:5%;
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        gap:12px;
+    }
+
+    .biz-img{
+        height:125px;
+    }
+
+    .biz-content{
+        padding:11px;
+    }
+
+    .biz-name{
+        font-size:13px;
+    }
+
+    .biz-details{
+        font-size:9px;
+    }
+
+    .biz-description{
+        font-size:9px;
+    }
+
+    .system-status{
+        padding-left:5%;
+        padding-right:5%;
+    }
+
+}
+
+@media(max-width:390px){
+
+    .biz-grid{
+        grid-template-columns:1fr;
+    }
+
+    .biz-img{
+        height:160px;
+    }
+
+    .cat-list{
+        grid-template-columns:1fr;
+    }
+
+}
+/* =========================================================
+   SMART BUSINESS FINDER
+========================================================= */
+
+.finder-section{
+    max-width:1200px;
+    margin:25px auto;
+    padding:0 8%;
+}
+
+.finder-card{
+    background:linear-gradient(
+        135deg,
+        #001f3f,
+        #003566
+    );
+    color:white;
+    border-radius:20px;
+    padding:35px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.finder-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(79,195,247,.25),
+            transparent 30%
+        );
+}
+
+.finder-badge{
+    display:inline-block;
+    padding:6px 14px;
+    border-radius:20px;
+    background:rgba(79,195,247,.15);
+    border:1px solid rgba(79,195,247,.35);
+    color:#4fc3f7;
+    font-size:11px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.finder-card h2{
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.finder-card p{
+    color:#d7e7f3;
+    margin-bottom:20px;
+}
+
+.finder-btn{
+    background:#4fc3f7;
+    color:#001f3f;
     border:none;
-    border-radius:8px;
-    margin-top:8px;
+    border-radius:10px;
+    padding:12px 22px;
+    font-weight:700;
     cursor:pointer;
-    font-weight:600;
 }
 
-.call-btn{background:#001f3f;color:white;}
-.wa-btn{background:#25D366;color:white;}
-.dir-btn{background:#4fc3f7;color:#001f3f;}
+.finder-btn:hover{
+    transform:translateY(-2px);
+}
 
+.finder-dots{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    margin-top:18px;
+}
+
+.finder-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:rgba(255,255,255,.4);
+}
+
+.finder-dot.active{
+    width:22px;
+    border-radius:10px;
+    background:#4fc3f7;
+}
+
+@media(max-width:700px){
+
+    .finder-section{
+        padding:0 5%;
+    }
+
+    .finder-card{
+        padding:25px;
+    }
+
+    .finder-card h2{
+        font-size:22px;
+    }
+
+}
 </style>
 </head>
 
+
 <body>
 
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
 <nav class="navbar">
-    <div class="logo">My<span>Jwaneng</span></div>
+
+    <div class="logo">
+        My<span>Jwaneng</span>
+    </div>
+
 </nav>
 
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
 <section class="biz-header">
-    <h1>Local Businesses</h1>
-    <p>Discover trusted businesses in Jwaneng</p>
+
+    <div class="header-inner">
+
+        <div class="header-label">
+            🏢 MY JWANENG BUSINESS DIRECTORY
+        </div>
+
+        <h1>
+            Discover Jwaneng Businesses
+        </h1>
+
+        <p>
+            Find local businesses, services, products and
+            opportunities — all in one place.
+        </p>
+
+    </div>
+
 </section>
+
+
+<!-- =========================================================
+     BUSINESS SPOTLIGHT
+========================================================= -->
+
+<div class="spotlight-wrap">
+
+    <div
+        class="spotlight"
+        id="spotlight">
+
+        <div
+            class="spotlight-bg"
+            id="spotlightBg">
+        </div>
+
+
+        <button
+            class="spotlight-arrow spotlight-prev"
+            id="spotlightPrev"
+            aria-label="Previous business">
+
+            ‹
+
+        </button>
+
+
+        <button
+            class="spotlight-arrow spotlight-next"
+            id="spotlightNext"
+            aria-label="Next business">
+
+            ›
+
+        </button>
+
+
+        <div
+            class="spotlight-content"
+            id="spotlightContent">
+
+            <div class="spotlight-badge">
+                ⭐ BUSINESS SPOTLIGHT
+            </div>
+
+            <div
+                class="spotlight-category"
+                id="spotlightCategory">
+
+                Local Business
+
+            </div>
+
+            <h2 id="spotlightName">
+                Loading businesses...
+            </h2>
+
+            <p
+                class="spotlight-description"
+                id="spotlightDescription">
+
+                Discover businesses serving the Jwaneng community.
+
+            </p>
+
+            <button
+                class="spotlight-btn"
+                id="spotlightButton">
+
+                Explore Business →
+
+            </button>
+
+        </div>
+
+
+        <div
+            class="spotlight-dots"
+            id="spotlightDots">
+        </div>
+
+    </div>
+
+</div>
+
+<!-- SMART BUSINESS FINDER -->
+
+<section class="finder-section">
+
+    <div class="finder-card">
+
+        <div class="finder-badge">
+            🎯 SMART BUSINESS FINDER
+        </div>
+
+        <h2 id="finderQuestion">
+            Do you need a plumber?
+        </h2>
+
+        <p id="finderDescription">
+            Find plumbing services in Jwaneng.
+        </p>
+
+        <button id="finderButton" class="finder-btn">
+            Find a Plumber →
+        </button>
+
+        <div class="finder-dots" id="finderDots"></div>
+
+    </div>
+
+</section>
+
+<!-- =========================================================
+     STATS
+========================================================= -->
+
+<div class="directory-stats">
+
+    <div class="stat-box">
+
+        <div
+            class="stat-number"
+            id="businessCount">
+
+            0
+
+        </div>
+
+        <div class="stat-label">
+            Businesses
+        </div>
+
+    </div>
+
+
+    <div class="stat-box">
+
+        <div
+            class="stat-number"
+            id="categoryCount">
+
+            0
+
+        </div>
+
+        <div class="stat-label">
+            Categories
+        </div>
+
+    </div>
+
+
+    <div class="stat-box">
+
+        <div class="stat-number">
+            📍
+        </div>
+
+        <div class="stat-label">
+            Jwaneng
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SEARCH
+========================================================= -->
 
 <section class="biz-controls">
 
     <div class="search-box">
-        <input id="searchInput" placeholder="Search businesses...">
-        <button onclick="searchBiz()">Search</button>
+
+        <div class="search-wrapper">
+
+            <span class="search-icon">
+                🔍
+            </span>
+
+            <input
+                id="searchInput"
+                type="search"
+                autocomplete="off"
+                placeholder="Search businesses, services or categories..."
+            >
+
+            <button
+                class="clear-search"
+                id="clearSearch"
+                onclick="clearSearch()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <button
+            class="search-btn"
+            onclick="searchBusinesses()">
+
+            Search
+
+        </button>
+
     </div>
 
-    <button class="category-btn" onclick="openCatModal()">
-        📂 Choose Category
-    </button>
+
+    <div class="control-row">
+
+        <button
+            class="category-btn"
+            onclick="openCatModal()">
+
+            📂 Choose Category
+
+        </button>
+
+
+        <button
+            class="sort-btn"
+            id="sortBtn"
+            onclick="sortBusinesses()">
+
+            ↕ Sort A–Z
+
+        </button>
+
+    </div>
 
 </section>
 
-<div class="biz-grid" id="grid"></div>
 
-<!-- CATEGORY MODAL -->
-<div class="modal" id="catModal">
-    <div class="modal-content">
+<!-- =========================================================
+     QUICK CATEGORIES
+========================================================= -->
 
-        <h3>Select Category</h3>
+<section class="section">
 
-        <div class="cat-list" id="catList"></div>
+    <div class="section-heading">
 
-        <button class="close-btn" onclick="closeCatModal()">Close</button>
+        <h2>
+            Explore Categories
+        </h2>
 
-    </div>
-</div>
-
-<!-- BUSINESS MODAL -->
-<div class="modal" id="bizModal">
-    <div class="modal-content">
-
-        <h3 id="bizTitle"></h3>
-
-        <div id="bizInfo" style="font-size:14px;line-height:1.6;"></div>
-
-        <button id="callBtn" class="action-btn call-btn">📞 Call</button>
-        <button id="waBtn" class="action-btn wa-btn">💬 WhatsApp</button>
-        <button id="dirBtn" class="action-btn dir-btn">📍 Directions</button>
-
-        <button class="close-btn" onclick="closeBiz()">Close</button>
+        <span>
+            Swipe to explore
+        </span>
 
     </div>
+
+
+    <div
+        class="category-scroll"
+        id="quickCategories">
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DATABASE STATUS
+========================================================= -->
+
+<div class="system-status">
+
+    <div
+        id="statusMessage"
+        class="status-message">
+
+    </div>
+
 </div>
+
+
+<!-- =========================================================
+     BUSINESS GRID
+========================================================= -->
+
+<div
+    class="biz-grid"
+    id="grid">
+
+    <div class="loading">
+
+        <div class="spinner"></div>
+
+        Connecting to business directory...
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     CATEGORY MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="catModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h3>
+                Select Category
+            </h3>
+
+            <button
+                class="modal-close"
+                onclick="closeCatModal()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <div
+            class="cat-list"
+            id="catList">
+
+        </div>
+
+
+        <button
+            class="close-btn"
+            onclick="closeCatModal()">
+
+            Close
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     BUSINESS MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="bizModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h3 id="bizTitle">
+                Business
+            </h3>
+
+            <button
+                class="modal-close"
+                onclick="closeBiz()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <img
+            id="bizModalImage"
+            class="biz-modal-image"
+            src=""
+            alt="Business image"
+        >
+
+
+        <div
+            id="bizInfo"
+            class="biz-info">
+
+        </div>
+
+
+        <button
+            id="callBtn"
+            class="action-btn call-btn">
+
+            📞 Call
+
+        </button>
+
+
+        <button
+            id="waBtn"
+            class="action-btn wa-btn">
+
+            💬 WhatsApp
+
+        </button>
+
+
+        <button
+            id="dirBtn"
+            class="action-btn dir-btn">
+
+            📍 Directions
+
+        </button>
+
+
+        <button
+            id="websiteBtn"
+            class="action-btn website-btn">
+
+            🌐 Visit Website
+
+        </button>
+
+
+        <button
+            class="close-btn"
+            onclick="closeBiz()">
+
+            Close
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div class="footer-container">
+
+        <div class="footer-column">
+
+            <h3>
+                My Jwaneng
+            </h3>
+
+            <p>
+                Connecting Jwaneng digitally — helping
+                residents discover businesses, services,
+                jobs, events and opportunities.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>
+                Business Directory
+            </h3>
+
+            <ul>
+
+                <li>
+                    <a href="businesses.html">
+                        Businesses
+                    </a>
+                </li>
+
+                <li>
+                    <a href="jobs.html">
+                        Jobs
+                    </a>
+                </li>
+
+                <li>
+                    <a href="marketplace.html">
+                        Marketplace
+                    </a>
+                </li>
+
+                <li>
+                    <a href="townnews.html">
+                        Town News
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>
+                Explore
+            </h3>
+
+            <ul>
+
+                <li>
+                    <a href="index.html">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="exploremyjwaneng.html">
+                        Explore Jwaneng
+                    </a>
+                </li>
+
+                <li>
+                    <a href="events.html">
+                        Events
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        &copy; 2026 My Jwaneng.
+        Built by <span>A-eye Group</span>.
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     PWA CONTROL BAR
+========================================================= -->
+
+<div
+    class="pwa-bar"
+    id="pwaBar">
+
+    <a href="index.html">
+        <span>🏠</span>
+        Home
+    </a>
+
+    <a href="exploremyjwaneng.html">
+        <span>🔍</span>
+        Explore
+    </a>
+
+    <a href="jobs.html">
+        <span>💼</span>
+        Jobs
+    </a>
+
+    <a href="marketplace.html">
+        <span>🛒</span>
+        Market
+    </a>
+
+    <a href="townnews.html">
+        <span>📰</span>
+        News
+    </a>
+
+</div>
+
+
+<script src="pwa-bar.js"></script>
+
 
 <script>
 
-const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
-const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+/* =========================================================
+   SUPABASE CONNECTION
+   THIS IS THE SAME DATABASE CONNECTION FROM YOUR ORIGINAL
+========================================================= */
+
+const supabaseUrl =
+    "https://jxigyoxikaqwwzfnccej.supabase.co";
+
+const supabaseKey =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
+
+const supabaseClient =
+    window.supabase.createClient(
+        supabaseUrl,
+        supabaseKey
+    );
+
+
+/* =========================================================
+   APPLICATION STATE
+========================================================= */
 
 let allBusinesses = [];
 
-const categories = [
-"Accommodation","Agriculture","Automotive","Beauty & Wellness",
-"Business Services","Cleaning Services","Construction","Education",
-"Engineering","Entertainment","Food & Beverage","Health",
-"Hospitality","Mining","Retail","Security","Services",
-"Technology","Transport"
-].sort();
+let displayedBusinesses = [];
 
-/* ================= LOAD ================= */
+let selectedCategory = "All";
+
+let sortAscending = true;
+
+
+/* =========================================================
+   SPOTLIGHT STATE
+========================================================= */
+
+let spotlightBusinesses = [];
+
+let spotlightIndex = 0;
+
+let spotlightTimer = null;
+
+const spotlightInterval = 5000;
+
+
+/* =========================================================
+   CATEGORY ICONS
+========================================================= */
+
+const categoryIcons = {
+
+    "Accommodation":"🏨",
+    "Agriculture":"🌱",
+    "Automotive":"🚗",
+    "Beauty & Wellness":"💆",
+    "Business Services":"💼",
+    "Cleaning Services":"🧹",
+    "Construction":"🏗️",
+    "Education":"🎓",
+    "Engineering":"⚙️",
+    "Entertainment":"🎬",
+    "Food & Beverage":"🍽️",
+    "Health":"🏥",
+    "Hospitality":"🍴",
+    "Mining":"⛏️",
+    "Retail":"🛍️",
+    "Security":"🛡️",
+    "Services":"🔧",
+    "Technology":"💻",
+    "Transport":"🚚"
+
+};
+
+
+/* =========================================================
+   DEFAULT IMAGE
+========================================================= */
+
+const defaultBusinessImage =
+    "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=80";
+
+
+/* =========================================================
+   GET CATEGORY ICON
+========================================================= */
+
+function getCategoryIcon(category){
+
+    return categoryIcons[category] || "🏢";
+
+}
+
+
+/* =========================================================
+   SAFE HTML
+========================================================= */
+
+function escapeHTML(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   STATUS MESSAGE
+========================================================= */
+
+function showStatus(message,type){
+
+    const element =
+        document.getElementById(
+            "statusMessage"
+        );
+
+    element.className =
+        "status-message " + type;
+
+    element.innerText =
+        message;
+
+}
+
+
+function clearStatus(){
+
+    const element =
+        document.getElementById(
+            "statusMessage"
+        );
+
+    element.className =
+        "status-message";
+
+    element.innerText =
+        "";
+
+}
+
+
+/* =========================================================
+   LOAD BUSINESSES FROM SUPABASE
+========================================================= */
+
 async function loadBusinesses(){
-    const { data } = await supabaseClient.from("businesses").select("*");
-    allBusinesses = data || [];
-    render(allBusinesses);
-}
 
-/* ================= GRID ================= */
-function render(list){
-    const grid = document.getElementById("grid");
-    grid.innerHTML = "";
+    const grid =
+        document.getElementById(
+            "grid"
+        );
 
-    list.forEach(b=>{
 
-        grid.innerHTML += `
-        <div class="biz-card" onclick="openBusiness('${b.name}')">
+    grid.innerHTML = `
 
-            <div class="biz-img">
-                <img src="${b.image_url || 'https://via.placeholder.com/400'}">
-            </div>
+        <div class="loading">
 
-            <div class="biz-content">
-                <div class="biz-name">${b.name}</div>
-                <div class="biz-category">${b.category}</div>
-                <div class="biz-details">
-                    📞 ${b.phone || 'N/A'}<br>
-                    📍 ${b.location || 'N/A'}
-                </div>
-            </div>
+            <div class="spinner"></div>
 
-        </div>`;
-    });
-}
+            Loading businesses from My Jwaneng...
 
-/* ================= SEARCH ================= */
-function searchBiz(){
-    const q = document.getElementById("searchInput").value.toLowerCase();
-    render(allBusinesses.filter(b =>
-        (b.name || "").toLowerCase().includes(q)
-    ));
-}
+        </div>
 
-/* ================= CATEGORY ================= */
-function openCatModal(){
-    document.getElementById("catModal").style.display="flex";
-
-    const list = document.getElementById("catList");
-    list.innerHTML = "";
-
-    list.innerHTML += `<button onclick="filterCategory('All')">🌍 All Businesses</button>`;
-
-    categories.forEach(c=>{
-        list.innerHTML += `<button onclick="filterCategory('${c}')">${c}</button>`;
-    });
-}
-
-function closeCatModal(){
-    document.getElementById("catModal").style.display="none";
-}
-
-function filterCategory(cat){
-    closeCatModal();
-    if(cat === "All") return render(allBusinesses);
-    render(allBusinesses.filter(b => b.category === cat));
-}
-
-/* ================= BUSINESS MODAL ================= */
-function openBusiness(name){
-    const b = allBusinesses.find(x => x.name === name);
-    if(!b) return;
-
-    document.getElementById("bizTitle").innerText = b.name;
-
-    document.getElementById("bizInfo").innerHTML = `
-        <b>Category:</b> ${b.category || 'N/A'}<br><br>
-        📞 ${b.phone || 'N/A'}<br>
-        📍 ${b.location || 'N/A'}<br>
-        🌐 ${b.website || 'N/A'}<br>
-        ✉️ ${b.email || 'N/A'}<br><br>
-        📝 ${b.description || ''}
     `;
 
-    // CALL
-    document.getElementById("callBtn").onclick = () => {
-        if(b.phone) window.location.href = `tel:${b.phone}`;
-    };
 
-    // WHATSAPP
-    document.getElementById("waBtn").onclick = () => {
-        const num = (b.whatsapp || b.phone || "").replace(/\D/g,'');
-        if(num) window.open(`https://wa.me/${num}`, "_blank");
-    };
+    try{
 
-    // DIRECTIONS
-    document.getElementById("dirBtn").onclick = () => {
-        if(b.location){
-            const q = encodeURIComponent(b.location);
-            window.open(`https://www.google.com/maps/search/?api=1&query=${q}`, "_blank");
+        console.log(
+            "My Jwaneng: Connecting to Supabase..."
+        );
+
+
+        const {
+            data,
+            error
+        } =
+        await supabaseClient
+            .from("businesses")
+            .select("*");
+
+
+        if(error){
+
+            console.error(
+                "SUPABASE ERROR:",
+                error
+            );
+
+
+            showDatabaseError(
+                error
+            );
+
+            return;
+
         }
+
+
+        console.log(
+            "My Jwaneng: Businesses loaded:",
+            data
+        );
+
+
+        allBusinesses =
+            Array.isArray(data)
+            ? data
+            : [];
+
+
+        displayedBusinesses =
+            [...allBusinesses];
+
+
+        clearStatus();
+
+
+        updateStatistics();
+
+        renderBusinesses(
+            displayedBusinesses
+        );
+
+        renderQuickCategories();
+
+        prepareCategoryModal();
+
+        setupSpotlight();
+
+
+    }catch(error){
+
+        console.error(
+            "DATABASE CONNECTION ERROR:",
+            error
+        );
+
+
+        showDatabaseError(
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DATABASE ERROR
+========================================================= */
+
+function showDatabaseError(error){
+
+    const grid =
+        document.getElementById(
+            "grid"
+        );
+
+
+    showStatus(
+        "Unable to load businesses from the database. Please check your Supabase connection, table permissions or internet connection.",
+        "error"
+    );
+
+
+    grid.innerHTML = `
+
+        <div class="empty-state">
+
+            <div class="empty-state-icon">
+                ⚠️
+            </div>
+
+            <h3>
+                Business Directory Unavailable
+            </h3>
+
+            <p>
+                We could not retrieve the business
+                listings from the My Jwaneng database.
+            </p>
+
+            <button
+                class="reset-btn"
+                onclick="loadBusinesses()">
+
+                🔄 Try Again
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    document.getElementById(
+        "businessCount"
+    ).innerText = "—";
+
+
+    document.getElementById(
+        "categoryCount"
+    ).innerText = "—";
+
+
+    /* IMPORTANT:
+       DO NOT CREATE FAKE BUSINESSES.
+    */
+
+    allBusinesses = [];
+
+    displayedBusinesses = [];
+
+    spotlightBusinesses = [];
+
+}
+
+
+/* =========================================================
+   UPDATE STATISTICS
+========================================================= */
+
+function updateStatistics(){
+
+    document.getElementById(
+        "businessCount"
+    ).innerText =
+        allBusinesses.length;
+
+
+    const categories =
+        new Set(
+            allBusinesses
+                .map(
+                    business =>
+                    business.category
+                )
+                .filter(Boolean)
+        );
+
+
+    document.getElementById(
+        "categoryCount"
+    ).innerText =
+        categories.size;
+
+}
+
+
+/* =========================================================
+   RENDER BUSINESS CARDS
+========================================================= */
+
+function renderBusinesses(list){
+
+    const grid =
+        document.getElementById(
+            "grid"
+        );
+
+
+    grid.innerHTML = "";
+
+
+    if(
+        !list ||
+        list.length === 0
+    ){
+
+        grid.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-state-icon">
+                    🔍
+                </div>
+
+                <h3>
+                    No Businesses Found
+                </h3>
+
+                <p>
+                    Try another search term or category.
+                </p>
+
+                <button
+                    class="reset-btn"
+                    onclick="resetDirectory()">
+
+                    Show All Businesses
+
+                </button>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.forEach(
+        (business,index)=>{
+
+            const image =
+                business.image_url ||
+                defaultBusinessImage;
+
+
+            const description =
+                business.description ||
+                "";
+
+
+            grid.innerHTML += `
+
+                <article
+                    class="biz-card"
+                    onclick="openBusinessById(${index})">
+
+                    <div class="biz-img">
+
+                        <img
+                            src="${escapeHTML(image)}"
+                            alt="${escapeHTML(
+                                business.name ||
+                                "Business"
+                            )}"
+                            loading="lazy"
+                            onerror="this.src='${defaultBusinessImage}'"
+                        >
+
+
+                        ${
+                            index === 0 &&
+                            list.length > 1
+                            ?
+                            `
+                            <div class="biz-featured">
+                                ⭐ Featured
+                            </div>
+                            `
+                            :
+                            ""
+                        }
+
+                    </div>
+
+
+                    <div class="biz-content">
+
+                        <div class="biz-name">
+
+                            ${escapeHTML(
+                                business.name ||
+                                "Unnamed Business"
+                            )}
+
+                        </div>
+
+
+                        <div class="biz-category">
+
+                            <span>
+                                ${getCategoryIcon(
+                                    business.category
+                                )}
+                            </span>
+
+                            ${escapeHTML(
+                                business.category ||
+                                "Business"
+                            )}
+
+                        </div>
+
+
+                        <div class="biz-details">
+
+                            📞 ${
+                                escapeHTML(
+                                    business.phone ||
+                                    "N/A"
+                                )
+                            }
+
+                            <br>
+
+                            📍 ${
+                                escapeHTML(
+                                    business.location ||
+                                    "Jwaneng"
+                                )
+                            }
+
+                        </div>
+
+
+                        ${
+                            description
+                            ?
+                            `
+                            <div class="biz-description">
+
+                                ${
+                                    escapeHTML(
+                                        description
+                                    ).substring(
+                                        0,
+                                        100
+                                    )
+                                }${
+                                    description.length > 100
+                                    ? "..."
+                                    : ""
+                                }
+
+                            </div>
+                            `
+                            :
+                            ""
+                        }
+
+
+                        <div class="biz-footer">
+
+                            View Business →
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            `;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function searchBusinesses(){
+
+    const query =
+        document
+            .getElementById(
+                "searchInput"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    if(!query){
+
+        resetDirectory();
+
+        return;
+
+    }
+
+
+    displayedBusinesses =
+        allBusinesses.filter(
+            business=>{
+
+                const searchable = [
+
+                    business.name,
+                    business.category,
+                    business.location,
+                    business.description,
+                    business.phone,
+                    business.email,
+                    business.website
+
+                ]
+                .filter(Boolean)
+                .join(" ")
+                .toLowerCase();
+
+
+                return searchable.includes(
+                    query
+                );
+
+            }
+        );
+
+
+    renderBusinesses(
+        displayedBusinesses
+    );
+
+}
+
+
+/* =========================================================
+   LIVE SEARCH
+========================================================= */
+
+document
+    .getElementById(
+        "searchInput"
+    )
+    .addEventListener(
+        "input",
+        function(){
+
+            const clearButton =
+                document.getElementById(
+                    "clearSearch"
+                );
+
+
+            clearButton.style.display =
+                this.value
+                ? "block"
+                : "none";
+
+
+            searchBusinesses();
+
+        }
+    );
+
+
+/* =========================================================
+   ENTER KEY SEARCH
+========================================================= */
+
+document
+    .getElementById(
+        "searchInput"
+    )
+    .addEventListener(
+        "keydown",
+        function(event){
+
+            if(
+                event.key === "Enter"
+            ){
+
+                searchBusinesses();
+
+            }
+
+        }
+    );
+
+
+/* =========================================================
+   CLEAR SEARCH
+========================================================= */
+
+function clearSearch(){
+
+    document
+        .getElementById(
+            "searchInput"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "clearSearch"
+        )
+        .style.display = "none";
+
+
+    resetDirectory();
+
+}
+
+
+/* =========================================================
+   CATEGORY FILTER
+========================================================= */
+
+function filterCategory(category){
+
+    selectedCategory =
+        category;
+
+
+    if(category === "All"){
+
+        displayedBusinesses =
+            [...allBusinesses];
+
+    }else{
+
+        displayedBusinesses =
+            allBusinesses.filter(
+                business =>
+                business.category ===
+                category
+            );
+
+    }
+
+
+    renderBusinesses(
+        displayedBusinesses
+    );
+
+
+    renderQuickCategories();
+
+}
+
+
+/* =========================================================
+   RESET DIRECTORY
+========================================================= */
+
+function resetDirectory(){
+
+    selectedCategory =
+        "All";
+
+
+    displayedBusinesses =
+        [...allBusinesses];
+
+
+    renderBusinesses(
+        displayedBusinesses
+    );
+
+
+    renderQuickCategories();
+
+}
+
+
+/* =========================================================
+   SORT
+========================================================= */
+
+function sortBusinesses(){
+
+    displayedBusinesses.sort(
+        (a,b)=>{
+
+            const first =
+                (
+                    a.name ||
+                    ""
+                ).toLowerCase();
+
+
+            const second =
+                (
+                    b.name ||
+                    ""
+                ).toLowerCase();
+
+
+            return sortAscending
+                ? first.localeCompare(second)
+                : second.localeCompare(first);
+
+        }
+    );
+
+
+    sortAscending =
+        !sortAscending;
+
+
+    document.getElementById(
+        "sortBtn"
+    ).innerText =
+        sortAscending
+        ? "↕ Sort A–Z"
+        : "↕ Sort Z–A";
+
+
+    renderBusinesses(
+        displayedBusinesses
+    );
+
+}
+
+
+/* =========================================================
+   QUICK CATEGORY BUTTONS
+========================================================= */
+
+function renderQuickCategories(){
+
+    const container =
+        document.getElementById(
+            "quickCategories"
+        );
+
+
+    container.innerHTML = "";
+
+
+    const actualCategories =
+        [
+            ...new Set(
+                allBusinesses
+                    .map(
+                        business =>
+                        business.category
+                    )
+                    .filter(Boolean)
+            )
+        ]
+        .sort();
+
+
+    addQuickCategory(
+        container,
+        "All",
+        "🌍"
+    );
+
+
+    actualCategories.forEach(
+        category=>{
+
+            addQuickCategory(
+                container,
+                category,
+                getCategoryIcon(
+                    category
+                )
+            );
+
+        }
+    );
+
+}
+
+
+function addQuickCategory(
+    container,
+    category,
+    icon
+){
+
+    const button =
+        document.createElement(
+            "button"
+        );
+
+
+    button.className =
+        "category-chip " +
+        (
+            selectedCategory ===
+            category
+            ? "active"
+            : ""
+        );
+
+
+    button.innerHTML = `
+
+        <span class="cat-icon">
+            ${icon}
+        </span>
+
+        ${escapeHTML(category)}
+
+    `;
+
+
+    button.onclick = () => {
+
+        filterCategory(
+            category
+        );
+
     };
 
-    document.getElementById("bizModal").style.display="flex";
+
+    container.appendChild(
+        button
+    );
+
 }
+
+
+/* =========================================================
+   CATEGORY MODAL
+========================================================= */
+
+function prepareCategoryModal(){
+
+    const list =
+        document.getElementById(
+            "catList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    addModalCategory(
+        list,
+        "All",
+        "🌍"
+    );
+
+
+    const actualCategories =
+        [
+            ...new Set(
+                allBusinesses
+                    .map(
+                        business =>
+                        business.category
+                    )
+                    .filter(Boolean)
+            )
+        ]
+        .sort();
+
+
+    actualCategories.forEach(
+        category=>{
+
+            addModalCategory(
+                list,
+                category,
+                getCategoryIcon(
+                    category
+                )
+            );
+
+        }
+    );
+
+}
+
+
+function addModalCategory(
+    container,
+    category,
+    icon
+){
+
+    const button =
+        document.createElement(
+            "button"
+        );
+
+
+    button.innerHTML = `
+
+        ${icon}
+        ${escapeHTML(category)}
+
+    `;
+
+
+    button.onclick = () => {
+
+        filterCategory(
+            category
+        );
+
+        closeCatModal();
+
+    };
+
+
+    container.appendChild(
+        button
+    );
+
+}
+
+
+function openCatModal(){
+
+    prepareCategoryModal();
+
+
+    document.getElementById(
+        "catModal"
+    ).style.display =
+        "flex";
+
+}
+
+
+function closeCatModal(){
+
+    document.getElementById(
+        "catModal"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =========================================================
+   BUSINESS MODAL
+========================================================= */
+
+function openBusinessById(index){
+
+    const business =
+        displayedBusinesses[index];
+
+
+    if(!business){
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "bizTitle"
+    ).innerText =
+        business.name ||
+        "Business";
+
+
+    const image =
+        document.getElementById(
+            "bizModalImage"
+        );
+
+
+    image.src =
+        business.image_url ||
+        defaultBusinessImage;
+
+
+    image.alt =
+        business.name ||
+        "Business";
+
+
+    document.getElementById(
+        "bizInfo"
+    ).innerHTML = `
+
+        <strong>
+
+            ${getCategoryIcon(
+                business.category
+            )}
+
+            ${escapeHTML(
+                business.category ||
+                "Business"
+            )}
+
+        </strong>
+
+        <br><br>
+
+        📞 ${
+            escapeHTML(
+                business.phone ||
+                "N/A"
+            )
+        }
+
+        <br>
+
+        📍 ${
+            escapeHTML(
+                business.location ||
+                "N/A"
+            )
+        }
+
+        <br>
+
+        🌐 ${
+            escapeHTML(
+                business.website ||
+                "N/A"
+            )
+        }
+
+        <br>
+
+        ✉️ ${
+            escapeHTML(
+                business.email ||
+                "N/A"
+            )
+        }
+
+
+        ${
+            business.description
+            ?
+            `
+            <div class="biz-info-description">
+
+                <strong>
+                    About this business
+                </strong>
+
+                <br>
+
+                ${escapeHTML(
+                    business.description
+                )}
+
+            </div>
+            `
+            :
+            ""
+        }
+
+    `;
+
+
+    /* CALL */
+
+    document.getElementById(
+        "callBtn"
+    ).onclick = () => {
+
+        if(
+            business.phone
+        ){
+
+            window.location.href =
+                `tel:${business.phone}`;
+
+        }
+
+    };
+
+
+    /* WHATSAPP */
+
+    document.getElementById(
+        "waBtn"
+    ).onclick = () => {
+
+        const number =
+            (
+                business.whatsapp ||
+                business.phone ||
+                ""
+            )
+            .replace(
+                /\D/g,
+                ""
+            );
+
+
+        if(number){
+
+            window.open(
+                `https://wa.me/${number}`,
+                "_blank"
+            );
+
+        }
+
+    };
+
+
+    /* DIRECTIONS */
+
+    document.getElementById(
+        "dirBtn"
+    ).onclick = () => {
+
+        if(
+            business.location
+        ){
+
+            const query =
+                encodeURIComponent(
+                    business.location
+                );
+
+
+            window.open(
+                `https://www.google.com/maps/search/?api=1&query=${query}`,
+                "_blank"
+            );
+
+        }
+
+    };
+
+
+    /* WEBSITE */
+
+    document.getElementById(
+        "websiteBtn"
+    ).onclick = () => {
+
+        if(
+            !business.website
+        ){
+
+            return;
+
+        }
+
+
+        let url =
+            business.website.trim();
+
+
+        if(
+            !url.startsWith(
+                "http://"
+            ) &&
+            !url.startsWith(
+                "https://"
+            )
+        ){
+
+            url =
+                "https://" +
+                url;
+
+        }
+
+
+        window.open(
+            url,
+            "_blank"
+        );
+
+    };
+
+
+    document.getElementById(
+        "bizModal"
+    ).style.display =
+        "flex";
+
+}
+
 
 function closeBiz(){
-    document.getElementById("bizModal").style.display="none";
+
+    document.getElementById(
+        "bizModal"
+    ).style.display =
+        "none";
+
 }
 
-/* ================= INIT ================= */
+
+/* =========================================================
+   SPOTLIGHT
+   USES ONLY LIVE SUPABASE BUSINESSES
+========================================================= */
+
+function setupSpotlight(){
+
+    spotlightBusinesses =
+        [...allBusinesses];
+
+
+    spotlightIndex = 0;
+
+
+    clearInterval(
+        spotlightTimer
+    );
+
+
+    const dots =
+        document.getElementById(
+            "spotlightDots"
+        );
+
+
+    dots.innerHTML = "";
+
+
+    if(
+        spotlightBusinesses.length === 0
+    ){
+
+        showEmptySpotlight();
+
+        return;
+
+    }
+
+
+    spotlightBusinesses.forEach(
+        (business,index)=>{
+
+            const dot =
+                document.createElement(
+                    "button"
+                );
+
+
+            dot.className =
+                "spot-dot";
+
+
+            dot.setAttribute(
+                "aria-label",
+                "Show business " +
+                (index + 1)
+            );
+
+
+            dot.onclick = () => {
+
+                spotlightIndex =
+                    index;
+
+
+                showSpotlight(
+                    true
+                );
+
+
+                restartSpotlight();
+
+            };
+
+
+            dots.appendChild(
+                dot
+            );
+
+        }
+    );
+
+
+    showSpotlight(
+        false
+    );
+
+
+    if(
+        spotlightBusinesses.length > 1
+    ){
+
+        startSpotlight();
+
+    }
+
+}
+
+
+function showEmptySpotlight(){
+
+    document.getElementById(
+        "spotlightName"
+    ).innerText =
+        "Business Spotlight";
+
+
+    document.getElementById(
+        "spotlightCategory"
+    ).innerText =
+        "My Jwaneng";
+
+
+    document.getElementById(
+        "spotlightDescription"
+    ).innerText =
+        "Business listings will appear here once they are added to the My Jwaneng business directory.";
+
+
+    document.getElementById(
+        "spotlightButton"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =========================================================
+   SHOW SPOTLIGHT BUSINESS
+========================================================= */
+
+function showSpotlight(animated){
+
+    const business =
+        spotlightBusinesses[
+            spotlightIndex
+        ];
+
+
+    if(!business){
+
+        return;
+
+    }
+
+
+    const content =
+        document.getElementById(
+            "spotlightContent"
+        );
+
+
+    const background =
+        document.getElementById(
+            "spotlightBg"
+        );
+
+
+    if(animated){
+
+        content.classList.add(
+            "hide"
+        );
+
+
+        background.style.opacity =
+            "0";
+
+
+        setTimeout(
+            ()=>{
+
+                updateSpotlight(
+                    business
+                );
+
+
+                background.style.opacity =
+                    "1";
+
+
+                content.classList.remove(
+                    "hide"
+                );
+
+            },
+            400
+        );
+
+    }else{
+
+        updateSpotlight(
+            business
+        );
+
+    }
+
+
+    updateSpotlightDots();
+
+}
+
+
+function updateSpotlight(
+    business
+){
+
+    const background =
+        document.getElementById(
+            "spotlightBg"
+        );
+
+
+    const image =
+        business.image_url ||
+        defaultBusinessImage;
+
+
+    background.style.backgroundImage =
+        `url("${image}")`;
+
+
+    background.classList.remove(
+        "zoom"
+    );
+
+
+    void background.offsetWidth;
+
+
+    background.classList.add(
+        "zoom"
+    );
+
+
+    document.getElementById(
+        "spotlightCategory"
+    ).innerText =
+
+        `${getCategoryIcon(
+            business.category
+        )} ${
+            business.category ||
+            "Local Business"
+        }`;
+
+
+    document.getElementById(
+        "spotlightName"
+    ).innerText =
+        business.name ||
+        "Local Business";
+
+
+    document.getElementById(
+        "spotlightDescription"
+    ).innerText =
+        business.description ||
+        `Serving the Jwaneng community through ${
+            business.category ||
+            "local business services"
+        }.`;
+
+    
+    const button =
+        document.getElementById(
+            "spotlightButton"
+        );
+
+
+    button.style.display =
+        "inline-block";
+
+
+    button.onclick = () => {
+
+        /*
+           Find the exact business object
+           in the current displayed list.
+        */
+
+        const currentIndex =
+            displayedBusinesses.indexOf(
+                business
+            );
+
+
+        if(
+            currentIndex >= 0
+        ){
+
+            openBusinessById(
+                currentIndex
+            );
+
+        }else{
+
+            /*
+               If the user has filtered the directory,
+               restore the full list before opening.
+            */
+
+            displayedBusinesses =
+                [...allBusinesses];
+
+
+            selectedCategory =
+                "All";
+
+
+            renderBusinesses(
+                displayedBusinesses
+            );
+
+
+            renderQuickCategories();
+
+
+            const index =
+                displayedBusinesses.indexOf(
+                    business
+                );
+
+
+            if(index >= 0){
+
+                openBusinessById(
+                    index
+                );
+
+            }
+
+        }
+
+    };
+
+}
+
+
+function updateSpotlightDots(){
+
+    const dots =
+        document.querySelectorAll(
+            ".spot-dot"
+        );
+
+
+    dots.forEach(
+        (dot,index)=>{
+
+            dot.classList.toggle(
+                "active",
+                index ===
+                spotlightIndex
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SPOTLIGHT NEXT / PREVIOUS
+========================================================= */
+
+function nextSpotlight(){
+
+    if(
+        spotlightBusinesses.length < 2
+    ){
+
+        return;
+
+    }
+
+
+    spotlightIndex =
+        (
+            spotlightIndex + 1
+        )
+        %
+        spotlightBusinesses.length;
+
+
+    showSpotlight(
+        true
+    );
+
+}
+
+
+function previousSpotlight(){
+
+    if(
+        spotlightBusinesses.length < 2
+    ){
+
+        return;
+
+    }
+
+
+    spotlightIndex =
+        (
+            spotlightIndex -
+            1 +
+            spotlightBusinesses.length
+        )
+        %
+        spotlightBusinesses.length;
+
+
+    showSpotlight(
+        true
+    );
+
+}
+
+
+/* =========================================================
+   SPOTLIGHT TIMER
+========================================================= */
+
+function startSpotlight(){
+
+    clearInterval(
+        spotlightTimer
+    );
+
+
+    spotlightTimer =
+        setInterval(
+            nextSpotlight,
+            spotlightInterval
+        );
+
+}
+
+
+function restartSpotlight(){
+
+    clearInterval(
+        spotlightTimer
+    );
+
+
+    startSpotlight();
+
+}
+
+
+/* =========================================================
+   SPOTLIGHT BUTTONS
+========================================================= */
+
+document
+    .getElementById(
+        "spotlightNext"
+    )
+    .addEventListener(
+        "click",
+        function(){
+
+            nextSpotlight();
+
+            restartSpotlight();
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "spotlightPrev"
+    )
+    .addEventListener(
+        "click",
+        function(){
+
+            previousSpotlight();
+
+            restartSpotlight();
+
+        }
+    );
+
+
+/* =========================================================
+   PAUSE SPOTLIGHT WHEN HOVERING
+========================================================= */
+
+const spotlightElement =
+    document.getElementById(
+        "spotlight"
+    );
+
+
+spotlightElement.addEventListener(
+    "mouseenter",
+    function(){
+
+        clearInterval(
+            spotlightTimer
+        );
+
+    }
+);
+
+
+spotlightElement.addEventListener(
+    "mouseleave",
+    function(){
+
+        if(
+            spotlightBusinesses.length > 1
+        ){
+
+            startSpotlight();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   TOUCH PAUSE
+========================================================= */
+
+spotlightElement.addEventListener(
+    "touchstart",
+    function(){
+
+        clearInterval(
+            spotlightTimer
+        );
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+spotlightElement.addEventListener(
+    "touchend",
+    function(){
+
+        setTimeout(
+            ()=>{
+                if(
+                    spotlightBusinesses.length > 1
+                ){
+
+                    startSpotlight();
+
+                }
+            },
+            2000
+        );
+
+    },
+    {
+        passive:true
+    }
+);
+
+
+/* =========================================================
+   CLOSE MODALS WHEN CLICKING OUTSIDE
+========================================================= */
+
+window.addEventListener(
+    "click",
+    function(event){
+
+        const catModal =
+            document.getElementById(
+                "catModal"
+            );
+
+
+        const bizModal =
+            document.getElementById(
+                "bizModal"
+            );
+
+
+        if(
+            event.target ===
+            catModal
+        ){
+
+            closeCatModal();
+
+        }
+
+
+        if(
+            event.target ===
+            bizModal
+        ){
+
+            closeBiz();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closeCatModal();
+
+            closeBiz();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   START
+========================================================= */
+
+/* =========================================================
+   SMART BUSINESS FINDER
+========================================================= */
+
+const finderItems = [
+
+{
+    icon:"🔧",
+    title:"Do you need a plumber?",
+    description:"Find plumbing services in Jwaneng.",
+    keyword:"plumber",
+    button:"Find a Plumber →"
+},
+
+{
+    icon:"⚡",
+    title:"Looking for an electrician?",
+    description:"Connect with local electrical professionals.",
+    keyword:"electrician",
+    button:"Find an Electrician →"
+},
+
+{
+    icon:"🪚",
+    title:"Need a carpenter?",
+    description:"Find carpentry and woodworking services.",
+    keyword:"carpenter",
+    button:"Find a Carpenter →"
+},
+
+{
+    icon:"🍔",
+    title:"Do you want a place to eat?",
+    description:"Discover restaurants and food businesses.",
+    keyword:"restaurant",
+    button:"Find a Place to Eat →"
+},
+
+{
+    icon:"🚗",
+    title:"Need a mechanic?",
+    description:"Find automotive repair and maintenance.",
+    keyword:"mechanic",
+    button:"Find a Mechanic →"
+},
+
+{
+    icon:"💇",
+    title:"Looking for a salon?",
+    description:"Discover beauty and wellness services.",
+    keyword:"salon",
+    button:"Find a Salon →"
+},
+
+{
+    icon:"🏨",
+    title:"Need accommodation?",
+    description:"Find guest houses and lodging options.",
+    keyword:"accommodation",
+    button:"Find Accommodation →"
+},
+
+{
+    icon:"💻",
+    title:"Need IT services?",
+    description:"Find technology and digital solutions.",
+    keyword:"technology",
+    button:"Find IT Services →"
+}
+
+];
+
+let finderIndex = 0;
+let finderTimer = null;
+
+function initFinder(){
+
+    const dots =
+        document.getElementById(
+            "finderDots"
+        );
+
+    dots.innerHTML = "";
+
+    finderItems.forEach(
+        (item,index)=>{
+
+            const dot =
+                document.createElement(
+                    "div"
+                );
+
+            dot.className =
+                "finder-dot";
+
+            dots.appendChild(
+                dot
+            );
+
+        }
+    );
+
+    updateFinder();
+
+    finderTimer =
+        setInterval(
+            nextFinder,
+            5000
+        );
+
+}
+
+function nextFinder(){
+
+    finderIndex =
+        (finderIndex + 1)
+        %
+        finderItems.length;
+
+    updateFinder();
+
+}
+
+function updateFinder(){
+
+    const item =
+        finderItems[finderIndex];
+
+    document.getElementById(
+        "finderQuestion"
+    ).innerText =
+        item.icon + " " + item.title;
+
+    document.getElementById(
+        "finderDescription"
+    ).innerText =
+        item.description;
+
+    document.getElementById(
+        "finderButton"
+    ).innerText =
+        item.button;
+
+    document.getElementById(
+        "finderButton"
+    ).onclick = () => {
+
+        document.getElementById(
+            "searchInput"
+        ).value =
+            item.keyword;
+
+        searchBusinesses();
+
+        window.scrollTo({
+            top:
+                document.getElementById(
+                    "grid"
+                ).offsetTop - 120,
+            behavior:"smooth"
+        });
+
+    };
+
+    document
+        .querySelectorAll(
+            ".finder-dot"
+        )
+        .forEach(
+            (dot,index)=>{
+
+                dot.classList.toggle(
+                    "active",
+                    index === finderIndex
+                );
+
+            }
+        );
+
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initFinder
+);
+
 loadBusinesses();
 
 </script>
-<script src="pwa-bar.js"></script>
-<footer style="text-align:center;padding:20px;font-size:12px;color:#777;">
-    &copy; 2026 My Jwaneng. All rights reserved.
-</footer>
-<!-- PWA CONTROL BAR -->
-<div class="pwa-bar" id="pwaBar">
-    <a href="index.html"><span>🏠</span>Home</a>
-    <a href="exploremyjwaneng.html"><span>🔍</span>Explore</a>
-    <a href="jobs.html"><span>💼</span>Jobs</a>
-    <a href="marketplace.html"><span>🛒</span>Market</a>
-    <a href="townnews.html"><span>📰</span>News</a>
-</div>
+
 </body>
 </html>
