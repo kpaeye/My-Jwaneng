@@ -1439,6 +1439,62 @@
       flex-wrap: wrap;
     }
 
+.town-live-bar{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+}
+
+.live-item{
+background:rgba(8,27,46,.75);
+border:1px solid var(--line);
+border-radius:18px;
+padding:20px;
+text-align:center;
+}
+
+.live-item strong{
+display:block;
+font-size:30px;
+color:var(--blue);
+}
+
+.live-item span{
+font-size:11px;
+color:var(--muted);
+}
+
+.poll-options{
+display:flex;
+flex-direction:column;
+gap:12px;
+margin-top:10px;
+}
+
+.map-preview{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+}
+
+.map-stat{
+padding:25px;
+border-radius:15px;
+background:rgba(79,195,247,.08);
+border:1px solid var(--line);
+text-align:center;
+font-weight:700;
+}
+
+@media(max-width:700px){
+
+.town-live-bar,
+.map-preview{
+grid-template-columns:1fr;
+}
+
+}
+
     /* =========================================================
        RESPONSIVE
     ========================================================= */
@@ -1898,6 +1954,32 @@
 
     </section>
 
+<section class="section">
+  <div class="town-live-bar">
+
+    <div class="live-item">
+      <strong>1,245</strong>
+      <span>Residents Connected</span>
+    </div>
+
+    <div class="live-item">
+      <strong>234</strong>
+      <span>Issues Reported</span>
+    </div>
+
+    <div class="live-item">
+      <strong>187</strong>
+      <span>Issues Resolved</span>
+    </div>
+
+    <div class="live-item">
+      <strong>52</strong>
+      <span>Community Ideas</span>
+    </div>
+
+  </div>
+</section>
+
 
     <!-- =======================================================
          CONNECT WITH TOWN
@@ -2174,6 +2256,76 @@
       <div class="dashboard">
 
 
+
+<section class="section">
+
+  <div class="panel">
+
+    <div class="panel-title">
+      <div>
+        <h3>Community Poll</h3>
+        <span>Help shape future priorities</span>
+      </div>
+    </div>
+
+    <h4 style="margin-bottom:15px;">
+      What should be prioritised next?
+    </h4>
+
+    <div class="poll-options">
+
+      <label><input type="radio" name="poll"> Road Repairs</label>
+
+      <label><input type="radio" name="poll"> Youth Facilities</label>
+
+      <label><input type="radio" name="poll"> Public Wi-Fi</label>
+
+      <label><input type="radio" name="poll"> Street Lighting</label>
+
+    </div>
+
+    <button class="primary-btn" style="margin-top:15px;">
+      Vote
+    </button>
+
+  </div>
+
+</section>
+
+
+
+<section class="section">
+
+  <div class="panel">
+
+    <div class="panel-title">
+      <div>
+        <h3>Community Activity Map</h3>
+        <span>Interactive map coming soon</span>
+      </div>
+    </div>
+
+    <div class="map-preview">
+
+      <div class="map-stat">
+        📍 12 Open Issues
+      </div>
+
+      <div class="map-stat">
+        🏗 4 Active Projects
+      </div>
+
+      <div class="map-stat">
+        💡 18 Community Ideas
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
         <!-- TOWN ACTIVITY -->
 
         <div class="panel">
@@ -2330,6 +2482,40 @@
 
         </div>
 
+
+
+        <div class="panel">
+
+  <div class="panel-title">
+    <div>
+      <h3>Leadership Updates</h3>
+      <span>Latest community announcements</span>
+    </div>
+  </div>
+
+  <div class="activity-list">
+
+    <div class="activity">
+      <div class="activity-icon">📢</div>
+
+      <div class="activity-main">
+        <strong>Road Maintenance Programme</strong>
+        <small>Town Council • 2 days ago</small>
+      </div>
+    </div>
+
+    <div class="activity">
+      <div class="activity-icon">🚰</div>
+
+      <div class="activity-main">
+        <strong>Water Interruption Notice</strong>
+        <small>Utilities Department</small>
+      </div>
+    </div>
+
+  </div>
+
+</div>
 
         <!-- LEADERSHIP -->
 
