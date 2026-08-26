@@ -433,6 +433,8 @@ body{
     font-size:18px;
 
     text-align:center;
+
+    flex-shrink:0;
 }
 
 
@@ -446,21 +448,184 @@ body{
 }
 
 
-/* TOWNCONNECT DRAWER LINK */
+/* =========================================================
+   JWANENG GALAXY FC FEATURED SIDEBAR ITEM
+========================================================= */
 
-.drawer-townconnect{
+.drawer-galaxy{
+
+    position:relative;
+
+    overflow:hidden;
+
+    min-height:67px;
+
+    padding:11px 13px;
 
     background:
         linear-gradient(
-            90deg,
-            rgba(94,214,161,.10),
+            135deg,
+            rgba(255,255,255,.075),
+            rgba(67,184,232,.09)
+        );
+
+    border:1px solid rgba(141,224,255,.28);
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.16);
+}
+
+
+.drawer-galaxy::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:85px;
+    height:85px;
+
+    right:-30px;
+    top:-30px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(141,224,255,.13);
+}
+
+
+.drawer-galaxy::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:45px;
+    height:45px;
+
+    right:8px;
+    bottom:-24px;
+
+    border-radius:50%;
+
+    background:rgba(67,184,232,.08);
+}
+
+
+.drawer-galaxy:hover{
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(67,184,232,.16),
             rgba(67,184,232,.08)
         );
 
     border-color:
-        rgba(94,214,161,.22);
+        rgba(141,224,255,.55);
 
-    color:#e8fff4;
+    transform:translateX(4px);
+
+    box-shadow:
+        0 10px 30px rgba(67,184,232,.12);
+}
+
+
+.drawer-galaxy .drawer-icon{
+
+    width:40px;
+    height:40px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:10px;
+
+    background:
+        rgba(255,255,255,.09);
+
+    border:
+        1px solid rgba(255,255,255,.13);
+
+    font-size:22px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+
+.galaxy-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:2px;
+
+    flex:1;
+
+    position:relative;
+
+    z-index:2;
+}
+
+
+.galaxy-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    color:white;
+}
+
+
+.galaxy-subtitle{
+
+    font-size:8px;
+
+    color:#9db4c0;
+
+    line-height:1.4;
+}
+
+
+.galaxy-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:3px 6px;
+
+    border-radius:20px;
+
+    background:rgba(217,179,108,.14);
+
+    border:1px solid rgba(217,179,108,.25);
+
+    color:var(--sand-light);
+
+    font-size:6px;
+
+    font-weight:800;
+
+    letter-spacing:.7px;
+
+    text-transform:uppercase;
+
+    white-space:nowrap;
 }
 
 
@@ -497,6 +662,10 @@ body{
     margin-bottom:5px;
 }
 
+
+/* =========================================================
+   DRAWER OVERLAY
+========================================================= */
 
 .drawer-overlay{
 
@@ -1281,390 +1450,6 @@ body{
 
 
 /* =========================================================
-   TOWNCONNECT
-========================================================= */
-
-.townconnect{
-
-    position:relative;
-
-    padding:90px 7%;
-
-    background:
-        radial-gradient(
-            circle at 15% 20%,
-            rgba(94,214,161,.07),
-            transparent 28%
-        ),
-        linear-gradient(
-            180deg,
-            #091e2c,
-            #071a28
-        );
-
-    border-top:
-        1px solid rgba(255,255,255,.05);
-
-    border-bottom:
-        1px solid rgba(255,255,255,.05);
-}
-
-
-.townconnect-container{
-
-    max-width:1150px;
-
-    margin:auto;
-}
-
-
-.townconnect-header{
-
-    display:grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap:40px;
-
-    align-items:end;
-
-    margin-bottom:35px;
-}
-
-
-.townconnect-title{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    margin-bottom:10px;
-}
-
-
-.townconnect-badge{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    width:42px;
-    height:42px;
-
-    border-radius:12px;
-
-    background:
-        rgba(94,214,161,.11);
-
-    border:
-        1px solid rgba(94,214,161,.25);
-
-    font-size:21px;
-}
-
-
-.townconnect-header h2{
-
-    font-size:
-        clamp(32px,4vw,50px);
-
-    line-height:1;
-
-    letter-spacing:-2px;
-}
-
-
-.townconnect-header h2 span{
-
-    color:var(--green-light);
-}
-
-
-.townconnect-intro{
-
-    color:#9fb4be;
-
-    font-size:12px;
-
-    line-height:1.8;
-
-    max-width:480px;
-}
-
-
-.townconnect-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:14px;
-}
-
-
-.connect-card{
-
-    position:relative;
-
-    min-height:205px;
-
-    padding:23px;
-
-    border-radius:17px;
-
-    background:
-        rgba(255,255,255,.045);
-
-    border:
-        1px solid rgba(255,255,255,.09);
-
-    overflow:hidden;
-
-    transition:.3s;
-}
-
-
-.connect-card::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:100px;
-    height:100px;
-
-    right:-45px;
-    bottom:-45px;
-
-    border-radius:50%;
-
-    border:
-        1px solid rgba(94,214,161,.13);
-}
-
-
-.connect-card:hover{
-
-    transform:translateY(-5px);
-
-    background:
-        rgba(94,214,161,.075);
-
-    border-color:
-        rgba(94,214,161,.28);
-
-    box-shadow:
-        0 20px 45px rgba(0,0,0,.18);
-}
-
-
-.connect-icon{
-
-    width:43px;
-    height:43px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:12px;
-
-    background:
-        rgba(67,184,232,.10);
-
-    border:
-        1px solid rgba(67,184,232,.18);
-
-    font-size:21px;
-
-    margin-bottom:17px;
-}
-
-
-.connect-card:nth-child(2) .connect-icon{
-
-    background:
-        rgba(255,185,80,.10);
-
-    border-color:
-        rgba(255,185,80,.18);
-}
-
-
-.connect-card:nth-child(3) .connect-icon{
-
-    background:
-        rgba(94,214,161,.10);
-
-    border-color:
-        rgba(94,214,161,.18);
-}
-
-
-.connect-card:nth-child(4) .connect-icon{
-
-    background:
-        rgba(155,130,255,.10);
-
-    border-color:
-        rgba(155,130,255,.18);
-}
-
-
-.connect-card:nth-child(5) .connect-icon{
-
-    background:
-        rgba(67,184,232,.10);
-
-    border-color:
-        rgba(67,184,232,.18);
-}
-
-
-.connect-card:nth-child(6) .connect-icon{
-
-    background:
-        rgba(217,179,108,.10);
-
-    border-color:
-        rgba(217,179,108,.18);
-}
-
-
-.connect-card h3{
-
-    font-size:15px;
-
-    margin-bottom:7px;
-}
-
-
-.connect-card p{
-
-    color:#879da8;
-
-    font-size:10px;
-
-    line-height:1.7;
-
-    margin-bottom:15px;
-}
-
-
-.connect-action{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:5px;
-
-    color:#80dcb0;
-
-    text-decoration:none;
-
-    font-size:9px;
-
-    font-weight:800;
-
-    letter-spacing:.3px;
-}
-
-
-.connect-action:hover{
-
-    color:white;
-}
-
-
-.townconnect-footer{
-
-    margin-top:18px;
-
-    padding:16px 20px;
-
-    border-radius:12px;
-
-    background:
-        rgba(255,255,255,.035);
-
-    border:
-        1px solid rgba(255,255,255,.07);
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:20px;
-}
-
-
-.townconnect-footer p{
-
-    color:#8298a3;
-
-    font-size:9px;
-
-    line-height:1.6;
-}
-
-
-.townconnect-footer strong{
-
-    color:#dff9eb;
-}
-
-
-.townconnect-cta{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:9px 15px;
-
-    border-radius:8px;
-
-    background:
-        rgba(94,214,161,.11);
-
-    border:
-        1px solid rgba(94,214,161,.25);
-
-    color:#9af0c4;
-
-    text-decoration:none;
-
-    font-size:9px;
-
-    font-weight:800;
-
-    white-space:nowrap;
-}
-
-
-.townconnect-cta:hover{
-
-    background:
-        rgba(94,214,161,.18);
-
-    color:white;
-}
-
-
-/* =========================================================
    AREA DECORATION STRIP
 ========================================================= */
 
@@ -1750,7 +1535,7 @@ body{
 
 .discovery{
 
-    padding:0 7% 85px;
+    padding:65px 7% 85px;
 
     background:#091e2c;
 }
@@ -2545,17 +2330,6 @@ footer{
         grid-template-columns:1fr;
     }
 
-    .townconnect-header{
-
-        grid-template-columns:1fr;
-    }
-
-    .townconnect-grid{
-
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
     .footer-container{
 
         grid-template-columns:
@@ -2753,8 +2527,7 @@ footer{
 
     .welcome,
     .experiences,
-    .today,
-    .townconnect{
+    .today{
 
         padding-left:5%;
         padding-right:5%;
@@ -2770,72 +2543,6 @@ footer{
 
         padding-left:5%;
         padding-right:5%;
-    }
-
-
-    /* MOBILE TOWNCONNECT */
-
-    .townconnect{
-
-        padding-top:65px;
-
-        padding-bottom:65px;
-    }
-
-    .townconnect-header{
-
-        display:block;
-
-        margin-bottom:25px;
-    }
-
-    .townconnect-intro{
-
-        margin-top:18px;
-    }
-
-    .townconnect-grid{
-
-        grid-template-columns:
-            1fr 1fr;
-
-        gap:8px;
-    }
-
-    .connect-card{
-
-        min-height:190px;
-
-        padding:17px;
-    }
-
-    .connect-card h3{
-
-        font-size:13px;
-    }
-
-    .connect-card p{
-
-        font-size:9px;
-    }
-
-    .connect-action{
-
-        font-size:8px;
-    }
-
-    .townconnect-footer{
-
-        display:block;
-
-        padding:15px;
-    }
-
-    .townconnect-cta{
-
-        margin-top:12px;
-
-        width:100%;
     }
 
 
@@ -2921,26 +2628,6 @@ footer{
         padding:14px;
 
         min-height:140px;
-    }
-
-    .townconnect-grid{
-
-        grid-template-columns:1fr 1fr;
-    }
-
-    .connect-card{
-
-        padding:14px;
-
-        min-height:175px;
-    }
-
-    .connect-icon{
-
-        width:38px;
-        height:38px;
-
-        font-size:18px;
     }
 
     .modal-buttons{
@@ -3042,6 +2729,8 @@ footer{
 
     <ul class="drawer-menu">
 
+        <!-- HOME -->
+
         <li>
 
             <button
@@ -3062,23 +2751,71 @@ footer{
         </li>
 
 
+        <!-- =================================================
+             JWANENG GALAXY FC FEATURED MODULE
+        ================================================== -->
+
         <li>
 
             <a
-                href="#townconnect"
-                class="drawer-link drawer-townconnect"
+                href="galaxyfc.html"
+                class="drawer-link drawer-galaxy"
+            >
+
+                <span class="drawer-icon">
+                    ⚽
+                </span>
+
+
+                <span class="galaxy-content">
+
+                    <span class="galaxy-title">
+
+                        Jwaneng Galaxy FC
+
+                        <span class="galaxy-badge">
+                            Featured
+                        </span>
+
+                    </span>
+
+
+                    <span class="galaxy-subtitle">
+
+                        Fixtures • Results • News • Galaxy
+
+                    </span>
+
+                </span>
+
+            </a>
+
+        </li>
+
+
+        <!-- TOWNCONNECT -->
+
+        <li>
+
+            <a
+                href="communityengagement.html"
+                class="drawer-link"
             >
 
                 <span class="drawer-icon">
                     🤝
                 </span>
 
-                TownConnect
+                <span>
+                    TownConnect
+                </span>
 
             </a>
 
         </li>
 
+
+        <!-- TOWN NEWS -->
 
         <li>
 
@@ -3091,12 +2828,16 @@ footer{
                     📰
                 </span>
 
-                Town News
+                <span>
+                    Town News
+                </span>
 
             </a>
 
         </li>
 
+
+        <!-- JOBS -->
 
         <li>
 
@@ -3109,12 +2850,16 @@ footer{
                     💼
                 </span>
 
-                Jobs & Opportunities
+                <span>
+                    Jobs & Opportunities
+                </span>
 
             </a>
 
         </li>
 
+
+        <!-- EVENTS -->
 
         <li>
 
@@ -3127,12 +2872,16 @@ footer{
                     📅
                 </span>
 
-                Events
+                <span>
+                    Events
+                </span>
 
             </a>
 
         </li>
 
+
+        <!-- MARKETPLACE -->
 
         <li>
 
@@ -3145,12 +2894,16 @@ footer{
                     🛒
                 </span>
 
-                Marketplace
+                <span>
+                    Marketplace
+                </span>
 
             </a>
 
         </li>
 
+
+        <!-- BUSINESSES -->
 
         <li>
 
@@ -3163,7 +2916,9 @@ footer{
                     🏪
                 </span>
 
-                Businesses
+                <span>
+                    Businesses
+                </span>
 
             </a>
 
@@ -3181,6 +2936,8 @@ footer{
 
     <ul class="drawer-menu">
 
+        <!-- TOURISM -->
+
         <li>
 
             <a
@@ -3192,30 +2949,16 @@ footer{
                     🌍
                 </span>
 
-                Tourism & Attractions
-
-            </a>
-
-        </li>
-
-
-        <li>
-
-            <a
-                href="communityengagement.html"
-                class="drawer-link"
-            >
-
-                <span class="drawer-icon">
-                    👥
+                <span>
+                    Tourism & Attractions
                 </span>
 
-                Community Engagement
-
             </a>
 
         </li>
 
+
+        <!-- SAFETY -->
 
         <li>
 
@@ -3228,7 +2971,9 @@ footer{
                     🚨
                 </span>
 
-                Safety & Emergency
+                <span>
+                    Safety & Emergency
+                </span>
 
             </a>
 
@@ -3413,8 +3158,6 @@ footer{
     <div class="hero-image"></div>
 
 
-    <!-- SURROUNDING PLACES DECORATION -->
-
     <div class="area-decoration">
 
         <div class="area-label">
@@ -3484,7 +3227,7 @@ footer{
         <p class="hero-description">
 
             A town of people, stories, places,
-            businesses, opportunities and memories.
+            businesses, opportunities, events and memories.
 
             Discover the everyday life, beauty and
             character of Jwaneng and the communities
@@ -3590,278 +3333,6 @@ footer{
             residents, visitors and the wider community.
 
         </p>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     TOWNCONNECT
-===================================================== -->
-
-<section
-    class="townconnect"
-    id="townconnect"
->
-
-    <div class="townconnect-container">
-
-
-        <div class="townconnect-header">
-
-            <div>
-
-                <div class="townconnect-title">
-
-                    <div class="townconnect-badge">
-                        🤝
-                    </div>
-
-                    <div class="section-kicker"
-                         style="margin-bottom:0;">
-                        COMMUNITY CONNECTION
-                    </div>
-
-                </div>
-
-
-                <h2>
-
-                    Town<span>Connect.</span>
-
-                </h2>
-
-            </div>
-
-
-            <div class="townconnect-intro">
-
-                A digital bridge between residents,
-                community organisations, local leadership
-                and the people responsible for making
-                Jwaneng a better place to live.
-
-                <br><br>
-
-                <strong style="color:#dff9eb;">
-                    Connect. Report. Participate. Be heard.
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div class="townconnect-grid">
-
-
-            <!-- CONNECT WITH LEADERSHIP -->
-
-            <div class="connect-card">
-
-                <div class="connect-icon">
-                    🏛️
-                </div>
-
-                <h3>
-                    Connect with Leadership
-                </h3>
-
-                <p>
-                    Find a simple digital pathway for
-                    residents to communicate with
-                    local leadership and community
-                    representatives.
-                </p>
-
-                <a
-                    href="communityengagement.html"
-                    class="connect-action"
-                >
-
-                    Connect with leadership →
-
-                </a>
-
-            </div>
-
-
-            <!-- REPORT ISSUE -->
-
-            <div class="connect-card">
-
-                <div class="connect-icon">
-                    🚧
-                </div>
-
-                <h3>
-                    Report an Issue
-                </h3>
-
-                <p>
-                    Give residents a place to highlight
-                    issues affecting roads, lighting,
-                    waste, public spaces and services.
-                </p>
-
-                <a
-                    href="communityengagement.html"
-                    class="connect-action"
-                >
-
-                    Report a community issue →
-
-                </a>
-
-            </div>
-
-
-            <!-- COMMUNITY VOICE -->
-
-            <div class="connect-card">
-
-                <div class="connect-icon">
-                    🗣️
-                </div>
-
-                <h3>
-                    Community Voice
-                </h3>
-
-                <p>
-                    Share ideas, suggestions and
-                    community priorities that can help
-                    shape future initiatives.
-                </p>
-
-                <a
-                    href="communityengagement.html"
-                    class="connect-action"
-                >
-
-                    Share your voice →
-
-                </a>
-
-            </div>
-
-
-            <!-- TOWN UPDATES -->
-
-            <div class="connect-card">
-
-                <div class="connect-icon">
-                    📢
-                </div>
-
-                <h3>
-                    Community Updates
-                </h3>
-
-                <p>
-                    Stay informed about important
-                    notices, community activities,
-                    consultations and local developments.
-                </p>
-
-                <a
-                    href="townnews.html"
-                    class="connect-action"
-                >
-
-                    View town updates →
-
-                </a>
-
-            </div>
-
-
-            <!-- TRACK REPORT -->
-
-            <div class="connect-card">
-
-                <div class="connect-icon">
-                    📍
-                </div>
-
-                <h3>
-                    Track a Report
-                </h3>
-
-                <p>
-                    Follow up on community matters
-                    and create greater visibility around
-                    issues submitted by residents.
-                </p>
-
-                <a
-                    href="communityengagement.html"
-                    class="connect-action"
-                >
-
-                    Track community matters →
-
-                </a>
-
-            </div>
-
-
-            <!-- IMPORTANT CONTACTS -->
-
-            <div class="connect-card">
-
-                <div class="connect-icon">
-                    📞
-                </div>
-
-                <h3>
-                    Important Contacts
-                </h3>
-
-                <p>
-                    Quickly access important community,
-                    safety and emergency resources when
-                    you need them.
-                </p>
-
-                <a
-                    href="emergency.html"
-                    class="connect-action"
-                >
-
-                    View important contacts →
-
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <div class="townconnect-footer">
-
-            <p>
-
-                <strong>TownConnect is about more than reporting problems.</strong>
-
-                It creates a structured digital channel
-                for dialogue, participation, accountability
-                and collaboration across the community.
-
-            </p>
-
-
-            <a
-                href="communityengagement.html"
-                class="townconnect-cta"
-            >
-
-                Open Community Engagement →
-
-            </a>
-
-        </div>
 
     </div>
 
@@ -4367,6 +3838,12 @@ footer{
                     </a>
                 </li>
 
+                <li>
+                    <a href="galaxyfc.html">
+                        Jwaneng Galaxy FC
+                    </a>
+                </li>
+
             </ul>
 
         </div>
@@ -4381,7 +3858,7 @@ footer{
             <ul>
 
                 <li>
-                    <a href="#townconnect">
+                    <a href="communityengagement.html">
                         TownConnect
                     </a>
                 </li>
@@ -4395,12 +3872,6 @@ footer{
                 <li>
                     <a href="tourism.html">
                         Tourism
-                    </a>
-                </li>
-
-                <li>
-                    <a href="communityengagement.html">
-                        Community Engagement
                     </a>
                 </li>
 
@@ -4551,7 +4022,7 @@ footer{
     </button>
 
 
-    <a href="#townconnect">
+    <a href="communityengagement.html">
 
         <span>
             🤝
@@ -4607,7 +4078,7 @@ const supabaseUrl =
 "https://jxigyoxikaqwwzfnccej.supabase.co";
 
 const supabaseKey =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwiaWF0IjoxNzgwMDk2ODQwLCJleHAiOjIwOTU2NzI4NDB9.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzIiwicmVmIjoianhpZ3lveGlrYXF3d3pmbmNjZWoiLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3MjQwMH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
 
 const client =
 supabase.createClient(
@@ -5345,46 +4816,6 @@ if(
 
 
 /* =========================================================
-   TOWNCONNECT SMOOTH SCROLL
-========================================================= */
-
-document
-    .querySelectorAll(
-        'a[href="#townconnect"]'
-    )
-    .forEach(
-        link => {
-
-            link.addEventListener(
-                "click",
-                function(event){
-
-                    event.preventDefault();
-
-                    closeDrawer();
-
-                    const target =
-                        document.getElementById(
-                            "townconnect"
-                        );
-
-                    if(target){
-
-                        target.scrollIntoView({
-                            behavior:"smooth",
-                            block:"start"
-                        });
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-
-/* =========================================================
    PWA DETECTION
 ========================================================= */
 
@@ -5429,7 +4860,7 @@ loadLatestEvents();
 
 
 /* =========================================================
-   CLOSE DRAWER AFTER LINK
+   CLOSE DRAWER AFTER NAVIGATION
 ========================================================= */
 
 document
@@ -5443,15 +4874,7 @@ document
                 "click",
                 function(){
 
-                    if(
-                        !this.getAttribute(
-                            "href"
-                        ).startsWith("#")
-                    ){
-
-                        closeDrawer();
-
-                    }
+                    closeDrawer();
 
                 }
             );
