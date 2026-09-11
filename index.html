@@ -1,4 +1,6 @@
+html
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -9,8 +11,8 @@
 <title>My Jwaneng | Welcome to Jwaneng</title>
 
 <meta
-    name="description"
-    content="My Jwaneng — discover the people, places, businesses, opportunities, events and stories that make Jwaneng home."
+name="description"
+content="My Jwaneng — discover the people, places, businesses, opportunities, events and stories that make Jwaneng home."
 >
 
 <meta name="theme-color" content="#071923">
@@ -23,7 +25,6 @@
 >
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 
 <style>
 
@@ -394,7 +395,9 @@ a{
 }
 
 
-/* Galaxy */
+/* =========================================================
+   GALAXY
+========================================================= */
 
 .drawer-galaxy{
 
@@ -545,7 +548,7 @@ a{
     left:0;
 
     width:100%;
-    height:39px;
+    height:47px;
 
     z-index:9999;
 
@@ -555,7 +558,9 @@ a{
 
     background:#0c3447;
 
-    border-bottom:1px solid rgba(255,255,255,.07);
+    border-bottom:1px solid rgba(255,255,255,.10);
+
+    box-shadow:0 5px 18px rgba(0,0,0,.18);
 }
 
 .update-label{
@@ -565,7 +570,7 @@ a{
     display:flex;
     align-items:center;
 
-    padding:0 16px;
+    padding:0 20px;
 
     background:#09293a;
 
@@ -574,6 +579,10 @@ a{
     font-weight:800;
 
     white-space:nowrap;
+
+    border-right:1px solid rgba(255,255,255,.10);
+
+    letter-spacing:.5px;
 }
 
 .update-marquee{
@@ -595,6 +604,8 @@ a{
 
     font-size:10px;
 
+    font-weight:500;
+
     color:#e0f1f6;
 }
 
@@ -611,98 +622,6 @@ a{
 
 
 /* =========================================================
-   WEATHER
-========================================================= */
-
-.top-weather{
-
-    margin-top:39px;
-
-    padding:10px 7%;
-
-    background:#09212d;
-
-    border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.top-weather-inner{
-
-    max-width:1150px;
-
-    margin:auto;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:20px;
-}
-
-.top-weather-left{
-
-    display:flex;
-    align-items:center;
-
-    gap:10px;
-}
-
-.weather-live-dot{
-
-    width:7px;
-    height:7px;
-
-    border-radius:50%;
-
-    background:#67d4f5;
-}
-
-.top-weather-title{
-
-    font-size:9px;
-
-    font-weight:800;
-
-    letter-spacing:1.5px;
-
-    text-transform:uppercase;
-}
-
-.top-weather-sub{
-
-    color:#78909c;
-
-    font-size:8px;
-
-    margin-top:2px;
-}
-
-.top-weather-data{
-
-    display:flex;
-    flex-wrap:wrap;
-
-    gap:7px;
-}
-
-.weather-pill{
-
-    padding:5px 9px;
-
-    border-radius:15px;
-
-    background:rgba(255,255,255,.045);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    color:#c7d8df;
-
-    font-size:8px;
-}
-
-
-/* =========================================================
    HERO
 ========================================================= */
 
@@ -710,7 +629,7 @@ a{
 
     position:relative;
 
-    min-height:calc(100vh - 156px);
+    min-height:calc(100vh - 125px);
 
     display:flex;
     align-items:flex-end;
@@ -745,9 +664,6 @@ a{
         #315d68;
 }
 
-
-/* A very subtle horizon line */
-
 .hero-image::after{
 
     content:"";
@@ -763,6 +679,133 @@ a{
     background:rgba(255,255,255,.16);
 }
 
+
+/* =========================================================
+   WEATHER — SQUARE SIDE CARD
+========================================================= */
+
+.top-weather{
+
+    position:absolute;
+
+    top:82px;
+    right:6%;
+
+    z-index:6;
+
+    width:190px;
+    height:190px;
+
+    padding:21px;
+
+    margin:0;
+
+    background:rgba(5,19,28,.88);
+
+    border:1px solid rgba(255,255,255,.16);
+
+    border-top:3px solid var(--blue);
+
+    border-radius:12px;
+
+    box-shadow:0 18px 45px rgba(0,0,0,.34);
+
+    backdrop-filter:blur(14px);
+}
+
+.top-weather-inner{
+
+    width:100%;
+    height:100%;
+
+    margin:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    justify-content:space-between;
+
+    gap:12px;
+}
+
+.top-weather-left{
+
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+}
+
+.weather-live-dot{
+
+    width:8px;
+    height:8px;
+
+    flex-shrink:0;
+
+    border-radius:50%;
+
+    background:#67d4f5;
+
+    box-shadow:0 0 0 5px rgba(103,212,245,.08);
+}
+
+.top-weather-title{
+
+    font-size:11px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+}
+
+.top-weather-sub{
+
+    color:#78909c;
+
+    font-size:8px;
+
+    margin-top:3px;
+}
+
+.top-weather-data{
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:7px;
+}
+
+.weather-pill{
+
+    width:100%;
+
+    padding:9px 10px;
+
+    border-radius:8px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.09);
+
+    color:#d5e5eb;
+
+    font-size:9px;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
 .hero-content{
 
     position:relative;
@@ -775,7 +818,7 @@ a{
 
     margin:auto;
 
-    padding:100px 7% 82px;
+    padding:125px 7% 82px;
 }
 
 .hero-kicker{
@@ -913,52 +956,60 @@ a{
 
     z-index:4;
 
-    width:270px;
+    width:300px;
 
-    padding:20px;
+    padding:22px;
 
-    background:rgba(5,19,28,.80);
+    background:rgba(5,19,28,.88);
 
-    border-left:3px solid var(--gold);
+    border-left:4px solid var(--gold);
 
     border-top:1px solid rgba(255,255,255,.12);
-
     border-right:1px solid rgba(255,255,255,.12);
-
     border-bottom:1px solid rgba(255,255,255,.12);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:8px;
 }
 
 .hero-town-card small{
 
     display:block;
 
-    color:#8fa4ae;
+    color:var(--gold-light);
 
     font-size:8px;
 
     text-transform:uppercase;
 
-    letter-spacing:1.6px;
+    letter-spacing:2px;
 
-    margin-bottom:5px;
+    margin-bottom:6px;
 }
 
 .hero-town-card strong{
 
     display:block;
 
-    font-size:21px;
+    font-size:24px;
 
-    margin-bottom:7px;
+    margin-bottom:10px;
+
+    color:white;
 }
 
 .hero-town-card p{
 
-    color:#b8c8ce;
+    color:#d8e4e8;
 
-    font-size:9px;
+    font-size:10px;
 
-    line-height:1.7;
+    line-height:1.8;
+
+    min-height:72px;
+
+    transition:opacity .5s ease;
 }
 
 
@@ -1087,6 +1138,511 @@ a{
     color:#8199a4;
 
     font-size:8px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+}
+
+
+/* =========================================================
+   JWANENG UPDATES — MORE VISIBLE
+========================================================= */
+
+.today{
+
+    padding:85px 7%;
+
+    background:#f7f8f8;
+
+    color:#172b34;
+
+    border-top:4px solid var(--blue);
+}
+
+.today-container{
+
+    max-width:1150px;
+
+    margin:auto;
+}
+
+.today-header{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:space-between;
+
+    gap:30px;
+
+    margin-bottom:30px;
+}
+
+.today-header-left{
+
+    max-width:700px;
+}
+
+.today-header h2{
+
+    font-size:clamp(36px,5vw,54px);
+
+    letter-spacing:-1.8px;
+
+    line-height:1.02;
+}
+
+.today-header p{
+
+    color:#6c7b82;
+
+    font-size:11px;
+
+    margin-top:8px;
+
+    line-height:1.7;
+}
+
+.today-live-badge{
+
+    flex-shrink:0;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:8px 12px;
+
+    border-radius:20px;
+
+    background:#e8f6fa;
+
+    border:1px solid #c9e9f1;
+
+    color:#147ca5;
+
+    font-size:8px;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+}
+
+.today-live-dot{
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:#32b6dc;
+}
+
+.today-grid{
+
+    display:grid;
+
+    grid-template-columns:1.25fr 1fr 1fr 1fr;
+
+    gap:12px;
+}
+
+.widget-card{
+
+    min-height:245px;
+
+    padding:23px;
+
+    background:white;
+
+    border:1px solid #dfe6e8;
+
+    border-radius:7px;
+
+    transition:.25s;
+}
+
+.widget-card:hover{
+
+    transform:translateY(-3px);
+
+    border-color:#b9dfe9;
+
+    box-shadow:0 12px 30px rgba(15,45,57,.08);
+}
+
+.widget-card.featured{
+
+    background:#0b2532;
+
+    border-color:#164556;
+
+    color:white;
+}
+
+.widget-card.featured h3{
+
+    color:#8ddfff;
+}
+
+.widget-card.featured .widget-item{
+
+    border-color:rgba(255,255,255,.08);
+}
+
+.widget-card.featured .widget-item strong{
+
+    color:white;
+}
+
+.widget-card.featured .widget-item small{
+
+    color:#91a8b1;
+}
+
+.widget-card h3{
+
+    color:#147ca5;
+
+    font-size:15px;
+
+    margin-bottom:12px;
+}
+
+.widget-item{
+
+    padding:11px 0;
+
+    border-bottom:1px solid #edf0f1;
+}
+
+.widget-item:last-child{
+    border-bottom:none;
+}
+
+.widget-item strong{
+
+    display:block;
+
+    color:#263d46;
+
+    font-size:11px;
+
+    margin-bottom:3px;
+}
+
+.widget-item small{
+
+    color:#829198;
+
+    font-size:9px;
+}
+
+.widget-btn{
+
+    display:inline-block;
+
+    margin-top:13px;
+
+    color:#147ca5;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    text-decoration:none;
+}
+
+.widget-card.featured .widget-btn{
+
+    color:#8ddfff;
+}
+
+
+/* =========================================================
+   PUBLIC NOTICE CARD
+========================================================= */
+
+.public-notice-card{
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.public-notice-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+    bottom:0;
+
+    width:3px;
+
+    background:var(--gold);
+}
+
+
+/* =========================================================
+   DID YOU KNOW?
+========================================================= */
+
+.did-you-know{
+
+    position:relative;
+
+    padding:85px 7%;
+
+    background:#0b2532;
+
+    color:white;
+
+    overflow:hidden;
+
+    border-top:1px solid rgba(255,255,255,.06);
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.did-you-know::before{
+
+    content:"?";
+
+    position:absolute;
+
+    right:5%;
+
+    top:-45px;
+
+    font-size:260px;
+
+    line-height:1;
+
+    font-weight:800;
+
+    color:rgba(67,184,232,.045);
+
+    pointer-events:none;
+}
+
+.did-you-know-container{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:1150px;
+
+    margin:auto;
+}
+
+.did-you-know-header{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:space-between;
+
+    gap:35px;
+
+    margin-bottom:32px;
+}
+
+.did-you-know-heading{
+
+    max-width:700px;
+}
+
+.did-you-know-label{
+
+    color:var(--gold-light);
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    margin-bottom:9px;
+}
+
+.did-you-know-heading h2{
+
+    font-size:clamp(36px,5vw,55px);
+
+    line-height:1.02;
+
+    letter-spacing:-2px;
+}
+
+.did-you-know-heading p{
+
+    max-width:620px;
+
+    margin-top:10px;
+
+    color:#9eb3bc;
+
+    font-size:11px;
+
+    line-height:1.8;
+}
+
+.did-you-know-badge{
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    width:62px;
+    height:62px;
+
+    border-radius:50%;
+
+    background:rgba(67,184,232,.10);
+
+    border:1px solid rgba(67,184,232,.28);
+
+    color:var(--blue-light);
+
+    font-size:26px;
+
+    font-weight:800;
+}
+
+.did-you-know-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:13px;
+}
+
+.fact-card{
+
+    position:relative;
+
+    min-height:205px;
+
+    padding:25px;
+
+    background:#102f3d;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:8px;
+
+    transition:.25s;
+
+    overflow:hidden;
+}
+
+.fact-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:0;
+
+    width:100%;
+    height:3px;
+
+    background:var(--blue);
+
+    transform:scaleX(0);
+
+    transform-origin:left;
+
+    transition:.25s;
+}
+
+.fact-card:hover{
+
+    transform:translateY(-4px);
+
+    border-color:rgba(67,184,232,.35);
+
+    background:#123746;
+
+}
+
+.fact-card:hover::after{
+
+    transform:scaleX(1);
+}
+
+.fact-number{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    width:34px;
+    height:34px;
+
+    margin-bottom:19px;
+
+    border-radius:50%;
+
+    background:rgba(217,179,108,.10);
+
+    border:1px solid rgba(217,179,108,.22);
+
+    color:var(--gold-light);
+
+    font-size:10px;
+
+    font-weight:800;
+}
+
+.fact-card h3{
+
+    color:white;
+
+    font-size:15px;
+
+    line-height:1.4;
+
+    margin-bottom:9px;
+}
+
+.fact-card p{
+
+    color:#9eb2bb;
+
+    font-size:10px;
+
+    line-height:1.75;
+}
+
+.fact-source{
+
+    margin-top:13px;
+
+    color:#6f8994;
+
+    font-size:7px;
 
     text-transform:uppercase;
 
@@ -1472,121 +2028,6 @@ a{
 
 
 /* =========================================================
-   JWANENG TODAY
-========================================================= */
-
-.today{
-
-    padding:90px 7%;
-
-    background:#f7f8f8;
-
-    color:#172b34;
-}
-
-.today-container{
-
-    max-width:1150px;
-
-    margin:auto;
-}
-
-.today-header{
-
-    margin-bottom:30px;
-}
-
-.today-header h2{
-
-    font-size:clamp(32px,4vw,46px);
-
-    letter-spacing:-1px;
-}
-
-.today-header p{
-
-    color:#6c7b82;
-
-    font-size:11px;
-
-    margin-top:5px;
-}
-
-.today-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:15px;
-}
-
-.widget-card{
-
-    min-height:245px;
-
-    padding:23px;
-
-    background:white;
-
-    border:1px solid #dfe6e8;
-}
-
-.widget-card h3{
-
-    color:#147ca5;
-
-    font-size:15px;
-
-    margin-bottom:12px;
-}
-
-.widget-item{
-
-    padding:11px 0;
-
-    border-bottom:1px solid #edf0f1;
-}
-
-.widget-item:last-child{
-    border-bottom:none;
-}
-
-.widget-item strong{
-
-    display:block;
-
-    color:#263d46;
-
-    font-size:11px;
-
-    margin-bottom:3px;
-}
-
-.widget-item small{
-
-    color:#829198;
-
-    font-size:9px;
-}
-
-.widget-btn{
-
-    display:inline-block;
-
-    margin-top:13px;
-
-    color:#147ca5;
-
-    font-size:9px;
-
-    font-weight:800;
-
-    text-decoration:none;
-}
-
-
-/* =========================================================
    FOOTER
 ========================================================= */
 
@@ -1882,7 +2323,15 @@ footer{
    TABLET
 ========================================================= */
 
-@media(max-width:1000px){
+@media(max-width:1100px){
+
+    .top-weather{
+
+        right:4%;
+
+        width:180px;
+        height:180px;
+    }
 
     .hero-town-card{
         display:none;
@@ -1908,7 +2357,15 @@ footer{
     }
 
     .today-grid{
-        grid-template-columns:1fr;
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .widget-card.featured{
+        grid-column:span 2;
+    }
+
+    .did-you-know-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
     .footer-container{
@@ -1960,12 +2417,12 @@ footer{
 
         top:70px;
 
-        height:37px;
+        height:39px;
     }
 
     .update-label{
 
-        padding:0 9px;
+        padding:0 10px;
 
         font-size:8px;
     }
@@ -1974,28 +2431,42 @@ footer{
         font-size:9px;
     }
 
+
+    /* =====================================================
+       MOBILE WEATHER
+    ===================================================== */
+
     .top-weather{
 
-        margin-top:37px;
+        top:110px;
+        right:5%;
 
-        padding:10px 5%;
+        width:158px;
+        height:158px;
+
+        padding:16px;
+
+        border-radius:10px;
     }
 
-    .top-weather-inner{
-        display:block;
+    .top-weather-title{
+        font-size:9px;
     }
 
-    .top-weather-left{
-        margin-bottom:8px;
+    .top-weather-sub{
+        font-size:7px;
     }
 
-    .top-weather-data{
-        justify-content:flex-start;
+    .weather-pill{
+        padding:7px;
+
+        font-size:8px;
     }
+
 
     .hero{
 
-        min-height:calc(100vh - 144px);
+        min-height:calc(100vh - 109px);
     }
 
     .hero-image{
@@ -2005,7 +2476,7 @@ footer{
 
     .hero-content{
 
-        padding:80px 5% 55px;
+        padding:135px 5% 55px;
     }
 
     .hero h1{
@@ -2020,6 +2491,8 @@ footer{
         font-size:12px;
 
         line-height:1.75;
+
+        max-width:500px;
     }
 
     .hero-buttons{
@@ -2032,7 +2505,8 @@ footer{
     .intro,
     .discover,
     .life,
-    .today{
+    .today,
+    .did-you-know{
 
         padding-left:5%;
         padding-right:5%;
@@ -2059,6 +2533,89 @@ footer{
 
         grid-template-columns:1fr 1fr;
     }
+
+
+    /* =====================================================
+       UPDATES
+    ===================================================== */
+
+    .today{
+
+        padding-top:65px;
+        padding-bottom:65px;
+    }
+
+    .today-header{
+
+        display:block;
+    }
+
+    .today-live-badge{
+
+        display:inline-flex;
+
+        margin-top:14px;
+    }
+
+    .today-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .widget-card.featured{
+
+        grid-column:auto;
+    }
+
+
+    /* =====================================================
+       DID YOU KNOW
+    ===================================================== */
+
+    .did-you-know{
+
+        padding-top:65px;
+        padding-bottom:65px;
+    }
+
+    .did-you-know::before{
+
+        right:-20px;
+
+        top:-20px;
+
+        font-size:190px;
+    }
+
+    .did-you-know-header{
+
+        display:block;
+
+        margin-bottom:25px;
+    }
+
+    .did-you-know-badge{
+
+        width:50px;
+        height:50px;
+
+        margin-top:18px;
+
+        font-size:21px;
+    }
+
+    .did-you-know-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .fact-card{
+
+        min-height:auto;
+
+        padding:22px;
+    }
+
 
     .discover{
 
@@ -2143,8 +2700,23 @@ footer{
         display:none;
     }
 
+    .top-weather{
+
+        width:148px;
+        height:148px;
+
+        top:108px;
+        right:4%;
+
+        padding:14px;
+    }
+
     .hero h1{
         font-size:47px;
+    }
+
+    .hero-content{
+        padding-top:130px;
     }
 
     .discover-grid{
@@ -2181,9 +2753,7 @@ footer{
 
 </head>
 
-
 <body>
-
 
 <!-- =====================================================
      DRAWER OVERLAY
@@ -2204,238 +2774,248 @@ footer{
     id="drawer"
 >
 
-    <div class="drawer-header">
+<div class="drawer-header">
 
-        <div class="drawer-title">
-            My<span>Jwaneng</span>
-        </div>
+<div class="drawer-title">
+    My<span>Jwaneng</span>
+</div>
 
-        <button
-            class="close-drawer"
-            id="closeDrawer"
-            aria-label="Close navigation"
-        >
-            ×
-        </button>
+<button
+    class="close-drawer"
+    id="closeDrawer"
+    aria-label="Close navigation"
+>
+    ×
+</button>
 
-    </div>
+</div>
 
+<div class="drawer-intro">
 
-    <div class="drawer-intro">
+Your digital front door to Jwaneng —
+its people, businesses, opportunities,
+stories, events and community life.
 
-        Your digital front door to Jwaneng —
-        its people, businesses, opportunities,
-        stories, events and community life.
+</div>
 
-    </div>
+<div class="drawer-section">
+    My Jwaneng
+</div>
 
+<ul class="drawer-menu">
 
-    <div class="drawer-section">
-        My Jwaneng
-    </div>
+<li>
 
+    <button
+        class="drawer-link drawer-home"
+        id="homeButton"
+    >
 
-    <ul class="drawer-menu">
+        <span class="drawer-icon">🏠</span>
 
-        <li>
+        <span>Home</span>
 
-            <button
-                class="drawer-link drawer-home"
-                id="homeButton"
-            >
+    </button>
 
-                <span class="drawer-icon">🏠</span>
-
-                <span>Home</span>
-
-            </button>
-
-        </li>
+</li>
 
 
-        <li>
+<li>
 
-            <a
-                href="galaxyfc.html"
-                class="drawer-link drawer-galaxy"
-            >
+    <a
+        href="galaxyfc.html"
+        class="drawer-link drawer-galaxy"
+    >
 
-                <span class="drawer-icon">
-                    ⚽
+        <span class="drawer-icon">
+            ⚽
+        </span>
+
+        <span class="galaxy-content">
+
+            <span class="galaxy-title">
+
+                Jwaneng Galaxy FC
+
+                <span class="galaxy-badge">
+                    Featured
                 </span>
 
-                <span class="galaxy-content">
+            </span>
 
-                    <span class="galaxy-title">
+            <span class="galaxy-subtitle">
+                Fixtures • Results • News
+            </span>
 
-                        Jwaneng Galaxy FC
+        </span>
 
-                        <span class="galaxy-badge">
-                            Featured
-                        </span>
+    </a>
 
-                    </span>
+</li>
 
-                    <span class="galaxy-subtitle">
-                        Fixtures • Results • News
-                    </span>
 
-                </span>
+<li>
 
-            </a>
+    <a
+        href="communityengagement.html"
+        class="drawer-link"
+    >
 
-        </li>
+        <span class="drawer-icon">🤝</span>
 
+        <span>TownConnect</span>
 
-        <li>
+    </a>
 
-            <a
-                href="communityengagement.html"
-                class="drawer-link"
-            >
+</li>
 
-                <span class="drawer-icon">🤝</span>
 
-                <span>TownConnect</span>
+<li>
 
-            </a>
+    <a
+        href="townnews.html"
+        class="drawer-link"
+    >
 
-        </li>
+        <span class="drawer-icon">📰</span>
 
+        <span>Town News</span>
 
-        <li>
+    </a>
 
-            <a
-                href="townnews.html"
-                class="drawer-link"
-            >
+</li>
 
-                <span class="drawer-icon">📰</span>
 
-                <span>Town News</span>
+<li>
 
-            </a>
+    <a
+        href="publicnoticeboard.html"
+        class="drawer-link"
+    >
 
-        </li>
+        <span class="drawer-icon">📢</span>
 
+        <span>Public Notices</span>
 
-        <li>
+    </a>
 
-            <a
-                href="jobs.html"
-                class="drawer-link"
-            >
+</li>
 
-                <span class="drawer-icon">💼</span>
 
-                <span>Jobs & Opportunities</span>
+<li>
 
-            </a>
+    <a
+        href="jobs.html"
+        class="drawer-link"
+    >
 
-        </li>
+        <span class="drawer-icon">💼</span>
 
+        <span>Jobs & Opportunities</span>
 
-        <li>
+    </a>
 
-            <a
-                href="events.html"
-                class="drawer-link"
-            >
+</li>
 
-                <span class="drawer-icon">📅</span>
 
-                <span>Events</span>
+<li>
 
-            </a>
+    <a
+        href="events.html"
+        class="drawer-link"
+    >
 
-        </li>
+        <span class="drawer-icon">📅</span>
 
+        <span>Events</span>
 
-        <li>
+    </a>
 
-            <a
-                href="marketplace.html"
-                class="drawer-link"
-            >
+</li>
 
-                <span class="drawer-icon">🛒</span>
 
-                <span>Marketplace</span>
+<li>
 
-            </a>
+    <a
+        href="marketplace.html"
+        class="drawer-link"
+    >
 
-        </li>
+        <span class="drawer-icon">🛒</span>
 
+        <span>Marketplace</span>
 
-        <li>
+    </a>
 
-            <a
-                href="businesses.html"
-                class="drawer-link"
-            >
+</li>
 
-                <span class="drawer-icon">🏪</span>
 
-                <span>Businesses</span>
+<li>
 
-            </a>
+    <a
+        href="businesses.html"
+        class="drawer-link"
+    >
 
-        </li>
+        <span class="drawer-icon">🏪</span>
 
-    </ul>
+        <span>Businesses</span>
 
+    </a>
 
-    <div class="drawer-section">
-        Discover Jwaneng
-    </div>
+</li>
 
+</ul>
 
-    <ul class="drawer-menu">
+<div class="drawer-section">
+    Discover Jwaneng
+</div>
 
-        <li>
+<ul class="drawer-menu">
 
-            <a
-                href="tourism.html"
-                class="drawer-link"
-            >
+<li>
 
-                <span class="drawer-icon">🌍</span>
+    <a
+        href="tourism.html"
+        class="drawer-link"
+    >
 
-                <span>Tourism & Attractions</span>
+        <span class="drawer-icon">🌍</span>
 
-            </a>
+        <span>Tourism & Attractions</span>
 
-        </li>
+    </a>
 
+</li>
 
-        <li>
 
-            <a
-                href="emergency.html"
-                class="drawer-link"
-            >
+<li>
 
-                <span class="drawer-icon">🚨</span>
+    <a
+        href="emergency.html"
+        class="drawer-link"
+    >
 
-                <span>Safety & Emergency</span>
+        <span class="drawer-icon">🚨</span>
 
-            </a>
+        <span>Safety & Emergency</span>
 
-        </li>
+    </a>
 
-    </ul>
+</li>
 
+</ul>
 
-    <div class="drawer-footer">
+<div class="drawer-footer">
 
-        <strong>
-            MyTown360
-        </strong>
+<strong>
+    MyTown360
+</strong>
 
-        My Jwaneng is part of the wider
-        MyTown360 digital town network.
+My Jwaneng is part of the wider
+MyTown360 digital town network.
 
-    </div>
+</div>
 
 </aside>
 
@@ -2446,133 +3026,69 @@ footer{
 
 <nav class="navbar">
 
-    <div class="nav-left">
+<div class="nav-left">
 
-        <button
-            class="menu-button"
-            id="menuButton"
-            aria-label="Open navigation"
-            aria-expanded="false"
-        >
+<button
+    class="menu-button"
+    id="menuButton"
+    aria-label="Open navigation"
+    aria-expanded="false"
+>
 
-            <span></span>
-            <span></span>
-            <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
 
-        </button>
-
-
-        <div class="logo">
-
-            My<span>Jwaneng</span>
-
-            <i class="logo-mark"></i>
-
-        </div>
-
-    </div>
+</button>
 
 
-    <div class="nav-right">
+<div class="logo">
 
-        <div class="nav-identity">
-            Discover • Connect • Belong
-        </div>
+    My<span>Jwaneng</span>
 
-        <div class="nav-location">
-            📍 Jwaneng, Botswana
-        </div>
+    <i class="logo-mark"></i>
 
-    </div>
+</div>
+
+</div>
+
+<div class="nav-right">
+
+<div class="nav-identity">
+    Discover • Connect • Belong
+</div>
+
+<div class="nav-location">
+    📍 Jwaneng, Botswana
+</div>
+
+</div>
 
 </nav>
 
 
 <!-- =====================================================
-     LIVE UPDATES
+     LIVE UPDATES BAR
 ===================================================== -->
 
 <div class="update-bar">
 
-    <div class="update-label">
-        📢 JWANENG LIVE
-    </div>
+<div class="update-label">
+    📢 JWANENG LIVE
+</div>
 
-    <div class="update-marquee">
+<div class="update-marquee">
 
-        <div
-            class="update-track"
-            id="updateTrack"
-        >
-            Welcome to My Jwaneng — your digital front door to the town.
-        </div>
-
-    </div>
+<div
+    class="update-track"
+    id="updateTrack"
+>
+    Welcome to My Jwaneng — your digital front door to the town.
+</div>
 
 </div>
 
-
-<!-- =====================================================
-     WEATHER
-===================================================== -->
-
-<section class="top-weather">
-
-    <div class="top-weather-inner">
-
-        <div class="top-weather-left">
-
-            <div class="weather-live-dot"></div>
-
-            <div>
-
-                <div class="top-weather-title">
-                    Jwaneng Weather
-                </div>
-
-                <div class="top-weather-sub">
-                    Current local conditions
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="top-weather-data">
-
-            <div class="weather-pill">
-
-                📍
-                <span id="weatherLoc">
-                    Jwaneng
-                </span>
-
-            </div>
-
-            <div class="weather-pill">
-
-                🌡
-                <span id="weatherTemp">
-                    Loading...
-                </span>
-
-            </div>
-
-            <div class="weather-pill">
-
-                💨
-                <span id="weatherWind">
-                    Loading...
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
+</div>
 
 
 <!-- =====================================================
@@ -2581,80 +3097,137 @@ footer{
 
 <section class="hero">
 
-    <div class="hero-image"></div>
+<div class="hero-image"></div>
 
 
-    <div class="hero-content">
+<section class="top-weather">
 
-        <div class="hero-kicker">
-            Welcome to Jwaneng
-        </div>
+<div class="top-weather-inner">
 
+    <div class="top-weather-left">
 
-        <h1>
+        <div class="weather-live-dot"></div>
 
-            Welcome to
+        <div>
 
-            <span>Jwaneng.</span>
+            <div class="top-weather-title">
+                Jwaneng Weather
+            </div>
 
-        </h1>
-
-
-        <p class="hero-description">
-
-            A town with its own character, community,
-            businesses, stories, opportunities and
-            everyday life.
-
-            Discover what is happening in Jwaneng,
-            find local services, explore opportunities
-            and stay connected with the community.
-
-        </p>
-
-
-        <div class="hero-buttons">
-
-            <a
-                href="townnews.html"
-                class="btn btn-primary"
-            >
-                📰 What's happening?
-            </a>
-
-
-            <button
-                class="btn btn-secondary"
-                onclick="openDrawer()"
-            >
-                ☰ Explore Jwaneng
-            </button>
+            <div class="top-weather-sub">
+                Current conditions
+            </div>
 
         </div>
 
     </div>
 
 
-    <div class="hero-town-card">
+    <div class="top-weather-data">
 
-        <small>
-            Your town
-        </small>
+        <div class="weather-pill">
 
-        <strong>
-            Jwaneng
-        </strong>
+            📍
+            <span id="weatherLoc">
+                Jwaneng
+            </span>
 
-        <p>
+        </div>
 
-            A community in Botswana's
-            southern Kalahari region —
-            home to residents, businesses,
-            families and visitors.
 
-        </p>
+        <div class="weather-pill">
+
+            🌡
+            <span id="weatherTemp">
+                Loading...
+            </span>
+
+        </div>
+
+
+        <div class="weather-pill">
+
+            💨
+            <span id="weatherWind">
+                Loading...
+            </span>
+
+        </div>
 
     </div>
+
+</div>
+
+</section>
+
+
+<div class="hero-content">
+
+<div class="hero-kicker">
+    Welcome to Jwaneng
+</div>
+
+
+<h1>
+
+    Welcome to
+
+    <span>Jwaneng.</span>
+
+</h1>
+
+
+<p class="hero-description">
+
+    A town with its own character, community,
+    businesses, stories, opportunities and
+    everyday life.
+
+    Discover what is happening in Jwaneng,
+    find local services, explore opportunities
+    and stay connected with the community.
+
+</p>
+
+
+<div class="hero-buttons">
+
+    <a
+        href="townnews.html"
+        class="btn btn-primary"
+    >
+        📰 What's happening?
+    </a>
+
+
+    <button
+        class="btn btn-secondary"
+        onclick="openDrawer()"
+    >
+        ☰ Explore Jwaneng
+    </button>
+
+</div>
+
+</div>
+
+
+<div class="hero-town-card">
+
+    <small>
+        Did You Know?
+    </small>
+
+    <strong>
+        Jwaneng
+    </strong>
+
+    <p id="townFact">
+        Botswana's diamond town and home to one
+        of the world's richest diamond mines.
+    </p>
+
+</div>
 
 </section>
 
@@ -2665,54 +3238,54 @@ footer{
 
 <section class="intro">
 
-    <div class="intro-container">
+<div class="intro-container">
 
-        <div>
+<div>
 
-            <div class="intro-label">
-                More than a location
-            </div>
-
-            <h2>
-
-                Jwaneng is a
-
-                <span>town.</span>
-
-            </h2>
-
-        </div>
-
-
-        <div class="intro-copy">
-
-            <p>
-
-                There is a lot to a town beyond
-                what people see on a map.
-
-                <br><br>
-
-                <strong>
-                    Jwaneng has its own people,
-                    neighbourhoods, businesses,
-                    schools, sports, organisations,
-                    community activities and stories.
-                </strong>
-
-                <br><br>
-
-                My Jwaneng brings these parts of
-                everyday life together in one place —
-                giving residents and visitors a simple
-                way to discover what is happening
-                around town.
-
-            </p>
-
-        </div>
-
+    <div class="intro-label">
+        More than a location
     </div>
+
+    <h2>
+
+        Jwaneng is a
+
+        <span>town.</span>
+
+    </h2>
+
+</div>
+
+
+<div class="intro-copy">
+
+    <p>
+
+        There is a lot to a town beyond
+        what people see on a map.
+
+        <br><br>
+
+        <strong>
+            Jwaneng has its own people,
+            neighbourhoods, businesses,
+            schools, sports, organisations,
+            community activities and stories.
+        </strong>
+
+        <br><br>
+
+        My Jwaneng brings these parts of
+        everyday life together in one place —
+        giving residents and visitors a simple
+        way to discover what is happening
+        around town.
+
+    </p>
+
+</div>
+
+</div>
 
 </section>
 
@@ -2723,529 +3296,219 @@ footer{
 
 <section class="town-strip">
 
-    <div class="town-strip-inner">
+<div class="town-strip-inner">
 
-        <div class="town-stat">
+<div class="town-stat">
 
-            <strong>
-                People
-            </strong>
+    <strong>
+        People
+    </strong>
 
-            <span>
-                Community
-            </span>
+    <span>
+        Community
+    </span>
 
-        </div>
-
-
-        <div class="town-stat">
-
-            <strong>
-                Businesses
-            </strong>
-
-            <span>
-                Local enterprise
-            </span>
-
-        </div>
+</div>
 
 
-        <div class="town-stat">
+<div class="town-stat">
 
-            <strong>
-                Opportunities
-            </strong>
+    <strong>
+        Businesses
+    </strong>
 
-            <span>
-                Jobs & growth
-            </span>
+    <span>
+        Local enterprise
+    </span>
 
-        </div>
+</div>
 
 
-        <div class="town-stat">
+<div class="town-stat">
 
-            <strong>
-                Activities
-            </strong>
+    <strong>
+        Opportunities
+    </strong>
 
-            <span>
-                Events & lifestyle
-            </span>
+    <span>
+        Jobs & growth
+    </span>
 
-        </div>
+</div>
 
-    </div>
+
+<div class="town-stat">
+
+    <strong>
+        Activities
+    </strong>
+
+    <span>
+        Events & lifestyle
+    </span>
+
+</div>
+
+</div>
 
 </section>
 
 
 <!-- =====================================================
-     DISCOVER
-===================================================== -->
-
-<section class="discover">
-
-    <div class="discover-container">
-
-        <div class="discover-heading">
-
-            <div>
-
-                <div class="section-label">
-                    Explore the town
-                </div>
-
-                <h2>
-                    Find your place in Jwaneng.
-                </h2>
-
-            </div>
-
-
-            <p>
-
-                From finding a local business
-                to checking the latest news,
-                My Jwaneng brings useful town
-                information together.
-
-            </p>
-
-        </div>
-
-
-        <div class="discover-grid">
-
-
-            <div class="discover-card">
-
-                <div class="discover-icon">
-                    📰
-                </div>
-
-                <h3>
-                    Town News
-                </h3>
-
-                <p>
-                    Keep up with stories,
-                    announcements and updates
-                    from around Jwaneng.
-                </p>
-
-                <a href="townnews.html">
-                    Read Town News →
-                </a>
-
-            </div>
-
-
-            <div class="discover-card">
-
-                <div class="discover-icon">
-                    🏪
-                </div>
-
-                <h3>
-                    Local Businesses
-                </h3>
-
-                <p>
-                    Discover businesses,
-                    services and entrepreneurs
-                    operating around town.
-                </p>
-
-                <a href="businesses.html">
-                    Browse Businesses →
-                </a>
-
-            </div>
-
-
-            <div class="discover-card">
-
-                <div class="discover-icon">
-                    💼
-                </div>
-
-                <h3>
-                    Jobs & Opportunities
-                </h3>
-
-                <p>
-                    Find employment opportunities,
-                    openings and other possibilities.
-                </p>
-
-                <a href="jobs.html">
-                    View Opportunities →
-                </a>
-
-            </div>
-
-
-            <div class="discover-card">
-
-                <div class="discover-icon">
-                    📅
-                </div>
-
-                <h3>
-                    Events
-                </h3>
-
-                <p>
-                    See activities, gatherings,
-                    programmes and events happening
-                    around Jwaneng.
-                </p>
-
-                <a href="events.html">
-                    Explore Events →
-                </a>
-
-            </div>
-
-
-            <div class="discover-card">
-
-                <div class="discover-icon">
-                    🛒
-                </div>
-
-                <h3>
-                    Marketplace
-                </h3>
-
-                <p>
-                    Buy, sell and discover products
-                    and services within the community.
-                </p>
-
-                <a href="marketplace.html">
-                    Visit Marketplace →
-                </a>
-
-            </div>
-
-
-            <div class="discover-card">
-
-                <div class="discover-icon">
-                    🤝
-                </div>
-
-                <h3>
-                    TownConnect
-                </h3>
-
-                <p>
-                    Connect with leadership,
-                    community initiatives and
-                    local engagement.
-                </p>
-
-                <a href="communityengagement.html">
-                    Connect →
-                </a>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     LIFE IN JWANENG
-===================================================== -->
-
-<section class="life">
-
-    <div class="life-container">
-
-        <div class="life-header">
-
-            <div class="section-label">
-                Life in Jwaneng
-            </div>
-
-            <h2>
-                A town is made by the people who live in it.
-            </h2>
-
-            <p>
-
-                Explore the different sides of
-                Jwaneng — from community life and
-                local enterprise to events, nature
-                and the places people call home.
-
-            </p>
-
-        </div>
-
-
-        <div class="life-grid">
-
-
-            <a
-                href="businesses.html"
-                class="life-card life-main"
-            >
-
-                <div class="life-card-content">
-
-                    <h3>
-                        Everyday Jwaneng
-                    </h3>
-
-                    <p>
-                        The places and experiences
-                        that make the town feel like home.
-                    </p>
-
-                </div>
-
-            </a>
-
-
-            <a
-                href="communityengagement.html"
-                class="life-card life-community"
-            >
-
-                <div class="life-card-content">
-
-                    <h3>
-                        Community
-                    </h3>
-
-                    <p>
-                        People, organisations and initiatives.
-                    </p>
-
-                </div>
-
-            </a>
-
-
-            <a
-                href="businesses.html"
-                class="life-card life-business"
-            >
-
-                <div class="life-card-content">
-
-                    <h3>
-                        Local Enterprise
-                    </h3>
-
-                    <p>
-                        Businesses and entrepreneurs.
-                    </p>
-
-                </div>
-
-            </a>
-
-
-            <a
-                href="events.html"
-                class="life-card life-events"
-            >
-
-                <div class="life-card-content">
-
-                    <h3>
-                        Events & Activities
-                    </h3>
-
-                    <p>
-                        Things happening around town.
-                    </p>
-
-                </div>
-
-            </a>
-
-
-            <a
-                href="tourism.html"
-                class="life-card life-nature"
-            >
-
-                <div class="life-card-content">
-
-                    <h3>
-                        Nature & Wildlife
-                    </h3>
-
-                    <p>
-                        Discover Jwaneng's natural surroundings.
-                    </p>
-
-                </div>
-
-            </a>
-
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     SURROUNDING COMMUNITIES
-===================================================== -->
-
-<section class="communities">
-
-    <div class="communities-container">
-
-        <div class="section-label">
-            Beyond Jwaneng
-        </div>
-
-        <h2>
-            Connected to the surrounding communities.
-        </h2>
-
-        <p>
-
-            Jwaneng remains the heart of My Jwaneng,
-            while the platform also connects people
-            with communities and places around the area.
-
-        </p>
-
-
-        <div class="community-list">
-
-            <span class="main">
-                Jwaneng
-            </span>
-
-            <span>Sese</span>
-
-            <span>Mokhomma</span>
-
-            <span>Lefoko</span>
-
-            <span>Betesankwe</span>
-
-            <span>Sekoma</span>
-
-            <span>Maokane</span>
-
-            <span>Machana</span>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     JWANENG TODAY
+     JWANENG TODAY / UPDATES
 ===================================================== -->
 
 <section class="today">
 
-    <div class="today-container">
+<div class="today-container">
 
-        <div class="today-header">
+<div class="today-header">
 
-            <div class="section-label">
-                Jwaneng Today
-            </div>
+    <div class="today-header-left">
 
-            <h2>
-                What's happening in town?
-            </h2>
-
-            <p>
-                Fresh information from My Jwaneng.
-            </p>
-
+        <div class="section-label">
+            Jwaneng Today
         </div>
 
+        <h2>
+            What's happening in town?
+        </h2>
 
-        <div class="today-grid">
-
-
-            <div class="widget-card">
-
-                <h3>
-                    📰 Latest News
-                </h3>
-
-                <div id="latestNews">
-                    Loading news...
-                </div>
-
-                <a
-                    href="townnews.html"
-                    class="widget-btn"
-                >
-                    View All News →
-                </a>
-
-            </div>
-
-
-            <div class="widget-card">
-
-                <h3>
-                    💼 Opportunities
-                </h3>
-
-                <div id="latestJobs">
-                    Loading opportunities...
-                </div>
-
-                <a
-                    href="jobs.html"
-                    class="widget-btn"
-                >
-                    View All Jobs →
-                </a>
-
-            </div>
-
-
-            <div class="widget-card">
-
-                <h3>
-                    📅 Upcoming Events
-                </h3>
-
-                <div id="latestEvents">
-                    Loading events...
-                </div>
-
-                <a
-                    href="events.html"
-                    class="widget-btn"
-                >
-                    View All Events →
-                </a>
-
-            </div>
-
-
-        </div>
+        <p>
+            Fresh information from My Jwaneng —
+            news, public notices, opportunities and
+            events in one place.
+        </p>
 
     </div>
+
+
+    <div class="today-live-badge">
+
+        <span class="today-live-dot"></span>
+
+        Live Updates
+
+    </div>
+
+</div>
+
+
+<div class="today-grid">
+
+
+    <!-- NEWS -->
+
+    <div class="widget-card featured">
+
+        <h3>
+            📰 Latest News
+        </h3>
+
+        <div id="latestNews">
+            Loading news...
+        </div>
+
+        <a
+            href="townnews.html"
+            class="widget-btn"
+        >
+            View All News →
+        </a>
+
+    </div>
+
+
+    <!-- PUBLIC NOTICES -->
+
+    <div class="widget-card public-notice-card">
+
+        <h3>
+            📢 Public Notices
+        </h3>
+
+        <div id="latestNotices">
+
+            <div class="widget-item">
+
+                <strong>
+                    Official community notices
+                </strong>
+
+                <small>
+                    Council & public information
+                </small>
+
+            </div>
+
+            <div class="widget-item">
+
+                <small>
+                    Visit the Public Notices section
+                    for official notices and announcements.
+                </small>
+
+            </div>
+
+        </div>
+
+        <a
+            href="publicnotices.html"
+            class="widget-btn"
+        >
+            View Public Notices →
+        </a>
+
+    </div>
+
+
+    <!-- JOBS -->
+
+    <div class="widget-card">
+
+        <h3>
+            💼 Opportunities
+        </h3>
+
+        <div id="latestJobs">
+            Loading opportunities...
+        </div>
+
+        <a
+            href="jobs.html"
+            class="widget-btn"
+        >
+            View All Jobs →
+        </a>
+
+    </div>
+
+
+    <!-- EVENTS -->
+
+    <div class="widget-card">
+
+        <h3>
+            📅 Upcoming Events
+        </h3>
+
+        <div id="latestEvents">
+            Loading events...
+        </div>
+
+        <a
+            href="events.html"
+            class="widget-btn"
+        >
+            View All Events →
+        </a>
+
+    </div>
+
+
+</div>
+
+</div>
 
 </section>
 
@@ -3256,159 +3519,163 @@ footer{
 
 <footer>
 
-    <div class="footer-container">
+<div class="footer-container">
 
+<div class="footer-column">
 
-        <div class="footer-column">
-
-            <div class="footer-brand">
-                My<span>Jwaneng</span>
-            </div>
-
-            <div class="footer-tagline">
-                DISCOVER • CONNECT • BELONG
-            </div>
-
-            <p>
-
-                Your digital front door to the
-                people, businesses, opportunities,
-                places, events and experiences
-                that make Jwaneng home.
-
-            </p>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h3>
-                Explore
-            </h3>
-
-            <ul>
-
-                <li>
-                    <a href="townnews.html">
-                        Town News
-                    </a>
-                </li>
-
-                <li>
-                    <a href="jobs.html">
-                        Jobs
-                    </a>
-                </li>
-
-                <li>
-                    <a href="marketplace.html">
-                        Marketplace
-                    </a>
-                </li>
-
-                <li>
-                    <a href="events.html">
-                        Events
-                    </a>
-                </li>
-
-                <li>
-                    <a href="galaxyfc.html">
-                        Jwaneng Galaxy FC
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h3>
-                Community
-            </h3>
-
-            <ul>
-
-                <li>
-                    <a href="communityengagement.html">
-                        TownConnect
-                    </a>
-                </li>
-
-                <li>
-                    <a href="businesses.html">
-                        Businesses
-                    </a>
-                </li>
-
-                <li>
-                    <a href="tourism.html">
-                        Tourism
-                    </a>
-                </li>
-
-                <li>
-                    <a href="emergency.html">
-                        Emergency
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h3>
-                Legal
-            </h3>
-
-            <ul>
-
-                <li>
-                    <a href="privacy.html">
-                        Privacy
-                    </a>
-                </li>
-
-                <li>
-                    <a href="terms.html">
-                        Terms
-                    </a>
-                </li>
-
-                <li>
-                    <a href="business-directory-disclaimer.html">
-                        Business Disclaimer
-                    </a>
-                </li>
-
-                <li>
-                    <a href="photo-usage-disclaimer.html">
-                        Photo Disclaimer
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
-
+    <div class="footer-brand">
+        My<span>Jwaneng</span>
     </div>
 
-
-    <div class="footer-bottom">
-
-        © 2026 My Jwaneng |
-
-        Built by
-
-        <span>A-eye Group</span>
-
+    <div class="footer-tagline">
+        DISCOVER • CONNECT • BELONG
     </div>
+
+    <p>
+
+        Your digital front door to the
+        people, businesses, opportunities,
+        places, events and experiences
+        that make Jwaneng home.
+
+    </p>
+
+</div>
+
+
+<div class="footer-column">
+
+    <h3>
+        Explore
+    </h3>
+
+    <ul>
+
+        <li>
+            <a href="townnews.html">
+                Town News
+            </a>
+        </li>
+
+        <li>
+            <a href="publicnotices.html">
+                Public Notices
+            </a>
+        </li>
+
+        <li>
+            <a href="jobs.html">
+                Jobs
+            </a>
+        </li>
+
+        <li>
+            <a href="marketplace.html">
+                Marketplace
+            </a>
+        </li>
+
+        <li>
+            <a href="events.html">
+                Events
+            </a>
+        </li>
+
+        <li>
+            <a href="galaxyfc.html">
+                Jwaneng Galaxy FC
+            </a>
+        </li>
+
+    </ul>
+
+</div>
+
+
+<div class="footer-column">
+
+    <h3>
+        Community
+    </h3>
+
+    <ul>
+
+        <li>
+            <a href="communityengagement.html">
+                TownConnect
+            </a>
+        </li>
+
+        <li>
+            <a href="businesses.html">
+                Businesses
+            </a>
+        </li>
+
+        <li>
+            <a href="tourism.html">
+                Tourism
+            </a>
+        </li>
+
+        <li>
+            <a href="emergency.html">
+                Emergency
+            </a>
+        </li>
+
+    </ul>
+
+</div>
+
+
+<div class="footer-column">
+
+    <h3>
+        Legal
+    </h3>
+
+    <ul>
+
+        <li>
+            <a href="privacy.html">
+                Privacy
+            </a>
+        </li>
+
+        <li>
+            <a href="terms.html">
+                Terms
+            </a>
+        </li>
+
+        <li>
+            <a href="business-directory-disclaimer.html">
+                Business Disclaimer
+            </a>
+        </li>
+
+        <li>
+            <a href="photo-usage-disclaimer.html">
+                Photo Disclaimer
+            </a>
+        </li>
+
+    </ul>
+
+</div>
+
+</div>
+
+<div class="footer-bottom">
+
+© 2026 My Jwaneng |
+
+Built by
+
+<span>A-eye Group</span>
+
+</div>
 
 </footer>
 
@@ -3422,43 +3689,43 @@ footer{
     id="leaveModal"
 >
 
-    <div class="confirm-modal">
+<div class="confirm-modal">
 
-        <div class="modal-icon">
-            🏠
-        </div>
+<div class="modal-icon">
+    🏠
+</div>
 
-        <h2>
-            Do you want to leave My Jwaneng?
-        </h2>
+<h2>
+    Do you want to leave My Jwaneng?
+</h2>
 
-        <p>
+<p>
 
-            You are about to return to
-            <strong>MyTown360</strong>,
-            the wider digital town network.
+    You are about to return to
+    <strong>MyTown360</strong>,
+    the wider digital town network.
 
-        </p>
+</p>
 
-        <div class="modal-buttons">
+<div class="modal-buttons">
 
-            <button
-                class="modal-btn stay-btn"
-                id="stayButton"
-            >
-                Stay on My Jwaneng
-            </button>
+    <button
+        class="modal-btn stay-btn"
+        id="stayButton"
+    >
+        Stay on My Jwaneng
+    </button>
 
-            <button
-                class="modal-btn leave-btn"
-                id="leaveButton"
-            >
-                Leave My Jwaneng
-            </button>
+    <button
+        class="modal-btn leave-btn"
+        id="leaveButton"
+    >
+        Leave My Jwaneng
+    </button>
 
-        </div>
+</div>
 
-    </div>
+</div>
 
 </div>
 
@@ -3472,49 +3739,45 @@ footer{
     id="pwaBar"
 >
 
-    <button onclick="openDrawer()">
+<button onclick="openDrawer()">
 
-        <span>☰</span>
+<span>☰</span>
 
-        Menu
+Menu
 
-    </button>
+</button>
 
+<a href="communityengagement.html">
 
-    <a href="communityengagement.html">
+<span>🤝</span>
 
-        <span>🤝</span>
+Connect
 
-        Connect
+</a>
 
-    </a>
+<a href="townnews.html">
 
+<span>📰</span>
 
-    <a href="townnews.html">
+News
 
-        <span>📰</span>
+</a>
 
-        News
+<a href="jobs.html">
 
-    </a>
+<span>💼</span>
 
+Jobs
 
-    <a href="jobs.html">
+</a>
 
-        <span>💼</span>
+<a href="events.html">
 
-        Jobs
+<span>📅</span>
 
-    </a>
+Events
 
-
-    <a href="events.html">
-
-        <span>📅</span>
-
-        Events
-
-    </a>
+</a>
 
 </div>
 
@@ -4329,10 +4592,51 @@ document
 
         }
     );
+const townFacts = [
+
+    "Botswana's diamond town and home to one of the world's richest diamond mines.",
+
+    "Situated along the Trans-Kalahari Corridor linking Botswana, Namibia and South Africa.",
+
+    "The name Jwaneng is commonly interpreted as 'place of small stones'.",
+
+    "Jwaneng Galaxy FC has represented Botswana in CAF Champions League competitions.",
+
+    "Jwaneng serves as a gateway to surrounding communities including Sese, Mokhomma, Lefoko, Betesankwe, Sekoma, Maokane and Machana.",
+
+    "Behind the mine is a vibrant community of families, schools, businesses, entrepreneurs and local organisations."
+
+];
+
+const townFactElement =
+document.getElementById("townFact");
+
+let currentFact = 0;
+
+setInterval(() => {
+
+    townFactElement.style.opacity = "0";
+
+    setTimeout(() => {
+
+        currentFact++;
+
+        if(currentFact >= townFacts.length){
+            currentFact = 0;
+        }
+
+        townFactElement.textContent =
+            townFacts[currentFact];
+
+        townFactElement.style.opacity = "1";
+
+    },500);
+
+},7000);
 
 </script>
-
 
 </body>
 
 </html>
+
