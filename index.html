@@ -6,47 +6,49 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>My Jwaneng | Welcome Home</title>
+<title>My Jwaneng | Welcome to Jwaneng</title>
 
-<meta name="description"
-content="My Jwaneng — the digital gateway to Jwaneng and the surrounding communities, connecting residents, businesses, opportunities, events, places, leadership and community services.">
+<meta
+    name="description"
+    content="My Jwaneng — discover the people, places, businesses, opportunities, events and stories that make Jwaneng home."
+>
 
-<meta name="theme-color" content="#061522">
+<meta name="theme-color" content="#071923">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-rel="stylesheet">
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <style>
 
 /* =========================================================
    MY JWANENG
-   DIGITAL GATEWAY TO JWANENG & SURROUNDING COMMUNITIES
+   A DIGITAL FRONT DOOR TO THE TOWN
 ========================================================= */
 
 :root{
 
-    --night:#061522;
-    --night2:#0a2435;
+    --dark:#071923;
+    --dark-2:#0b2532;
+    --dark-3:#102f3d;
 
-    --sky:#43b8e8;
-    --sky-light:#8de0ff;
+    --blue:#43b8e8;
+    --blue-light:#8ddfff;
 
-    --sand:#d9b36c;
-    --sand-light:#f0d493;
-
-    --green:#5ed6a1;
-    --green-light:#9af0c4;
+    --gold:#d9b36c;
+    --gold-light:#efd393;
 
     --white:#ffffff;
-    --muted:#aebfc9;
+    --muted:#9fb1ba;
+    --soft:#d7e2e7;
 
-    --glass:rgba(255,255,255,.075);
-
-    --border:rgba(255,255,255,.12);
+    --border:rgba(255,255,255,.10);
 
     --drawer-width:320px;
 }
@@ -70,18 +72,23 @@ body{
 
     font-family:'Poppins',sans-serif;
 
-    background:var(--night);
+    background:var(--dark);
 
     color:white;
 
     overflow-x:hidden;
 
-    padding-top:82px;
+    padding-top:78px;
+}
+
+button,
+a{
+    font-family:inherit;
 }
 
 
 /* =========================================================
-   NAVIGATION
+   NAVBAR
 ========================================================= */
 
 .navbar{
@@ -92,96 +99,74 @@ body{
     left:0;
 
     width:100%;
-
-    height:82px;
+    height:78px;
 
     z-index:10000;
 
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 
     padding:0 5%;
 
-    background:
-        rgba(4,18,30,.93);
+    background:rgba(5,19,28,.96);
 
-    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.08);
 
-    border-bottom:
-        1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(12px);
 }
-
 
 .nav-left{
 
     display:flex;
-
     align-items:center;
 
     gap:15px;
 }
 
-
 .menu-button{
 
-    width:46px;
-    height:46px;
+    width:44px;
+    height:44px;
 
-    border-radius:12px;
+    border-radius:9px;
 
-    border:1px solid rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.14);
 
-    background:rgba(255,255,255,.06);
-
-    color:white;
+    background:rgba(255,255,255,.045);
 
     display:flex;
-
     flex-direction:column;
-
-    justify-content:center;
-
     align-items:center;
+    justify-content:center;
 
     gap:5px;
 
     cursor:pointer;
 
-    transition:.3s;
+    transition:.25s;
 }
 
 .menu-button:hover{
 
-    background:rgba(67,184,232,.15);
+    background:rgba(67,184,232,.10);
 
-    border-color:var(--sky);
-
-    transform:translateY(-2px);
+    border-color:rgba(67,184,232,.5);
 }
-
 
 .menu-button span{
 
-    display:block;
-
-    width:21px;
-
+    width:20px;
     height:2px;
 
     background:white;
 
-    border-radius:5px;
-
-    transition:.3s;
+    border-radius:3px;
 }
-
 
 .logo{
 
-    font-size:27px;
+    font-size:25px;
 
     font-weight:800;
 
@@ -189,63 +174,60 @@ body{
 }
 
 .logo span{
-
-    color:var(--sky);
+    color:var(--blue);
 }
 
 .logo-mark{
 
     display:inline-block;
 
-    width:8px;
-    height:8px;
+    width:7px;
+    height:7px;
 
-    background:var(--sand);
+    margin-left:5px;
+
+    background:var(--gold);
 
     transform:rotate(45deg);
-
-    margin-left:6px;
 }
-
 
 .nav-right{
 
     display:flex;
-
     align-items:center;
 
-    gap:18px;
+    gap:16px;
 }
 
 .nav-identity{
 
-    color:#9eafb9;
+    color:#8da1ab;
 
     font-size:9px;
 
     text-transform:uppercase;
 
-    letter-spacing:2px;
+    letter-spacing:1.8px;
 }
 
 .nav-location{
 
-    padding:8px 13px;
-
-    border-radius:30px;
+    padding:7px 12px;
 
     border:1px solid rgba(255,255,255,.12);
 
+    border-radius:20px;
+
     background:rgba(255,255,255,.04);
 
-    color:#d9e6ec;
+    color:#d8e5ea;
 
-    font-size:10px;
+    font-size:9px;
 }
 
 
 /* =========================================================
-   SIDE NAVIGATION DRAWER
+   DRAWER
 ========================================================= */
 
 .drawer{
@@ -256,55 +238,39 @@ body{
     left:0;
 
     width:var(--drawer-width);
-
     height:100vh;
 
     z-index:20000;
 
-    background:
-        linear-gradient(
-            180deg,
-            #061522,
-            #071e2e
-        );
+    background:#071923;
 
-    border-right:
-        1px solid rgba(255,255,255,.1);
+    border-right:1px solid rgba(255,255,255,.10);
 
-    box-shadow:
-        20px 0 60px rgba(0,0,0,.35);
+    box-shadow:15px 0 50px rgba(0,0,0,.4);
 
     transform:translateX(-105%);
 
-    transition:
-        transform .35s ease;
+    transition:transform .32s ease;
 
     overflow-y:auto;
 }
 
-
 .drawer.open{
-
     transform:translateX(0);
 }
 
-
 .drawer-header{
 
-    height:82px;
+    height:78px;
+
+    padding:0 23px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 
-    padding:0 25px;
-
-    border-bottom:
-        1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid rgba(255,255,255,.08);
 }
-
 
 .drawer-title{
 
@@ -314,17 +280,15 @@ body{
 }
 
 .drawer-title span{
-
-    color:var(--sky);
+    color:var(--blue);
 }
-
 
 .close-drawer{
 
-    width:38px;
-    height:38px;
+    width:37px;
+    height:37px;
 
-    border-radius:10px;
+    border-radius:8px;
 
     border:1px solid rgba(255,255,255,.12);
 
@@ -337,26 +301,24 @@ body{
     font-size:18px;
 }
 
-
 .drawer-intro{
 
-    padding:24px 25px 15px;
+    padding:23px;
 
-    color:#8fa4af;
+    color:#8fa4ae;
 
     font-size:10px;
 
     line-height:1.7;
 }
 
-
 .drawer-section{
 
-    padding:15px 15px 5px;
+    padding:10px 15px 5px;
 
-    color:var(--sand-light);
+    color:var(--gold-light);
 
-    font-size:9px;
+    font-size:8px;
 
     font-weight:800;
 
@@ -365,306 +327,185 @@ body{
     text-transform:uppercase;
 }
 
-
 .drawer-menu{
 
     list-style:none;
 
-    padding:5px 12px 20px;
+    padding:5px 12px 15px;
 }
-
 
 .drawer-menu li{
-
-    margin-bottom:4px;
+    margin-bottom:3px;
 }
-
 
 .drawer-link{
 
     width:100%;
 
     display:flex;
-
     align-items:center;
 
     gap:13px;
 
-    padding:13px 14px;
+    padding:12px 13px;
 
-    border-radius:10px;
-
-    color:#d7e3e9;
-
-    text-decoration:none;
-
-    font-size:12px;
+    border-radius:8px;
 
     border:1px solid transparent;
 
     background:transparent;
 
+    color:#d5e0e5;
+
+    text-decoration:none;
+
+    font-size:11px;
+
     cursor:pointer;
 
     text-align:left;
 
-    font-family:inherit;
-
-    transition:.25s;
+    transition:.2s;
 }
-
 
 .drawer-link:hover{
 
-    background:rgba(67,184,232,.1);
+    background:rgba(67,184,232,.08);
 
-    border-color:rgba(67,184,232,.2);
+    border-color:rgba(67,184,232,.16);
 
     color:white;
-
-    transform:translateX(3px);
 }
 
+.drawer-home{
+
+    background:rgba(67,184,232,.08);
+
+    border-color:rgba(67,184,232,.13);
+}
 
 .drawer-icon{
 
     width:25px;
 
-    font-size:18px;
-
     text-align:center;
 
-    flex-shrink:0;
+    font-size:17px;
 }
 
 
-.drawer-home{
-
-    background:
-        rgba(67,184,232,.09);
-
-    border-color:
-        rgba(67,184,232,.15);
-}
-
-
-/* =========================================================
-   JWANENG GALAXY FC FEATURED SIDEBAR ITEM
-========================================================= */
+/* Galaxy */
 
 .drawer-galaxy{
 
-    position:relative;
+    background:rgba(255,255,255,.045);
 
-    overflow:hidden;
+    border-color:rgba(141,224,255,.18);
 
-    min-height:67px;
-
-    padding:11px 13px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.075),
-            rgba(67,184,232,.09)
-        );
-
-    border:1px solid rgba(141,224,255,.28);
-
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.16);
+    min-height:62px;
 }
-
-
-.drawer-galaxy::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:85px;
-    height:85px;
-
-    right:-30px;
-    top:-30px;
-
-    border-radius:50%;
-
-    border:1px solid rgba(141,224,255,.13);
-}
-
-
-.drawer-galaxy::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:45px;
-    height:45px;
-
-    right:8px;
-    bottom:-24px;
-
-    border-radius:50%;
-
-    background:rgba(67,184,232,.08);
-}
-
 
 .drawer-galaxy:hover{
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(67,184,232,.16),
-            rgba(67,184,232,.08)
-        );
+    background:rgba(67,184,232,.10);
 
-    border-color:
-        rgba(141,224,255,.55);
-
-    transform:translateX(4px);
-
-    box-shadow:
-        0 10px 30px rgba(67,184,232,.12);
+    border-color:rgba(141,224,255,.35);
 }
-
 
 .drawer-galaxy .drawer-icon{
 
-    width:40px;
-    height:40px;
+    width:38px;
+    height:38px;
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 
-    border-radius:10px;
+    border-radius:8px;
 
-    background:
-        rgba(255,255,255,.09);
+    background:rgba(255,255,255,.07);
 
-    border:
-        1px solid rgba(255,255,255,.13);
-
-    font-size:22px;
-
-    position:relative;
-
-    z-index:2;
+    border:1px solid rgba(255,255,255,.10);
 }
-
 
 .galaxy-content{
 
     display:flex;
-
     flex-direction:column;
 
     gap:2px;
 
     flex:1;
-
-    position:relative;
-
-    z-index:2;
 }
-
 
 .galaxy-title{
 
     display:flex;
-
     align-items:center;
-
     gap:7px;
 
-    font-size:12px;
+    font-size:11px;
 
     font-weight:800;
-
-    color:white;
 }
-
 
 .galaxy-subtitle{
 
     font-size:8px;
 
-    color:#9db4c0;
-
-    line-height:1.4;
+    color:#8fa6b1;
 }
-
 
 .galaxy-badge{
 
-    display:inline-flex;
+    padding:2px 5px;
 
-    align-items:center;
+    border-radius:10px;
 
-    justify-content:center;
+    background:rgba(217,179,108,.12);
 
-    padding:3px 6px;
+    color:var(--gold-light);
 
-    border-radius:20px;
-
-    background:rgba(217,179,108,.14);
-
-    border:1px solid rgba(217,179,108,.25);
-
-    color:var(--sand-light);
+    border:1px solid rgba(217,179,108,.22);
 
     font-size:6px;
 
-    font-weight:800;
-
-    letter-spacing:.7px;
-
     text-transform:uppercase;
 
-    white-space:nowrap;
+    letter-spacing:.5px;
 }
-
-
-/* =========================================================
-   DRAWER FOOTER
-========================================================= */
 
 .drawer-footer{
 
     margin:15px;
 
-    padding:18px;
+    padding:17px;
 
-    border-radius:12px;
+    border-radius:10px;
 
-    background:rgba(255,255,255,.04);
+    background:rgba(255,255,255,.035);
 
     border:1px solid rgba(255,255,255,.07);
 
-    color:#879ca7;
+    color:#8298a3;
 
     font-size:9px;
 
     line-height:1.7;
 }
 
-
 .drawer-footer strong{
 
-    color:white;
-
     display:block;
+
+    color:white;
 
     margin-bottom:5px;
 }
 
 
 /* =========================================================
-   DRAWER OVERLAY
+   OVERLAY
 ========================================================= */
 
 .drawer-overlay{
@@ -673,19 +514,16 @@ body{
 
     inset:0;
 
-    background:rgba(0,0,0,.65);
-
-    backdrop-filter:blur(3px);
-
     z-index:15000;
+
+    background:rgba(0,0,0,.65);
 
     opacity:0;
 
     visibility:hidden;
 
-    transition:.3s;
+    transition:.25s;
 }
-
 
 .drawer-overlay.active{
 
@@ -696,19 +534,18 @@ body{
 
 
 /* =========================================================
-   LIVE UPDATES
+   LIVE BAR
 ========================================================= */
 
 .update-bar{
 
     position:fixed;
 
-    top:82px;
+    top:78px;
     left:0;
 
     width:100%;
-
-    height:42px;
+    height:39px;
 
     z-index:9999;
 
@@ -716,38 +553,28 @@ body{
 
     align-items:center;
 
-    background:
-        linear-gradient(
-            90deg,
-            #116b96,
-            #0b344d,
-            #102b3d
-        );
+    background:#0c3447;
 
-    border-bottom:
-        1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid rgba(255,255,255,.07);
 }
-
 
 .update-label{
 
     height:100%;
 
     display:flex;
-
     align-items:center;
 
-    padding:0 18px;
+    padding:0 16px;
 
-    background:rgba(0,0,0,.18);
+    background:#09293a;
 
-    font-size:10px;
+    font-size:9px;
 
     font-weight:800;
 
     white-space:nowrap;
 }
-
 
 .update-marquee{
 
@@ -758,50 +585,45 @@ body{
     white-space:nowrap;
 }
 
-
 .update-track{
 
     display:inline-block;
 
     padding-left:100%;
 
-    animation:
-        scrollUpdate 55s linear infinite;
+    animation:scrollUpdate 55s linear infinite;
 
-    font-size:11px;
+    font-size:10px;
 
-    color:#e6f5fb;
+    color:#e0f1f6;
+}
+
+@keyframes scrollUpdate{
+
+    from{
+        transform:translateX(0);
+    }
+
+    to{
+        transform:translateX(-100%);
+    }
 }
 
 
 /* =========================================================
-   TOP WEATHER WIDGET
+   WEATHER
 ========================================================= */
 
 .top-weather{
 
-    position:relative;
+    margin-top:39px;
 
-    margin-top:42px;
+    padding:10px 7%;
 
-    width:100%;
+    background:#09212d;
 
-    padding:11px 7%;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(7,30,45,.98),
-            rgba(10,45,63,.98),
-            rgba(7,30,45,.98)
-        );
-
-    border-bottom:
-        1px solid rgba(255,255,255,.07);
-
-    z-index:20;
+    border-bottom:1px solid rgba(255,255,255,.06);
 }
-
 
 .top-weather-inner{
 
@@ -818,90 +640,65 @@ body{
     gap:20px;
 }
 
-
 .top-weather-left{
 
     display:flex;
-
     align-items:center;
 
-    gap:12px;
+    gap:10px;
 }
-
 
 .weather-live-dot{
 
-    width:8px;
-    height:8px;
+    width:7px;
+    height:7px;
 
     border-radius:50%;
 
-    background:#73d7ff;
-
-    box-shadow:
-        0 0 12px rgba(115,215,255,.75);
-
-    flex-shrink:0;
+    background:#67d4f5;
 }
-
 
 .top-weather-title{
 
-    font-size:10px;
+    font-size:9px;
 
     font-weight:800;
 
-    text-transform:uppercase;
-
     letter-spacing:1.5px;
 
-    color:#dceff6;
+    text-transform:uppercase;
 }
-
 
 .top-weather-sub{
 
-    color:#7f9aa8;
+    color:#78909c;
 
     font-size:8px;
 
     margin-top:2px;
 }
 
-
 .top-weather-data{
 
     display:flex;
-
-    align-items:center;
-
-    justify-content:flex-end;
-
     flex-wrap:wrap;
 
-    gap:8px;
+    gap:7px;
 }
-
 
 .weather-pill{
 
-    display:flex;
+    padding:5px 9px;
 
-    align-items:center;
+    border-radius:15px;
 
-    gap:5px;
+    background:rgba(255,255,255,.045);
 
-    padding:6px 10px;
+    border:1px solid rgba(255,255,255,.08);
 
-    border-radius:20px;
+    color:#c7d8df;
 
-    background:rgba(255,255,255,.055);
-
-    border:1px solid rgba(255,255,255,.09);
-
-    color:#cfe1e8;
-
-    font-size:9px;
+    font-size:8px;
 }
 
 
@@ -913,16 +710,13 @@ body{
 
     position:relative;
 
-    min-height:
-        calc(100vh - 165px);
+    min-height:calc(100vh - 156px);
 
     display:flex;
-
     align-items:flex-end;
 
     overflow:hidden;
 }
-
 
 .hero-image{
 
@@ -930,36 +724,29 @@ body{
 
     inset:0;
 
-    z-index:0;
-
     background:
 
         linear-gradient(
             90deg,
-            rgba(3,17,27,.85),
-            rgba(3,17,27,.4) 50%,
-            rgba(3,17,27,.12)
+            rgba(3,15,23,.90) 0%,
+            rgba(3,15,23,.62) 43%,
+            rgba(3,15,23,.18) 80%
         ),
 
         linear-gradient(
-            180deg,
-            rgba(3,17,27,.1),
-            rgba(3,17,27,.15) 45%,
-            rgba(3,17,27,.96)
+            0deg,
+            rgba(3,15,23,.95),
+            rgba(3,15,23,.04) 65%
         ),
 
         url("images/jwaneng-hero.jpg")
-        center center /
-        cover no-repeat,
+        center center / cover no-repeat,
 
-        linear-gradient(
-            135deg,
-            #1c5369,
-            #b59661 50%,
-            #263b32
-        );
+        #315d68;
 }
 
+
+/* A very subtle horizon line */
 
 .hero-image::after{
 
@@ -967,17 +754,14 @@ body{
 
     position:absolute;
 
-    inset:0;
+    left:0;
+    right:0;
+    bottom:0;
 
-    background:
+    height:1px;
 
-        radial-gradient(
-            circle at 75% 25%,
-            rgba(255,222,153,.16),
-            transparent 20%
-        );
+    background:rgba(255,255,255,.16);
 }
-
 
 .hero-content{
 
@@ -987,12 +771,12 @@ body{
 
     width:100%;
 
-    padding:
-        90px 7% 85px;
+    max-width:1150px;
 
-    max-width:1000px;
+    margin:auto;
+
+    padding:100px 7% 82px;
 }
-
 
 .hero-kicker{
 
@@ -1002,546 +786,196 @@ body{
 
     gap:8px;
 
-    margin-bottom:20px;
+    margin-bottom:18px;
 
-    padding:8px 14px;
-
-    border-radius:30px;
-
-    background:rgba(255,255,255,.09);
-
-    border:1px solid rgba(255,255,255,.18);
-
-    backdrop-filter:blur(10px);
-
-    color:#dff6ff;
+    color:#e2c783;
 
     font-size:10px;
 
-    font-weight:700;
+    font-weight:800;
 
     letter-spacing:2px;
 
     text-transform:uppercase;
 }
 
-
 .hero-kicker::before{
 
     content:"";
 
-    width:7px;
-    height:7px;
+    width:25px;
+    height:2px;
 
-    border-radius:50%;
-
-    background:#73d7ff;
-
-    box-shadow:
-        0 0 12px #73d7ff;
+    background:var(--gold);
 }
-
 
 .hero h1{
 
-    font-size:
-        clamp(55px,8vw,105px);
+    max-width:750px;
 
-    line-height:.96;
+    font-size:clamp(55px,8vw,94px);
 
-    letter-spacing:-5px;
+    line-height:.98;
 
-    margin-bottom:25px;
+    letter-spacing:-4px;
 
-    text-shadow:
-        0 8px 35px rgba(0,0,0,.4);
+    margin-bottom:22px;
 }
-
 
 .hero h1 span{
 
-    color:var(--sky-light);
+    color:var(--blue-light);
 }
-
 
 .hero-description{
 
-    max-width:650px;
+    max-width:610px;
 
-    color:#e0ebf0;
+    color:#d9e5ea;
 
-    font-size:
-        clamp(14px,1.6vw,18px);
+    font-size:14px;
 
-    line-height:1.8;
+    line-height:1.85;
 
-    margin-bottom:30px;
+    margin-bottom:28px;
 }
-
 
 .hero-buttons{
 
     display:flex;
 
-    gap:12px;
-
     flex-wrap:wrap;
-}
 
+    gap:10px;
+}
 
 .btn{
 
     display:inline-flex;
 
     align-items:center;
-
     justify-content:center;
 
-    padding:13px 20px;
+    padding:12px 18px;
 
-    border-radius:9px;
+    border-radius:7px;
 
     text-decoration:none;
 
-    font-size:11px;
+    font-size:10px;
 
     font-weight:800;
 
-    transition:.3s;
+    transition:.25s;
 }
-
 
 .btn-primary{
 
     background:white;
 
-    color:#062237;
+    color:#082331;
 }
-
 
 .btn-primary:hover{
 
-    transform:translateY(-3px);
+    transform:translateY(-2px);
 
-    background:#dff6ff;
+    background:#e7f7fc;
 }
-
 
 .btn-secondary{
 
+    background:rgba(5,20,28,.45);
+
+    border:1px solid rgba(255,255,255,.25);
+
     color:white;
-
-    border:1px solid rgba(255,255,255,.28);
-
-    background:rgba(0,0,0,.18);
-
-    backdrop-filter:blur(10px);
 }
-
 
 .btn-secondary:hover{
 
-    transform:translateY(-3px);
+    background:rgba(255,255,255,.09);
 
     border-color:white;
-
-    background:rgba(255,255,255,.1);
 }
 
 
 /* =========================================================
-   HERO LOCATION
+   HERO TOWN CARD
 ========================================================= */
 
-.hero-location{
+.hero-town-card{
 
     position:absolute;
 
     right:7%;
-
-    bottom:70px;
+    bottom:68px;
 
     z-index:4;
 
-    width:250px;
+    width:270px;
 
-    padding:18px;
+    padding:20px;
 
-    border-radius:15px;
+    background:rgba(5,19,28,.80);
 
-    background:rgba(4,18,28,.65);
+    border-left:3px solid var(--gold);
 
-    backdrop-filter:blur(18px);
+    border-top:1px solid rgba(255,255,255,.12);
 
-    border:1px solid rgba(255,255,255,.14);
+    border-right:1px solid rgba(255,255,255,.12);
 
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.25);
+    border-bottom:1px solid rgba(255,255,255,.12);
 }
 
-
-.hero-location small{
+.hero-town-card small{
 
     display:block;
 
-    color:#91a9b6;
+    color:#8fa4ae;
 
-    font-size:9px;
-
-    letter-spacing:1.5px;
+    font-size:8px;
 
     text-transform:uppercase;
+
+    letter-spacing:1.6px;
 
     margin-bottom:5px;
 }
 
-
-.hero-location strong{
+.hero-town-card strong{
 
     display:block;
 
-    font-size:17px;
+    font-size:21px;
 
-    margin-bottom:8px;
+    margin-bottom:7px;
 }
 
+.hero-town-card p{
 
-.hero-location span{
-
-    font-size:10px;
-
-    color:#c2d1d9;
-
-    line-height:1.6;
-}
-
-
-/* =========================================================
-   SURROUNDING PLACES DECORATION
-========================================================= */
-
-.area-decoration{
-
-    position:absolute;
-
-    z-index:2;
-
-    right:7%;
-
-    top:35px;
-
-    width:390px;
-
-    padding:18px 20px;
-
-    border-radius:18px;
-
-    background:rgba(4,18,28,.34);
-
-    border:1px solid rgba(255,255,255,.10);
-
-    backdrop-filter:blur(12px);
-
-    box-shadow:
-        0 15px 45px rgba(0,0,0,.18);
-
-    overflow:hidden;
-}
-
-
-.area-decoration::before{
-
-    content:"";
-
-    position:absolute;
-
-    width:170px;
-    height:170px;
-
-    right:-60px;
-    top:-70px;
-
-    border-radius:50%;
-
-    border:1px solid rgba(141,224,255,.18);
-}
-
-
-.area-decoration::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:230px;
-    height:230px;
-
-    right:-90px;
-    top:-100px;
-
-    border-radius:50%;
-
-    border:1px solid rgba(217,179,108,.10);
-}
-
-
-.area-label{
-
-    position:relative;
-
-    z-index:2;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    color:#d9eef6;
-
-    font-size:8px;
-
-    font-weight:800;
-
-    letter-spacing:2.5px;
-
-    text-transform:uppercase;
-
-    margin-bottom:10px;
-}
-
-
-.area-label::before{
-
-    content:"";
-
-    width:6px;
-    height:6px;
-
-    border-radius:50%;
-
-    background:var(--sand);
-
-    box-shadow:
-        0 0 10px rgba(217,179,108,.65);
-}
-
-
-.area-places{
-
-    position:relative;
-
-    z-index:2;
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:6px;
-}
-
-
-.area-place{
-
-    padding:6px 9px;
-
-    border-radius:20px;
-
-    background:rgba(255,255,255,.055);
-
-    border:1px solid rgba(255,255,255,.10);
-
-    color:#b9cbd4;
-
-    font-size:8px;
-
-    letter-spacing:.4px;
-
-    white-space:nowrap;
-}
-
-
-.area-place.main{
-
-    color:white;
-
-    background:rgba(67,184,232,.13);
-
-    border-color:rgba(67,184,232,.28);
-
-    font-weight:700;
-}
-
-
-/* =========================================================
-   WELCOME
-========================================================= */
-
-.welcome{
-
-    padding:90px 7%;
-
-    background:
-        linear-gradient(
-            180deg,
-            #061522,
-            #091e2c
-        );
-}
-
-
-.welcome-layout{
-
-    max-width:950px;
-
-    margin:auto;
-
-    text-align:center;
-}
-
-
-.section-kicker{
-
-    color:var(--sand-light);
-
-    font-size:10px;
-
-    font-weight:800;
-
-    letter-spacing:2.5px;
-
-    text-transform:uppercase;
-
-    margin-bottom:12px;
-}
-
-
-.welcome h2{
-
-    font-size:
-        clamp(32px,4.5vw,56px);
-
-    line-height:1.08;
-
-    letter-spacing:-2px;
-
-    margin-bottom:20px;
-}
-
-
-.welcome h2 span{
-
-    color:var(--sky);
-}
-
-
-.welcome p{
-
-    max-width:720px;
-
-    margin:auto;
-
-    color:#adbec8;
-
-    font-size:14px;
-
-    line-height:1.9;
-}
-
-
-/* =========================================================
-   AREA DECORATION STRIP
-========================================================= */
-
-.area-strip{
-
-    padding:25px 7%;
-
-    background:#091e2c;
-
-    border-top:
-        1px solid rgba(255,255,255,.05);
-
-    border-bottom:
-        1px solid rgba(255,255,255,.05);
-}
-
-
-.area-strip-inner{
-
-    max-width:1150px;
-
-    margin:auto;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    flex-wrap:wrap;
-
-    gap:8px 10px;
-}
-
-
-.area-strip-title{
-
-    color:var(--sand-light);
-
-    font-size:8px;
-
-    font-weight:800;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-
-    margin-right:5px;
-}
-
-
-.area-strip-place{
-
-    color:#8fa9b6;
+    color:#b8c8ce;
 
     font-size:9px;
 
-    padding:5px 9px;
-
-    border-radius:20px;
-
-    border:1px solid rgba(255,255,255,.08);
-
-    background:rgba(255,255,255,.025);
-}
-
-
-.area-strip-place.featured{
-
-    color:#dff6ff;
-
-    border-color:rgba(67,184,232,.22);
-
-    background:rgba(67,184,232,.07);
-
-    font-weight:700;
+    line-height:1.7;
 }
 
 
 /* =========================================================
-   DISCOVERY
+   INTRO
 ========================================================= */
 
-.discovery{
+.intro{
 
-    padding:65px 7% 85px;
+    padding:90px 7%;
 
-    background:#091e2c;
+    background:#f4f0e8;
+
+    color:#14252d;
 }
 
-
-.discovery-container{
+.intro-container{
 
     max-width:1150px;
 
@@ -1549,82 +983,153 @@ body{
 
     display:grid;
 
-    grid-template-columns:
-        repeat(3,1fr);
+    grid-template-columns:1fr 1.5fr;
 
-    gap:15px;
+    gap:70px;
+
+    align-items:center;
 }
 
+.intro-label{
 
-.discovery-card{
+    color:#9c7737;
 
-    min-height:175px;
+    font-size:9px;
 
-    padding:24px;
+    font-weight:800;
 
-    border-radius:17px;
+    letter-spacing:2px;
 
-    background:rgba(255,255,255,.045);
+    text-transform:uppercase;
 
-    border:1px solid rgba(255,255,255,.09);
-
-    transition:.3s;
+    margin-bottom:10px;
 }
 
+.intro h2{
 
-.discovery-card:hover{
+    font-size:clamp(35px,5vw,58px);
 
-    transform:translateY(-5px);
+    line-height:1.02;
 
-    background:rgba(67,184,232,.08);
-
-    border-color:rgba(67,184,232,.3);
+    letter-spacing:-2px;
 }
 
+.intro h2 span{
 
-.discovery-icon{
-
-    font-size:28px;
-
-    margin-bottom:15px;
+    color:#147ca5;
 }
 
+.intro-copy{
 
-.discovery-card h3{
+    color:#56656c;
 
-    font-size:16px;
+    font-size:14px;
 
-    margin-bottom:7px;
+    line-height:1.9;
 }
 
+.intro-copy strong{
 
-.discovery-card p{
-
-    color:#8fa4af;
-
-    font-size:11px;
-
-    line-height:1.7;
+    color:#1b333d;
 }
 
 
 /* =========================================================
-   EXPERIENCES
+   TOWN SNAPSHOT
 ========================================================= */
 
-.experiences{
+.town-strip{
 
-    padding:90px 7%;
+    background:#0b2532;
 
-    background:#071a28;
+    padding:28px 7%;
+
+    border-top:1px solid rgba(255,255,255,.06);
+
+    border-bottom:1px solid rgba(255,255,255,.06);
 }
 
-
-.experience-heading{
+.town-strip-inner{
 
     max-width:1150px;
 
-    margin:0 auto 30px;
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:1px;
+
+    background:rgba(255,255,255,.08);
+}
+
+.town-stat{
+
+    padding:20px;
+
+    background:#0b2532;
+}
+
+.town-stat strong{
+
+    display:block;
+
+    font-size:15px;
+
+    color:white;
+
+    margin-bottom:3px;
+}
+
+.town-stat span{
+
+    color:#8199a4;
+
+    font-size:8px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+}
+
+
+/* =========================================================
+   WHAT'S IN JWANENG
+========================================================= */
+
+.discover{
+
+    padding:90px 7%;
+
+    background:#ffffff;
+
+    color:#172b34;
+}
+
+.discover-container{
+
+    max-width:1150px;
+
+    margin:auto;
+}
+
+.section-label{
+
+    color:#9c7737;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    margin-bottom:10px;
+}
+
+.discover-heading{
 
     display:flex;
 
@@ -1632,87 +1137,186 @@ body{
 
     align-items:flex-end;
 
-    gap:30px;
+    gap:40px;
+
+    margin-bottom:35px;
 }
 
+.discover-heading h2{
 
-.experience-heading h2{
-
-    font-size:
-        clamp(30px,4vw,46px);
+    font-size:clamp(32px,4vw,48px);
 
     letter-spacing:-1.5px;
+
+    line-height:1.05;
 }
 
+.discover-heading p{
 
-.experience-heading h2 span{
+    max-width:390px;
 
-    color:var(--sky);
-}
+    color:#66767e;
 
-
-.experience-heading p{
-
-    max-width:400px;
-
-    color:#9fb0ba;
-
-    font-size:12px;
+    font-size:11px;
 
     line-height:1.7;
 }
 
-
-.experience-grid{
-
-    max-width:1150px;
-
-    margin:auto;
+.discover-grid{
 
     display:grid;
 
-    grid-template-columns:
-        1.5fr 1fr 1fr;
-
-    grid-template-rows:
-        260px 210px;
+    grid-template-columns:repeat(3,1fr);
 
     gap:14px;
 }
 
+.discover-card{
 
-.experience-card{
+    padding:25px;
+
+    min-height:175px;
+
+    background:#f5f7f7;
+
+    border:1px solid #e1e7e9;
+
+    transition:.25s;
+}
+
+.discover-card:hover{
+
+    transform:translateY(-4px);
+
+    border-color:#b7dce8;
+
+    box-shadow:0 12px 30px rgba(15,45,57,.08);
+}
+
+.discover-icon{
+
+    width:42px;
+    height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin-bottom:18px;
+
+    background:#e7f5f9;
+
+    border-radius:8px;
+
+    font-size:20px;
+}
+
+.discover-card h3{
+
+    font-size:15px;
+
+    margin-bottom:7px;
+}
+
+.discover-card p{
+
+    color:#66767e;
+
+    font-size:10px;
+
+    line-height:1.7;
+}
+
+.discover-card a{
+
+    display:inline-block;
+
+    margin-top:12px;
+
+    color:#147ca5;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    text-decoration:none;
+}
+
+
+/* =========================================================
+   LIFE IN JWANENG
+========================================================= */
+
+.life{
+
+    padding:90px 7%;
+
+    background:#edf1f1;
+}
+
+.life-container{
+
+    max-width:1150px;
+
+    margin:auto;
+}
+
+.life-header{
+
+    max-width:650px;
+
+    margin-bottom:30px;
+}
+
+.life-header h2{
+
+    color:#142c36;
+
+    font-size:clamp(32px,4vw,48px);
+
+    letter-spacing:-1.5px;
+}
+
+.life-header p{
+
+    color:#63747c;
+
+    font-size:12px;
+
+    line-height:1.8;
+
+    margin-top:10px;
+}
+
+.life-grid{
+
+    display:grid;
+
+    grid-template-columns:1.4fr 1fr 1fr;
+
+    grid-template-rows:220px 190px;
+
+    gap:12px;
+}
+
+.life-card{
 
     position:relative;
 
     overflow:hidden;
 
-    border-radius:17px;
-
     background-size:cover;
 
     background-position:center;
-
-    border:1px solid rgba(255,255,255,.1);
 
     text-decoration:none;
 
     color:white;
 
-    transition:.4s;
+    border-radius:5px;
 }
 
-
-.experience-card:hover{
-
-    transform:translateY(-5px);
-
-    box-shadow:
-        0 20px 45px rgba(0,0,0,.35);
-}
-
-
-.experience-card::before{
+.life-card::after{
 
     content:"";
 
@@ -1720,98 +1324,165 @@ body{
 
     inset:0;
 
-    background:
-        linear-gradient(
-            180deg,
-            rgba(0,0,0,.02),
-            rgba(0,0,0,.8)
-        );
+    background:linear-gradient(
+        0deg,
+        rgba(0,0,0,.78),
+        rgba(0,0,0,.05) 70%
+    );
 }
 
+.life-card:hover{
 
-.experience-card-content{
+    transform:translateY(-3px);
+}
+
+.life-card-content{
 
     position:absolute;
 
     z-index:2;
 
-    left:22px;
-    right:22px;
-    bottom:20px;
+    left:20px;
+    right:20px;
+    bottom:18px;
 }
 
+.life-card-content h3{
 
-.experience-card h3{
+    font-size:17px;
 
-    font-size:18px;
-
-    margin-bottom:5px;
+    margin-bottom:3px;
 }
 
+.life-card-content p{
 
-.experience-card p{
+    color:#d3dde1;
 
-    color:#d1dce2;
-
-    font-size:10px;
-
-    line-height:1.6;
+    font-size:9px;
 }
 
-
-.experience-town{
+.life-main{
 
     grid-row:span 2;
 
-    background-image:
-        url("images/jwaneng-town-life.jpg");
+    background-image:url("images/jwaneng-town-life.jpg");
 }
 
+.life-community{
 
-.experience-wildlife{
-
-    background-image:
-        url("images/jwaneng-wildlife.jpg");
+    background-image:url("images/jwaneng-community.jpg");
 }
 
+.life-business{
 
-.experience-community{
-
-    background-image:
-        url("images/jwaneng-community.jpg");
+    background-image:url("images/jwaneng-business.jpg");
 }
 
+.life-events{
 
-.experience-business{
-
-    background-image:
-        url("images/jwaneng-business.jpg");
+    background-image:url("images/jwaneng-events.jpg");
 }
 
+.life-nature{
 
-.experience-events{
-
-    background-image:
-        url("images/jwaneng-events.jpg");
+    background-image:url("images/jwaneng-wildlife.jpg");
 }
 
 
 /* =========================================================
-   TODAY
+   SURROUNDING COMMUNITIES
+========================================================= */
+
+.communities{
+
+    padding:65px 7%;
+
+    background:#09212d;
+
+    color:white;
+}
+
+.communities-container{
+
+    max-width:1150px;
+
+    margin:auto;
+
+    text-align:center;
+}
+
+.communities h2{
+
+    font-size:30px;
+
+    letter-spacing:-1px;
+
+    margin-bottom:8px;
+}
+
+.communities p{
+
+    color:#92a6b0;
+
+    max-width:650px;
+
+    margin:0 auto 25px;
+
+    font-size:11px;
+
+    line-height:1.7;
+}
+
+.community-list{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:7px;
+}
+
+.community-list span{
+
+    padding:7px 11px;
+
+    border:1px solid rgba(255,255,255,.10);
+
+    background:rgba(255,255,255,.035);
+
+    color:#b6c7ce;
+
+    font-size:8px;
+
+    border-radius:20px;
+}
+
+.community-list .main{
+
+    background:rgba(67,184,232,.10);
+
+    border-color:rgba(67,184,232,.25);
+
+    color:#e0f6fd;
+
+    font-weight:800;
+}
+
+
+/* =========================================================
+   JWANENG TODAY
 ========================================================= */
 
 .today{
 
-    padding:85px 7%;
+    padding:90px 7%;
 
-    background:
-        linear-gradient(
-            180deg,
-            #091e2c,
-            #061522
-        );
+    background:#f7f8f8;
+
+    color:#172b34;
 }
-
 
 .today-container{
 
@@ -1820,115 +1491,98 @@ body{
     margin:auto;
 }
 
-
 .today-header{
 
     margin-bottom:30px;
 }
 
-
 .today-header h2{
 
-    font-size:
-        clamp(30px,4vw,44px);
+    font-size:clamp(32px,4vw,46px);
 
     letter-spacing:-1px;
 }
 
-
 .today-header p{
 
-    color:#94a8b3;
+    color:#6c7b82;
 
-    font-size:12px;
+    font-size:11px;
 
-    margin-top:6px;
+    margin-top:5px;
 }
-
 
 .today-grid{
 
     display:grid;
 
-    grid-template-columns:
-        repeat(3,1fr);
+    grid-template-columns:repeat(3,1fr);
 
-    gap:18px;
+    gap:15px;
 }
-
 
 .widget-card{
 
-    background:
-        rgba(255,255,255,.045);
-
-    border:
-        1px solid rgba(255,255,255,.1);
-
-    border-radius:16px;
+    min-height:245px;
 
     padding:23px;
 
-    min-height:250px;
-}
+    background:white;
 
+    border:1px solid #dfe6e8;
+}
 
 .widget-card h3{
 
-    color:#78d4f5;
+    color:#147ca5;
 
-    font-size:16px;
+    font-size:15px;
 
-    margin-bottom:15px;
+    margin-bottom:12px;
 }
-
 
 .widget-item{
 
     padding:11px 0;
 
-    border-bottom:
-        1px solid rgba(255,255,255,.07);
+    border-bottom:1px solid #edf0f1;
 }
-
 
 .widget-item:last-child{
-
     border-bottom:none;
 }
-
 
 .widget-item strong{
 
     display:block;
 
-    font-size:12px;
+    color:#263d46;
 
-    margin-bottom:4px;
+    font-size:11px;
+
+    margin-bottom:3px;
 }
-
 
 .widget-item small{
 
-    color:#899da8;
+    color:#829198;
 
-    font-size:10px;
+    font-size:9px;
 }
-
 
 .widget-btn{
 
     display:inline-block;
 
-    margin-top:14px;
+    margin-top:13px;
 
-    color:#78d4f5;
+    color:#147ca5;
+
+    font-size:9px;
+
+    font-weight:800;
 
     text-decoration:none;
-
-    font-size:10px;
-
-    font-weight:700;
 }
 
 
@@ -1938,14 +1592,12 @@ body{
 
 footer{
 
-    padding:65px 7% 30px;
+    padding:60px 7% 28px;
 
-    background:#04111c;
+    background:#06151e;
 
-    border-top:
-        1px solid rgba(255,255,255,.08);
+    color:white;
 }
-
 
 .footer-container{
 
@@ -1955,103 +1607,87 @@ footer{
 
     display:grid;
 
-    grid-template-columns:
-        1.5fr 1fr 1fr 1fr;
+    grid-template-columns:1.5fr 1fr 1fr 1fr;
 
-    gap:40px;
+    gap:35px;
 }
-
 
 .footer-brand{
 
-    font-size:25px;
+    font-size:24px;
 
     font-weight:800;
 }
 
-
 .footer-brand span{
-
-    color:var(--sky);
+    color:var(--blue);
 }
-
 
 .footer-tagline{
 
-    color:var(--sand-light);
+    color:var(--gold-light);
 
-    font-size:9px;
+    font-size:8px;
 
     font-weight:800;
 
-    letter-spacing:1.8px;
+    letter-spacing:1.5px;
 
     margin:7px 0 12px;
 }
 
-
 .footer-column h3{
 
-    color:#76d2f2;
+    color:#78cce9;
 
-    font-size:14px;
+    font-size:13px;
 
-    margin-bottom:15px;
+    margin-bottom:13px;
 }
-
 
 .footer-column p,
 .footer-column a{
 
-    color:#8ea2ad;
+    color:#8299a4;
 
-    font-size:10px;
+    font-size:9px;
 
     line-height:1.8;
 
     text-decoration:none;
 }
 
-
 .footer-column ul{
-
     list-style:none;
 }
 
-
 .footer-column li{
-
-    margin-bottom:7px;
+    margin-bottom:6px;
 }
 
-
 .footer-column a:hover{
-
     color:white;
 }
 
-
 .footer-bottom{
+
+    max-width:1150px;
+
+    margin:40px auto 0;
+
+    padding-top:18px;
+
+    border-top:1px solid rgba(255,255,255,.07);
 
     text-align:center;
 
-    margin-top:45px;
+    color:#617680;
 
-    padding-top:20px;
-
-    border-top:
-        1px solid rgba(255,255,255,.06);
-
-    color:#61727d;
-
-    font-size:9px;
+    font-size:8px;
 }
 
-
 .footer-bottom span{
-
-    color:#75d3f5;
-
+    color:#72cde9;
     font-weight:700;
 }
 
@@ -2071,14 +1707,11 @@ footer{
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
     padding:20px;
 
     background:rgba(0,5,10,.78);
-
-    backdrop-filter:blur(8px);
 
     opacity:0;
 
@@ -2087,7 +1720,6 @@ footer{
     transition:.25s;
 }
 
-
 .modal-overlay.active{
 
     opacity:1;
@@ -2095,85 +1727,57 @@ footer{
     visibility:visible;
 }
 
-
 .confirm-modal{
 
     width:100%;
+    max-width:420px;
 
-    max-width:430px;
+    padding:30px;
 
-    padding:32px;
+    background:#0a2533;
 
-    border-radius:20px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #0b2638,
-            #061522
-        );
-
-    border:
-        1px solid rgba(67,184,232,.25);
-
-    box-shadow:
-        0 30px 100px rgba(0,0,0,.55);
+    border:1px solid rgba(67,184,232,.25);
 
     text-align:center;
 
-    transform:translateY(15px) scale(.97);
-
-    transition:.25s;
+    border-radius:10px;
 }
-
-
-.modal-overlay.active .confirm-modal{
-
-    transform:translateY(0) scale(1);
-}
-
 
 .modal-icon{
 
-    width:62px;
-    height:62px;
+    width:58px;
+    height:58px;
 
-    margin:0 auto 18px;
+    margin:0 auto 17px;
 
     display:flex;
-
     align-items:center;
     justify-content:center;
 
     border-radius:50%;
 
-    background:rgba(67,184,232,.1);
+    background:rgba(67,184,232,.10);
 
-    border:1px solid rgba(67,184,232,.2);
-
-    font-size:28px;
+    font-size:26px;
 }
-
 
 .confirm-modal h2{
 
-    font-size:23px;
+    font-size:21px;
 
-    margin-bottom:10px;
+    margin-bottom:9px;
 }
-
 
 .confirm-modal p{
 
-    color:#9eb0ba;
+    color:#9db0ba;
 
-    font-size:12px;
+    font-size:11px;
 
-    line-height:1.8;
+    line-height:1.7;
 
-    margin-bottom:25px;
+    margin-bottom:23px;
 }
-
 
 .modal-buttons{
 
@@ -2181,47 +1785,36 @@ footer{
 
     grid-template-columns:1fr 1fr;
 
-    gap:10px;
+    gap:9px;
 }
-
 
 .modal-btn{
 
-    padding:13px;
+    padding:12px;
 
-    border-radius:9px;
+    border-radius:7px;
 
     font-family:inherit;
 
-    font-size:11px;
+    font-size:10px;
 
     font-weight:800;
 
     cursor:pointer;
-
-    transition:.25s;
 }
-
 
 .stay-btn{
 
     color:white;
 
-    background:rgba(255,255,255,.07);
+    background:rgba(255,255,255,.06);
 
     border:1px solid rgba(255,255,255,.15);
 }
 
-
-.stay-btn:hover{
-
-    background:rgba(255,255,255,.12);
-}
-
-
 .leave-btn{
 
-    color:#062237;
+    color:#082331;
 
     background:white;
 
@@ -2229,14 +1822,8 @@ footer{
 }
 
 
-.leave-btn:hover{
-
-    background:#8de0ff;
-}
-
-
 /* =========================================================
-   PWA BAR
+   PWA
 ========================================================= */
 
 .pwa-bar{
@@ -2254,15 +1841,12 @@ footer{
 
     padding:8px 0;
 
-    background:
-        rgba(4,18,29,.98);
+    background:#06151e;
 
-    border-top:
-        1px solid rgba(67,184,232,.25);
+    border-top:1px solid rgba(67,184,232,.20);
 
     z-index:10000;
 }
-
 
 .pwa-bar a,
 .pwa-bar button{
@@ -2275,41 +1859,22 @@ footer{
 
     gap:3px;
 
-    color:white;
-
-    text-decoration:none;
-
-    font-size:9px;
-
     background:none;
 
     border:0;
 
-    font-family:inherit;
-}
+    color:white;
 
+    text-decoration:none;
+
+    font-size:8px;
+}
 
 .pwa-bar span{
 
-    font-size:17px;
+    font-size:16px;
 
-    color:var(--sky);
-}
-
-
-/* =========================================================
-   ANIMATION
-========================================================= */
-
-@keyframes scrollUpdate{
-
-    from{
-        transform:translateX(0);
-    }
-
-    to{
-        transform:translateX(-100%);
-    }
+    color:var(--blue);
 }
 
 
@@ -2319,33 +1884,35 @@ footer{
 
 @media(max-width:1000px){
 
-    .discovery-container{
+    .hero-town-card{
+        display:none;
+    }
 
-        grid-template-columns:
-            repeat(2,1fr);
+    .intro-container{
+        grid-template-columns:1fr;
+        gap:25px;
+    }
+
+    .discover-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .life-grid{
+        grid-template-columns:1fr 1fr;
+        grid-template-rows:220px 190px 190px;
+    }
+
+    .life-main{
+        grid-row:auto;
+        grid-column:span 2;
     }
 
     .today-grid{
-
         grid-template-columns:1fr;
     }
 
     .footer-container{
-
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .hero-location{
-
-        display:none;
-    }
-
-    .area-decoration{
-
-        right:5%;
-
-        width:350px;
+        grid-template-columns:repeat(2,1fr);
     }
 
 }
@@ -2359,125 +1926,98 @@ footer{
 
     body{
 
-        padding-top:72px;
+        padding-top:70px;
 
         padding-bottom:58px;
     }
 
     .navbar{
 
-        height:72px;
+        height:70px;
 
         padding:0 5%;
     }
 
     .logo{
-
         font-size:21px;
     }
 
     .nav-identity{
-
         display:none;
     }
 
     .nav-location{
-
         font-size:8px;
-
-        padding:7px 9px;
+        padding:6px 8px;
     }
 
     .menu-button{
-
-        width:42px;
-        height:42px;
+        width:41px;
+        height:41px;
     }
 
     .update-bar{
 
-        top:72px;
+        top:70px;
 
-        height:38px;
+        height:37px;
     }
 
     .update-label{
 
-        font-size:8px;
+        padding:0 9px;
 
-        padding:0 10px;
+        font-size:8px;
     }
 
     .update-track{
-
-        font-size:10px;
+        font-size:9px;
     }
-
-
-    /* MOBILE WEATHER */
 
     .top-weather{
 
-        margin-top:38px;
+        margin-top:37px;
 
-        padding:
-            10px 5%;
+        padding:10px 5%;
     }
 
     .top-weather-inner{
-
         display:block;
     }
 
     .top-weather-left{
-
         margin-bottom:8px;
     }
 
     .top-weather-data{
-
         justify-content:flex-start;
-
-        gap:6px;
     }
-
-    .weather-pill{
-
-        font-size:8px;
-
-        padding:5px 8px;
-    }
-
 
     .hero{
 
-        min-height:
-            calc(100vh - 150px);
+        min-height:calc(100vh - 144px);
     }
 
     .hero-image{
 
-        background-position:
-            62% center;
+        background-position:60% center;
     }
 
     .hero-content{
 
-        padding:
-            70px 5% 55px;
+        padding:80px 5% 55px;
     }
 
     .hero h1{
 
-        font-size:
-            clamp(48px,14vw,72px);
+        font-size:52px;
 
         letter-spacing:-3px;
     }
 
     .hero-description{
 
-        font-size:13px;
+        font-size:12px;
 
         line-height:1.75;
     }
@@ -2489,98 +2029,96 @@ footer{
         align-items:flex-start;
     }
 
-    .btn{
-
-        width:auto;
-    }
-
-    .area-decoration{
-
-        position:absolute;
-
-        top:22px;
-
-        right:5%;
-
-        left:5%;
-
-        width:auto;
-
-        padding:12px 14px;
-
-        opacity:.95;
-    }
-
-    .area-label{
-
-        font-size:7px;
-
-        margin-bottom:7px;
-    }
-
-    .area-place{
-
-        font-size:7px;
-
-        padding:5px 7px;
-    }
-
-    .welcome,
-    .experiences,
+    .intro,
+    .discover,
+    .life,
     .today{
 
         padding-left:5%;
         padding-right:5%;
     }
 
-    .area-strip{
+    .intro{
+
+        padding-top:65px;
+        padding-bottom:65px;
+    }
+
+    .intro h2{
+
+        font-size:38px;
+    }
+
+    .town-strip{
 
         padding-left:5%;
         padding-right:5%;
     }
 
-    .discovery{
+    .town-strip-inner{
 
-        padding-left:5%;
-        padding-right:5%;
+        grid-template-columns:1fr 1fr;
     }
 
+    .discover{
 
-    .discovery-container{
+        padding-top:65px;
+        padding-bottom:65px;
+    }
+
+    .discover-heading{
+
+        display:block;
+    }
+
+    .discover-heading p{
+        margin-top:12px;
+    }
+
+    .discover-grid{
 
         grid-template-columns:1fr 1fr;
 
         gap:8px;
     }
 
-    .discovery-card{
-
-        min-height:150px;
+    .discover-card{
 
         padding:17px;
+
+        min-height:160px;
     }
 
-    .experience-heading{
-
-        display:block;
+    .discover-card h3{
+        font-size:13px;
     }
 
-    .experience-heading p{
-
-        margin-top:10px;
+    .discover-card p{
+        font-size:9px;
     }
 
-    .experience-grid{
+    .life{
+
+        padding-top:65px;
+        padding-bottom:65px;
+    }
+
+    .life-grid{
 
         grid-template-columns:1fr;
 
-        grid-template-rows:
-            repeat(5,220px);
+        grid-template-rows:repeat(5,190px);
     }
 
-    .experience-town{
+    .life-main{
 
-        grid-row:auto;
+        grid-column:auto;
+    }
+
+    .communities{
+
+        padding-left:5%;
+        padding-right:5%;
     }
 
     .footer-container{
@@ -2589,14 +2127,7 @@ footer{
     }
 
     .pwa-bar{
-
         display:flex;
-    }
-
-    .drawer{
-
-        width:
-            min(320px,88vw);
     }
 
 }
@@ -2609,42 +2140,24 @@ footer{
 @media(max-width:430px){
 
     .nav-location{
-
         display:none;
     }
 
     .hero h1{
-
         font-size:47px;
     }
 
-    .discovery-container{
-
+    .discover-grid{
         grid-template-columns:1fr 1fr;
     }
 
-    .discovery-card{
-
+    .discover-card{
+        min-height:145px;
         padding:14px;
-
-        min-height:140px;
     }
 
     .modal-buttons{
-
         grid-template-columns:1fr;
-    }
-
-    .area-decoration{
-
-        top:18px;
-    }
-
-    .area-place{
-
-        padding:4px 6px;
-
-        font-size:6.5px;
     }
 
 }
@@ -2657,12 +2170,9 @@ footer{
 @media(prefers-reduced-motion:reduce){
 
     *{
-
         animation:none !important;
-
-        scroll-behavior:auto !important;
-
         transition:none !important;
+        scroll-behavior:auto !important;
     }
 
 }
@@ -2676,7 +2186,7 @@ footer{
 
 
 <!-- =====================================================
-     SIDE DRAWER OVERLAY
+     DRAWER OVERLAY
 ===================================================== -->
 
 <div
@@ -2686,7 +2196,7 @@ footer{
 
 
 <!-- =====================================================
-     SIDE NAVIGATION
+     SIDE DRAWER
 ===================================================== -->
 
 <aside
@@ -2713,23 +2223,19 @@ footer{
 
     <div class="drawer-intro">
 
-        Explore Jwaneng and the surrounding
-        communities through one connected
-        digital town experience.
+        Your digital front door to Jwaneng —
+        its people, businesses, opportunities,
+        stories, events and community life.
 
     </div>
 
 
     <div class="drawer-section">
-
         My Jwaneng
-
     </div>
 
 
     <ul class="drawer-menu">
-
-        <!-- HOME -->
 
         <li>
 
@@ -2738,22 +2244,14 @@ footer{
                 id="homeButton"
             >
 
-                <span class="drawer-icon">
-                    🏠
-                </span>
+                <span class="drawer-icon">🏠</span>
 
-                <span>
-                    Home
-                </span>
+                <span>Home</span>
 
             </button>
 
         </li>
 
-
-        <!-- =================================================
-             JWANENG GALAXY FC FEATURED MODULE
-        ================================================== -->
 
         <li>
 
@@ -2765,7 +2263,6 @@ footer{
                 <span class="drawer-icon">
                     ⚽
                 </span>
-
 
                 <span class="galaxy-content">
 
@@ -2779,11 +2276,8 @@ footer{
 
                     </span>
 
-
                     <span class="galaxy-subtitle">
-
-                        Fixtures • Results • News • Galaxy
-
+                        Fixtures • Results • News
                     </span>
 
                 </span>
@@ -2793,8 +2287,6 @@ footer{
         </li>
 
 
-        <!-- TOWNCONNECT -->
-
         <li>
 
             <a
@@ -2802,20 +2294,14 @@ footer{
                 class="drawer-link"
             >
 
-                <span class="drawer-icon">
-                    🤝
-                </span>
+                <span class="drawer-icon">🤝</span>
 
-                <span>
-                    TownConnect
-                </span>
+                <span>TownConnect</span>
 
             </a>
 
         </li>
 
-
-        <!-- TOWN NEWS -->
 
         <li>
 
@@ -2824,20 +2310,14 @@ footer{
                 class="drawer-link"
             >
 
-                <span class="drawer-icon">
-                    📰
-                </span>
+                <span class="drawer-icon">📰</span>
 
-                <span>
-                    Town News
-                </span>
+                <span>Town News</span>
 
             </a>
 
         </li>
 
-
-        <!-- JOBS -->
 
         <li>
 
@@ -2846,20 +2326,14 @@ footer{
                 class="drawer-link"
             >
 
-                <span class="drawer-icon">
-                    💼
-                </span>
+                <span class="drawer-icon">💼</span>
 
-                <span>
-                    Jobs & Opportunities
-                </span>
+                <span>Jobs & Opportunities</span>
 
             </a>
 
         </li>
 
-
-        <!-- EVENTS -->
 
         <li>
 
@@ -2868,20 +2342,14 @@ footer{
                 class="drawer-link"
             >
 
-                <span class="drawer-icon">
-                    📅
-                </span>
+                <span class="drawer-icon">📅</span>
 
-                <span>
-                    Events
-                </span>
+                <span>Events</span>
 
             </a>
 
         </li>
 
-
-        <!-- MARKETPLACE -->
 
         <li>
 
@@ -2890,20 +2358,14 @@ footer{
                 class="drawer-link"
             >
 
-                <span class="drawer-icon">
-                    🛒
-                </span>
+                <span class="drawer-icon">🛒</span>
 
-                <span>
-                    Marketplace
-                </span>
+                <span>Marketplace</span>
 
             </a>
 
         </li>
 
-
-        <!-- BUSINESSES -->
 
         <li>
 
@@ -2912,13 +2374,9 @@ footer{
                 class="drawer-link"
             >
 
-                <span class="drawer-icon">
-                    🏪
-                </span>
+                <span class="drawer-icon">🏪</span>
 
-                <span>
-                    Businesses
-                </span>
+                <span>Businesses</span>
 
             </a>
 
@@ -2928,15 +2386,11 @@ footer{
 
 
     <div class="drawer-section">
-
         Discover Jwaneng
-
     </div>
 
 
     <ul class="drawer-menu">
-
-        <!-- TOURISM -->
 
         <li>
 
@@ -2945,20 +2399,14 @@ footer{
                 class="drawer-link"
             >
 
-                <span class="drawer-icon">
-                    🌍
-                </span>
+                <span class="drawer-icon">🌍</span>
 
-                <span>
-                    Tourism & Attractions
-                </span>
+                <span>Tourism & Attractions</span>
 
             </a>
 
         </li>
 
-
-        <!-- SAFETY -->
 
         <li>
 
@@ -2967,13 +2415,9 @@ footer{
                 class="drawer-link"
             >
 
-                <span class="drawer-icon">
-                    🚨
-                </span>
+                <span class="drawer-icon">🚨</span>
 
-                <span>
-                    Safety & Emergency
-                </span>
+                <span>Safety & Emergency</span>
 
             </a>
 
@@ -2985,7 +2429,7 @@ footer{
     <div class="drawer-footer">
 
         <strong>
-            My Town 360
+            MyTown360
         </strong>
 
         My Jwaneng is part of the wider
@@ -3032,15 +2476,11 @@ footer{
     <div class="nav-right">
 
         <div class="nav-identity">
-
             Discover • Connect • Belong
-
         </div>
 
         <div class="nav-location">
-
-            📍 Jwaneng Area
-
+            📍 Jwaneng, Botswana
         </div>
 
     </div>
@@ -3055,9 +2495,7 @@ footer{
 <div class="update-bar">
 
     <div class="update-label">
-
         📢 JWANENG LIVE
-
     </div>
 
     <div class="update-marquee">
@@ -3066,10 +2504,7 @@ footer{
             class="update-track"
             id="updateTrack"
         >
-
-            Welcome to My Jwaneng —
-            your digital town.
-
+            Welcome to My Jwaneng — your digital front door to the town.
         </div>
 
     </div>
@@ -3078,7 +2513,7 @@ footer{
 
 
 <!-- =====================================================
-     TOP WEATHER
+     WEATHER
 ===================================================== -->
 
 <section class="top-weather">
@@ -3092,15 +2527,11 @@ footer{
             <div>
 
                 <div class="top-weather-title">
-
                     Jwaneng Weather
-
                 </div>
 
                 <div class="top-weather-sub">
-
-                    Live local conditions
-
+                    Current local conditions
                 </div>
 
             </div>
@@ -3113,31 +2544,26 @@ footer{
             <div class="weather-pill">
 
                 📍
-
                 <span id="weatherLoc">
                     Jwaneng
                 </span>
 
             </div>
 
-
             <div class="weather-pill">
 
                 🌡
-
                 <span id="weatherTemp">
-                    Loading temperature...
+                    Loading...
                 </span>
 
             </div>
 
-
             <div class="weather-pill">
 
                 💨
-
                 <span id="weatherWind">
-                    Loading wind...
+                    Loading...
                 </span>
 
             </div>
@@ -3158,66 +2584,16 @@ footer{
     <div class="hero-image"></div>
 
 
-    <div class="area-decoration">
-
-        <div class="area-label">
-
-            JWANENG AREA
-
-        </div>
-
-
-        <div class="area-places">
-
-            <span class="area-place main">
-                Jwaneng
-            </span>
-
-            <span class="area-place">
-                Sese
-            </span>
-
-            <span class="area-place">
-                Mokhomma
-            </span>
-
-            <span class="area-place">
-                Lefoko
-            </span>
-
-            <span class="area-place">
-                Betesankwe
-            </span>
-
-            <span class="area-place">
-                Sekoma
-            </span>
-
-            <span class="area-place">
-                Maokane
-            </span>
-
-            <span class="area-place">
-                Machana
-            </span>
-
-        </div>
-
-    </div>
-
-
     <div class="hero-content">
 
         <div class="hero-kicker">
-
             Welcome to Jwaneng
-
         </div>
 
 
         <h1>
 
-            This is
+            Welcome to
 
             <span>Jwaneng.</span>
 
@@ -3226,13 +2602,13 @@ footer{
 
         <p class="hero-description">
 
-            A town of people, stories, places,
-            businesses, opportunities, events and memories.
+            A town with its own character, community,
+            businesses, stories, opportunities and
+            everyday life.
 
-            Discover the everyday life, beauty and
-            character of Jwaneng and the communities
-            around it — all through one connected
-            digital experience.
+            Discover what is happening in Jwaneng,
+            find local services, explore opportunities
+            and stay connected with the community.
 
         </p>
 
@@ -3243,9 +2619,7 @@ footer{
                 href="townnews.html"
                 class="btn btn-primary"
             >
-
                 📰 What's happening?
-
             </a>
 
 
@@ -3253,9 +2627,7 @@ footer{
                 class="btn btn-secondary"
                 onclick="openDrawer()"
             >
-
-                ☰ Explore My Jwaneng
-
+                ☰ Explore Jwaneng
             </button>
 
         </div>
@@ -3263,74 +2635,22 @@ footer{
     </div>
 
 
-    <div class="hero-location">
+    <div class="hero-town-card">
 
         <small>
-
-            You are exploring
-
+            Your town
         </small>
 
         <strong>
-
-            Jwaneng Area
-
+            Jwaneng
         </strong>
-
-        <span>
-
-            Southern Botswana • Kalahari region
-
-            <br>
-
-            Community • Nature • Lifestyle • Opportunity
-
-        </span>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     WELCOME
-===================================================== -->
-
-<section class="welcome">
-
-    <div class="welcome-layout">
-
-        <div class="section-kicker">
-
-            MORE THAN A PLACE
-
-        </div>
-
-
-        <h2>
-
-            Get to know
-
-            <span>Jwaneng.</span>
-
-        </h2>
-
 
         <p>
 
-            Jwaneng is more than its famous story.
-
-            It is neighbourhoods, schools, families,
-            businesses, sports, community activities,
-            entrepreneurs, open spaces, wildlife and
-            the everyday moments that give the town
-            its character.
-
-            <br><br>
-
-            My Jwaneng brings these experiences
-            together into one digital front door for
-            residents, visitors and the wider community.
+            A community in Botswana's
+            southern Kalahari region —
+            home to residents, businesses,
+            families and visitors.
 
         </p>
 
@@ -3340,317 +2660,495 @@ footer{
 
 
 <!-- =====================================================
-     AREA LOCATION STRIP
+     INTRO
 ===================================================== -->
 
-<section class="area-strip">
+<section class="intro">
 
-    <div class="area-strip-inner">
-
-        <span class="area-strip-title">
-            Jwaneng Area
-        </span>
-
-        <span class="area-strip-place featured">
-            Jwaneng
-        </span>
-
-        <span class="area-strip-place">
-            Sese
-        </span>
-
-        <span class="area-strip-place">
-            Mokhomma
-        </span>
-
-        <span class="area-strip-place">
-            Lefoko
-        </span>
-
-        <span class="area-strip-place">
-            Betesankwe
-        </span>
-
-        <span class="area-strip-place">
-            Sekoma
-        </span>
-
-        <span class="area-strip-place">
-            Maokane
-        </span>
-
-        <span class="area-strip-place">
-            Machana
-        </span>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     DISCOVERY
-===================================================== -->
-
-<section class="discovery">
-
-    <div class="discovery-container">
-
-
-        <div class="discovery-card">
-
-            <div class="discovery-icon">
-                🏘️
-            </div>
-
-            <h3>
-                Life Around Town
-            </h3>
-
-            <p>
-                Discover the places, people and
-                everyday experiences that make
-                Jwaneng feel like home.
-            </p>
-
-        </div>
-
-
-        <div class="discovery-card">
-
-            <div class="discovery-icon">
-                🌿
-            </div>
-
-            <h3>
-                Nature & Wildlife
-            </h3>
-
-            <p>
-                Explore the natural environment
-                and wildlife around Jwaneng.
-            </p>
-
-        </div>
-
-
-        <div class="discovery-card">
-
-            <div class="discovery-icon">
-                🤝
-            </div>
-
-            <h3>
-                Community
-            </h3>
-
-            <p>
-                Discover people, organisations
-                and initiatives shaping the town.
-            </p>
-
-        </div>
-
-
-        <div class="discovery-card">
-
-            <div class="discovery-icon">
-                🏢
-            </div>
-
-            <h3>
-                Local Business
-            </h3>
-
-            <p>
-                Find businesses, services and
-                entrepreneurs serving Jwaneng.
-            </p>
-
-        </div>
-
-
-        <div class="discovery-card">
-
-            <div class="discovery-icon">
-                🎉
-            </div>
-
-            <h3>
-                Events & Activities
-            </h3>
-
-            <p>
-                See what is happening around
-                town and get involved.
-            </p>
-
-        </div>
-
-
-        <div class="discovery-card">
-
-            <div class="discovery-icon">
-                🚨
-            </div>
-
-            <h3>
-                Safety & Emergency
-            </h3>
-
-            <p>
-                Access important safety information
-                and emergency resources.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     EXPERIENCES
-===================================================== -->
-
-<section class="experiences">
-
-    <div class="experience-heading">
+    <div class="intro-container">
 
         <div>
 
-            <div class="section-kicker">
-
-                EXPERIENCE JWANENG
-
+            <div class="intro-label">
+                More than a location
             </div>
 
             <h2>
 
-                There is more to
+                Jwaneng is a
 
-                <span>discover.</span>
+                <span>town.</span>
 
             </h2>
 
         </div>
 
 
-        <p>
+        <div class="intro-copy">
 
-            Jwaneng is a community with many
-            stories. Use the navigation menu
-            to explore each part of the town.
+            <p>
 
-        </p>
+                There is a lot to a town beyond
+                what people see on a map.
+
+                <br><br>
+
+                <strong>
+                    Jwaneng has its own people,
+                    neighbourhoods, businesses,
+                    schools, sports, organisations,
+                    community activities and stories.
+                </strong>
+
+                <br><br>
+
+                My Jwaneng brings these parts of
+                everyday life together in one place —
+                giving residents and visitors a simple
+                way to discover what is happening
+                around town.
+
+            </p>
+
+        </div>
 
     </div>
 
-
-    <div class="experience-grid">
-
-
-        <a
-            href="businesses.html"
-            class="experience-card experience-town"
-        >
-
-            <div class="experience-card-content">
-
-                <h3>
-                    Life Around Town
-                </h3>
-
-                <p>
-                    Places, people and everyday
-                    experiences.
-                </p>
-
-            </div>
-
-        </a>
+</section>
 
 
-        <a
-            href="tourism.html"
-            class="experience-card experience-wildlife"
-        >
+<!-- =====================================================
+     TOWN SNAPSHOT
+===================================================== -->
 
-            <div class="experience-card-content">
+<section class="town-strip">
 
-                <h3>
-                    Nature & Wildlife
-                </h3>
+    <div class="town-strip-inner">
 
-                <p>
-                    Discover Jwaneng's natural side.
-                </p>
+        <div class="town-stat">
 
-            </div>
+            <strong>
+                People
+            </strong>
 
-        </a>
+            <span>
+                Community
+            </span>
 
-
-        <a
-            href="communityengagement.html"
-            class="experience-card experience-community"
-        >
-
-            <div class="experience-card-content">
-
-                <h3>
-                    Community
-                </h3>
-
-                <p>
-                    People and organisations.
-                </p>
-
-            </div>
-
-        </a>
+        </div>
 
 
-        <a
-            href="businesses.html"
-            class="experience-card experience-business"
-        >
+        <div class="town-stat">
 
-            <div class="experience-card-content">
+            <strong>
+                Businesses
+            </strong>
 
-                <h3>
-                    Local Business
-                </h3>
+            <span>
+                Local enterprise
+            </span>
 
-                <p>
-                    Businesses and entrepreneurs.
-                </p>
-
-            </div>
-
-        </a>
+        </div>
 
 
-        <a
-            href="events.html"
-            class="experience-card experience-events"
-        >
+        <div class="town-stat">
 
-            <div class="experience-card-content">
+            <strong>
+                Opportunities
+            </strong>
 
-                <h3>
-                    Events & Activities
-                </h3>
+            <span>
+                Jobs & growth
+            </span>
 
-                <p>
-                    What's happening around town.
-                </p>
+        </div>
+
+
+        <div class="town-stat">
+
+            <strong>
+                Activities
+            </strong>
+
+            <span>
+                Events & lifestyle
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DISCOVER
+===================================================== -->
+
+<section class="discover">
+
+    <div class="discover-container">
+
+        <div class="discover-heading">
+
+            <div>
+
+                <div class="section-label">
+                    Explore the town
+                </div>
+
+                <h2>
+                    Find your place in Jwaneng.
+                </h2>
 
             </div>
 
-        </a>
 
+            <p>
+
+                From finding a local business
+                to checking the latest news,
+                My Jwaneng brings useful town
+                information together.
+
+            </p>
+
+        </div>
+
+
+        <div class="discover-grid">
+
+
+            <div class="discover-card">
+
+                <div class="discover-icon">
+                    📰
+                </div>
+
+                <h3>
+                    Town News
+                </h3>
+
+                <p>
+                    Keep up with stories,
+                    announcements and updates
+                    from around Jwaneng.
+                </p>
+
+                <a href="townnews.html">
+                    Read Town News →
+                </a>
+
+            </div>
+
+
+            <div class="discover-card">
+
+                <div class="discover-icon">
+                    🏪
+                </div>
+
+                <h3>
+                    Local Businesses
+                </h3>
+
+                <p>
+                    Discover businesses,
+                    services and entrepreneurs
+                    operating around town.
+                </p>
+
+                <a href="businesses.html">
+                    Browse Businesses →
+                </a>
+
+            </div>
+
+
+            <div class="discover-card">
+
+                <div class="discover-icon">
+                    💼
+                </div>
+
+                <h3>
+                    Jobs & Opportunities
+                </h3>
+
+                <p>
+                    Find employment opportunities,
+                    openings and other possibilities.
+                </p>
+
+                <a href="jobs.html">
+                    View Opportunities →
+                </a>
+
+            </div>
+
+
+            <div class="discover-card">
+
+                <div class="discover-icon">
+                    📅
+                </div>
+
+                <h3>
+                    Events
+                </h3>
+
+                <p>
+                    See activities, gatherings,
+                    programmes and events happening
+                    around Jwaneng.
+                </p>
+
+                <a href="events.html">
+                    Explore Events →
+                </a>
+
+            </div>
+
+
+            <div class="discover-card">
+
+                <div class="discover-icon">
+                    🛒
+                </div>
+
+                <h3>
+                    Marketplace
+                </h3>
+
+                <p>
+                    Buy, sell and discover products
+                    and services within the community.
+                </p>
+
+                <a href="marketplace.html">
+                    Visit Marketplace →
+                </a>
+
+            </div>
+
+
+            <div class="discover-card">
+
+                <div class="discover-icon">
+                    🤝
+                </div>
+
+                <h3>
+                    TownConnect
+                </h3>
+
+                <p>
+                    Connect with leadership,
+                    community initiatives and
+                    local engagement.
+                </p>
+
+                <a href="communityengagement.html">
+                    Connect →
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LIFE IN JWANENG
+===================================================== -->
+
+<section class="life">
+
+    <div class="life-container">
+
+        <div class="life-header">
+
+            <div class="section-label">
+                Life in Jwaneng
+            </div>
+
+            <h2>
+                A town is made by the people who live in it.
+            </h2>
+
+            <p>
+
+                Explore the different sides of
+                Jwaneng — from community life and
+                local enterprise to events, nature
+                and the places people call home.
+
+            </p>
+
+        </div>
+
+
+        <div class="life-grid">
+
+
+            <a
+                href="businesses.html"
+                class="life-card life-main"
+            >
+
+                <div class="life-card-content">
+
+                    <h3>
+                        Everyday Jwaneng
+                    </h3>
+
+                    <p>
+                        The places and experiences
+                        that make the town feel like home.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <a
+                href="communityengagement.html"
+                class="life-card life-community"
+            >
+
+                <div class="life-card-content">
+
+                    <h3>
+                        Community
+                    </h3>
+
+                    <p>
+                        People, organisations and initiatives.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <a
+                href="businesses.html"
+                class="life-card life-business"
+            >
+
+                <div class="life-card-content">
+
+                    <h3>
+                        Local Enterprise
+                    </h3>
+
+                    <p>
+                        Businesses and entrepreneurs.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <a
+                href="events.html"
+                class="life-card life-events"
+            >
+
+                <div class="life-card-content">
+
+                    <h3>
+                        Events & Activities
+                    </h3>
+
+                    <p>
+                        Things happening around town.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <a
+                href="tourism.html"
+                class="life-card life-nature"
+            >
+
+                <div class="life-card-content">
+
+                    <h3>
+                        Nature & Wildlife
+                    </h3>
+
+                    <p>
+                        Discover Jwaneng's natural surroundings.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SURROUNDING COMMUNITIES
+===================================================== -->
+
+<section class="communities">
+
+    <div class="communities-container">
+
+        <div class="section-label">
+            Beyond Jwaneng
+        </div>
+
+        <h2>
+            Connected to the surrounding communities.
+        </h2>
+
+        <p>
+
+            Jwaneng remains the heart of My Jwaneng,
+            while the platform also connects people
+            with communities and places around the area.
+
+        </p>
+
+
+        <div class="community-list">
+
+            <span class="main">
+                Jwaneng
+            </span>
+
+            <span>Sese</span>
+
+            <span>Mokhomma</span>
+
+            <span>Lefoko</span>
+
+            <span>Betesankwe</span>
+
+            <span>Sekoma</span>
+
+            <span>Maokane</span>
+
+            <span>Machana</span>
+
+        </div>
 
     </div>
 
@@ -3667,22 +3165,16 @@ footer{
 
         <div class="today-header">
 
-            <div class="section-kicker">
-
-                JWANENG TODAY
-
+            <div class="section-label">
+                Jwaneng Today
             </div>
 
             <h2>
-
                 What's happening in town?
-
             </h2>
 
             <p>
-
                 Fresh information from My Jwaneng.
-
             </p>
 
         </div>
@@ -3698,18 +3190,14 @@ footer{
                 </h3>
 
                 <div id="latestNews">
-
                     Loading news...
-
                 </div>
 
                 <a
                     href="townnews.html"
                     class="widget-btn"
                 >
-
                     View All News →
-
                 </a>
 
             </div>
@@ -3722,18 +3210,14 @@ footer{
                 </h3>
 
                 <div id="latestJobs">
-
                     Loading opportunities...
-
                 </div>
 
                 <a
                     href="jobs.html"
                     class="widget-btn"
                 >
-
                     View All Jobs →
-
                 </a>
 
             </div>
@@ -3746,18 +3230,14 @@ footer{
                 </h3>
 
                 <div id="latestEvents">
-
                     Loading events...
-
                 </div>
 
                 <a
                     href="events.html"
                     class="widget-btn"
                 >
-
                     View All Events →
-
                 </a>
 
             </div>
@@ -3782,24 +3262,19 @@ footer{
         <div class="footer-column">
 
             <div class="footer-brand">
-
                 My<span>Jwaneng</span>
-
             </div>
 
             <div class="footer-tagline">
-
                 DISCOVER • CONNECT • BELONG
-
             </div>
 
             <p>
 
-                Your digital gateway to the people,
-                businesses, opportunities, places,
-                events and experiences that make
-                Jwaneng and its surrounding communities
-                home.
+                Your digital front door to the
+                people, businesses, opportunities,
+                places, events and experiences
+                that make Jwaneng home.
 
             </p>
 
@@ -3939,7 +3414,7 @@ footer{
 
 
 <!-- =====================================================
-     LEAVE CONFIRMATION MODAL
+     LEAVE MODAL
 ===================================================== -->
 
 <div
@@ -3950,18 +3425,12 @@ footer{
     <div class="confirm-modal">
 
         <div class="modal-icon">
-
             🏠
-
         </div>
 
-
         <h2>
-
             Do you want to leave My Jwaneng?
-
         </h2>
-
 
         <p>
 
@@ -3971,26 +3440,20 @@ footer{
 
         </p>
 
-
         <div class="modal-buttons">
 
             <button
                 class="modal-btn stay-btn"
                 id="stayButton"
             >
-
                 Stay on My Jwaneng
-
             </button>
-
 
             <button
                 class="modal-btn leave-btn"
                 id="leaveButton"
             >
-
                 Leave My Jwaneng
-
             </button>
 
         </div>
@@ -4001,7 +3464,7 @@ footer{
 
 
 <!-- =====================================================
-     PWA MOBILE BAR
+     PWA BAR
 ===================================================== -->
 
 <div
@@ -4009,13 +3472,9 @@ footer{
     id="pwaBar"
 >
 
-    <button
-        onclick="openDrawer()"
-    >
+    <button onclick="openDrawer()">
 
-        <span>
-            ☰
-        </span>
+        <span>☰</span>
 
         Menu
 
@@ -4024,9 +3483,7 @@ footer{
 
     <a href="communityengagement.html">
 
-        <span>
-            🤝
-        </span>
+        <span>🤝</span>
 
         Connect
 
@@ -4035,9 +3492,7 @@ footer{
 
     <a href="townnews.html">
 
-        <span>
-            📰
-        </span>
+        <span>📰</span>
 
         News
 
@@ -4046,9 +3501,7 @@ footer{
 
     <a href="jobs.html">
 
-        <span>
-            💼
-        </span>
+        <span>💼</span>
 
         Jobs
 
@@ -4057,9 +3510,7 @@ footer{
 
     <a href="events.html">
 
-        <span>
-            📅
-        </span>
+        <span>📅</span>
 
         Events
 
@@ -4078,7 +3529,7 @@ const supabaseUrl =
 "https://jxigyoxikaqwwzfnccej.supabase.co";
 
 const supabaseKey =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzIiwicmVmIjoianhpZ3lveGlrYXF3d3pmbmNjZWoiLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3MjQwMH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwiaWF0IjoxNzgwMDk2ODQwLCJleHAiOjIwOTU2NzI0MDB9.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
 
 const client =
 supabase.createClient(
@@ -4141,12 +3592,10 @@ menuButton.addEventListener(
     openDrawer
 );
 
-
 closeDrawerButton.addEventListener(
     "click",
     closeDrawer
 );
-
 
 drawerOverlay.addEventListener(
     "click",
@@ -4155,7 +3604,7 @@ drawerOverlay.addEventListener(
 
 
 /* =========================================================
-   ESCAPE KEY
+   ESCAPE
 ========================================================= */
 
 document.addEventListener(
@@ -4211,7 +3660,6 @@ homeButton.addEventListener(
     "click",
     openLeaveModal
 );
-
 
 stayButton.addEventListener(
     "click",
@@ -4786,9 +4234,13 @@ function fallbackWeather(){
 }
 
 
-if(
-    navigator.geolocation
-){
+/*
+    Use the visitor's location only when
+    permission is available. Otherwise use
+    Jwaneng's coordinates.
+*/
+
+if(navigator.geolocation){
 
     navigator.geolocation.getCurrentPosition(
 
@@ -4816,7 +4268,7 @@ if(
 
 
 /* =========================================================
-   PWA DETECTION
+   PWA
 ========================================================= */
 
 function isPWA(){
@@ -4860,7 +4312,7 @@ loadLatestEvents();
 
 
 /* =========================================================
-   CLOSE DRAWER AFTER NAVIGATION
+   CLOSE DRAWER ON LINK CLICK
 ========================================================= */
 
 document
@@ -4872,11 +4324,7 @@ document
 
             link.addEventListener(
                 "click",
-                function(){
-
-                    closeDrawer();
-
-                }
+                closeDrawer
             );
 
         }
