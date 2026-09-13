@@ -477,94 +477,61 @@ messaging.onBackgroundMessage(function(payload) {
    NOTIFICATION CLICK
 ========================================================= */
 
-self.addEventListener(
-    "notificationclick",
-    function(event) {
+self.addEventListener("notificationclick", function(event) {
 
-        console.log(
-            "[My Jwaneng SW] Notification clicked."
-        );
+    event.notification.close();
 
+    const notificationData =
+        event.notification.data || {};
 
-        event.notification.close();
+    const targetUrl =
+        notificationData.url ||
+        "https://myjwaneng.co.bw/";
 
+    event.waitUntil(
 
-        const notificationData =
-            event.notification.data || {};
+        clients.matchAll({
+            type: "window",
+            includeUncontrolled: true
+        })
 
+        .then(function(clientList) {
 
-        const targetUrl =
-            notificationData.url ||
-            "https://myjwaneng.co.bw/";
+            /* ==========================================
+               FIND AN EXISTING MY JWANENG WINDOW
+            ========================================== */
 
+            for(const client of clientList){
 
-        event.waitUntil(
+                if(
+                    client.url.startsWith(
+                        "https://myjwaneng.co.bw"
+                    )
+                ){
 
-            clients.matchAll({
+                    return client
+                        .navigate(targetUrl)
+                        .then(function(){
 
-                type: "window",
+                            return client.focus();
 
-                includeUncontrolled: true
-
-            })
-
-            .then(function(clientList) {
-
-                /*
-                   If My Jwaneng is already open,
-                   focus it and navigate to the
-                   notification destination.
-                */
-
-                for (
-                    const client of clientList
-                ) {
-
-                    if (
-                        client.url.startsWith(
-                            "https://myjwaneng.co.bw"
-                        ) &&
-                        "focus" in client
-                    ) {
-
-                        return client.focus()
-
-                            .then(function() {
-
-                                if (
-                                    "navigate" in client
-                                ) {
-
-                                    return client.navigate(
-                                        targetUrl
-                                    );
-
-                                }
-
-                            });
-
-                    }
+                        });
 
                 }
 
+            }
 
-                /*
-                   Otherwise open a new window.
-                */
 
-                if (
-                    clients.openWindow
-                ) {
+            /* ==========================================
+               NO EXISTING WINDOW
+            ========================================== */
 
-                    return clients.openWindow(
-                        targetUrl
-                    );
+            return clients.openWindow(
+                targetUrl
+            );
 
-                }
+        })
 
-            })
+    );
 
-        );
-
-    }
-);
+});

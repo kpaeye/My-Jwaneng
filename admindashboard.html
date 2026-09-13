@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 <title>My Jwaneng Admin Dashboard</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -22,6 +24,11 @@ body {
   height: 100vh;
   padding: 20px;
   position: fixed;
+  box-sizing: border-box;
+}
+
+.sidebar h2 {
+  margin-top: 0;
 }
 
 .sidebar a {
@@ -34,12 +41,15 @@ body {
   border-radius: 6px;
 }
 
-.sidebar a:hover { background: #1d3b66; }
+.sidebar a:hover {
+  background: #1d3b66;
+}
 
 .main {
   margin-left: 240px;
   padding: 20px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .card {
@@ -49,12 +59,20 @@ body {
   margin-bottom: 20px;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   width: 100%;
   padding: 10px;
   margin: 6px 0 12px;
   border: 1px solid #ddd;
   border-radius: 6px;
+  box-sizing: border-box;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
 }
 
 button {
@@ -67,9 +85,18 @@ button {
   margin-right: 5px;
 }
 
-button:hover { background: #174a8b; }
+button:hover {
+  background: #174a8b;
+}
 
-.hidden { display: none; }
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.hidden {
+  display: none;
+}
 
 .item {
   padding: 10px;
@@ -80,93 +107,334 @@ button:hover { background: #174a8b; }
   font-size: 12px;
   padding: 5px 8px;
 }
+
+.status {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 6px;
+  display: none;
+}
+
+.status.success {
+  display: block;
+  background: #e8f7ee;
+  color: #176b3a;
+  border: 1px solid #b7e4c7;
+}
+
+.status.error {
+  display: block;
+  background: #fdecec;
+  color: #9b1c1c;
+  border: 1px solid #f5b5b5;
+}
+
+.status.info {
+  display: block;
+  background: #eef6ff;
+  color: #174a8b;
+  border: 1px solid #c7ddf7;
+}
+
+.notification-badge {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  background: #eef6ff;
+  color: #174a8b;
+  font-size: 12px;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
 <div class="sidebar">
+
   <h2>Admin</h2>
+
   <a onclick="showSection('news')">News</a>
   <a onclick="showSection('updates')">Updates</a>
   <a onclick="showSection('events')">Events</a>
   <a onclick="showSection('jobs')">Jobs</a>
   <a onclick="showSection('marketplace')">Marketplace</a>
   <a onclick="showSection('businesses')">Businesses</a>
+
 </div>
+
 
 <div class="main">
 
-<!-- NEWS -->
+<!-- =====================================================
+     NEWS
+===================================================== -->
+
 <div id="news" class="section">
+
   <div class="card">
+
     <h3>Add News</h3>
-    <input id="news_title" placeholder="Title">
-    <input id="news_category" placeholder="Category">
-    <textarea id="news_summary" placeholder="Summary"></textarea>
-    <textarea id="news_content" placeholder="Content"></textarea>
-    <input id="news_image" placeholder="Image URL">
-    <input id="news_author" placeholder="Author">
-    <button onclick="addNews()">Publish</button>
+
+    <input
+      id="news_title"
+      placeholder="Title"
+    >
+
+    <input
+      id="news_category"
+      placeholder="Category"
+    >
+
+    <textarea
+      id="news_summary"
+      placeholder="Summary"
+    ></textarea>
+
+    <textarea
+      id="news_content"
+      placeholder="Content"
+    ></textarea>
+
+    <input
+      id="news_image"
+      placeholder="Image URL"
+    >
+
+    <input
+      id="news_author"
+      placeholder="Author"
+    >
+
+    <button
+      id="publishNewsButton"
+      onclick="addNews()"
+    >
+      Publish
+    </button>
+
+    <div
+      id="newsStatus"
+      class="status"
+    ></div>
+
+    <div class="notification-badge">
+      🔔 News subscribers will automatically be notified
+    </div>
+
   </div>
-  <div class="card"><h3>News List</h3><div id="newsList"></div></div>
+
+
+  <div class="card">
+
+    <h3>News List</h3>
+
+    <div id="newsList"></div>
+
+  </div>
+
 </div>
 
-<!-- UPDATES -->
+
+<!-- =====================================================
+     UPDATES
+===================================================== -->
+
 <div id="updates" class="section hidden">
+
   <div class="card">
+
     <h3>Add Update</h3>
+
     <select id="update_type">
+
       <option>alert</option>
       <option>announcement</option>
       <option>notice</option>
+
     </select>
-    <textarea id="update_message" placeholder="Message"></textarea>
-    <button onclick="addUpdate()">Post</button>
+
+    <textarea
+      id="update_message"
+      placeholder="Message"
+    ></textarea>
+
+    <button onclick="addUpdate()">
+      Post
+    </button>
+
   </div>
-  <div class="card"><h3>Updates</h3><div id="updateList"></div></div>
+
+
+  <div class="card">
+
+    <h3>Updates</h3>
+
+    <div id="updateList"></div>
+
+  </div>
+
 </div>
 
-<!-- EVENTS -->
+
+<!-- =====================================================
+     EVENTS
+===================================================== -->
+
 <div id="events" class="section hidden">
+
   <div class="card">
+
     <h3>Add Event</h3>
-    <input id="event_title" placeholder="Title">
-    <input id="event_date" type="date">
-    <input id="event_location" placeholder="Location">
-    <textarea id="event_description" placeholder="Description"></textarea>
-    <button onclick="addEvent()">Publish</button>
+
+    <input
+      id="event_title"
+      placeholder="Title"
+    >
+
+    <input
+      id="event_date"
+      type="date"
+    >
+
+    <input
+      id="event_location"
+      placeholder="Location"
+    >
+
+    <textarea
+      id="event_description"
+      placeholder="Description"
+    ></textarea>
+
+    <button onclick="addEvent()">
+      Publish
+    </button>
+
   </div>
-  <div class="card"><h3>Events</h3><div id="eventList"></div></div>
+
+
+  <div class="card">
+
+    <h3>Events</h3>
+
+    <div id="eventList"></div>
+
+  </div>
+
 </div>
 
-<!-- JOBS -->
+<!-- =====================================================
+     JOBS
+===================================================== -->
 <div id="jobs" class="section hidden">
-  <div class="card">
-    <h3>Add Job</h3>
-    <input id="job_title" placeholder="Job Title">
-    <input id="job_company" placeholder="Company">
-    <input id="job_location" placeholder="Location">
-    <textarea id="job_description" placeholder="Description"></textarea>
-    <input id="job_closing_date" type="date">
-    <button onclick="addJob()">Post Job</button>
-  </div>
-  <div class="card"><h3>Jobs</h3><div id="jobList"></div></div>
-</div>
 
-<!-- MARKETPLACE -->
-<div id="marketplace" class="section hidden">
   <div class="card">
+
+    <h3>Add Job</h3>
+
+    <input id="job_title" placeholder="Job Title">
+
+    <input id="job_company" placeholder="Company">
+
+    <input id="job_location" placeholder="Location">
+
+    <select id="job_type">
+      <option value="">Select Job Type</option>
+      <option>Permanent</option>
+      <option>Contract</option>
+      <option>Temporary</option>
+      <option>Internship</option>
+      <option>Graduate Programme</option>
+      <option>Part Time</option>
+    </select>
+
+    <textarea id="job_description"
+      placeholder="Job Description"></textarea>
+
+    <textarea id="job_requirements"
+      placeholder="Requirements"></textarea>
+
+    <input id="job_email"
+      placeholder="Application Email">
+
+    <input id="job_link"
+      placeholder="Application Link">
+
+    <input id="job_contact"
+      placeholder="Contact Number">
+
+    <input id="job_image"
+      placeholder="Image URL">
+
+    <input id="job_closing_date"
+      type="date">
+
+    <button onclick="addJob()">
+      Post Job
+    </button>
+
+    <div class="notification-badge">
+      🔔 Job subscribers will automatically be notified
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h3>Jobs</h3>
+
+    <div id="jobList"></div>
+
+  </div>
+
+</div>
+<!-- =====================================================
+     MARKETPLACE
+===================================================== -->
+
+<div id="marketplace" class="section hidden">
+
+  <div class="card">
+
     <h3>Add Marketplace Item</h3>
 
-    <input id="mp_title" placeholder="Title">
-    <input id="mp_price" placeholder="Price">
-    <input id="mp_area" placeholder="Area / Location">
-    <input id="mp_whatsapp" placeholder="WhatsApp Number (e.g. 2677XXXXXX)">
-    <input id="mp_phone" placeholder="Call Number (optional)">
+    <input
+      id="mp_title"
+      placeholder="Title"
+    >
+
+    <input
+      id="mp_price"
+      placeholder="Price"
+    >
+
+    <input
+      id="mp_area"
+      placeholder="Area / Location"
+    >
+
+    <input
+      id="mp_whatsapp"
+      placeholder="WhatsApp Number (e.g. 2677XXXXXX)"
+    >
+
+    <input
+      id="mp_phone"
+      placeholder="Call Number (optional)"
+    >
+
     <select id="mp_category">
-      <option value="">Select Category</option>
+
+      <option value="">
+        Select Category
+      </option>
+
       <option>electronics</option>
       <option>vehicles</option>
       <option>furniture</option>
@@ -175,34 +443,71 @@ button:hover { background: #174a8b; }
       <option>property</option>
       <option>beauty care</option>
       <option>other</option>
+
     </select>
 
-    <textarea id="mp_description" placeholder="Description"></textarea>
 
-    <!-- MULTI IMAGE -->
-    <input id="mp_images" type="file" multiple accept="image/*">
+    <textarea
+      id="mp_description"
+      placeholder="Description"
+    ></textarea>
 
-    <!-- VIDEO (OPTIONAL) -->
-    <input id="mp_video" type="file" accept="video/*">
 
-    <button onclick="addMarketplace()">Upload Item</button>
+    <input
+      id="mp_images"
+      type="file"
+      multiple
+      accept="image/*"
+    >
+
+
+    <input
+      id="mp_video"
+      type="file"
+      accept="video/*"
+    >
+
+
+    <button onclick="addMarketplace()">
+      Upload Item
+    </button>
+
   </div>
+
 
   <div class="card">
+
     <h3>Pending Items</h3>
+
     <div id="mpList"></div>
+
   </div>
+
 </div>
 
-<!-- BUSINESSES -->
+
+<!-- =====================================================
+     BUSINESSES
+===================================================== -->
+
 <div id="businesses" class="section hidden">
+
   <div class="card">
+
     <h3>Add Business</h3>
 
-    <input id="biz_name" placeholder="Business Name">
+    <input
+      id="biz_name"
+      placeholder="Business Name"
+    >
+
 
     <select id="biz_category">
-      <option value="">Select Category</option>
+
+      <option value="">
+        Select Category
+      </option>
+
       <option>Restaurant</option>
       <option>Retail Shop</option>
       <option>Salon / Barber</option>
@@ -224,296 +529,1442 @@ button:hover { background: #174a8b; }
       <option>Media / Advertising</option>
       <option>Furniture</option>
       <option>Other</option>
+
     </select>
 
-    <input id="biz_phone" placeholder="Phone Number">
-    <textarea id="biz_description" placeholder="Description"></textarea>
 
-    <input id="biz_facebook" placeholder="Facebook Link">
-    <input id="biz_whatsapp" placeholder="WhatsApp Number">
-    <input id="biz_photo" placeholder="Photo URL">
+    <input
+      id="biz_phone"
+      placeholder="Phone Number"
+    >
+
+
+    <textarea
+      id="biz_description"
+      placeholder="Description"
+    ></textarea>
+
+
+    <input
+      id="biz_facebook"
+      placeholder="Facebook Link"
+    >
+
+
+    <input
+      id="biz_whatsapp"
+      placeholder="WhatsApp Number"
+    >
+
+
+    <input
+      id="biz_photo"
+      placeholder="Photo URL"
+    >
+
 
     <h4>Operating Hours</h4>
+
+
     <select id="biz_open_day">
+
       <option>Mon-Fri</option>
       <option>Mon-Sun</option>
       <option>Weekends Only</option>
       <option>Custom</option>
+
     </select>
 
-    <input id="biz_open_time" type="time">
-    <input id="biz_close_time" type="time">
 
-    <button onclick="addBusiness()">Add Business</button>
+    <input
+      id="biz_open_time"
+      type="time"
+    >
+
+
+    <input
+      id="biz_close_time"
+      type="time"
+    >
+
+
+    <button onclick="addBusiness()">
+      Add Business
+    </button>
+
   </div>
+
 
   <div class="card">
+
     <h3>Businesses</h3>
+
     <div id="bizList"></div>
+
   </div>
+
 </div>
 
 </div>
+
 
 <script>
-const supabaseUrl = "https://jxigyoxikaqwwzfnccej.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
-const client = supabase.createClient(supabaseUrl, supabaseKey);
 
-/* GLOBAL FIX */
+/* =====================================================
+   SUPABASE
+===================================================== */
+
+const supabaseUrl =
+  "https://jxigyoxikaqwwzfnccej.supabase.co";
+
+const supabaseKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
+
+const client =
+  supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+  );
+
+
+/* =====================================================
+   PUSH FUNCTION
+===================================================== */
+
+const PUSH_FUNCTION_URL =
+  `${supabaseUrl}/functions/v1/send-push-notification`;
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
 window.showSection = function(id){
-  document.querySelectorAll('.section').forEach(s=>s.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
+
+  document
+    .querySelectorAll(".section")
+    .forEach(section => {
+      section.classList.add("hidden");
+    });
+
+  const target =
+    document.getElementById(id);
+
+  if(target){
+    target.classList.remove("hidden");
+  }
+
 };
 
+
+/* =====================================================
+   VALUE HELPER
+===================================================== */
+
 function val(id){
-  return document.getElementById(id)?.value || "";
+
+  const element =
+    document.getElementById(id);
+
+  return element
+    ? element.value.trim()
+    : "";
+
 }
 
-async function deleteRow(table,id){
-  await client.from(table).delete().eq("id",id);
+
+/* =====================================================
+   STATUS MESSAGE
+===================================================== */
+
+function showNewsStatus(
+  message,
+  type = "info"
+){
+
+  const status =
+    document.getElementById(
+      "newsStatus"
+    );
+
+  if(!status) return;
+
+  status.className =
+    `status ${type}`;
+
+  status.textContent =
+    message;
+
+}
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+async function deleteRow(
+  table,
+  id
+){
+
+  const {
+    error
+  } = await client
+    .from(table)
+    .delete()
+    .eq("id", id);
+
+  if(error){
+
+    console.error(
+      `Could not delete ${table}:`,
+      error
+    );
+
+    alert(
+      `Could not delete item: ${error.message}`
+    );
+
+    return;
+  }
+
   location.reload();
+
 }
 
-/* =========================
-UPDATES (FIXED)
-========================= */
+
+/* =====================================================
+   🔔 SEND NEWS NOTIFICATION
+===================================================== */
+
+async function sendNewsNotification(article){
+
+  try{
+
+    console.log(
+      "🔔 Sending My Jwaneng news notification..."
+    );
+
+    const articleId = article.id;
+
+    /* IMPORTANT:
+       News cards already use this URL format.
+       The notification should use the same article page.
+    */
+    const articleUrl =
+      `https://myjwaneng.co.bw/news-article.html?id=${encodeURIComponent(articleId)}`;
+
+    const notificationTitle =
+      "New on My Jwaneng";
+
+    const notificationMessage =
+      article.title ||
+      "A new news article has been published.";
+
+    const response = await fetch(
+      PUSH_FUNCTION_URL,
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": supabaseKey,
+          "Authorization": `Bearer ${supabaseKey}`
+        },
+
+        body: JSON.stringify({
+          town: "Jwaneng",
+          category: "news",
+          title: notificationTitle,
+          message: notificationMessage,
+          url: articleUrl
+        })
+      }
+    );
+
+    let result = null;
+
+    try{
+
+      result = await response.json();
+
+    }
+    catch{
+
+      result = null;
+
+    }
+
+    if(!response.ok){
+
+      console.error(
+        "❌ Push notification failed:",
+        result
+      );
+
+      return {
+        success: false,
+        result
+      };
+
+    }
+
+    console.log(
+      "✅ Push notification result:",
+      result
+    );
+
+    return {
+      success: true,
+      result
+    };
+
+  }
+  catch(error){
+
+    console.error(
+      "❌ Notification request failed:",
+      error
+    );
+
+    return {
+      success: false,
+      error
+    };
+
+  }
+
+}
+/* =====================================================
+   UPDATES
+===================================================== */
 
 async function addUpdate(){
-  await client.from("updates").insert([{
-    type: val("update_type"),
-    message: val("update_message"),
-    created_at: new Date().toISOString()
-  }]);
+
+  const {
+    error
+  } = await client
+    .from("updates")
+    .insert([{
+
+      type:
+        val("update_type"),
+
+      message:
+        val("update_message"),
+
+      created_at:
+        new Date().toISOString()
+
+    }]);
+
+
+  if(error){
+
+    alert(
+      `Could not post update: ${error.message}`
+    );
+
+    return;
+  }
+
 
   loadUpdates();
+
 }
+
 
 async function loadUpdates(){
-  let { data } = await client
+
+  const {
+    data,
+    error
+  } = await client
     .from("updates")
     .select("*")
-    .order("id",{ascending:false});
+    .order(
+      "id",
+      {
+        ascending: false
+      }
+    );
 
-  updateList.innerHTML = (data || []).map(u => `
-    <div class="item">
-      <b>${u.type}</b><br>
-      ${u.message}
-    </div>
-  `).join("");
+
+  if(error){
+
+    console.error(
+      "Could not load updates:",
+      error
+    );
+
+    return;
+  }
+
+
+  const list =
+    document.getElementById(
+      "updateList"
+    );
+
+
+  if(!list) return;
+
+
+  list.innerHTML =
+    (data || [])
+      .map(u => `
+
+        <div class="item">
+
+          <b>
+            ${u.type || ""}
+          </b>
+
+          <br>
+
+          ${u.message || ""}
+
+        </div>
+
+      `)
+      .join("");
+
 }
-/* =========================
-NEWS 
-========================= */
+
+
+/* =====================================================
+   📰 NEWS
+===================================================== */
+
 async function addNews(){
-  await client.from("news").insert([{ 
-    title: val("news_title"),
-    category: val("news_category"),
-    summary: val("news_summary"),
-    content: val("news_content"),
-    image_url: val("news_image"),
-    author: val("news_author")
-  }]);
+
+  const button =
+    document.getElementById(
+      "publishNewsButton"
+    );
+
+
+  const title =
+    val("news_title");
+
+  const category =
+    val("news_category");
+
+  const summary =
+    val("news_summary");
+
+  const content =
+    val("news_content");
+
+  const imageUrl =
+    val("news_image");
+
+  const author =
+    val("news_author");
+
+
+  /* -----------------------------------------------------
+     BASIC VALIDATION
+  ----------------------------------------------------- */
+
+  if(!title){
+
+    showNewsStatus(
+      "Please enter a news title.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  if(!summary){
+
+    showNewsStatus(
+      "Please enter a news summary.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  /* -----------------------------------------------------
+     DISABLE BUTTON
+  ----------------------------------------------------- */
+
+  if(button){
+
+    button.disabled = true;
+
+    button.textContent =
+      "Publishing...";
+
+  }
+
+
+  showNewsStatus(
+    "Publishing news article...",
+    "info"
+  );
+
+
+  /* -----------------------------------------------------
+     INSERT NEWS
+  ----------------------------------------------------- */
+
+  const {
+    data,
+    error
+  } = await client
+    .from("news")
+    .insert([{
+
+      title,
+
+      category,
+
+      summary,
+
+      content,
+
+      image_url:
+        imageUrl,
+
+      author
+
+    }])
+    .select()
+    .single();
+
+
+  /* -----------------------------------------------------
+     DATABASE ERROR
+  ----------------------------------------------------- */
+
+  if(error){
+
+    console.error(
+      "❌ News publication failed:",
+      error
+    );
+
+    showNewsStatus(
+      `News was not published: ${error.message}`,
+      "error"
+    );
+
+
+    if(button){
+
+      button.disabled = false;
+
+      button.textContent =
+        "Publish";
+
+    }
+
+    return;
+  }
+
+
+  /* -----------------------------------------------------
+     ARTICLE SUCCESSFULLY SAVED
+  ----------------------------------------------------- */
+
+  console.log(
+    "✅ News article published:",
+    data
+  );
+
+
+  /*
+   * IMPORTANT:
+   *
+   * The article is already safely saved.
+   *
+   * If push notification fails,
+   * we DO NOT delete the article.
+   */
+
+
+  showNewsStatus(
+    "News published successfully. Sending notification...",
+    "info"
+  );
+
+
+  /* -----------------------------------------------------
+     SEND PUSH
+  ----------------------------------------------------- */
+
+  const notification =
+    await sendNewsNotification(
+      data
+    );
+
+
+  /* -----------------------------------------------------
+     NOTIFICATION RESULT
+  ----------------------------------------------------- */
+
+  if(
+    notification &&
+    notification.success
+  ){
+
+    const result =
+      notification.result || {};
+
+    showNewsStatus(
+      `News published successfully. 🔔 Notification sent to ${result.sent ?? 0} subscriber(s).`,
+      "success"
+    );
+
+  }
+  else{
+
+    showNewsStatus(
+      "News published successfully, but the push notification could not be sent. The article remains published.",
+      "error"
+    );
+
+  }
+
+
+  /* -----------------------------------------------------
+     CLEAR FORM
+  ----------------------------------------------------- */
+
+  document.getElementById(
+    "news_title"
+  ).value = "";
+
+  document.getElementById(
+    "news_category"
+  ).value = "";
+
+  document.getElementById(
+    "news_summary"
+  ).value = "";
+
+  document.getElementById(
+    "news_content"
+  ).value = "";
+
+  document.getElementById(
+    "news_image"
+  ).value = "";
+
+  document.getElementById(
+    "news_author"
+  ).value = "";
+
+
+  /* -----------------------------------------------------
+     RESTORE BUTTON
+  ----------------------------------------------------- */
+
+  if(button){
+
+    button.disabled = false;
+
+    button.textContent =
+      "Publish";
+
+  }
+
+
   loadNews();
+
 }
+
+
+/* =====================================================
+   LOAD NEWS
+===================================================== */
 
 async function loadNews(){
-  let { data } = await client.from("news").select("*").order("id",{ascending:false});
-  newsList.innerHTML = (data||[]).map(n=>`
-    <div class="item"><b>${n.title}</b><br>${n.summary}</div>
-  `).join("");
-}
 
-/* =========================
-JOBS
-========================= */
-async function addJob(){
-  await client.from("jobs").insert([{ 
-    title: val("job_title"),
-    company: val("job_company"),
-    location: val("job_location"),
-    description: val("job_description"),
-    closing_date: val("job_closing_date")
-  }]);
-  loadJobs();
+  const {
+    data,
+    error
+  } = await client
+    .from("news")
+    .select("*")
+    .order(
+      "id",
+      {
+        ascending: false
+      }
+    );
+
+
+  if(error){
+
+    console.error(
+      "Could not load news:",
+      error
+    );
+
+    const list =
+      document.getElementById(
+        "newsList"
+      );
+
+    if(list){
+
+      list.innerHTML =
+        `<div class="item">
+          Could not load news.
+        </div>`;
+
+    }
+
+    return;
+  }
+
+
+  const list =
+    document.getElementById(
+      "newsList"
+    );
+
+
+  if(!list) return;
+
+
+  list.innerHTML =
+    (data || [])
+      .map(n => `
+
+        <div class="item">
+
+          <b>
+            ${n.title || ""}
+          </b>
+
+          <br>
+
+          ${n.summary || ""}
+
+        </div>
+
+      `)
+      .join("");
+
 }
+/* =====================================================
+     JOBS
+===================================================== */
+
+async function addJob(){
+
+  const jobData = {
+
+    title: val("job_title"),
+
+    company: val("job_company"),
+
+    location: val("job_location"),
+
+    job_type: val("job_type"),
+
+    description: val("job_description"),
+
+    requirements: val("job_requirements"),
+
+    application_email: val("job_email"),
+
+    application_link: val("job_link"),
+
+    contact_number: val("job_contact"),
+
+    image_url: val("job_image"),
+
+    closing_date: val("job_closing_date"),
+
+    status: "active"
+  };
+
+  const { data, error } = await client
+    .from("jobs")
+    .insert([jobData])
+    .select()
+    .single();
+
+  if(error){
+
+    alert(
+      `Could not post job: ${error.message}`
+    );
+
+    return;
+  }
+
+  await sendJobNotification(data);
+
+  alert("Job posted successfully");
+
+  loadJobs();
+
+}
+  async function sendJobNotification(job){
+
+  try{
+
+    const jobUrl =
+      `https://myjwaneng.co.bw/jobs.html`;
+
+    const response = await fetch(
+      PUSH_FUNCTION_URL,
+      {
+        method:"POST",
+
+        headers:{
+          "Content-Type":"application/json",
+          "apikey":supabaseKey,
+          "Authorization":`Bearer ${supabaseKey}`
+        },
+
+        body: JSON.stringify({
+
+          town:"Jwaneng",
+
+          category:"jobs",
+
+          title:"New Job Opportunity",
+
+          message:
+            `${job.title} - ${job.company}`,
+
+          url: jobUrl
+
+        })
+      }
+    );
+
+    return response.ok;
+
+  }catch(error){
+
+    console.error(
+      "Job notification failed",
+      error
+    );
+
+    return false;
+
+  }
+}
+/* =====================================================
+   LOAD JOBS
+===================================================== */
 
 async function loadJobs(){
-  let { data } = await client.from("jobs").select("*").order("id",{ascending:false});
-  jobList.innerHTML = (data||[]).map(j=>`
-    <div class="item">
-      <b>${j.title}</b> - ${j.company}<br>
-      Closing: ${j.closing_date || "N/A"}
-    </div>
-  `).join("");
+
+  const { data, error } = await client
+    .from("jobs")
+    .select("*")
+    .order("created_at", {
+      ascending: false
+    });
+
+  if(error){
+
+    console.error(
+      "Could not load jobs:",
+      error
+    );
+
+    return;
+  }
+
+  const list =
+    document.getElementById("jobList");
+
+  if(!list) return;
+
+  list.innerHTML =
+    (data || [])
+      .map(job => `
+
+        <div class="item">
+
+          <b>${job.title || ""}</b>
+
+          <br>
+
+          ${job.company || ""}
+
+          <br>
+
+          📍 ${job.location || ""}
+
+          <br>
+
+          💼 ${job.job_type || "Not specified"}
+
+          <br>
+
+          📅 Closing:
+          ${job.closing_date || "N/A"}
+
+          <br><br>
+
+          <button
+            class="small-btn"
+            onclick="deleteRow('jobs', ${job.id})"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      `)
+      .join("");
+
+}
+/* =====================================================
+   BUSINESSES
+===================================================== */
+
+async function addBusiness(){
+
+  const {
+    error
+  } = await client
+    .from("businesses")
+    .insert([{
+
+      name:
+        val("biz_name"),
+
+      category:
+        val("biz_category"),
+
+      phone:
+        val("biz_phone"),
+
+      description:
+        val("biz_description"),
+
+      facebook:
+        val("biz_facebook"),
+
+      whatsapp:
+        val("biz_whatsapp"),
+
+      photo_url:
+        val("biz_photo"),
+
+      open_days:
+        val("biz_open_day"),
+
+      open_time:
+        val("biz_open_time"),
+
+      close_time:
+        val("biz_close_time")
+
+    }]);
+
+
+  if(error){
+
+    alert(
+      `Could not add business: ${error.message}`
+    );
+
+    return;
+  }
+
+
+  loadBusinesses();
+
 }
 
-/* =========================
-BUSINESSES
-========================= */
-async function addBusiness(){
-  await client.from("businesses").insert([{ 
-    name: val("biz_name"),
-    category: val("biz_category"),
-    phone: val("biz_phone"),
-    description: val("biz_description"),
-    facebook: val("biz_facebook"),
-    whatsapp: val("biz_whatsapp"),
-    photo_url: val("biz_photo"),
-    open_days: val("biz_open_day"),
-    open_time: val("biz_open_time"),
-    close_time: val("biz_close_time")
-  }]);
-  loadBusinesses();
-}
 
 async function loadBusinesses(){
-  let { data } = await client.from("businesses").select("*").order("id",{ascending:false});
-  bizList.innerHTML = (data||[]).map(b=>`
-    <div class="item">
-      <b>${b.name}</b> - ${b.category}<br>
-      📞 ${b.phone || ""}<br>
-      🕒 ${b.open_days || ""} ${b.open_time || ""} - ${b.close_time || ""}
-    </div>
-  `).join("");
+
+  const {
+    data,
+    error
+  } = await client
+    .from("businesses")
+    .select("*")
+    .order(
+      "id",
+      {
+        ascending: false
+      }
+    );
+
+
+  if(error){
+
+    console.error(
+      "Could not load businesses:",
+      error
+    );
+
+    return;
+  }
+
+
+  const list =
+    document.getElementById(
+      "bizList"
+    );
+
+
+  if(!list) return;
+
+
+  list.innerHTML =
+    (data || [])
+      .map(b => `
+
+        <div class="item">
+
+          <b>
+            ${b.name || ""}
+          </b>
+
+          -
+          ${b.category || ""}
+
+          <br>
+
+          📞
+          ${b.phone || ""}
+
+          <br>
+
+          🕒
+          ${b.open_days || ""}
+
+          ${b.open_time || ""}
+
+          -
+          ${b.close_time || ""}
+
+        </div>
+
+      `)
+      .join("");
+
 }
 
-/* =========================
-🔥 MARKETPLACE
-========================= */
+
+/* =====================================================
+   MARKETPLACE
+===================================================== */
 
 async function loadMarketplace(){
 
-  let { data } = await client
+  const {
+    data,
+    error
+  } = await client
     .from("marketplace_items")
     .select("*")
-    .eq("status","pending")
-    .order("created_at",{ascending:false});
+    .eq(
+      "status",
+      "pending"
+    )
+    .order(
+      "created_at",
+      {
+        ascending: false
+      }
+    );
 
-  mpList.innerHTML = (data || []).map(item => {
 
-    let images = (item.images || [])
-      .map(img => `<img src="${img}" style="width:60px;height:60px;object-fit:cover;margin:2px;border-radius:6px;">`)
+  if(error){
+
+    console.error(
+      "Could not load marketplace:",
+      error
+    );
+
+    return;
+  }
+
+
+  const list =
+    document.getElementById(
+      "mpList"
+    );
+
+
+  if(!list) return;
+
+
+  list.innerHTML =
+    (data || [])
+      .map(item => {
+
+        const images =
+          (item.images || [])
+            .map(img => `
+
+              <img
+                src="${img}"
+                style="
+                  width:60px;
+                  height:60px;
+                  object-fit:cover;
+                  margin:2px;
+                  border-radius:6px;
+                "
+              >
+
+            `)
+            .join("");
+
+
+        const video =
+          item.video
+            ? `
+
+              <video
+                src="${item.video}"
+                width="120"
+                controls
+              ></video>
+
+            `
+            : "";
+
+
+        return `
+
+          <div class="item">
+
+            <b>
+              ${item.title || ""}
+            </b>
+
+            <br>
+
+            💰
+            P${item.price || 0}
+
+            <br>
+
+            📍
+            ${item.area || ""}
+
+            <br>
+
+            📦
+            ${item.category || ""}
+
+            <div
+              style="
+                display:flex;
+                flex-wrap:wrap;
+                gap:4px;
+                margin-top:6px;
+              "
+            >
+
+              ${images}
+
+            </div>
+
+            ${video}
+
+            <br><br>
+
+            <button
+              onclick="approveItem('${item.id}')"
+            >
+              Approve
+            </button>
+
+            <button
+              onclick="rejectItem('${item.id}')"
+            >
+              Reject
+            </button>
+
+          </div>
+
+        `;
+
+      })
       .join("");
 
-    let video = item.video
-      ? `<video src="${item.video}" width="120" controls></video>`
-      : "";
-
-    return `
-      <div class="item">
-        <b>${item.title}</b><br>
-        💰 P${item.price || 0}<br>
-        📍 ${item.area || ""}<br>
-        📦 ${item.category || ""}<br>
-
-        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;">
-          ${images}
-        </div>
-
-        ${video}
-
-        <br><br>
-        <button onclick="approveItem('${item.id}')">Approve</button>
-        <button onclick="rejectItem('${item.id}')">Reject</button>
-      </div>
-    `;
-  }).join("");
 }
+
 
 async function approveItem(id){
-  await client
+
+  const {
+    error
+  } = await client
     .from("marketplace_items")
-    .update({ status:"active" })
-    .eq("id",id);
+    .update({
+      status: "active"
+    })
+    .eq(
+      "id",
+      id
+    );
+
+
+  if(error){
+
+    alert(
+      `Could not approve item: ${error.message}`
+    );
+
+    return;
+  }
+
 
   loadMarketplace();
+
 }
+
 
 async function rejectItem(id){
-  await client
+
+  const {
+    error
+  } = await client
     .from("marketplace_items")
     .delete()
-    .eq("id",id);
+    .eq(
+      "id",
+      id
+    );
+
+
+  if(error){
+
+    alert(
+      `Could not reject item: ${error.message}`
+    );
+
+    return;
+  }
+
 
   loadMarketplace();
+
 }
 
-/* INIT */
-window.onload = () => {
-  loadNews();
-  loadJobs();
-  loadBusinesses();
-  loadMarketplace(); 
-};
+
+/* =====================================================
+   STORAGE
+===================================================== */
+
 async function uploadImage(file){
 
-  const fileName = Date.now() + "_" + file.name;
+  const fileName =
+    Date.now() +
+    "_" +
+    file.name;
 
-  const { error } = await client
+
+  const {
+    error
+  } = await client
     .storage
     .from("marketplace-media")
-    .upload("images/" + fileName, file);
+    .upload(
+      "images/" + fileName,
+      file
+    );
 
-  if(error) return null;
+
+  if(error){
+
+    console.error(
+      "Image upload failed:",
+      error
+    );
+
+    return null;
+  }
+
 
   return client.storage
     .from("marketplace-media")
-    .getPublicUrl("images/" + fileName)
-    .data.publicUrl;
+    .getPublicUrl(
+      "images/" + fileName
+    )
+    .data
+    .publicUrl;
+
 }
+
+
 async function uploadVideo(file){
 
-  const fileName = Date.now() + "_" + file.name;
+  const fileName =
+    Date.now() +
+    "_" +
+    file.name;
 
-  const { error } = await client
+
+  const {
+    error
+  } = await client
     .storage
     .from("marketplace-media")
-    .upload("videos/" + fileName, file);
+    .upload(
+      "videos/" + fileName,
+      file
+    );
 
-  if(error) return null;
+
+  if(error){
+
+    console.error(
+      "Video upload failed:",
+      error
+    );
+
+    return null;
+  }
+
 
   return client.storage
     .from("marketplace-media")
-    .getPublicUrl("videos/" + fileName)
-    .data.publicUrl;
+    .getPublicUrl(
+      "videos/" + fileName
+    )
+    .data
+    .publicUrl;
+
 }
+
+
 async function addMarketplace(){
 
-  let imagesFiles = document.getElementById("mp_images").files;
-  let videoFile = document.getElementById("mp_video").files[0];
+  const imagesFiles =
+    document.getElementById(
+      "mp_images"
+    ).files;
 
-  let imageUrls = [];
+  const videoFile =
+    document.getElementById(
+      "mp_video"
+    ).files[0];
 
-  // UPLOAD IMAGES
-  for(let file of imagesFiles){
-    let url = await uploadImage(file);
-    if(url) imageUrls.push(url);
+
+  const imageUrls = [];
+
+
+  /* UPLOAD IMAGES */
+
+  for(
+    const file of imagesFiles
+  ){
+
+    const url =
+      await uploadImage(file);
+
+    if(url){
+      imageUrls.push(url);
+    }
+
   }
 
-  // UPLOAD VIDEO
+
+  /* UPLOAD VIDEO */
+
   let videoUrl = "";
+
   if(videoFile){
-    videoUrl = await uploadVideo(videoFile);
+
+    videoUrl =
+      await uploadVideo(
+        videoFile
+      );
+
   }
 
-  // SAVE TO DATABASE
-  await client.from("marketplace_items").insert([{
-    title: val("mp_title"),
-    price: val("mp_price"),
-    area: val("mp_area"),
-    category: val("mp_category"),
-    description: val("mp_description"),
-    images: imageUrls,
-    video: videoUrl,
-    status: "pending",
-    created_at: new Date().toISOString()
-  }]);
 
-  alert("Item submitted for approval");
+  /* SAVE */
+
+  const {
+    error
+  } = await client
+    .from("marketplace_items")
+    .insert([{
+
+      title:
+        val("mp_title"),
+
+      price:
+        val("mp_price"),
+
+      area:
+        val("mp_area"),
+
+      category:
+        val("mp_category"),
+
+      description:
+        val("mp_description"),
+
+      images:
+        imageUrls,
+
+      video:
+        videoUrl,
+
+      status:
+        "pending",
+
+      created_at:
+        new Date().toISOString()
+
+    }]);
+
+
+  if(error){
+
+    alert(
+      `Could not submit item: ${error.message}`
+    );
+
+    return;
+  }
+
+
+  alert(
+    "Item submitted for approval"
+  );
+
 
   loadMarketplace();
+
 }
+
+
+/* =====================================================
+   INITIALISE
+===================================================== */
+
+window.onload = () => {
+
+  loadNews();
+
+  loadUpdates();
+
+  loadJobs();
+
+  loadBusinesses();
+
+  loadMarketplace();
+
+};
 
 </script>
 
