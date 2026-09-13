@@ -10,7 +10,7 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>My Jwaneng - News Article</title>
+<title>My Jwaneng | Town News</title>
 
 <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
@@ -24,12 +24,10 @@
 
 <meta
     name="theme-color"
-    content="#0b1f3a"
+    content="#001f3f"
 >
 
-<script
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
-></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
 <style>
@@ -44,6 +42,10 @@
     box-sizing:border-box;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
 
     font-family:'Poppins',sans-serif;
@@ -52,7 +54,7 @@ body{
 
     color:#222;
 
-    padding-bottom:70px;
+    padding-bottom:75px;
 
 }
 
@@ -65,7 +67,7 @@ body{
 
     background:#001f3f;
 
-    padding:16px 8%;
+    padding:15px 7%;
 
     display:flex;
 
@@ -79,6 +81,9 @@ body{
 
     z-index:1000;
 
+    box-shadow:
+        0 3px 15px rgba(0,0,0,.15);
+
 }
 
 .logo{
@@ -89,11 +94,44 @@ body{
 
     font-weight:700;
 
+    letter-spacing:-.5px;
+
 }
 
 .logo span{
 
     color:#4fc3f7;
+
+}
+
+
+/* =====================================================
+   NAV BUTTON
+===================================================== */
+
+.nav-home{
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:14px;
+
+    padding:8px 15px;
+
+    border:1px solid rgba(255,255,255,.25);
+
+    border-radius:20px;
+
+    transition:.2s;
+
+}
+
+.nav-home:hover{
+
+    background:#4fc3f7;
+
+    color:#001f3f;
 
 }
 
@@ -113,7 +151,7 @@ body{
 
     color:white;
 
-    padding:40px 8%;
+    padding:45px 7% 50px;
 
     text-align:center;
 
@@ -121,7 +159,7 @@ body{
 
 .news-header h1{
 
-    font-size:34px;
+    font-size:38px;
 
     margin-bottom:8px;
 
@@ -135,29 +173,375 @@ body{
 
     opacity:.9;
 
+    font-size:15px;
+
 }
 
 
 /* =====================================================
-   ARTICLE CONTAINER
+   MAIN
 ===================================================== */
 
-.article-container{
+.news-container{
 
-    max-width:850px;
+    max-width:1150px;
 
     margin:30px auto;
 
-    padding:0 16px;
+    padding:0 18px;
 
 }
 
 
 /* =====================================================
-   ARTICLE CARD
+   SEARCH / FILTER BAR
 ===================================================== */
 
-.article-card{
+.news-controls{
+
+    background:white;
+
+    padding:18px;
+
+    border-radius:15px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.06);
+
+    margin-bottom:25px;
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+}
+
+.search-box{
+
+    flex:1;
+
+    min-width:220px;
+
+}
+
+.search-box input{
+
+    width:100%;
+
+    padding:12px 15px;
+
+    border:1px solid #ddd;
+
+    border-radius:9px;
+
+    font-family:inherit;
+
+    font-size:14px;
+
+    outline:none;
+
+}
+
+.search-box input:focus{
+
+    border-color:#4fc3f7;
+
+}
+
+
+.category-filter{
+
+    min-width:180px;
+
+}
+
+.category-filter select{
+
+    width:100%;
+
+    padding:12px 15px;
+
+    border:1px solid #ddd;
+
+    border-radius:9px;
+
+    font-family:inherit;
+
+    font-size:14px;
+
+    background:white;
+
+    outline:none;
+
+}
+
+
+/* =====================================================
+   SECTION TITLE
+===================================================== */
+
+.section-heading{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:18px;
+
+}
+
+.section-heading h2{
+
+    color:#001f3f;
+
+    font-size:22px;
+
+}
+
+.news-count{
+
+    color:#777;
+
+    font-size:13px;
+
+}
+
+
+/* =====================================================
+   NEWS GRID
+===================================================== */
+
+.news-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(280px,1fr)
+        );
+
+    gap:22px;
+
+}
+
+
+/* =====================================================
+   NEWS CARD
+===================================================== */
+
+.news-card{
+
+    background:white;
+
+    border-radius:16px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 6px 22px rgba(0,0,0,.07);
+
+    transition:
+        transform .2s,
+        box-shadow .2s;
+
+    cursor:pointer;
+
+}
+
+.news-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.12);
+
+}
+
+
+/* =====================================================
+   CARD IMAGE
+===================================================== */
+
+.news-image{
+
+    width:100%;
+
+    height:210px;
+
+    object-fit:cover;
+
+    display:block;
+
+}
+
+.news-image-placeholder{
+
+    height:210px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #001f3f,
+            #174a8b
+        );
+
+    color:white;
+
+    font-size:42px;
+
+}
+
+
+/* =====================================================
+   CARD CONTENT
+===================================================== */
+
+.news-card-content{
+
+    padding:20px;
+
+}
+
+.news-category{
+
+    display:inline-block;
+
+    padding:5px 11px;
+
+    border-radius:20px;
+
+    background:#eef6ff;
+
+    color:#1a4d8f;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    margin-bottom:10px;
+
+}
+
+.news-card h3{
+
+    color:#001f3f;
+
+    font-size:19px;
+
+    line-height:1.35;
+
+    margin-bottom:9px;
+
+}
+
+.news-summary{
+
+    color:#666;
+
+    font-size:13px;
+
+    line-height:1.65;
+
+    margin-bottom:14px;
+
+}
+
+.news-meta{
+
+    color:#888;
+
+    font-size:11px;
+
+    border-top:1px solid #eee;
+
+    padding-top:12px;
+
+}
+
+
+/* =====================================================
+   READ BUTTON
+===================================================== */
+
+.read-button{
+
+    display:inline-block;
+
+    margin-top:14px;
+
+    color:#0067a3;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+
+/* =====================================================
+   EMPTY / LOADING
+===================================================== */
+
+.message{
+
+    background:white;
+
+    padding:45px 25px;
+
+    border-radius:16px;
+
+    text-align:center;
+
+    box-shadow:
+        0 6px 20px rgba(0,0,0,.06);
+
+    grid-column:1/-1;
+
+}
+
+.message-icon{
+
+    font-size:45px;
+
+    margin-bottom:12px;
+
+}
+
+.message h2{
+
+    color:#001f3f;
+
+    margin-bottom:8px;
+
+}
+
+.message p{
+
+    color:#777;
+
+    font-size:14px;
+
+}
+
+
+/* =====================================================
+   ARTICLE READER
+===================================================== */
+
+.article-reader{
+
+    display:none;
 
     background:white;
 
@@ -166,13 +550,13 @@ body{
     overflow:hidden;
 
     box-shadow:
-        0 8px 25px rgba(0,0,0,.08);
+        0 8px 30px rgba(0,0,0,.08);
 
 }
 
 
 /* =====================================================
-   ARTICLE IMAGE
+   ARTICLE HERO
 ===================================================== */
 
 .article-gallery{
@@ -189,11 +573,11 @@ body{
 
     width:100%;
 
-    height:420px;
-
-    object-fit:cover;
+    height:430px;
 
     flex:0 0 100%;
+
+    object-fit:cover;
 
     scroll-snap-align:start;
 
@@ -208,11 +592,11 @@ body{
 
 .article-content{
 
-    padding:28px;
+    padding:30px;
 
 }
 
-.category{
+.article-category{
 
     display:inline-block;
 
@@ -226,17 +610,17 @@ body{
 
     border-radius:20px;
 
-    margin-bottom:12px;
+    margin-bottom:13px;
 
 }
 
 .article-title{
 
-    font-size:32px;
+    color:#001f3f;
+
+    font-size:34px;
 
     line-height:1.25;
-
-    color:#001f3f;
 
     margin-bottom:12px;
 
@@ -244,27 +628,15 @@ body{
 
 .article-meta{
 
-    font-size:13px;
-
     color:#777;
 
-    margin-bottom:25px;
+    font-size:13px;
 
-    padding-bottom:15px;
+    padding-bottom:18px;
 
     border-bottom:1px solid #eee;
 
-}
-
-.article-body{
-
-    font-size:16px;
-
-    line-height:1.8;
-
-    color:#333;
-
-    white-space:pre-wrap;
+    margin-bottom:22px;
 
 }
 
@@ -274,11 +646,23 @@ body{
 
     font-weight:500;
 
-    line-height:1.7;
-
     color:#444;
 
-    margin-bottom:20px;
+    line-height:1.7;
+
+    margin-bottom:22px;
+
+}
+
+.article-body{
+
+    font-size:16px;
+
+    line-height:1.9;
+
+    color:#333;
+
+    white-space:pre-wrap;
 
 }
 
@@ -291,7 +675,7 @@ body{
 
     display:inline-block;
 
-    margin-top:25px;
+    margin-top:30px;
 
     padding:10px 18px;
 
@@ -301,51 +685,21 @@ body{
 
     text-decoration:none;
 
-    border-radius:7px;
+    border-radius:8px;
 
-    font-size:14px;
+    font-size:13px;
 
     font-weight:500;
+
+    cursor:pointer;
+
+    border:none;
 
 }
 
 .back-button:hover{
 
     background:#174a8b;
-
-}
-
-
-/* =====================================================
-   ERROR / LOADING
-===================================================== */
-
-.message{
-
-    background:white;
-
-    padding:30px;
-
-    border-radius:15px;
-
-    text-align:center;
-
-    box-shadow:
-        0 6px 20px rgba(0,0,0,.06);
-
-}
-
-.message h2{
-
-    color:#001f3f;
-
-    margin-bottom:10px;
-
-}
-
-.message p{
-
-    color:#666;
 
 }
 
@@ -360,7 +714,7 @@ body{
 
     inset:0;
 
-    background:rgba(0,0,0,.9);
+    background:rgba(0,0,0,.92);
 
     display:none;
 
@@ -421,7 +775,7 @@ body{
 
     text-decoration:none;
 
-    font-size:12px;
+    font-size:11px;
 
     display:flex;
 
@@ -446,9 +800,33 @@ body{
 
 @media(max-width:768px){
 
+    .navbar{
+
+        padding:13px 5%;
+
+    }
+
+    .logo{
+
+        font-size:23px;
+
+    }
+
+    .news-header{
+
+        padding:35px 5% 40px;
+
+    }
+
     .news-header h1{
 
-        font-size:28px;
+        font-size:29px;
+
+    }
+
+    .news-container{
+
+        padding:0 12px;
 
     }
 
@@ -466,9 +844,22 @@ body{
 
     .article-gallery img{
 
-        height:250px;
+        height:260px;
 
     }
+
+}
+
+
+/* =====================================================
+   DESKTOP ARTICLE WIDTH
+===================================================== */
+
+.article-reader{
+
+    max-width:900px;
+
+    margin:0 auto;
 
 }
 
@@ -490,6 +881,13 @@ body{
         My<span>Jwaneng</span>
     </div>
 
+    <a
+        href="index.html"
+        class="nav-home"
+    >
+        🏠 Home
+    </a>
+
 </nav>
 
 
@@ -510,26 +908,104 @@ body{
 
 
 <!-- =====================================================
-     ARTICLE
+     MAIN CONTENT
 ===================================================== -->
 
-<main class="article-container">
+<main class="news-container">
 
-    <div id="articleArea">
 
-        <div class="message">
+    <!-- =================================================
+         NEWS LIST
+    ================================================= -->
 
-            <h2>
-                Loading article...
-            </h2>
+    <section id="newsListSection">
 
-            <p>
-                Please wait while we load the story.
-            </p>
+
+        <div class="news-controls">
+
+
+            <div class="search-box">
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Search town news..."
+                >
+
+            </div>
+
+
+            <div class="category-filter">
+
+                <select id="categoryFilter">
+
+                    <option value="">
+                        All categories
+                    </option>
+
+                </select>
+
+            </div>
+
 
         </div>
 
-    </div>
+
+        <div class="section-heading">
+
+            <h2>
+                Latest News
+            </h2>
+
+            <div
+                class="news-count"
+                id="newsCount"
+            >
+                Loading...
+            </div>
+
+        </div>
+
+
+        <div
+            class="news-grid"
+            id="newsGrid"
+        >
+
+            <div class="message">
+
+                <div class="message-icon">
+                    📰
+                </div>
+
+                <h2>
+                    Loading Town News
+                </h2>
+
+                <p>
+                    Please wait while we load the latest stories.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         ARTICLE READER
+    ================================================= -->
+
+    <section
+        id="articleReader"
+        class="article-reader"
+    >
+
+        <div id="articleReaderContent"></div>
+
+    </section>
+
 
 </main>
 
@@ -597,7 +1073,7 @@ body{
     </a>
 
 
-    <a href="news.html">
+    <a href="townnews.html">
 
         <span>📰</span>
 
@@ -618,7 +1094,7 @@ const supabaseUrl =
     "https://jxigyoxikaqwwzfnccej.supabase.co";
 
 const supabaseKey =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXAiLCJyZWYiOiJqeGlnb3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NjY3Mjg0MH0.P_bXYxIXkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
 
 const client =
     supabase.createClient(
@@ -628,370 +1104,66 @@ const client =
 
 
 /* =====================================================
-   ARTICLE AREA
+   STATE
 ===================================================== */
 
-const articleArea =
+let allNews = [];
+
+let filteredNews = [];
+
+let selectedArticle = null;
+
+
+/* =====================================================
+   DOM
+===================================================== */
+
+const newsGrid =
     document.getElementById(
-        "articleArea"
+        "newsGrid"
     );
 
-
-/* =====================================================
-   GET ARTICLE ID
-===================================================== */
-
-const urlParams =
-    new URLSearchParams(
-        window.location.search
-    );
-
-const articleId =
-    urlParams.get("id");
-
-
-/* =====================================================
-   LIGHTBOX
-===================================================== */
-
-function openLightbox(src){
-
-    const lightbox =
-        document.getElementById(
-            "lightbox"
-        );
-
-    const image =
-        document.getElementById(
-            "lightboxImg"
-        );
-
-    image.src = src;
-
-    lightbox.style.display =
-        "flex";
-
-}
-
-
-function closeLightbox(){
-
+const newsCount =
     document.getElementById(
-        "lightbox"
-    ).style.display =
-        "none";
+        "newsCount"
+    );
 
-}
+const searchInput =
+    document.getElementById(
+        "searchInput"
+    );
 
+const categoryFilter =
+    document.getElementById(
+        "categoryFilter"
+    );
 
-/* =====================================================
-   FORMAT DATE
-===================================================== */
+const newsListSection =
+    document.getElementById(
+        "newsListSection"
+    );
 
-function formatDate(date){
+const articleReader =
+    document.getElementById(
+        "articleReader"
+    );
 
-    if(!date){
-
-        return "";
-
-    }
-
-    return new Date(date)
-        .toLocaleDateString(
-            "en-BW",
-            {
-                year:"numeric",
-                month:"long",
-                day:"numeric"
-            }
-        );
-
-}
-
-
-/* =====================================================
-   LOAD ARTICLE
-===================================================== */
-
-async function loadArticle(){
-
-    /* ---------------------------------------------
-       NO ID
-    --------------------------------------------- */
-
-    if(!articleId){
-
-        articleArea.innerHTML = `
-
-            <div class="message">
-
-                <h2>
-                    Article not found
-                </h2>
-
-                <p>
-                    No news article was specified.
-                </p>
-
-                <a
-                    class="back-button"
-                    href="news.html"
-                >
-                    ← Back to Town News
-                </a>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    console.log(
-        "📰 Loading news article:",
-        articleId
+const articleReaderContent =
+    document.getElementById(
+        "articleReaderContent"
     );
 
 
-    /* ---------------------------------------------
-       FETCH ARTICLE
-    --------------------------------------------- */
-
-    const {
-        data,
-        error
-    } = await client
-
-        .from("news")
-
-        .select("*")
-
-        .eq("id", articleId)
-
-        .eq("status", "published")
-
-        .maybeSingle();
-
-
-    /* ---------------------------------------------
-       DATABASE ERROR
-    --------------------------------------------- */
-
-    if(error){
-
-        console.error(
-            "❌ Could not load article:",
-            error
-        );
-
-        articleArea.innerHTML = `
-
-            <div class="message">
-
-                <h2>
-                    Unable to load article
-                </h2>
-
-                <p>
-                    ${escapeHtml(error.message)}
-                </p>
-
-                <a
-                    class="back-button"
-                    href="news.html"
-                >
-                    ← Back to Town News
-                </a>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    /* ---------------------------------------------
-       ARTICLE NOT FOUND
-    --------------------------------------------- */
-
-    if(!data){
-
-        articleArea.innerHTML = `
-
-            <div class="message">
-
-                <h2>
-                    Article not found
-                </h2>
-
-                <p>
-                    This article may have been removed
-                    or is not currently published.
-                </p>
-
-                <a
-                    class="back-button"
-                    href="news.html"
-                >
-                    ← Back to Town News
-                </a>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    /* ---------------------------------------------
-       IMAGES
-    --------------------------------------------- */
-
-    let images = [];
-
-
-    if(
-        Array.isArray(data.images) &&
-        data.images.length
-    ){
-
-        images =
-            data.images;
-
-    }
-    else if(data.image_url){
-
-        images =
-            [data.image_url];
-
-    }
-
-
-    const gallery =
-        images.length
-            ? `
-
-                <div class="article-gallery">
-
-                    ${images.map(
-                        image => `
-
-                            <img
-                                src="${escapeAttribute(image)}"
-                                alt="${escapeAttribute(data.title || "News image")}"
-                                onclick="openLightbox('${escapeAttribute(image)}')"
-                            >
-
-                        `
-                    ).join("")}
-
-                </div>
-
-            `
-            : "";
-
-
-    /* ---------------------------------------------
-       CONTENT
-    --------------------------------------------- */
-
-    articleArea.innerHTML = `
-
-        <article class="article-card">
-
-            ${gallery}
-
-            <div class="article-content">
-
-                ${
-                    data.category
-                    ? `
-                        <div class="category">
-                            ${escapeHtml(data.category)}
-                        </div>
-                      `
-                    : ""
-                }
-
-
-                <h1 class="article-title">
-
-                    ${escapeHtml(
-                        data.title ||
-                        "Untitled article"
-                    )}
-
-                </h1>
-
-
-                <div class="article-meta">
-
-                    ${formatDate(data.created_at)}
-
-                    •
-
-                    ${escapeHtml(
-                        data.author ||
-                        "Admin"
-                    )}
-
-                </div>
-
-
-                ${
-                    data.summary
-                    ? `
-                        <div class="article-summary">
-
-                            ${escapeHtml(
-                                data.summary
-                            )}
-
-                        </div>
-                      `
-                    : ""
-                }
-
-
-                <div class="article-body">
-
-                    ${escapeHtml(
-                        data.content ||
-                        "No article content available."
-                    )}
-
-                </div>
-
-
-                <a
-                    class="back-button"
-                    href="news.html"
-                >
-                    ← Back to Town News
-                </a>
-
-            </div>
-
-        </article>
-
-    `;
-
-}
-
-
 /* =====================================================
-   SECURITY HELPERS
+   ESCAPE HTML
 ===================================================== */
 
 function escapeHtml(value){
 
-    if(value === null || value === undefined){
+    if(
+        value === null ||
+        value === undefined
+    ){
 
         return "";
 
@@ -1027,11 +1199,744 @@ function escapeHtml(value){
 }
 
 
+/* =====================================================
+   ESCAPE ATTRIBUTE
+===================================================== */
+
 function escapeAttribute(value){
 
     return escapeHtml(value);
 
 }
+
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatDate(date){
+
+    if(!date){
+
+        return "";
+
+    }
+
+    const parsed =
+        new Date(date);
+
+    if(
+        Number.isNaN(
+            parsed.getTime()
+        )
+    ){
+
+        return "";
+
+    }
+
+    return parsed.toLocaleDateString(
+        "en-BW",
+        {
+            year:"numeric",
+            month:"long",
+            day:"numeric"
+        }
+    );
+
+}
+
+
+/* =====================================================
+   GET ARTICLE IMAGES
+===================================================== */
+
+function getImages(article){
+
+    if(
+        Array.isArray(article.images) &&
+        article.images.length
+    ){
+
+        return article.images
+            .filter(
+                image =>
+                    typeof image === "string" &&
+                    image.trim() !== ""
+            );
+
+    }
+
+    if(
+        article.image_url &&
+        typeof article.image_url === "string"
+    ){
+
+        return [
+            article.image_url
+        ];
+
+    }
+
+    return [];
+
+}
+
+
+/* =====================================================
+   CREATE CATEGORIES
+===================================================== */
+
+function populateCategories(){
+
+    const categories =
+        [
+            ...new Set(
+                allNews
+                    .map(
+                        article =>
+                            article.category
+                    )
+                    .filter(Boolean)
+            )
+        ]
+        .sort();
+
+    categoryFilter.innerHTML = `
+
+        <option value="">
+            All categories
+        </option>
+
+        ${
+            categories
+                .map(
+                    category => `
+
+                        <option
+                            value="${escapeAttribute(category)}"
+                        >
+                            ${escapeHtml(category)}
+                        </option>
+
+                    `
+                )
+                .join("")
+        }
+
+    `;
+
+}
+
+
+/* =====================================================
+   RENDER NEWS
+===================================================== */
+
+function renderNews(){
+
+    const search =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+    const category =
+        categoryFilter.value;
+
+
+    filteredNews =
+        allNews.filter(
+            article => {
+
+                const title =
+                    String(
+                        article.title || ""
+                    ).toLowerCase();
+
+                const summary =
+                    String(
+                        article.summary || ""
+                    ).toLowerCase();
+
+                const content =
+                    String(
+                        article.content || ""
+                    ).toLowerCase();
+
+                const articleCategory =
+                    String(
+                        article.category || ""
+                    );
+
+
+                const matchesSearch =
+                    !search ||
+                    title.includes(search) ||
+                    summary.includes(search) ||
+                    content.includes(search);
+
+
+                const matchesCategory =
+                    !category ||
+                    articleCategory === category;
+
+
+                return (
+                    matchesSearch &&
+                    matchesCategory
+                );
+
+            }
+        );
+
+
+    newsCount.textContent =
+        `${filteredNews.length} ${
+            filteredNews.length === 1
+                ? "story"
+                : "stories"
+        }`;
+
+
+    if(!filteredNews.length){
+
+        newsGrid.innerHTML = `
+
+            <div class="message">
+
+                <div class="message-icon">
+                    🔎
+                </div>
+
+                <h2>
+                    No news found
+                </h2>
+
+                <p>
+                    Try another search or category.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    newsGrid.innerHTML =
+        filteredNews
+            .map(
+                article =>
+                    createNewsCard(article)
+            )
+            .join("");
+
+}
+
+
+/* =====================================================
+   CREATE NEWS CARD
+===================================================== */
+
+function createNewsCard(article){
+
+    const images =
+        getImages(article);
+
+    const image =
+        images.length
+            ? `
+
+                <img
+                    class="news-image"
+                    src="${escapeAttribute(images[0])}"
+                    alt="${escapeAttribute(
+                        article.title ||
+                        "Town news"
+                    )}"
+                    loading="lazy"
+                >
+
+              `
+            : `
+
+                <div class="news-image-placeholder">
+                    📰
+                </div>
+
+              `;
+
+
+    const summary =
+        article.summary ||
+        article.content ||
+        "Read the latest update from My Jwaneng.";
+
+
+    const shortenedSummary =
+        String(summary).length > 150
+            ? String(summary).substring(0,150) + "..."
+            : String(summary);
+
+
+    return `
+
+        <article
+            class="news-card"
+            onclick="openArticle('${escapeAttribute(
+                article.id
+            )}')"
+        >
+
+            ${image}
+
+
+            <div class="news-card-content">
+
+
+                ${
+                    article.category
+                    ? `
+
+                        <div class="news-category">
+
+                            ${escapeHtml(
+                                article.category
+                            )}
+
+                        </div>
+
+                      `
+                    : ""
+                }
+
+
+                <h3>
+
+                    ${escapeHtml(
+                        article.title ||
+                        "Untitled story"
+                    )}
+
+                </h3>
+
+
+                <div class="news-summary">
+
+                    ${escapeHtml(
+                        shortenedSummary
+                    )}
+
+                </div>
+
+
+                <div class="news-meta">
+
+                    ${formatDate(
+                        article.created_at
+                    )}
+
+                    ${
+                        article.author
+                        ? ` • ${escapeHtml(
+                            article.author
+                        )}`
+                        : ""
+                    }
+
+                </div>
+
+
+                <div class="read-button">
+
+                    Read story →
+
+                </div>
+
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+/* =====================================================
+   OPEN ARTICLE
+===================================================== */
+
+function openArticle(articleId){
+
+    const article =
+        allNews.find(
+            item =>
+                String(item.id) ===
+                String(articleId)
+        );
+
+
+    if(!article){
+
+        return;
+
+    }
+
+
+    selectedArticle =
+        article;
+
+
+    const images =
+        getImages(article);
+
+
+    const gallery =
+        images.length
+            ? `
+
+                <div class="article-gallery">
+
+                    ${
+                        images
+                            .map(
+                                image => `
+
+                                    <img
+                                        src="${escapeAttribute(image)}"
+                                        alt="${escapeAttribute(
+                                            article.title ||
+                                            "News image"
+                                        )}"
+                                        onclick="openLightbox('${escapeAttribute(image)}')"
+                                    >
+
+                                `
+                            )
+                            .join("")
+                    }
+
+                </div>
+
+              `
+            : "";
+
+
+    articleReaderContent.innerHTML = `
+
+        ${gallery}
+
+
+        <div class="article-content">
+
+
+            ${
+                article.category
+                ? `
+
+                    <div class="article-category">
+
+                        ${escapeHtml(
+                            article.category
+                        )}
+
+                    </div>
+
+                  `
+                : ""
+            }
+
+
+            <h1 class="article-title">
+
+                ${escapeHtml(
+                    article.title ||
+                    "Untitled article"
+                )}
+
+            </h1>
+
+
+            <div class="article-meta">
+
+                ${formatDate(
+                    article.created_at
+                )}
+
+                ${
+                    article.author
+                    ? ` • ${escapeHtml(
+                        article.author
+                    )}`
+                    : ""
+                }
+
+            </div>
+
+
+            ${
+                article.summary
+                ? `
+
+                    <div class="article-summary">
+
+                        ${escapeHtml(
+                            article.summary
+                        )}
+
+                    </div>
+
+                  `
+                : ""
+            }
+
+
+            <div class="article-body">
+
+                ${escapeHtml(
+                    article.content ||
+                    "No article content available."
+                )}
+
+            </div>
+
+
+            <button
+                class="back-button"
+                onclick="closeArticle()"
+            >
+
+                ← Back to Town News
+
+            </button>
+
+
+        </div>
+
+    `;
+
+
+    newsListSection.style.display =
+        "none";
+
+
+    articleReader.style.display =
+        "block";
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =====================================================
+   CLOSE ARTICLE
+===================================================== */
+
+function closeArticle(){
+
+    articleReader.style.display =
+        "none";
+
+
+    newsListSection.style.display =
+        "block";
+
+
+    selectedArticle =
+        null;
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =====================================================
+   LOAD NEWS
+===================================================== */
+
+async function loadNews(){
+
+    newsGrid.innerHTML = `
+
+        <div class="message">
+
+            <div class="message-icon">
+                📰
+            </div>
+
+            <h2>
+                Loading Town News
+            </h2>
+
+            <p>
+                Please wait while we load the latest stories.
+            </p>
+
+        </div>
+
+    `;
+
+
+    const {
+        data,
+        error
+    } = await client
+
+        .from("news")
+
+        .select("*")
+
+        .eq(
+            "status",
+            "published"
+        )
+
+        .order(
+            "created_at",
+            {
+                ascending:false
+            }
+        );
+
+
+    if(error){
+
+        console.error(
+            "❌ News loading error:",
+            error
+        );
+
+
+        newsCount.textContent =
+            "";
+
+
+        newsGrid.innerHTML = `
+
+            <div class="message">
+
+                <div class="message-icon">
+                    ⚠️
+                </div>
+
+                <h2>
+                    Unable to load Town News
+                </h2>
+
+                <p>
+                    ${escapeHtml(
+                        error.message
+                    )}
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    allNews =
+        Array.isArray(data)
+            ? data
+            : [];
+
+
+    populateCategories();
+
+    renderNews();
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+searchInput.addEventListener(
+    "input",
+    renderNews
+);
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
+
+categoryFilter.addEventListener(
+    "change",
+    renderNews
+);
+
+
+/* =====================================================
+   LIGHTBOX
+===================================================== */
+
+function openLightbox(src){
+
+    const lightbox =
+        document.getElementById(
+            "lightbox"
+        );
+
+    const image =
+        document.getElementById(
+            "lightboxImg"
+        );
+
+
+    image.src =
+        src;
+
+
+    lightbox.style.display =
+        "flex";
+
+}
+
+
+function closeLightbox(){
+
+    document.getElementById(
+        "lightbox"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   ESC KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closeLightbox();
+
+        }
+
+    }
+);
 
 
 /* =====================================================
@@ -1065,7 +1970,7 @@ if(isPWA()){
    START
 ===================================================== */
 
-loadArticle();
+loadNews();
 
 </script>
 
