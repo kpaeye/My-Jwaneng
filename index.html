@@ -1,4 +1,3 @@
-html
 <!DOCTYPE html>
 
 <html lang="en">
@@ -6,32 +5,74 @@ html
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>My Jwaneng | Welcome to Jwaneng</title>
 
 <meta
-name="description"
-content="My Jwaneng — discover the people, places, businesses, opportunities, events and stories that make Jwaneng home."
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
 >
 
-<meta name="theme-color" content="#071923">
+<title>
+    My Jwaneng | Welcome to Jwaneng
+</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta
+    name="description"
+    content="My Jwaneng — your digital gateway to Jwaneng, Botswana and surrounding communities."
+>
+
+<meta
+    name="theme-color"
+    content="#071923"
+>
+
+<meta
+    name="mobile-web-app-capable"
+    content="yes"
+>
+
+<meta
+    name="apple-mobile-web-app-capable"
+    content="yes"
+>
+
+<link
+    rel="manifest"
+    href="/manifest.json"
+>
+
+<link
+    rel="icon"
+    href="/icons/icon-192.png"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
 
 <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet"
 >
 
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <style>
 
-/* =========================================================
-   MY JWANENG
-   A DIGITAL FRONT DOOR TO THE TOWN
-========================================================= */
+/* =====================================================
+   ROOT
+===================================================== */
 
 :root{
 
@@ -46,51 +87,92 @@ content="My Jwaneng — discover the people, places, businesses, opportunities, 
     --gold-light:#efd393;
 
     --white:#ffffff;
-    --muted:#9fb1ba;
-    --soft:#d7e2e7;
+    --muted:#9db0ba;
+    --soft:#dce7eb;
 
-    --border:rgba(255,255,255,.10);
+    --border:rgba(255,255,255,.09);
 
     --drawer-width:320px;
+
 }
 
 
-/* =========================================================
+/* =====================================================
    RESET
-========================================================= */
+===================================================== */
 
 *{
-    margin:0;
-    padding:0;
+
     box-sizing:border-box;
+
+    margin:0;
+
+    padding:0;
+
 }
 
+
 html{
+
     scroll-behavior:smooth;
+
 }
+
 
 body{
 
-    font-family:'Poppins',sans-serif;
+    font-family:"Poppins",Arial,sans-serif;
 
-    background:var(--dark);
+    background:
 
-    color:white;
+        linear-gradient(
+            180deg,
+            #071923 0%,
+            #0b2532 100%
+        );
 
-    overflow-x:hidden;
+    color:var(--white);
 
-    padding-top:78px;
+    min-height:100vh;
+
 }
 
-button,
+
+body.drawer-open{
+
+    overflow:hidden;
+
+}
+
+
 a{
-    font-family:inherit;
+
+    color:inherit;
+
+    text-decoration:none;
+
 }
 
 
-/* =========================================================
+button{
+
+    font-family:inherit;
+
+}
+
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+}
+
+
+/* =====================================================
    NAVBAR
-========================================================= */
+===================================================== */
 
 .navbar{
 
@@ -98,138 +180,205 @@ a{
 
     top:0;
     left:0;
+    right:0;
 
-    width:100%;
     height:78px;
 
-    z-index:10000;
+    z-index:900;
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
-    padding:0 5%;
+    padding:0 28px;
 
-    background:rgba(5,19,28,.96);
+    background:rgba(7,25,35,.93);
 
-    border-bottom:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(14px);
 
-    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+
 }
+
 
 .nav-left{
 
     display:flex;
+
     align-items:center;
 
-    gap:15px;
+    gap:16px;
+
 }
 
-.menu-button{
 
-    width:44px;
-    height:44px;
+.menu-btn{
 
-    border-radius:9px;
+    width:42px;
+    height:42px;
 
-    border:1px solid rgba(255,255,255,.14);
+    border-radius:12px;
 
-    background:rgba(255,255,255,.045);
+    border:1px solid var(--border);
 
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
+    background:rgba(255,255,255,.04);
 
-    gap:5px;
+    color:white;
 
     cursor:pointer;
 
-    transition:.25s;
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:20px;
+
 }
 
-.menu-button:hover{
 
-    background:rgba(67,184,232,.10);
+.menu-btn:hover{
 
-    border-color:rgba(67,184,232,.5);
+    background:rgba(67,184,232,.12);
+
+    border-color:rgba(67,184,232,.35);
+
 }
 
-.menu-button span{
-
-    width:20px;
-    height:2px;
-
-    background:white;
-
-    border-radius:3px;
-}
 
 .logo{
 
-    font-size:25px;
+    font-size:22px;
 
     font-weight:800;
 
-    letter-spacing:-1px;
+    letter-spacing:-.5px;
+
 }
+
 
 .logo span{
+
     color:var(--blue);
+
 }
 
-.logo-mark{
 
-    display:inline-block;
+.identity{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:9px;
+
+    letter-spacing:1.4px;
+
+    text-transform:uppercase;
+
+}
+
+
+.location{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    font-size:11px;
+
+    color:var(--muted);
+
+}
+
+
+.location-dot{
 
     width:7px;
     height:7px;
 
-    margin-left:5px;
+    border-radius:50%;
 
-    background:var(--gold);
+    background:var(--blue);
 
-    transform:rotate(45deg);
+    box-shadow:0 0 12px var(--blue);
+
 }
 
-.nav-right{
+
+/* =====================================================
+   LIVE BAR
+===================================================== */
+
+.live-bar{
+
+    position:fixed;
+
+    top:78px;
+
+    left:0;
+    right:0;
+
+    height:34px;
+
+    z-index:800;
 
     display:flex;
+
     align-items:center;
 
-    gap:16px;
-}
+    justify-content:center;
 
-.nav-identity{
+    background:rgba(67,184,232,.08);
 
-    color:#8da1ab;
+    border-bottom:1px solid rgba(67,184,232,.12);
 
-    font-size:9px;
-
-    text-transform:uppercase;
-
-    letter-spacing:1.8px;
-}
-
-.nav-location{
-
-    padding:7px 12px;
-
-    border:1px solid rgba(255,255,255,.12);
-
-    border-radius:20px;
-
-    background:rgba(255,255,255,.04);
-
-    color:#d8e5ea;
+    color:var(--blue-light);
 
     font-size:9px;
+
+    letter-spacing:.5px;
+
 }
 
 
-/* =========================================================
+.live-dot{
+
+    width:6px;
+    height:6px;
+
+    border-radius:50%;
+
+    background:#5ee38b;
+
+    margin-right:7px;
+
+    animation:pulse 2s infinite;
+
+}
+
+
+@keyframes pulse{
+
+    0%,100%{
+        opacity:.45;
+    }
+
+    50%{
+        opacity:1;
+    }
+
+}
+
+
+/* =====================================================
    DRAWER
-========================================================= */
+===================================================== */
 
 .drawer{
 
@@ -237,279 +386,146 @@ a{
 
     top:0;
     left:0;
+    bottom:0;
 
     width:var(--drawer-width);
-    height:100vh;
 
-    z-index:20000;
+    z-index:1200;
 
     background:#071923;
 
-    border-right:1px solid rgba(255,255,255,.10);
-
-    box-shadow:15px 0 50px rgba(0,0,0,.4);
+    border-right:1px solid var(--border);
 
     transform:translateX(-105%);
 
-    transition:transform .32s ease;
+    transition:transform .3s ease;
 
     overflow-y:auto;
+
+    padding-bottom:30px;
+
 }
 
+
 .drawer.open{
+
     transform:translateX(0);
+
 }
+
 
 .drawer-header{
 
     height:78px;
 
-    padding:0 23px;
-
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
-    border-bottom:1px solid rgba(255,255,255,.08);
+    padding:0 22px;
+
+    border-bottom:1px solid var(--border);
+
 }
 
-.drawer-title{
 
-    font-size:18px;
+.drawer-logo{
+
+    font-size:20px;
 
     font-weight:800;
+
 }
 
-.drawer-title span{
+
+.drawer-logo span{
+
     color:var(--blue);
-}
 
-.close-drawer{
-
-    width:37px;
-    height:37px;
-
-    border-radius:8px;
-
-    border:1px solid rgba(255,255,255,.12);
-
-    background:rgba(255,255,255,.05);
-
-    color:white;
-
-    cursor:pointer;
-
-    font-size:18px;
-}
-
-.drawer-intro{
-
-    padding:23px;
-
-    color:#8fa4ae;
-
-    font-size:10px;
-
-    line-height:1.7;
-}
-
-.drawer-section{
-
-    padding:10px 15px 5px;
-
-    color:var(--gold-light);
-
-    font-size:8px;
-
-    font-weight:800;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-}
-
-.drawer-menu{
-
-    list-style:none;
-
-    padding:5px 12px 15px;
-}
-
-.drawer-menu li{
-    margin-bottom:3px;
-}
-
-.drawer-link{
-
-    width:100%;
-
-    display:flex;
-    align-items:center;
-
-    gap:13px;
-
-    padding:12px 13px;
-
-    border-radius:8px;
-
-    border:1px solid transparent;
-
-    background:transparent;
-
-    color:#d5e0e5;
-
-    text-decoration:none;
-
-    font-size:11px;
-
-    cursor:pointer;
-
-    text-align:left;
-
-    transition:.2s;
-}
-
-.drawer-link:hover{
-
-    background:rgba(67,184,232,.08);
-
-    border-color:rgba(67,184,232,.16);
-
-    color:white;
-}
-
-.drawer-home{
-
-    background:rgba(67,184,232,.08);
-
-    border-color:rgba(67,184,232,.13);
-}
-
-.drawer-icon{
-
-    width:25px;
-
-    text-align:center;
-
-    font-size:17px;
 }
 
 
-/* =========================================================
-   GALAXY
-========================================================= */
-
-.drawer-galaxy{
-
-    background:rgba(255,255,255,.045);
-
-    border-color:rgba(141,224,255,.18);
-
-    min-height:62px;
-}
-
-.drawer-galaxy:hover{
-
-    background:rgba(67,184,232,.10);
-
-    border-color:rgba(141,224,255,.35);
-}
-
-.drawer-galaxy .drawer-icon{
+.drawer-close{
 
     width:38px;
     height:38px;
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    border:1px solid var(--border);
 
-    border-radius:8px;
-
-    background:rgba(255,255,255,.07);
-
-    border:1px solid rgba(255,255,255,.10);
-}
-
-.galaxy-content{
-
-    display:flex;
-    flex-direction:column;
-
-    gap:2px;
-
-    flex:1;
-}
-
-.galaxy-title{
-
-    display:flex;
-    align-items:center;
-    gap:7px;
-
-    font-size:11px;
-
-    font-weight:800;
-}
-
-.galaxy-subtitle{
-
-    font-size:8px;
-
-    color:#8fa6b1;
-}
-
-.galaxy-badge{
-
-    padding:2px 5px;
-
-    border-radius:10px;
-
-    background:rgba(217,179,108,.12);
-
-    color:var(--gold-light);
-
-    border:1px solid rgba(217,179,108,.22);
-
-    font-size:6px;
-
-    text-transform:uppercase;
-
-    letter-spacing:.5px;
-}
-
-.drawer-footer{
-
-    margin:15px;
-
-    padding:17px;
-
-    border-radius:10px;
-
-    background:rgba(255,255,255,.035);
-
-    border:1px solid rgba(255,255,255,.07);
-
-    color:#8298a3;
-
-    font-size:9px;
-
-    line-height:1.7;
-}
-
-.drawer-footer strong{
-
-    display:block;
+    background:rgba(255,255,255,.04);
 
     color:white;
 
-    margin-bottom:5px;
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:18px;
+
 }
 
 
-/* =========================================================
-   OVERLAY
-========================================================= */
+.drawer-section{
+
+    padding:22px 14px 8px;
+
+    color:#6f858f;
+
+    font-size:8px;
+
+    font-weight:700;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+
+}
+
+
+.drawer-link{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+
+    padding:12px 16px;
+
+    margin:3px 8px;
+
+    border-radius:11px;
+
+    color:#d6e2e6;
+
+    font-size:12px;
+
+    transition:.2s;
+
+}
+
+
+.drawer-link:hover{
+
+    background:rgba(67,184,232,.09);
+
+    color:white;
+
+}
+
+
+.drawer-link-icon{
+
+    width:24px;
+
+    text-align:center;
+
+    opacity:.8;
+
+}
+
 
 .drawer-overlay{
 
@@ -517,1206 +533,782 @@ a{
 
     inset:0;
 
-    z-index:15000;
+    background:rgba(0,0,0,.58);
 
-    background:rgba(0,0,0,.65);
+    z-index:1100;
 
     opacity:0;
 
     visibility:hidden;
 
-    transition:.25s;
+    transition:.3s;
+
 }
 
-.drawer-overlay.active{
+
+.drawer-overlay.show{
 
     opacity:1;
 
     visibility:visible;
+
 }
 
 
-/* =========================================================
-   LIVE BAR
-========================================================= */
-
-.update-bar{
-
-    position:fixed;
-
-    top:78px;
-    left:0;
-
-    width:100%;
-    height:47px;
-
-    z-index:9999;
-
-    display:flex;
-
-    align-items:center;
-
-    background:#0c3447;
-
-    border-bottom:1px solid rgba(255,255,255,.10);
-
-    box-shadow:0 5px 18px rgba(0,0,0,.18);
-}
-
-.update-label{
-
-    height:100%;
-
-    display:flex;
-    align-items:center;
-
-    padding:0 20px;
-
-    background:#09293a;
-
-    font-size:9px;
-
-    font-weight:800;
-
-    white-space:nowrap;
-
-    border-right:1px solid rgba(255,255,255,.10);
-
-    letter-spacing:.5px;
-}
-
-.update-marquee{
-
-    flex:1;
-
-    overflow:hidden;
-
-    white-space:nowrap;
-}
-
-.update-track{
-
-    display:inline-block;
-
-    padding-left:100%;
-
-    animation:scrollUpdate 55s linear infinite;
-
-    font-size:10px;
-
-    font-weight:500;
-
-    color:#e0f1f6;
-}
-
-@keyframes scrollUpdate{
-
-    from{
-        transform:translateX(0);
-    }
-
-    to{
-        transform:translateX(-100%);
-    }
-}
-
-
-/* =========================================================
+/* =====================================================
    HERO
-========================================================= */
+===================================================== */
 
 .hero{
 
+    min-height:640px;
+
+    margin-top:112px;
+
     position:relative;
 
-    min-height:calc(100vh - 125px);
-
     display:flex;
-    align-items:flex-end;
+
+    align-items:center;
 
     overflow:hidden;
-}
-
-.hero-image{
-
-    position:absolute;
-
-    inset:0;
 
     background:
 
         linear-gradient(
             90deg,
-            rgba(3,15,23,.90) 0%,
-            rgba(3,15,23,.62) 43%,
-            rgba(3,15,23,.18) 80%
-        ),
-
-        linear-gradient(
-            0deg,
-            rgba(3,15,23,.95),
-            rgba(3,15,23,.04) 65%
+            rgba(7,25,35,.95) 0%,
+            rgba(7,25,35,.78) 48%,
+            rgba(7,25,35,.30) 100%
         ),
 
         url("images/jwaneng-hero.jpg")
-        center center / cover no-repeat,
+        center/cover no-repeat;
 
-        #315d68;
 }
 
-.hero-image::after{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-    right:0;
-    bottom:0;
-
-    height:1px;
-
-    background:rgba(255,255,255,.16);
-}
-
-
-/* =========================================================
-   WEATHER — SQUARE SIDE CARD
-========================================================= */
-
-.top-weather{
-
-    position:absolute;
-
-    top:82px;
-    right:6%;
-
-    z-index:6;
-
-    width:190px;
-    height:190px;
-
-    padding:21px;
-
-    margin:0;
-
-    background:rgba(5,19,28,.88);
-
-    border:1px solid rgba(255,255,255,.16);
-
-    border-top:3px solid var(--blue);
-
-    border-radius:12px;
-
-    box-shadow:0 18px 45px rgba(0,0,0,.34);
-
-    backdrop-filter:blur(14px);
-}
-
-.top-weather-inner{
-
-    width:100%;
-    height:100%;
-
-    margin:0;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:flex-start;
-
-    justify-content:space-between;
-
-    gap:12px;
-}
-
-.top-weather-left{
-
-    display:flex;
-    align-items:center;
-
-    gap:10px;
-}
-
-.weather-live-dot{
-
-    width:8px;
-    height:8px;
-
-    flex-shrink:0;
-
-    border-radius:50%;
-
-    background:#67d4f5;
-
-    box-shadow:0 0 0 5px rgba(103,212,245,.08);
-}
-
-.top-weather-title{
-
-    font-size:11px;
-
-    font-weight:800;
-
-    letter-spacing:1px;
-
-    text-transform:uppercase;
-}
-
-.top-weather-sub{
-
-    color:#78909c;
-
-    font-size:8px;
-
-    margin-top:3px;
-}
-
-.top-weather-data{
-
-    width:100%;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:7px;
-}
-
-.weather-pill{
-
-    width:100%;
-
-    padding:9px 10px;
-
-    border-radius:8px;
-
-    background:rgba(255,255,255,.05);
-
-    border:1px solid rgba(255,255,255,.09);
-
-    color:#d5e5eb;
-
-    font-size:9px;
-}
-
-
-/* =========================================================
-   HERO CONTENT
-========================================================= */
 
 .hero-content{
 
-    position:relative;
-
-    z-index:3;
-
-    width:100%;
-
-    max-width:1150px;
+    width:min(1180px,calc(100% - 48px));
 
     margin:auto;
 
-    padding:125px 7% 82px;
-}
-
-.hero-kicker{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    margin-bottom:18px;
-
-    color:#e2c783;
-
-    font-size:10px;
-
-    font-weight:800;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-}
-
-.hero-kicker::before{
-
-    content:"";
-
-    width:25px;
-    height:2px;
-
-    background:var(--gold);
-}
-
-.hero h1{
-
-    max-width:750px;
-
-    font-size:clamp(55px,8vw,94px);
-
-    line-height:.98;
-
-    letter-spacing:-4px;
-
-    margin-bottom:22px;
-}
-
-.hero h1 span{
-
-    color:var(--blue-light);
-}
-
-.hero-description{
-
-    max-width:610px;
-
-    color:#d9e5ea;
-
-    font-size:14px;
-
-    line-height:1.85;
-
-    margin-bottom:28px;
-}
-
-.hero-buttons{
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:10px;
-}
-
-.btn{
-
-    display:inline-flex;
-
-    align-items:center;
-    justify-content:center;
-
-    padding:12px 18px;
-
-    border-radius:7px;
-
-    text-decoration:none;
-
-    font-size:10px;
-
-    font-weight:800;
-
-    transition:.25s;
-}
-
-.btn-primary{
-
-    background:white;
-
-    color:#082331;
-}
-
-.btn-primary:hover{
-
-    transform:translateY(-2px);
-
-    background:#e7f7fc;
-}
-
-.btn-secondary{
-
-    background:rgba(5,20,28,.45);
-
-    border:1px solid rgba(255,255,255,.25);
-
-    color:white;
-}
-
-.btn-secondary:hover{
-
-    background:rgba(255,255,255,.09);
-
-    border-color:white;
-}
-
-
-/* =========================================================
-   HERO TOWN CARD
-========================================================= */
-
-.hero-town-card{
-
-    position:absolute;
-
-    right:7%;
-    bottom:68px;
-
-    z-index:4;
-
-    width:300px;
-
-    padding:22px;
-
-    background:rgba(5,19,28,.88);
-
-    border-left:4px solid var(--gold);
-
-    border-top:1px solid rgba(255,255,255,.12);
-    border-right:1px solid rgba(255,255,255,.12);
-    border-bottom:1px solid rgba(255,255,255,.12);
-
-    backdrop-filter:blur(10px);
-
-    border-radius:8px;
-}
-
-.hero-town-card small{
-
-    display:block;
-
-    color:var(--gold-light);
-
-    font-size:8px;
-
-    text-transform:uppercase;
-
-    letter-spacing:2px;
-
-    margin-bottom:6px;
-}
-
-.hero-town-card strong{
-
-    display:block;
-
-    font-size:24px;
-
-    margin-bottom:10px;
-
-    color:white;
-}
-
-.hero-town-card p{
-
-    color:#d8e4e8;
-
-    font-size:10px;
-
-    line-height:1.8;
-
-    min-height:72px;
-
-    transition:opacity .5s ease;
-}
-
-
-/* =========================================================
-   INTRO
-========================================================= */
-
-.intro{
-
-    padding:90px 7%;
-
-    background:#f4f0e8;
-
-    color:#14252d;
-}
-
-.intro-container{
-
-    max-width:1150px;
-
-    margin:auto;
-
-    display:grid;
-
-    grid-template-columns:1fr 1.5fr;
-
-    gap:70px;
-
-    align-items:center;
-}
-
-.intro-label{
-
-    color:#9c7737;
-
-    font-size:9px;
-
-    font-weight:800;
-
-    letter-spacing:2px;
-
-    text-transform:uppercase;
-
-    margin-bottom:10px;
-}
-
-.intro h2{
-
-    font-size:clamp(35px,5vw,58px);
-
-    line-height:1.02;
-
-    letter-spacing:-2px;
-}
-
-.intro h2 span{
-
-    color:#147ca5;
-}
-
-.intro-copy{
-
-    color:#56656c;
-
-    font-size:14px;
-
-    line-height:1.9;
-}
-
-.intro-copy strong{
-
-    color:#1b333d;
-}
-
-
-/* =========================================================
-   TOWN SNAPSHOT
-========================================================= */
-
-.town-strip{
-
-    background:#0b2532;
-
-    padding:28px 7%;
-
-    border-top:1px solid rgba(255,255,255,.06);
-
-    border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.town-strip-inner{
-
-    max-width:1150px;
-
-    margin:auto;
-
-    display:grid;
-
-    grid-template-columns:repeat(4,1fr);
-
-    gap:1px;
-
-    background:rgba(255,255,255,.08);
-}
-
-.town-stat{
-
-    padding:20px;
-
-    background:#0b2532;
-}
-
-.town-stat strong{
-
-    display:block;
-
-    font-size:15px;
-
-    color:white;
-
-    margin-bottom:3px;
-}
-
-.town-stat span{
-
-    color:#8199a4;
-
-    font-size:8px;
-
-    text-transform:uppercase;
-
-    letter-spacing:1px;
-}
-
-
-/* =========================================================
-   JWANENG UPDATES — MORE VISIBLE
-========================================================= */
-
-.today{
-
-    padding:85px 7%;
-
-    background:#f7f8f8;
-
-    color:#172b34;
-
-    border-top:4px solid var(--blue);
-}
-
-.today-container{
-
-    max-width:1150px;
-
-    margin:auto;
-}
-
-.today-header{
-
-    display:flex;
-
-    align-items:flex-end;
-
-    justify-content:space-between;
-
-    gap:30px;
-
-    margin-bottom:30px;
-}
-
-.today-header-left{
-
-    max-width:700px;
-}
-
-.today-header h2{
-
-    font-size:clamp(36px,5vw,54px);
-
-    letter-spacing:-1.8px;
-
-    line-height:1.02;
-}
-
-.today-header p{
-
-    color:#6c7b82;
-
-    font-size:11px;
-
-    margin-top:8px;
-
-    line-height:1.7;
-}
-
-.today-live-badge{
-
-    flex-shrink:0;
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:7px;
-
-    padding:8px 12px;
-
-    border-radius:20px;
-
-    background:#e8f6fa;
-
-    border:1px solid #c9e9f1;
-
-    color:#147ca5;
-
-    font-size:8px;
-
-    font-weight:800;
-
-    text-transform:uppercase;
-
-    letter-spacing:1px;
-}
-
-.today-live-dot{
-
-    width:6px;
-    height:6px;
-
-    border-radius:50%;
-
-    background:#32b6dc;
-}
-
-.today-grid{
-
-    display:grid;
-
-    grid-template-columns:1.25fr 1fr 1fr 1fr;
-
-    gap:12px;
-}
-
-.widget-card{
-
-    min-height:245px;
-
-    padding:23px;
-
-    background:white;
-
-    border:1px solid #dfe6e8;
-
-    border-radius:7px;
-
-    transition:.25s;
-}
-
-.widget-card:hover{
-
-    transform:translateY(-3px);
-
-    border-color:#b9dfe9;
-
-    box-shadow:0 12px 30px rgba(15,45,57,.08);
-}
-
-.widget-card.featured{
-
-    background:#0b2532;
-
-    border-color:#164556;
-
-    color:white;
-}
-
-.widget-card.featured h3{
-
-    color:#8ddfff;
-}
-
-.widget-card.featured .widget-item{
-
-    border-color:rgba(255,255,255,.08);
-}
-
-.widget-card.featured .widget-item strong{
-
-    color:white;
-}
-
-.widget-card.featured .widget-item small{
-
-    color:#91a8b1;
-}
-
-.widget-card h3{
-
-    color:#147ca5;
-
-    font-size:15px;
-
-    margin-bottom:12px;
-}
-
-.widget-item{
-
-    padding:11px 0;
-
-    border-bottom:1px solid #edf0f1;
-}
-
-.widget-item:last-child{
-    border-bottom:none;
-}
-
-.widget-item strong{
-
-    display:block;
-
-    color:#263d46;
-
-    font-size:11px;
-
-    margin-bottom:3px;
-}
-
-.widget-item small{
-
-    color:#829198;
-
-    font-size:9px;
-}
-
-.widget-btn{
-
-    display:inline-block;
-
-    margin-top:13px;
-
-    color:#147ca5;
-
-    font-size:9px;
-
-    font-weight:800;
-
-    text-decoration:none;
-}
-
-.widget-card.featured .widget-btn{
-
-    color:#8ddfff;
-}
-
-
-/* =========================================================
-   PUBLIC NOTICE CARD
-========================================================= */
-
-.public-notice-card{
-
-    position:relative;
-
-    overflow:hidden;
-}
-
-.public-notice-card::before{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-    top:0;
-    bottom:0;
-
-    width:3px;
-
-    background:var(--gold);
-}
-
-
-/* =========================================================
-   DID YOU KNOW?
-========================================================= */
-
-.did-you-know{
-
-    position:relative;
-
-    padding:85px 7%;
-
-    background:#0b2532;
-
-    color:white;
-
-    overflow:hidden;
-
-    border-top:1px solid rgba(255,255,255,.06);
-
-    border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.did-you-know::before{
-
-    content:"?";
-
-    position:absolute;
-
-    right:5%;
-
-    top:-45px;
-
-    font-size:260px;
-
-    line-height:1;
-
-    font-weight:800;
-
-    color:rgba(67,184,232,.045);
-
-    pointer-events:none;
-}
-
-.did-you-know-container{
+    padding:70px 0;
 
     position:relative;
 
     z-index:2;
 
-    max-width:1150px;
-
-    margin:auto;
 }
 
-.did-you-know-header{
 
-    display:flex;
+.hero-kicker{
 
-    align-items:flex-end;
+    color:var(--blue-light);
 
-    justify-content:space-between;
+    font-size:10px;
 
-    gap:35px;
-
-    margin-bottom:32px;
-}
-
-.did-you-know-heading{
-
-    max-width:700px;
-}
-
-.did-you-know-label{
-
-    color:var(--gold-light);
-
-    font-size:9px;
-
-    font-weight:800;
+    font-weight:700;
 
     letter-spacing:2px;
 
     text-transform:uppercase;
 
-    margin-bottom:9px;
+    margin-bottom:13px;
+
 }
 
-.did-you-know-heading h2{
 
-    font-size:clamp(36px,5vw,55px);
+.hero h1{
 
-    line-height:1.02;
+    max-width:680px;
 
-    letter-spacing:-2px;
+    font-size:clamp(42px,6vw,76px);
+
+    line-height:.98;
+
+    letter-spacing:-3px;
+
+    margin-bottom:22px;
+
 }
 
-.did-you-know-heading p{
 
-    max-width:620px;
+.hero h1 span{
 
-    margin-top:10px;
+    color:var(--blue);
 
-    color:#9eb3bc;
+}
+
+
+.hero-description{
+
+    max-width:600px;
+
+    color:#d0dde1;
+
+    line-height:1.8;
+
+    font-size:14px;
+
+    margin-bottom:30px;
+
+}
+
+
+.hero-actions{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+}
+
+
+.btn{
+
+    border:none;
+
+    cursor:pointer;
+
+    padding:12px 18px;
+
+    border-radius:10px;
 
     font-size:11px;
 
-    line-height:1.8;
-}
+    font-weight:700;
 
-.did-you-know-badge{
-
-    flex-shrink:0;
-
-    display:flex;
+    display:inline-flex;
 
     align-items:center;
 
     justify-content:center;
 
-    width:62px;
-    height:62px;
+    gap:8px;
 
-    border-radius:50%;
+    transition:.2s;
 
-    background:rgba(67,184,232,.10);
-
-    border:1px solid rgba(67,184,232,.28);
-
-    color:var(--blue-light);
-
-    font-size:26px;
-
-    font-weight:800;
 }
 
-.did-you-know-grid{
 
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:13px;
-}
-
-.fact-card{
-
-    position:relative;
-
-    min-height:205px;
-
-    padding:25px;
-
-    background:#102f3d;
-
-    border:1px solid rgba(255,255,255,.08);
-
-    border-radius:8px;
-
-    transition:.25s;
-
-    overflow:hidden;
-}
-
-.fact-card::after{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-    bottom:0;
-
-    width:100%;
-    height:3px;
+.btn-primary{
 
     background:var(--blue);
 
-    transform:scaleX(0);
-
-    transform-origin:left;
-
-    transition:.25s;
-}
-
-.fact-card:hover{
-
-    transform:translateY(-4px);
-
-    border-color:rgba(67,184,232,.35);
-
-    background:#123746;
+    color:#06151d;
 
 }
 
-.fact-card:hover::after{
 
-    transform:scaleX(1);
+.btn-primary:hover{
+
+    background:var(--blue-light);
+
+    transform:translateY(-1px);
+
 }
 
-.fact-number{
 
-    display:flex;
+.btn-secondary{
 
-    align-items:center;
-
-    justify-content:center;
-
-    width:34px;
-    height:34px;
-
-    margin-bottom:19px;
-
-    border-radius:50%;
-
-    background:rgba(217,179,108,.10);
-
-    border:1px solid rgba(217,179,108,.22);
-
-    color:var(--gold-light);
-
-    font-size:10px;
-
-    font-weight:800;
-}
-
-.fact-card h3{
+    background:rgba(255,255,255,.07);
 
     color:white;
 
-    font-size:15px;
+    border:1px solid rgba(255,255,255,.15);
 
-    line-height:1.4;
-
-    margin-bottom:9px;
 }
 
-.fact-card p{
 
-    color:#9eb2bb;
+.btn-secondary:hover{
 
-    font-size:10px;
+    background:rgba(255,255,255,.12);
 
-    line-height:1.75;
 }
 
-.fact-source{
 
-    margin-top:13px;
+.btn-notification{
 
-    color:#6f8994;
+    background:rgba(217,179,108,.10);
 
-    font-size:7px;
+    color:var(--gold-light);
+
+    border:1px solid rgba(217,179,108,.30);
+
+}
+
+
+.btn-notification:hover{
+
+    background:rgba(217,179,108,.16);
+
+}
+
+
+/* =====================================================
+   WEATHER
+===================================================== */
+
+.weather-card{
+
+    position:absolute;
+
+    right:5%;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:170px;
+
+    height:170px;
+
+    border-radius:22px;
+
+    padding:20px;
+
+    background:rgba(7,25,35,.72);
+
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,.12);
+
+    z-index:3;
+
+}
+
+
+.weather-label{
+
+    color:var(--muted);
+
+    font-size:8px;
 
     text-transform:uppercase;
 
     letter-spacing:1px;
+
 }
 
 
-/* =========================================================
-   WHAT'S IN JWANENG
-========================================================= */
+.weather-temp{
 
-.discover{
+    font-size:42px;
 
-    padding:90px 7%;
+    font-weight:700;
 
-    background:#ffffff;
+    margin-top:8px;
 
-    color:#172b34;
 }
 
-.discover-container{
 
-    max-width:1150px;
+.weather-condition{
+
+    color:var(--blue-light);
+
+    font-size:10px;
+
+    margin-top:4px;
+
+}
+
+
+.weather-location{
+
+    color:var(--muted);
+
+    font-size:8px;
+
+    margin-top:13px;
+
+}
+
+
+/* =====================================================
+   HERO TOWN CARD
+===================================================== */
+
+.hero-town-card{
+
+    position:absolute;
+
+    right:5%;
+
+    bottom:45px;
+
+    width:280px;
+
+    padding:20px;
+
+    border-radius:17px;
+
+    background:rgba(7,25,35,.82);
+
+    backdrop-filter:blur(13px);
+
+    border:1px solid rgba(67,184,232,.18);
+
+    z-index:4;
+
+}
+
+
+.hero-town-card small{
+
+    display:block;
+
+    color:var(--gold);
+
+    font-size:8px;
+
+    font-weight:700;
+
+    letter-spacing:1.6px;
+
+    margin-bottom:6px;
+
+}
+
+
+.hero-town-card strong{
+
+    display:block;
+
+    font-size:22px;
+
+    margin-bottom:7px;
+
+}
+
+
+.town-fact-type{
+
+    display:inline-block;
+
+    padding:4px 8px;
+
+    margin-bottom:10px;
+
+    border-radius:20px;
+
+    background:rgba(67,184,232,.12);
+
+    border:1px solid rgba(67,184,232,.25);
+
+    color:var(--blue-light);
+
+    font-size:8px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+
+}
+
+
+.hero-town-card p{
+
+    color:#c8d5d9;
+
+    font-size:10px;
+
+    line-height:1.65;
+
+    min-height:48px;
+
+    transition:opacity .4s ease;
+
+}
+
+
+.town-progress{
+
+    margin-top:12px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+}
+
+
+.town-progress span{
+
+    font-size:8px;
+
+    color:#9db0ba;
+
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.container{
+
+    width:min(1180px,calc(100% - 48px));
 
     margin:auto;
+
 }
+
+
+.section{
+
+    padding:75px 0;
+
+}
+
 
 .section-label{
 
-    color:#9c7737;
+    color:var(--blue);
 
     font-size:9px;
 
-    font-weight:800;
+    font-weight:700;
 
-    letter-spacing:2px;
+    letter-spacing:1.8px;
 
     text-transform:uppercase;
 
     margin-bottom:10px;
+
 }
 
-.discover-heading{
 
-    display:flex;
+.section-title{
 
-    justify-content:space-between;
+    font-size:32px;
 
-    align-items:flex-end;
+    letter-spacing:-1px;
 
-    gap:40px;
+    margin-bottom:14px;
 
-    margin-bottom:35px;
 }
 
-.discover-heading h2{
 
-    font-size:clamp(32px,4vw,48px);
+.section-text{
 
-    letter-spacing:-1.5px;
+    max-width:700px;
 
-    line-height:1.05;
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.8;
+
 }
 
-.discover-heading p{
 
-    max-width:390px;
+/* =====================================================
+   INTRO
+===================================================== */
 
-    color:#66767e;
+.intro-grid{
+
+    display:grid;
+
+    grid-template-columns:1.3fr .7fr;
+
+    gap:45px;
+
+    align-items:center;
+
+}
+
+
+.intro-card{
+
+    padding:28px;
+
+    background:rgba(255,255,255,.035);
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+}
+
+
+.intro-card h3{
+
+    font-size:18px;
+
+    margin-bottom:10px;
+
+}
+
+
+.intro-card p{
+
+    color:var(--muted);
 
     font-size:11px;
 
-    line-height:1.7;
+    line-height:1.8;
+
 }
+
+
+/* =====================================================
+   NOTIFICATION CARD
+===================================================== */
+
+.notification-card{
+
+    margin-top:25px;
+
+    padding:18px;
+
+    border-radius:15px;
+
+    border:1px solid rgba(67,184,232,.16);
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(67,184,232,.08),
+            rgba(255,255,255,.025)
+        );
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+}
+
+
+.notification-copy{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+
+}
+
+
+.notification-icon{
+
+    width:38px;
+
+    height:38px;
+
+    border-radius:11px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:rgba(67,184,232,.12);
+
+    color:var(--blue);
+
+}
+
+
+.notification-copy strong{
+
+    display:block;
+
+    font-size:11px;
+
+}
+
+
+.notification-copy span{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:9px;
+
+    margin-top:3px;
+
+}
+
+
+/* =====================================================
+   SNAPSHOT
+===================================================== */
+
+.snapshot-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:12px;
+
+    margin-top:30px;
+
+}
+
+
+.snapshot-card{
+
+    padding:22px;
+
+    min-height:120px;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.035);
+
+    border:1px solid var(--border);
+
+}
+
+
+.snapshot-card strong{
+
+    display:block;
+
+    font-size:22px;
+
+    color:var(--blue-light);
+
+    margin-bottom:7px;
+
+}
+
+
+.snapshot-card span{
+
+    color:var(--muted);
+
+    font-size:9px;
+
+}
+
+
+/* =====================================================
+   TODAY
+===================================================== */
+
+.today-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:14px;
+
+    margin-top:30px;
+
+}
+
+
+.today-card{
+
+    min-height:220px;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    background:rgba(255,255,255,.035);
+
+    border:1px solid var(--border);
+
+}
+
+
+.today-card h3{
+
+    font-size:12px;
+
+    margin-bottom:15px;
+
+}
+
+
+.today-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:9px;
+
+}
+
+
+.today-item{
+
+    padding:10px;
+
+    border-radius:9px;
+
+    background:rgba(255,255,255,.035);
+
+}
+
+
+.today-item strong{
+
+    display:block;
+
+    font-size:9px;
+
+    line-height:1.5;
+
+}
+
+
+.today-item span{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:8px;
+
+    margin-top:4px;
+
+}
+
+
+.loading{
+
+    color:#78909a;
+
+    font-size:9px;
+
+}
+
+
+.empty{
+
+    color:#78909a;
+
+    font-size:9px;
+
+    line-height:1.6;
+
+}
+
+
+/* =====================================================
+   DISCOVER
+===================================================== */
 
 .discover-grid{
 
@@ -1725,1026 +1317,588 @@ a{
     grid-template-columns:repeat(3,1fr);
 
     gap:14px;
+
+    margin-top:30px;
+
 }
+
 
 .discover-card{
 
-    padding:25px;
+    min-height:170px;
 
-    min-height:175px;
+    border-radius:17px;
 
-    background:#f5f7f7;
+    padding:23px;
 
-    border:1px solid #e1e7e9;
+    background:
 
-    transition:.25s;
+        linear-gradient(
+            145deg,
+            rgba(67,184,232,.08),
+            rgba(255,255,255,.025)
+        );
+
+    border:1px solid var(--border);
+
 }
 
-.discover-card:hover{
-
-    transform:translateY(-4px);
-
-    border-color:#b7dce8;
-
-    box-shadow:0 12px 30px rgba(15,45,57,.08);
-}
-
-.discover-icon{
-
-    width:42px;
-    height:42px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    margin-bottom:18px;
-
-    background:#e7f5f9;
-
-    border-radius:8px;
-
-    font-size:20px;
-}
 
 .discover-card h3{
 
     font-size:15px;
 
-    margin-bottom:7px;
+    margin-bottom:9px;
+
 }
+
 
 .discover-card p{
 
-    color:#66767e;
+    color:var(--muted);
 
     font-size:10px;
 
     line-height:1.7;
-}
 
-.discover-card a{
-
-    display:inline-block;
-
-    margin-top:12px;
-
-    color:#147ca5;
-
-    font-size:9px;
-
-    font-weight:800;
-
-    text-decoration:none;
 }
 
 
-/* =========================================================
-   LIFE IN JWANENG
-========================================================= */
-
-.life{
-
-    padding:90px 7%;
-
-    background:#edf1f1;
-}
-
-.life-container{
-
-    max-width:1150px;
-
-    margin:auto;
-}
-
-.life-header{
-
-    max-width:650px;
-
-    margin-bottom:30px;
-}
-
-.life-header h2{
-
-    color:#142c36;
-
-    font-size:clamp(32px,4vw,48px);
-
-    letter-spacing:-1.5px;
-}
-
-.life-header p{
-
-    color:#63747c;
-
-    font-size:12px;
-
-    line-height:1.8;
-
-    margin-top:10px;
-}
-
-.life-grid{
-
-    display:grid;
-
-    grid-template-columns:1.4fr 1fr 1fr;
-
-    grid-template-rows:220px 190px;
-
-    gap:12px;
-}
-
-.life-card{
-
-    position:relative;
-
-    overflow:hidden;
-
-    background-size:cover;
-
-    background-position:center;
-
-    text-decoration:none;
-
-    color:white;
-
-    border-radius:5px;
-}
-
-.life-card::after{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:linear-gradient(
-        0deg,
-        rgba(0,0,0,.78),
-        rgba(0,0,0,.05) 70%
-    );
-}
-
-.life-card:hover{
-
-    transform:translateY(-3px);
-}
-
-.life-card-content{
-
-    position:absolute;
-
-    z-index:2;
-
-    left:20px;
-    right:20px;
-    bottom:18px;
-}
-
-.life-card-content h3{
-
-    font-size:17px;
-
-    margin-bottom:3px;
-}
-
-.life-card-content p{
-
-    color:#d3dde1;
-
-    font-size:9px;
-}
-
-.life-main{
-
-    grid-row:span 2;
-
-    background-image:url("images/jwaneng-town-life.jpg");
-}
-
-.life-community{
-
-    background-image:url("images/jwaneng-community.jpg");
-}
-
-.life-business{
-
-    background-image:url("images/jwaneng-business.jpg");
-}
-
-.life-events{
-
-    background-image:url("images/jwaneng-events.jpg");
-}
-
-.life-nature{
-
-    background-image:url("images/jwaneng-wildlife.jpg");
-}
-
-
-/* =========================================================
-   SURROUNDING COMMUNITIES
-========================================================= */
-
-.communities{
-
-    padding:65px 7%;
-
-    background:#09212d;
-
-    color:white;
-}
-
-.communities-container{
-
-    max-width:1150px;
-
-    margin:auto;
-
-    text-align:center;
-}
-
-.communities h2{
-
-    font-size:30px;
-
-    letter-spacing:-1px;
-
-    margin-bottom:8px;
-}
-
-.communities p{
-
-    color:#92a6b0;
-
-    max-width:650px;
-
-    margin:0 auto 25px;
-
-    font-size:11px;
-
-    line-height:1.7;
-}
-
-.community-list{
-
-    display:flex;
-
-    justify-content:center;
-
-    flex-wrap:wrap;
-
-    gap:7px;
-}
-
-.community-list span{
-
-    padding:7px 11px;
-
-    border:1px solid rgba(255,255,255,.10);
-
-    background:rgba(255,255,255,.035);
-
-    color:#b6c7ce;
-
-    font-size:8px;
-
-    border-radius:20px;
-}
-
-.community-list .main{
-
-    background:rgba(67,184,232,.10);
-
-    border-color:rgba(67,184,232,.25);
-
-    color:#e0f6fd;
-
-    font-weight:800;
-}
-
-
-/* =========================================================
+/* =====================================================
    FOOTER
-========================================================= */
+===================================================== */
 
 footer{
 
-    padding:60px 7% 28px;
+    padding:40px 0 80px;
 
-    background:#06151e;
+    border-top:1px solid var(--border);
 
-    color:white;
 }
 
-.footer-container{
 
-    max-width:1150px;
+.footer-inner{
 
-    margin:auto;
+    display:flex;
 
-    display:grid;
+    align-items:flex-start;
 
-    grid-template-columns:1.5fr 1fr 1fr 1fr;
+    justify-content:space-between;
 
-    gap:35px;
+    gap:30px;
+
 }
 
-.footer-brand{
 
-    font-size:24px;
+.footer-logo{
+
+    font-size:18px;
 
     font-weight:800;
+
 }
 
-.footer-brand span{
+
+.footer-logo span{
+
     color:var(--blue);
+
 }
 
-.footer-tagline{
 
-    color:var(--gold-light);
+.footer-text{
 
-    font-size:8px;
+    max-width:400px;
 
-    font-weight:800;
-
-    letter-spacing:1.5px;
-
-    margin:7px 0 12px;
-}
-
-.footer-column h3{
-
-    color:#78cce9;
-
-    font-size:13px;
-
-    margin-bottom:13px;
-}
-
-.footer-column p,
-.footer-column a{
-
-    color:#8299a4;
+    color:var(--muted);
 
     font-size:9px;
 
-    line-height:1.8;
+    line-height:1.7;
 
-    text-decoration:none;
-}
-
-.footer-column ul{
-    list-style:none;
-}
-
-.footer-column li{
-    margin-bottom:6px;
-}
-
-.footer-column a:hover{
-    color:white;
-}
-
-.footer-bottom{
-
-    max-width:1150px;
-
-    margin:40px auto 0;
-
-    padding-top:18px;
-
-    border-top:1px solid rgba(255,255,255,.07);
-
-    text-align:center;
-
-    color:#617680;
-
-    font-size:8px;
-}
-
-.footer-bottom span{
-    color:#72cde9;
-    font-weight:700;
 }
 
 
-/* =========================================================
-   LEAVE MODAL
-========================================================= */
+.footer-links{
 
-.modal-overlay{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px 20px;
+
+}
+
+
+.footer-links a{
+
+    color:#b9c9ce;
+
+    font-size:9px;
+
+}
+
+
+.footer-links a:hover{
+
+    color:var(--blue-light);
+
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal{
 
     position:fixed;
 
     inset:0;
 
-    z-index:30000;
+    z-index:1500;
 
     display:flex;
 
     align-items:center;
+
     justify-content:center;
 
-    padding:20px;
-
-    background:rgba(0,5,10,.78);
+    background:rgba(0,0,0,.7);
 
     opacity:0;
 
     visibility:hidden;
 
     transition:.25s;
+
+    padding:20px;
+
 }
 
-.modal-overlay.active{
+
+.modal.show{
 
     opacity:1;
 
     visibility:visible;
+
 }
 
-.confirm-modal{
 
-    width:100%;
-    max-width:420px;
+.modal-box{
 
-    padding:30px;
+    width:min(430px,100%);
 
-    background:#0a2533;
+    padding:28px;
 
-    border:1px solid rgba(67,184,232,.25);
+    border-radius:20px;
 
-    text-align:center;
+    background:#0b2532;
 
-    border-radius:10px;
+    border:1px solid var(--border);
+
 }
 
-.modal-icon{
 
-    width:58px;
-    height:58px;
+.modal-box h3{
 
-    margin:0 auto 17px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:rgba(67,184,232,.10);
-
-    font-size:26px;
-}
-
-.confirm-modal h2{
-
-    font-size:21px;
+    font-size:19px;
 
     margin-bottom:9px;
+
 }
 
-.confirm-modal p{
 
-    color:#9db0ba;
+.modal-box p{
 
-    font-size:11px;
-
-    line-height:1.7;
-
-    margin-bottom:23px;
-}
-
-.modal-buttons{
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:9px;
-}
-
-.modal-btn{
-
-    padding:12px;
-
-    border-radius:7px;
-
-    font-family:inherit;
+    color:var(--muted);
 
     font-size:10px;
 
-    font-weight:800;
+    line-height:1.7;
 
-    cursor:pointer;
-}
+    margin-bottom:20px;
 
-.stay-btn{
-
-    color:white;
-
-    background:rgba(255,255,255,.06);
-
-    border:1px solid rgba(255,255,255,.15);
-}
-
-.leave-btn{
-
-    color:#082331;
-
-    background:white;
-
-    border:1px solid white;
 }
 
 
-/* =========================================================
-   PWA
-========================================================= */
-
-.pwa-bar{
-
-    position:fixed;
-
-    bottom:0;
-    left:0;
-
-    width:100%;
-
-    display:none;
-
-    justify-content:space-around;
-
-    padding:8px 0;
-
-    background:#06151e;
-
-    border-top:1px solid rgba(67,184,232,.20);
-
-    z-index:10000;
-}
-
-.pwa-bar a,
-.pwa-bar button{
+.modal-actions{
 
     display:flex;
 
-    flex-direction:column;
+    justify-content:flex-end;
+
+    gap:8px;
+
+}
+
+
+/* =====================================================
+   PWA BAR
+===================================================== */
+
+.pwa-bar{
+
+    display:none;
+
+    position:fixed;
+
+    left:12px;
+
+    right:12px;
+
+    bottom:12px;
+
+    z-index:1000;
+
+    padding:12px 14px;
+
+    border-radius:14px;
+
+    background:rgba(7,25,35,.94);
+
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(67,184,232,.2);
+
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
+
+}
+
+
+.pwa-bar.show{
+
+    display:flex;
 
     align-items:center;
 
-    gap:3px;
+    justify-content:space-between;
 
-    background:none;
+    gap:12px;
 
-    border:0;
+}
 
-    color:white;
 
-    text-decoration:none;
+.pwa-bar-text strong{
+
+    display:block;
+
+    font-size:10px;
+
+}
+
+
+.pwa-bar-text span{
+
+    display:block;
+
+    color:var(--muted);
 
     font-size:8px;
-}
 
-.pwa-bar span{
-
-    font-size:16px;
-
-    color:var(--blue);
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media(max-width:1100px){
-
-    .top-weather{
-
-        right:4%;
-
-        width:180px;
-        height:180px;
-    }
-
-    .hero-town-card{
-        display:none;
-    }
-
-    .intro-container{
-        grid-template-columns:1fr;
-        gap:25px;
-    }
-
-    .discover-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .life-grid{
-        grid-template-columns:1fr 1fr;
-        grid-template-rows:220px 190px 190px;
-    }
-
-    .life-main{
-        grid-row:auto;
-        grid-column:span 2;
-    }
-
-    .today-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .widget-card.featured{
-        grid-column:span 2;
-    }
-
-    .did-you-know-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .footer-container{
-        grid-template-columns:repeat(2,1fr);
-    }
+    margin-top:3px;
 
 }
 
 
-/* =========================================================
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+
+    position:fixed;
+
+    right:20px;
+
+    bottom:20px;
+
+    z-index:2000;
+
+    max-width:330px;
+
+    padding:13px 16px;
+
+    border-radius:12px;
+
+    background:#102f3d;
+
+    border:1px solid rgba(67,184,232,.25);
+
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
+
+    transform:translateY(20px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.3s;
+
+}
+
+
+.toast.show{
+
+    transform:translateY(0);
+
+    opacity:1;
+
+}
+
+
+.toast strong{
+
+    display:block;
+
+    font-size:10px;
+
+}
+
+
+.toast span{
+
+    display:block;
+
+    color:#b8c9ce;
+
+    font-size:9px;
+
+    line-height:1.5;
+
+    margin-top:3px;
+
+}
+
+
+/* =====================================================
    MOBILE
-========================================================= */
+===================================================== */
 
-@media(max-width:700px){
-
-    body{
-
-        padding-top:70px;
-
-        padding-bottom:58px;
-    }
+@media(max-width:800px){
 
     .navbar{
 
         height:70px;
 
-        padding:0 5%;
+        padding:0 16px;
+
     }
 
-    .logo{
-        font-size:21px;
-    }
 
-    .nav-identity{
+    .identity{
+
         display:none;
+
     }
 
-    .nav-location{
-        font-size:8px;
-        padding:6px 8px;
+
+    .location{
+
+        display:none;
+
     }
 
-    .menu-button{
-        width:41px;
-        height:41px;
-    }
 
-    .update-bar{
+    .live-bar{
 
         top:70px;
 
-        height:39px;
-    }
-
-    .update-label{
-
-        padding:0 10px;
-
-        font-size:8px;
-    }
-
-    .update-track{
-        font-size:9px;
-    }
-
-
-    /* =====================================================
-       MOBILE WEATHER
-    ===================================================== */
-
-    .top-weather{
-
-        top:110px;
-        right:5%;
-
-        width:158px;
-        height:158px;
-
-        padding:16px;
-
-        border-radius:10px;
-    }
-
-    .top-weather-title{
-        font-size:9px;
-    }
-
-    .top-weather-sub{
-        font-size:7px;
-    }
-
-    .weather-pill{
-        padding:7px;
-
-        font-size:8px;
     }
 
 
     .hero{
 
-        min-height:calc(100vh - 109px);
+        margin-top:104px;
+
+        min-height:720px;
+
+        align-items:flex-start;
+
     }
 
-    .hero-image{
-
-        background-position:60% center;
-    }
 
     .hero-content{
 
-        padding:135px 5% 55px;
+        width:calc(100% - 32px);
+
+        padding:70px 0 240px;
+
     }
+
 
     .hero h1{
 
-        font-size:52px;
+        font-size:48px;
 
-        letter-spacing:-3px;
+        letter-spacing:-2px;
+
     }
+
 
     .hero-description{
 
         font-size:12px;
 
-        line-height:1.75;
-
-        max-width:500px;
-    }
-
-    .hero-buttons{
-
-        flex-direction:column;
-
-        align-items:flex-start;
-    }
-
-    .intro,
-    .discover,
-    .life,
-    .today,
-    .did-you-know{
-
-        padding-left:5%;
-        padding-right:5%;
-    }
-
-    .intro{
-
-        padding-top:65px;
-        padding-bottom:65px;
-    }
-
-    .intro h2{
-
-        font-size:38px;
-    }
-
-    .town-strip{
-
-        padding-left:5%;
-        padding-right:5%;
-    }
-
-    .town-strip-inner{
-
-        grid-template-columns:1fr 1fr;
     }
 
 
-    /* =====================================================
-       UPDATES
-    ===================================================== */
+    .weather-card{
 
-    .today{
+        top:auto;
 
-        padding-top:65px;
-        padding-bottom:65px;
+        bottom:35px;
+
+        left:16px;
+
+        right:auto;
+
+        transform:none;
+
+        width:145px;
+
+        height:145px;
+
     }
 
-    .today-header{
 
-        display:block;
+    .weather-temp{
+
+        font-size:34px;
+
     }
 
-    .today-live-badge{
 
-        display:inline-flex;
+    .hero-town-card{
 
-        margin-top:14px;
+        right:16px;
+
+        bottom:35px;
+
+        width:calc(100% - 180px);
+
     }
+
+
+    .container{
+
+        width:calc(100% - 32px);
+
+    }
+
+
+    .section{
+
+        padding:55px 0;
+
+    }
+
+
+    .intro-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .snapshot-grid{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
 
     .today-grid{
 
         grid-template-columns:1fr;
+
     }
 
-    .widget-card.featured{
-
-        grid-column:auto;
-    }
-
-
-    /* =====================================================
-       DID YOU KNOW
-    ===================================================== */
-
-    .did-you-know{
-
-        padding-top:65px;
-        padding-bottom:65px;
-    }
-
-    .did-you-know::before{
-
-        right:-20px;
-
-        top:-20px;
-
-        font-size:190px;
-    }
-
-    .did-you-know-header{
-
-        display:block;
-
-        margin-bottom:25px;
-    }
-
-    .did-you-know-badge{
-
-        width:50px;
-        height:50px;
-
-        margin-top:18px;
-
-        font-size:21px;
-    }
-
-    .did-you-know-grid{
-
-        grid-template-columns:1fr;
-    }
-
-    .fact-card{
-
-        min-height:auto;
-
-        padding:22px;
-    }
-
-
-    .discover{
-
-        padding-top:65px;
-        padding-bottom:65px;
-    }
-
-    .discover-heading{
-
-        display:block;
-    }
-
-    .discover-heading p{
-        margin-top:12px;
-    }
 
     .discover-grid{
 
-        grid-template-columns:1fr 1fr;
-
-        gap:8px;
-    }
-
-    .discover-card{
-
-        padding:17px;
-
-        min-height:160px;
-    }
-
-    .discover-card h3{
-        font-size:13px;
-    }
-
-    .discover-card p{
-        font-size:9px;
-    }
-
-    .life{
-
-        padding-top:65px;
-        padding-bottom:65px;
-    }
-
-    .life-grid{
-
         grid-template-columns:1fr;
 
-        grid-template-rows:repeat(5,190px);
     }
 
-    .life-main{
 
-        grid-column:auto;
+    .notification-card{
+
+        flex-direction:column;
+
+        align-items:stretch;
+
     }
 
-    .communities{
 
-        padding-left:5%;
-        padding-right:5%;
-    }
+    .footer-inner{
 
-    .footer-container{
+        flex-direction:column;
 
-        grid-template-columns:1fr;
-    }
-
-    .pwa-bar{
-        display:flex;
     }
 
 }
 
 
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
+@media(max-width:500px){
 
-@media(max-width:430px){
+    .logo{
 
-    .nav-location{
-        display:none;
+        font-size:19px;
+
     }
 
-    .top-weather{
-
-        width:148px;
-        height:148px;
-
-        top:108px;
-        right:4%;
-
-        padding:14px;
-    }
 
     .hero h1{
-        font-size:47px;
+
+        font-size:42px;
+
     }
 
-    .hero-content{
-        padding-top:130px;
+
+    .hero-town-card{
+
+        width:calc(100% - 175px);
+
+        padding:15px;
+
     }
 
-    .discover-grid{
-        grid-template-columns:1fr 1fr;
+
+    .hero-town-card strong{
+
+        font-size:17px;
+
     }
 
-    .discover-card{
-        min-height:145px;
-        padding:14px;
+
+    .hero-town-card p{
+
+        font-size:9px;
+
     }
 
-    .modal-buttons{
-        grid-template-columns:1fr;
+
+    .weather-card{
+
+        width:145px;
+
     }
 
 }
 
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
 
 @media(prefers-reduced-motion:reduce){
 
     *{
-        animation:none !important;
-        transition:none !important;
+
         scroll-behavior:auto !important;
+
+        animation:none !important;
+
+        transition:none !important;
+
     }
 
 }
@@ -2753,269 +1907,155 @@ footer{
 
 </head>
 
+
 <body>
 
+
 <!-- =====================================================
-     DRAWER OVERLAY
+     DRAWER
 ===================================================== -->
 
 <div
     class="drawer-overlay"
     id="drawerOverlay"
+    onclick="closeDrawer()"
 ></div>
 
-
-<!-- =====================================================
-     SIDE DRAWER
-===================================================== -->
 
 <aside
     class="drawer"
     id="drawer"
 >
 
-<div class="drawer-header">
+    <div class="drawer-header">
 
-<div class="drawer-title">
-    My<span>Jwaneng</span>
-</div>
+        <div class="drawer-logo">
+            My<span>Jwaneng</span>
+        </div>
 
-<button
-    class="close-drawer"
-    id="closeDrawer"
-    aria-label="Close navigation"
->
-    ×
-</button>
+        <button
+            class="drawer-close"
+            onclick="closeDrawer()"
+            aria-label="Close menu"
+        >
+            ×
+        </button>
 
-</div>
+    </div>
 
-<div class="drawer-intro">
 
-Your digital front door to Jwaneng —
-its people, businesses, opportunities,
-stories, events and community life.
+    <div class="drawer-section">
+        Explore
+    </div>
 
-</div>
 
-<div class="drawer-section">
-    My Jwaneng
-</div>
-
-<ul class="drawer-menu">
-
-<li>
-
-    <button
-        class="drawer-link drawer-home"
-        id="homeButton"
+    <a
+        href="index.html"
+        class="drawer-link"
     >
+        <span class="drawer-link-icon">⌂</span>
+        Home
+    </a>
 
-        <span class="drawer-icon">🏠</span>
-
-        <span>Home</span>
-
-    </button>
-
-</li>
-
-
-<li>
 
     <a
         href="galaxyfc.html"
-        class="drawer-link drawer-galaxy"
-    >
-
-        <span class="drawer-icon">
-            ⚽
-        </span>
-
-        <span class="galaxy-content">
-
-            <span class="galaxy-title">
-
-                Jwaneng Galaxy FC
-
-                <span class="galaxy-badge">
-                    Featured
-                </span>
-
-            </span>
-
-            <span class="galaxy-subtitle">
-                Fixtures • Results • News
-            </span>
-
-        </span>
-
-    </a>
-
-</li>
-
-
-<li>
-
-    <a
-        href="communityengagement.html"
         class="drawer-link"
     >
-
-        <span class="drawer-icon">🤝</span>
-
-        <span>TownConnect</span>
-
+        <span class="drawer-link-icon">⚽</span>
+        Jwaneng Galaxy FC
     </a>
 
-</li>
+
+    <a
+        href="townconnect.html"
+        class="drawer-link"
+    >
+        <span class="drawer-link-icon">◎</span>
+        TownConnect
+    </a>
 
 
-<li>
+    <div class="drawer-section">
+        Community
+    </div>
+
 
     <a
         href="townnews.html"
         class="drawer-link"
     >
-
-        <span class="drawer-icon">📰</span>
-
-        <span>Town News</span>
-
+        <span class="drawer-link-icon">📰</span>
+        Town News
     </a>
 
-</li>
-
-
-<li>
 
     <a
-        href="publicnoticeboard.html"
+        href="notices.html"
         class="drawer-link"
     >
-
-        <span class="drawer-icon">📢</span>
-
-        <span>Public Notices</span>
-
+        <span class="drawer-link-icon">📢</span>
+        Public Notices
     </a>
 
-</li>
-
-
-<li>
 
     <a
         href="jobs.html"
         class="drawer-link"
     >
-
-        <span class="drawer-icon">💼</span>
-
-        <span>Jobs & Opportunities</span>
-
+        <span class="drawer-link-icon">💼</span>
+        Jobs
     </a>
 
-</li>
-
-
-<li>
 
     <a
         href="events.html"
         class="drawer-link"
     >
-
-        <span class="drawer-icon">📅</span>
-
-        <span>Events</span>
-
+        <span class="drawer-link-icon">📅</span>
+        Events
     </a>
 
-</li>
-
-
-<li>
 
     <a
         href="marketplace.html"
         class="drawer-link"
     >
-
-        <span class="drawer-icon">🛒</span>
-
-        <span>Marketplace</span>
-
+        <span class="drawer-link-icon">🛍</span>
+        Marketplace
     </a>
 
-</li>
-
-
-<li>
 
     <a
         href="businesses.html"
         class="drawer-link"
     >
-
-        <span class="drawer-icon">🏪</span>
-
-        <span>Businesses</span>
-
+        <span class="drawer-link-icon">🏢</span>
+        Businesses
     </a>
 
-</li>
 
-</ul>
+    <div class="drawer-section">
+        Jwaneng
+    </div>
 
-<div class="drawer-section">
-    Discover Jwaneng
-</div>
-
-<ul class="drawer-menu">
-
-<li>
 
     <a
         href="tourism.html"
         class="drawer-link"
     >
-
-        <span class="drawer-icon">🌍</span>
-
-        <span>Tourism & Attractions</span>
-
+        <span class="drawer-link-icon">✦</span>
+        Tourism
     </a>
 
-</li>
-
-
-<li>
 
     <a
-        href="emergency.html"
+        href="safety.html"
         class="drawer-link"
     >
-
-        <span class="drawer-icon">🚨</span>
-
-        <span>Safety & Emergency</span>
-
+        <span class="drawer-link-icon">🚨</span>
+        Safety & Emergency
     </a>
-
-</li>
-
-</ul>
-
-<div class="drawer-footer">
-
-<strong>
-    MyTown360
-</strong>
-
-My Jwaneng is part of the wider
-MyTown360 digital town network.
-
-</div>
 
 </aside>
 
@@ -3024,69 +2064,54 @@ MyTown360 digital town network.
      NAVBAR
 ===================================================== -->
 
-<nav class="navbar">
+<header class="navbar">
 
-<div class="nav-left">
+    <div class="nav-left">
 
-<button
-    class="menu-button"
-    id="menuButton"
-    aria-label="Open navigation"
-    aria-expanded="false"
->
-
-    <span></span>
-    <span></span>
-    <span></span>
-
-</button>
+        <button
+            class="menu-btn"
+            onclick="openDrawer()"
+            aria-label="Open menu"
+        >
+            ☰
+        </button>
 
 
-<div class="logo">
+        <div>
 
-    My<span>Jwaneng</span>
+            <div class="logo">
+                My<span>Jwaneng</span>
+            </div>
 
-    <i class="logo-mark"></i>
+            <span class="identity">
+                Discover • Connect • Belong
+            </span>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
-<div class="nav-right">
 
-<div class="nav-identity">
-    Discover • Connect • Belong
-</div>
+    <div class="location">
 
-<div class="nav-location">
-    📍 Jwaneng, Botswana
-</div>
+        <span class="location-dot"></span>
 
-</div>
+        Jwaneng, Botswana
 
-</nav>
+    </div>
+
+</header>
 
 
 <!-- =====================================================
-     LIVE UPDATES BAR
+     LIVE BAR
 ===================================================== -->
 
-<div class="update-bar">
+<div class="live-bar">
 
-<div class="update-label">
-    📢 JWANENG LIVE
-</div>
+    <span class="live-dot"></span>
 
-<div class="update-marquee">
-
-<div
-    class="update-track"
-    id="updateTrack"
->
-    Welcome to My Jwaneng — your digital front door to the town.
-</div>
-
-</div>
+    My Jwaneng • Your digital gateway to Jwaneng
 
 </div>
 
@@ -3097,137 +2122,134 @@ MyTown360 digital town network.
 
 <section class="hero">
 
-<div class="hero-image"></div>
+    <div class="hero-content">
+
+        <div class="hero-kicker">
+            Welcome to your town
+        </div>
 
 
-<section class="top-weather">
+        <h1>
+            Discover
+            <span>Jwaneng.</span>
+        </h1>
 
-<div class="top-weather-inner">
 
-    <div class="top-weather-left">
+        <p class="hero-description">
 
-        <div class="weather-live-dot"></div>
+            Your digital gateway to Jwaneng and surrounding
+            communities — connecting people, businesses,
+            opportunities, news, events and local information
+            in one place.
 
-        <div>
+        </p>
 
-            <div class="top-weather-title">
-                Jwaneng Weather
-            </div>
 
-            <div class="top-weather-sub">
-                Current conditions
-            </div>
+        <div class="hero-actions">
+
+            <a
+                href="townnews.html"
+                class="btn btn-primary"
+            >
+                Explore Town News
+            </a>
+
+
+            <button
+                class="btn btn-secondary"
+                onclick="openDrawer()"
+            >
+                Explore Jwaneng
+            </button>
+
+
+            <button
+                class="btn btn-notification"
+                id="heroNotificationButton"
+                onclick="window.enableNotifications()"
+            >
+                🔔 Enable Notifications
+            </button>
 
         </div>
 
     </div>
 
 
-    <div class="top-weather-data">
+    <!-- WEATHER -->
 
-        <div class="weather-pill">
+    <div class="weather-card">
 
-            📍
-            <span id="weatherLoc">
-                Jwaneng
-            </span>
-
+        <div class="weather-label">
+            Jwaneng Weather
         </div>
 
 
-        <div class="weather-pill">
-
-            🌡
-            <span id="weatherTemp">
-                Loading...
-            </span>
-
+        <div
+            class="weather-temp"
+            id="weatherTemp"
+        >
+            --
         </div>
 
 
-        <div class="weather-pill">
+        <div
+            class="weather-condition"
+            id="weatherCondition"
+        >
+            Loading...
+        </div>
 
-            💨
-            <span id="weatherWind">
-                Loading...
+
+        <div
+            class="weather-location"
+            id="weatherLocation"
+        >
+            Jwaneng, Botswana
+        </div>
+
+    </div>
+
+
+    <!-- YOUR TOWN / DID YOU KNOW -->
+
+    <div class="hero-town-card">
+
+        <small>
+            YOUR TOWN
+        </small>
+
+
+        <strong>
+            Jwaneng
+        </strong>
+
+
+        <div
+            class="town-fact-type"
+            id="townFactType"
+        >
+            DID YOU KNOW?
+        </div>
+
+
+        <p id="townFact">
+
+            Botswana's diamond town and home to one
+            of the world's richest diamond mines.
+
+        </p>
+
+
+        <div class="town-progress">
+
+            <span id="townCounter">
+                1 / 8
             </span>
 
         </div>
 
     </div>
-
-</div>
-
-</section>
-
-
-<div class="hero-content">
-
-<div class="hero-kicker">
-    Welcome to Jwaneng
-</div>
-
-
-<h1>
-
-    Welcome to
-
-    <span>Jwaneng.</span>
-
-</h1>
-
-
-<p class="hero-description">
-
-    A town with its own character, community,
-    businesses, stories, opportunities and
-    everyday life.
-
-    Discover what is happening in Jwaneng,
-    find local services, explore opportunities
-    and stay connected with the community.
-
-</p>
-
-
-<div class="hero-buttons">
-
-    <a
-        href="townnews.html"
-        class="btn btn-primary"
-    >
-        📰 What's happening?
-    </a>
-
-
-    <button
-        class="btn btn-secondary"
-        onclick="openDrawer()"
-    >
-        ☰ Explore Jwaneng
-    </button>
-
-</div>
-
-</div>
-
-
-<div class="hero-town-card">
-
-    <small>
-        Did You Know?
-    </small>
-
-    <strong>
-        Jwaneng
-    </strong>
-
-    <p id="townFact">
-        Botswana's diamond town and home to one
-        of the world's richest diamond mines.
-    </p>
-
-</div>
 
 </section>
 
@@ -3236,56 +2258,92 @@ MyTown360 digital town network.
      INTRO
 ===================================================== -->
 
-<section class="intro">
+<section class="section">
 
-<div class="intro-container">
+    <div class="container">
 
-<div>
+        <div class="intro-grid">
 
-    <div class="intro-label">
-        More than a location
+            <div>
+
+                <div class="section-label">
+                    MY JWANENG
+                </div>
+
+
+                <h2 class="section-title">
+                    Your town. Your gateway.
+                </h2>
+
+
+                <p class="section-text">
+
+                    My Jwaneng brings the town together
+                    digitally — giving residents, businesses,
+                    organisations and visitors a simple way
+                    to discover what is happening in Jwaneng.
+
+                </p>
+
+
+                <div class="notification-card">
+
+                    <div class="notification-copy">
+
+                        <div class="notification-icon">
+                            🔔
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Stay connected
+                            </strong>
+
+                            <span>
+                                Get important town news,
+                                notices, jobs and events.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="btn btn-primary"
+                        id="notificationButton"
+                        onclick="window.enableNotifications()"
+                    >
+                        Enable
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="intro-card">
+
+                <h3>
+                    One town. Many connections.
+                </h3>
+
+                <p>
+
+                    From local businesses and community
+                    information to jobs, events, public
+                    notices and town updates, My Jwaneng
+                    is designed to make local information
+                    easier to discover.
+
+                </p>
+
+            </div>
+
+        </div>
+
     </div>
-
-    <h2>
-
-        Jwaneng is a
-
-        <span>town.</span>
-
-    </h2>
-
-</div>
-
-
-<div class="intro-copy">
-
-    <p>
-
-        There is a lot to a town beyond
-        what people see on a map.
-
-        <br><br>
-
-        <strong>
-            Jwaneng has its own people,
-            neighbourhoods, businesses,
-            schools, sports, organisations,
-            community activities and stories.
-        </strong>
-
-        <br><br>
-
-        My Jwaneng brings these parts of
-        everyday life together in one place —
-        giving residents and visitors a simple
-        way to discover what is happening
-        around town.
-
-    </p>
-
-</div>
-
-</div>
 
 </section>
 
@@ -3294,221 +2352,350 @@ MyTown360 digital town network.
      TOWN SNAPSHOT
 ===================================================== -->
 
-<section class="town-strip">
+<section class="section">
 
-<div class="town-strip-inner">
+    <div class="container">
 
-<div class="town-stat">
-
-    <strong>
-        People
-    </strong>
-
-    <span>
-        Community
-    </span>
-
-</div>
+        <div class="section-label">
+            JWANENG
+        </div>
 
 
-<div class="town-stat">
-
-    <strong>
-        Businesses
-    </strong>
-
-    <span>
-        Local enterprise
-    </span>
-
-</div>
+        <h2 class="section-title">
+            Town Snapshot
+        </h2>
 
 
-<div class="town-stat">
+        <p class="section-text">
 
-    <strong>
-        Opportunities
-    </strong>
+            A connected mining town with a strong community,
+            businesses, services and links to surrounding
+            communities.
 
-    <span>
-        Jobs & growth
-    </span>
-
-</div>
+        </p>
 
 
-<div class="town-stat">
+        <div class="snapshot-grid">
 
-    <strong>
-        Activities
-    </strong>
+            <div class="snapshot-card">
 
-    <span>
-        Events & lifestyle
-    </span>
+                <strong>
+                    360°
+                </strong>
 
-</div>
+                <span>
+                    A complete view of town life
+                </span>
 
-</div>
+            </div>
+
+
+            <div class="snapshot-card">
+
+                <strong>
+                    24/7
+                </strong>
+
+                <span>
+                    Digital access to local information
+                </span>
+
+            </div>
+
+
+            <div class="snapshot-card">
+
+                <strong>
+                    Local
+                </strong>
+
+                <span>
+                    Businesses, people and organisations
+                </span>
+
+            </div>
+
+
+            <div class="snapshot-card">
+
+                <strong>
+                    Connected
+                </strong>
+
+                <span>
+                    Jwaneng and surrounding communities
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </section>
 
 
 <!-- =====================================================
-     JWANENG TODAY / UPDATES
+     JWANENG TODAY
 ===================================================== -->
 
-<section class="today">
+<section class="section">
 
-<div class="today-container">
-
-<div class="today-header">
-
-    <div class="today-header-left">
+    <div class="container">
 
         <div class="section-label">
-            Jwaneng Today
+            LIVE FROM JWANENG
         </div>
 
-        <h2>
-            What's happening in town?
+
+        <h2 class="section-title">
+            Jwaneng Today
         </h2>
 
-        <p>
-            Fresh information from My Jwaneng —
-            news, public notices, opportunities and
-            events in one place.
+
+        <p class="section-text">
+
+            The latest information currently available
+            through My Jwaneng.
+
         </p>
 
-    </div>
 
+        <div class="today-grid">
 
-    <div class="today-live-badge">
+            <div class="today-card">
 
-        <span class="today-live-dot"></span>
+                <h3>
+                    📰 Latest News
+                </h3>
 
-        Live Updates
+                <div
+                    class="today-list"
+                    id="latestNews"
+                >
 
-    </div>
+                    <div class="loading">
+                        Loading news...
+                    </div>
 
-</div>
-
-
-<div class="today-grid">
-
-
-    <!-- NEWS -->
-
-    <div class="widget-card featured">
-
-        <h3>
-            📰 Latest News
-        </h3>
-
-        <div id="latestNews">
-            Loading news...
-        </div>
-
-        <a
-            href="townnews.html"
-            class="widget-btn"
-        >
-            View All News →
-        </a>
-
-    </div>
-
-
-    <!-- PUBLIC NOTICES -->
-
-    <div class="widget-card public-notice-card">
-
-        <h3>
-            📢 Public Notices
-        </h3>
-
-        <div id="latestNotices">
-
-            <div class="widget-item">
-
-                <strong>
-                    Official community notices
-                </strong>
-
-                <small>
-                    Council & public information
-                </small>
+                </div>
 
             </div>
 
-            <div class="widget-item">
 
-                <small>
-                    Visit the Public Notices section
-                    for official notices and announcements.
-                </small>
+            <div class="today-card">
+
+                <h3>
+                    📢 Public Notices
+                </h3>
+
+                <div
+                    class="today-list"
+                    id="latestNotices"
+                >
+
+                    <div class="loading">
+                        Loading notices...
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="today-card">
+
+                <h3>
+                    💼 Latest Jobs
+                </h3>
+
+                <div
+                    class="today-list"
+                    id="latestJobs"
+                >
+
+                    <div class="loading">
+                        Loading jobs...
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="today-card">
+
+                <h3>
+                    📅 Upcoming Events
+                </h3>
+
+                <div
+                    class="today-list"
+                    id="latestEvents"
+                >
+
+                    <div class="loading">
+                        Loading events...
+                    </div>
+
+                </div>
 
             </div>
 
         </div>
 
-        <a
-            href="publicnotices.html"
-            class="widget-btn"
-        >
-            View Public Notices →
-        </a>
-
     </div>
 
+</section>
 
-    <!-- JOBS -->
 
-    <div class="widget-card">
+<!-- =====================================================
+     DISCOVER
+===================================================== -->
 
-        <h3>
-            💼 Opportunities
-        </h3>
+<section class="section">
 
-        <div id="latestJobs">
-            Loading opportunities...
+    <div class="container">
+
+        <div class="section-label">
+            DISCOVER
         </div>
 
-        <a
-            href="jobs.html"
-            class="widget-btn"
-        >
-            View All Jobs →
-        </a>
 
-    </div>
+        <h2 class="section-title">
+            More of Jwaneng
+        </h2>
 
 
-    <!-- EVENTS -->
+        <p class="section-text">
 
-    <div class="widget-card">
+            Explore the people, places, opportunities
+            and experiences that make Jwaneng unique.
 
-        <h3>
-            📅 Upcoming Events
-        </h3>
+        </p>
 
-        <div id="latestEvents">
-            Loading events...
+
+        <div class="discover-grid">
+
+            <a
+                href="businesses.html"
+                class="discover-card"
+            >
+
+                <h3>
+                    Local Businesses
+                </h3>
+
+                <p>
+
+                    Discover businesses, services,
+                    entrepreneurs and local enterprises
+                    around Jwaneng.
+
+                </p>
+
+            </a>
+
+
+            <a
+                href="events.html"
+                class="discover-card"
+            >
+
+                <h3>
+                    What's Happening
+                </h3>
+
+                <p>
+
+                    Find events, activities and community
+                    happenings taking place around town.
+
+                </p>
+
+            </a>
+
+
+            <a
+                href="townconnect.html"
+                class="discover-card"
+            >
+
+                <h3>
+                    TownConnect
+                </h3>
+
+                <p>
+
+                    Connect with the community and explore
+                    ways to engage with local issues,
+                    initiatives and opportunities.
+
+                </p>
+
+            </a>
+
+
+            <a
+                href="jobs.html"
+                class="discover-card"
+            >
+
+                <h3>
+                    Jobs & Opportunities
+                </h3>
+
+                <p>
+
+                    Discover employment and opportunity
+                    information relevant to Jwaneng.
+
+                </p>
+
+            </a>
+
+
+            <a
+                href="marketplace.html"
+                class="discover-card"
+            >
+
+                <h3>
+                    Marketplace
+                </h3>
+
+                <p>
+
+                    Buy, sell and discover products and
+                    services from the local community.
+
+                </p>
+
+            </a>
+
+
+            <a
+                href="tourism.html"
+                class="discover-card"
+            >
+
+                <h3>
+                    Explore Jwaneng
+                </h3>
+
+                <p>
+
+                    Discover the town, its surroundings,
+                    attractions and its position along
+                    the Trans-Kalahari corridor.
+
+                </p>
+
+            </a>
+
         </div>
 
-        <a
-            href="events.html"
-            class="widget-btn"
-        >
-            View All Events →
-        </a>
-
     </div>
-
-
-</div>
-
-</div>
 
 </section>
 
@@ -3519,163 +2706,63 @@ MyTown360 digital town network.
 
 <footer>
 
-<div class="footer-container">
+    <div class="container">
 
-<div class="footer-column">
+        <div class="footer-inner">
 
-    <div class="footer-brand">
-        My<span>Jwaneng</span>
+            <div>
+
+                <div class="footer-logo">
+                    My<span>Jwaneng</span>
+                </div>
+
+
+                <p class="footer-text">
+
+                    Your digital gateway to Jwaneng
+                    and surrounding communities.
+
+                    <br><br>
+
+                    Part of the wider MyTown360 vision
+                    for connected towns and communities.
+
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="townnews.html">
+                    News
+                </a>
+
+                <a href="jobs.html">
+                    Jobs
+                </a>
+
+                <a href="events.html">
+                    Events
+                </a>
+
+                <a href="businesses.html">
+                    Businesses
+                </a>
+
+                <a href="marketplace.html">
+                    Marketplace
+                </a>
+
+            </div>
+
+        </div>
+
     </div>
-
-    <div class="footer-tagline">
-        DISCOVER • CONNECT • BELONG
-    </div>
-
-    <p>
-
-        Your digital front door to the
-        people, businesses, opportunities,
-        places, events and experiences
-        that make Jwaneng home.
-
-    </p>
-
-</div>
-
-
-<div class="footer-column">
-
-    <h3>
-        Explore
-    </h3>
-
-    <ul>
-
-        <li>
-            <a href="townnews.html">
-                Town News
-            </a>
-        </li>
-
-        <li>
-            <a href="publicnotices.html">
-                Public Notices
-            </a>
-        </li>
-
-        <li>
-            <a href="jobs.html">
-                Jobs
-            </a>
-        </li>
-
-        <li>
-            <a href="marketplace.html">
-                Marketplace
-            </a>
-        </li>
-
-        <li>
-            <a href="events.html">
-                Events
-            </a>
-        </li>
-
-        <li>
-            <a href="galaxyfc.html">
-                Jwaneng Galaxy FC
-            </a>
-        </li>
-
-    </ul>
-
-</div>
-
-
-<div class="footer-column">
-
-    <h3>
-        Community
-    </h3>
-
-    <ul>
-
-        <li>
-            <a href="communityengagement.html">
-                TownConnect
-            </a>
-        </li>
-
-        <li>
-            <a href="businesses.html">
-                Businesses
-            </a>
-        </li>
-
-        <li>
-            <a href="tourism.html">
-                Tourism
-            </a>
-        </li>
-
-        <li>
-            <a href="emergency.html">
-                Emergency
-            </a>
-        </li>
-
-    </ul>
-
-</div>
-
-
-<div class="footer-column">
-
-    <h3>
-        Legal
-    </h3>
-
-    <ul>
-
-        <li>
-            <a href="privacy.html">
-                Privacy
-            </a>
-        </li>
-
-        <li>
-            <a href="terms.html">
-                Terms
-            </a>
-        </li>
-
-        <li>
-            <a href="business-directory-disclaimer.html">
-                Business Disclaimer
-            </a>
-        </li>
-
-        <li>
-            <a href="photo-usage-disclaimer.html">
-                Photo Disclaimer
-            </a>
-        </li>
-
-    </ul>
-
-</div>
-
-</div>
-
-<div class="footer-bottom">
-
-© 2026 My Jwaneng |
-
-Built by
-
-<span>A-eye Group</span>
-
-</div>
 
 </footer>
 
@@ -3685,47 +2772,42 @@ Built by
 ===================================================== -->
 
 <div
-    class="modal-overlay"
+    class="modal"
     id="leaveModal"
 >
 
-<div class="confirm-modal">
+    <div class="modal-box">
 
-<div class="modal-icon">
-    🏠
-</div>
+        <h3>
+            Leaving My Jwaneng?
+        </h3>
 
-<h2>
-    Do you want to leave My Jwaneng?
-</h2>
+        <p>
+            You are about to open another website.
+            Continue?
+        </p>
 
-<p>
 
-    You are about to return to
-    <strong>MyTown360</strong>,
-    the wider digital town network.
+        <div class="modal-actions">
 
-</p>
+            <button
+                class="btn btn-secondary"
+                onclick="closeLeaveModal()"
+            >
+                Cancel
+            </button>
 
-<div class="modal-buttons">
 
-    <button
-        class="modal-btn stay-btn"
-        id="stayButton"
-    >
-        Stay on My Jwaneng
-    </button>
+            <button
+                class="btn btn-primary"
+                id="confirmLeave"
+            >
+                Continue
+            </button>
 
-    <button
-        class="modal-btn leave-btn"
-        id="leaveButton"
-    >
-        Leave My Jwaneng
-    </button>
+        </div>
 
-</div>
-
-</div>
+    </div>
 
 </div>
 
@@ -3739,142 +2821,951 @@ Built by
     id="pwaBar"
 >
 
-<button onclick="openDrawer()">
+    <div class="pwa-bar-text">
 
-<span>☰</span>
+        <strong>
+            Install My Jwaneng
+        </strong>
 
-Menu
+        <span>
+            Keep your town gateway on your device.
+        </span>
 
-</button>
+    </div>
 
-<a href="communityengagement.html">
 
-<span>🤝</span>
-
-Connect
-
-</a>
-
-<a href="townnews.html">
-
-<span>📰</span>
-
-News
-
-</a>
-
-<a href="jobs.html">
-
-<span>💼</span>
-
-Jobs
-
-</a>
-
-<a href="events.html">
-
-<span>📅</span>
-
-Events
-
-</a>
+    <button
+        class="btn btn-primary"
+        id="installButton"
+    >
+        Install
+    </button>
 
 </div>
 
 
-<script>
+<!-- =====================================================
+     TOAST
+===================================================== -->
 
-/* =========================================================
+<div
+    class="toast"
+    id="toast"
+>
+
+    <strong id="toastTitle">
+        My Jwaneng
+    </strong>
+
+    <span id="toastMessage">
+        Notification
+    </span>
+
+</div>
+
+
+<!-- =====================================================
+     FIREBASE CLOUD MESSAGING
+===================================================== -->
+
+<script type="module">
+
+import {
+    initializeApp
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+import {
+    getMessaging,
+    isSupported,
+    onMessage,
+    onRegistered,
+    register
+} from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-messaging.js";
+
+
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyACs94wRK3_KJIOB1zPz5d14zDBc10cxPM",
+
+    authDomain:
+        "myjwaneng.firebaseapp.com",
+
+    projectId:
+        "myjwaneng",
+
+    storageBucket:
+        "myjwaneng.firebasestorage.app",
+
+    messagingSenderId:
+        "849209313231",
+
+    appId:
+        "1:849209313231:web:619775720fa9b0f2ff74ba",
+
+    measurementId:
+        "G-VE9Z3FR118"
+
+};
+
+
+const firebaseApp =
+    initializeApp(firebaseConfig);
+
+
+/* =====================================================
+   VAPID PUBLIC KEY
+===================================================== */
+
+const vapidKey =
+    "BMAUTjvA3DDFf8nNiwalswUO9Han2Sjc8pMymEeTFK1G3SSX0vpq_1GctVO8YdZD-S5vQodVr99FkXCOPSV4kaw";
+
+
+/* =====================================================
+   FIREBASE STATE
+===================================================== */
+
+let messagingInstance = null;
+
+let firebaseMessagingReady = false;
+
+let currentInstallationId = null;
+
+
+/* =====================================================
    SUPABASE
-========================================================= */
+===================================================== */
 
 const supabaseUrl =
-"https://jxigyoxikaqwwzfnccej.supabase.co";
+    "https://jxigyoxikaqwwzfnccej.supabase.co";
+
 
 const supabaseKey =
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwiaWF0IjoxNzgwMDk2ODQwLCJleHAiOjIwOTU2NzI0MDB9.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
-
-const client =
-supabase.createClient(
-    supabaseUrl,
-    supabaseKey
-);
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4aWd5b3hpa2Fxd3d6Zm5jY2VqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwOTY4NDAsImV4cCI6MjA5NTY3Mjg0MH0.P_bXYxIXYkhwi6cfy4fwbkM_s2b9uV9j22BzftWxaAc";
 
 
-/* =========================================================
+/*
+   Expose the Supabase client globally.
+
+   This is important because the normal site
+   JavaScript below is a classic script and
+   cannot directly access module-scoped variables.
+*/
+
+window.client =
+    window.supabase.createClient(
+        supabaseUrl,
+        supabaseKey
+    );
+
+
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+async function registerMyJwanengServiceWorker(){
+
+    if(
+        !("serviceWorker" in navigator)
+    ){
+
+        console.warn(
+            "Service workers are not supported."
+        );
+
+        return null;
+
+    }
+
+
+    try{
+
+        const registration =
+            await navigator.serviceWorker.register(
+                "/service-worker.js",
+                {
+                    scope:"/"
+                }
+            );
+
+
+        console.log(
+            "My Jwaneng service worker registered:",
+            registration
+        );
+
+
+        await navigator.serviceWorker.ready;
+
+
+        return registration;
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Service worker registration failed:",
+            error
+        );
+
+
+        if(
+            typeof window.showToast ===
+            "function"
+        ){
+
+            window.showToast(
+                "Offline support",
+                "The service worker could not be registered."
+            );
+
+        }
+
+
+        return null;
+
+    }
+
+}
+
+
+/* =====================================================
+   INITIALISE FIREBASE MESSAGING
+===================================================== */
+
+async function initialiseFirebaseMessaging(){
+
+    try{
+
+        const supported =
+            await isSupported();
+
+
+        if(!supported){
+
+            console.warn(
+                "Firebase Cloud Messaging is not supported by this browser."
+            );
+
+            return;
+
+        }
+
+
+        messagingInstance =
+            getMessaging(firebaseApp);
+
+
+        firebaseMessagingReady = true;
+
+
+        onRegistered(
+            messagingInstance,
+            async function(
+                installationId
+            ){
+
+                console.log(
+                    "Firebase Installation ID:",
+                    installationId
+                );
+
+
+                currentInstallationId =
+                    installationId;
+
+
+                localStorage.setItem(
+                    "myjwaneng_fid",
+                    installationId
+                );
+
+
+                await saveInstallationId(
+                    installationId
+                );
+
+            }
+        );
+
+
+        onMessage(
+            messagingInstance,
+            function(payload){
+
+                console.log(
+                    "Foreground Firebase message:",
+                    payload
+                );
+
+
+                handleForegroundNotification(
+                    payload
+                );
+
+            }
+        );
+
+
+        console.log(
+            "Firebase Cloud Messaging is ready."
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Firebase Messaging initialisation error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   SAVE INSTALLATION ID
+===================================================== */
+
+async function saveInstallationId(
+    installationId
+){
+
+    if(!installationId){
+
+        return;
+
+    }
+
+
+    try{
+
+        const payload = {
+
+            installation_id:
+                installationId,
+
+            town:
+                "Jwaneng",
+
+            news:
+                true,
+
+            notices:
+                true,
+
+            jobs:
+                true,
+
+            events:
+                true,
+
+            emergency:
+                true,
+
+            updated_at:
+                new Date().toISOString()
+
+        };
+
+
+        const {
+            error
+        } = await window.client
+
+            .from("push_subscriptions")
+
+            .upsert(
+                payload,
+                {
+                    onConflict:
+                        "installation_id"
+                }
+            );
+
+
+        if(error){
+
+            console.warn(
+                "Push subscription could not be saved to Supabase:",
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        console.log(
+            "Push installation saved to Supabase."
+        );
+
+    }
+
+    catch(error){
+
+        console.warn(
+            "Push subscription storage error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   ENABLE NOTIFICATIONS
+===================================================== */
+
+window.enableNotifications =
+    async function(){
+
+        if(
+            !("Notification" in window)
+        ){
+
+            window.showToast(
+                "Not supported",
+                "This browser does not support web notifications."
+            );
+
+            return;
+
+        }
+
+
+        if(
+            !("serviceWorker" in navigator)
+        ){
+
+            window.showToast(
+                "Not available",
+                "Service workers are not available in this browser."
+            );
+
+            return;
+
+        }
+
+
+        try{
+
+            const permission =
+                await Notification.requestPermission();
+
+
+            if(
+                permission !== "granted"
+            ){
+
+                if(
+                    permission === "denied"
+                ){
+
+                    window.showToast(
+                        "Notifications blocked",
+                        "Please allow notifications for My Jwaneng in your browser settings."
+                    );
+
+                }
+                else{
+
+                    window.showToast(
+                        "Notifications not enabled",
+                        "You can enable them later."
+                    );
+
+                }
+
+
+                window.updateNotificationButtons();
+
+                return;
+
+            }
+
+
+            const registration =
+                await navigator.serviceWorker.ready;
+
+
+            if(!firebaseMessagingReady){
+
+                const supported =
+                    await isSupported();
+
+
+                if(!supported){
+
+                    window.showToast(
+                        "Not supported",
+                        "Firebase Messaging is not supported by this browser."
+                    );
+
+                    return;
+
+                }
+
+
+                messagingInstance =
+                    getMessaging(firebaseApp);
+
+
+                firebaseMessagingReady =
+                    true;
+
+
+                onRegistered(
+                    messagingInstance,
+                    async function(
+                        installationId
+                    ){
+
+                        currentInstallationId =
+                            installationId;
+
+
+                        localStorage.setItem(
+                            "myjwaneng_fid",
+                            installationId
+                        );
+
+
+                        await saveInstallationId(
+                            installationId
+                        );
+
+                    }
+                );
+
+
+                onMessage(
+                    messagingInstance,
+                    function(payload){
+
+                        handleForegroundNotification(
+                            payload
+                        );
+
+                    }
+                );
+
+            }
+
+
+            await register(
+                messagingInstance,
+                {
+
+                    vapidKey:
+                        vapidKey,
+
+                    serviceWorkerRegistration:
+                        registration
+
+                }
+            );
+
+
+            window.updateNotificationButtons();
+
+
+            window.showToast(
+                "Notifications enabled",
+                "My Jwaneng can now send updates to this device."
+            );
+
+
+            console.log(
+                "My Jwaneng push registration completed."
+            );
+
+        }
+
+        catch(error){
+
+            console.error(
+                "Notification setup failed:",
+                error
+            );
+
+
+            window.showToast(
+                "Notification setup failed",
+                error.message ||
+                "Please try again."
+            );
+
+        }
+
+    };
+
+
+/* =====================================================
+   FOREGROUND NOTIFICATION
+===================================================== */
+
+function handleForegroundNotification(
+    payload
+){
+
+    console.log(
+        "Handling foreground notification:",
+        payload
+    );
+
+
+    const notification =
+        payload.notification || {};
+
+
+    const data =
+        payload.data || {};
+
+
+    const title =
+        notification.title ||
+        data.title ||
+        "My Jwaneng";
+
+
+    const body =
+        notification.body ||
+        data.body ||
+        "There is a new update from My Jwaneng.";
+
+
+    const url =
+        data.url ||
+        "https://myjwaneng.co.bw/";
+
+
+    window.showToast(
+        title,
+        body
+    );
+
+
+    if(
+        Notification.permission === "granted"
+    ){
+
+        try{
+
+            const browserNotification =
+                new Notification(
+                    title,
+                    {
+
+                        body:body,
+
+                        icon:
+                            notification.icon ||
+                            "/icons/icon-192.png",
+
+                        badge:
+                            "/icons/icon-192.png",
+
+                        tag:
+                            data.tag ||
+                            "myjwaneng-foreground",
+
+                        data:{
+                            url:url
+                        }
+
+                    }
+                );
+
+
+            browserNotification.onclick =
+                function(){
+
+                    window.focus();
+
+                    window.location.href =
+                        url;
+
+                    browserNotification.close();
+
+                };
+
+        }
+
+        catch(error){
+
+            console.warn(
+                "Could not display foreground browser notification:",
+                error
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   NOTIFICATION BUTTON STATUS
+===================================================== */
+
+window.updateNotificationButtons =
+    function(){
+
+        const buttons = [
+
+            document.getElementById(
+                "notificationButton"
+            ),
+
+            document.getElementById(
+                "heroNotificationButton"
+            )
+
+        ];
+
+
+        const permission =
+            "Notification" in window
+                ? Notification.permission
+                : "unsupported";
+
+
+        buttons.forEach(
+            function(button){
+
+                if(!button){
+
+                    return;
+
+                }
+
+
+                if(
+                    permission === "granted"
+                ){
+
+                    button.textContent =
+                        "✓ Notifications Enabled";
+
+                    button.disabled =
+                        true;
+
+                    button.style.opacity =
+                        ".65";
+
+                }
+
+                else if(
+                    permission === "denied"
+                ){
+
+                    button.textContent =
+                        "Notifications Blocked";
+
+                    button.disabled =
+                        false;
+
+                }
+
+                else{
+
+                    button.textContent =
+                        "🔔 Enable Notifications";
+
+                    button.disabled =
+                        false;
+
+                }
+
+            }
+        );
+
+    };
+
+
+/* =====================================================
+   FIREBASE STARTUP
+===================================================== */
+
+async function startMyJwaneng(){
+
+    try{
+
+        const registration =
+            await registerMyJwanengServiceWorker();
+
+
+        if(registration){
+
+            await initialiseFirebaseMessaging();
+
+        }
+
+
+        if(
+            typeof window.updateNotificationButtons ===
+            "function"
+        ){
+
+            window.updateNotificationButtons();
+
+        }
+
+    }
+
+    catch(error){
+
+        console.error(
+            "My Jwaneng Firebase startup failed:",
+            error
+        );
+
+    }
+
+}
+
+
+startMyJwaneng();
+
+</script>
+
+
+<!-- =====================================================
+     NORMAL SITE JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/* =====================================================
+   SAFE GLOBAL NOTIFICATION BUTTON FUNCTION
+===================================================== */
+
+if(
+    typeof window.updateNotificationButtons !==
+    "function"
+){
+
+    window.updateNotificationButtons =
+        function(){
+
+            const buttons = [
+
+                document.getElementById(
+                    "notificationButton"
+                ),
+
+                document.getElementById(
+                    "heroNotificationButton"
+                )
+
+            ];
+
+
+            const permission =
+                "Notification" in window
+                    ? Notification.permission
+                    : "unsupported";
+
+
+            buttons.forEach(
+                function(button){
+
+                    if(!button){
+
+                        return;
+
+                    }
+
+
+                    if(
+                        permission === "granted"
+                    ){
+
+                        button.textContent =
+                            "✓ Notifications Enabled";
+
+                        button.disabled =
+                            true;
+
+                        button.style.opacity =
+                            ".65";
+
+                    }
+
+                }
+            );
+
+        };
+
+}
+
+
+/* =====================================================
    DRAWER
-========================================================= */
-
-const drawer =
-document.getElementById("drawer");
-
-const drawerOverlay =
-document.getElementById("drawerOverlay");
-
-const menuButton =
-document.getElementById("menuButton");
-
-const closeDrawerButton =
-document.getElementById("closeDrawer");
-
+===================================================== */
 
 function openDrawer(){
 
-    drawer.classList.add("open");
+    document
+        .getElementById("drawer")
+        .classList.add("open");
 
-    drawerOverlay.classList.add("active");
 
-    menuButton.setAttribute(
-        "aria-expanded",
-        "true"
+    document
+        .getElementById("drawerOverlay")
+        .classList.add("show");
+
+
+    document.body.classList.add(
+        "drawer-open"
     );
 
-    document.body.style.overflow =
-        "hidden";
 }
 
 
 function closeDrawer(){
 
-    drawer.classList.remove("open");
+    document
+        .getElementById("drawer")
+        .classList.remove("open");
 
-    drawerOverlay.classList.remove("active");
 
-    menuButton.setAttribute(
-        "aria-expanded",
-        "false"
+    document
+        .getElementById("drawerOverlay")
+        .classList.remove("show");
+
+
+    document.body.classList.remove(
+        "drawer-open"
     );
 
-    document.body.style.overflow =
-        "";
 }
 
 
-menuButton.addEventListener(
-    "click",
-    openDrawer
-);
-
-closeDrawerButton.addEventListener(
-    "click",
-    closeDrawer
-);
-
-drawerOverlay.addEventListener(
-    "click",
-    closeDrawer
-);
-
-
-/* =========================================================
-   ESCAPE
-========================================================= */
+/* =====================================================
+   ESCAPE KEY
+===================================================== */
 
 document.addEventListener(
     "keydown",
     function(event){
 
-        if(event.key === "Escape"){
+        if(
+            event.key === "Escape"
+        ){
 
             closeDrawer();
 
@@ -3886,182 +3777,161 @@ document.addEventListener(
 );
 
 
-/* =========================================================
-   LEAVE MY JWANENG
-========================================================= */
+/* =====================================================
+   LEAVE MODAL
+===================================================== */
 
-const leaveModal =
-document.getElementById("leaveModal");
-
-const homeButton =
-document.getElementById("homeButton");
-
-const stayButton =
-document.getElementById("stayButton");
-
-const leaveButton =
-document.getElementById("leaveButton");
+let leaveTarget = null;
 
 
-function openLeaveModal(){
+function openLeaveModal(
+    url
+){
 
-    closeDrawer();
+    leaveTarget =
+        url;
 
-    leaveModal.classList.add("active");
+
+    document
+        .getElementById("leaveModal")
+        .classList.add("show");
 
 }
 
 
 function closeLeaveModal(){
 
-    leaveModal.classList.remove("active");
+    document
+        .getElementById("leaveModal")
+        .classList.remove("show");
+
+
+    leaveTarget =
+        null;
 
 }
 
 
-homeButton.addEventListener(
-    "click",
-    openLeaveModal
-);
+document
+    .getElementById("confirmLeave")
+    .addEventListener(
+        "click",
+        function(){
 
-stayButton.addEventListener(
-    "click",
-    closeLeaveModal
-);
+            if(leaveTarget){
 
+                window.open(
+                    leaveTarget,
+                    "_blank",
+                    "noopener"
+                );
 
-leaveModal.addEventListener(
-    "click",
-    function(event){
+            }
 
-        if(event.target === leaveModal){
 
             closeLeaveModal();
 
         }
-
-    }
-);
+    );
 
 
-/* =========================================================
-   RETURN TO MYTOWN360
-========================================================= */
-
-leaveButton.addEventListener(
-    "click",
-    function(){
-
-        window.location.href =
-            "https://my-town-360.netlify.app/";
-
-    }
-);
-
-
-/* =========================================================
+/* =====================================================
    ESCAPE HTML
-========================================================= */
+===================================================== */
 
-function escapeHtml(value){
+function escapeHtml(
+    value
+){
 
-    return String(value || "")
+    if(
+        value === null ||
+        value === undefined
+    ){
 
-        .replace(/&/g,"&amp;")
+        return "";
 
-        .replace(/</g,"&lt;")
-
-        .replace(/>/g,"&gt;")
-
-        .replace(/"/g,"&quot;")
-
-        .replace(/'/g,"&#039;");
-
-}
+    }
 
 
-/* =========================================================
-   LIVE UPDATES
-========================================================= */
+    return String(value)
 
-const track =
-document.getElementById(
-    "updateTrack"
-);
+        .replace(
+            /&/g,
+            "&amp;"
+        )
 
+        .replace(
+            /</g,
+            "&lt;"
+        )
 
-async function loadUpdates(){
+        .replace(
+            />/g,
+            "&gt;"
+        )
 
-    try{
+        .replace(
+            /"/g,
+            "&quot;"
+        )
 
-        const {
-            data,
-            error
-        } =
-        await client
-
-            .from("updates")
-
-            .select("*")
-
-            .order(
-                "id",
-                {
-                    ascending:false
-                }
-            );
-
-
-        if(error)
-            throw error;
-
-
-        if(
-            !data ||
-            data.length === 0
-        ){
-
-            track.innerHTML =
-                "📢 Welcome to My Jwaneng — Discover. Connect. Belong.";
-
-            return;
-
-        }
-
-
-        const content =
-            data.map(
-                u =>
-
-                `<span style="margin-right:100px;">
-                    📢 ${escapeHtml(u.message)}
-                </span>`
-
-            ).join("");
-
-
-        track.innerHTML =
-            content + content;
-
-
-    }catch(error){
-
-        console.log(
-            "Updates:",
-            error
+        .replace(
+            /'/g,
+            "&#039;"
         );
 
-        track.innerHTML =
-            "📢 Welcome to My Jwaneng — Discover. Connect. Belong.";
+}
+
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatDate(
+    value
+){
+
+    if(!value){
+
+        return "";
 
     }
+
+
+    const date =
+        new Date(value);
+
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+
+        return "";
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-BW",
+        {
+
+            day:"numeric",
+
+            month:"short",
+
+            year:"numeric"
+
+        }
+    );
 
 }
 
 
-/* =========================================================
+/* =====================================================
    NEWS
-========================================================= */
+===================================================== */
 
 async function loadLatestNews(){
 
@@ -4073,18 +3943,28 @@ async function loadLatestNews(){
 
     try{
 
+        if(
+            !window.client
+        ){
+
+            throw new Error(
+                "Supabase client is not available."
+            );
+
+        }
+
+
         const {
             data,
             error
-        } =
-        await client
+        } = await window.client
 
             .from("news")
 
             .select("*")
 
             .order(
-                "id",
+                "created_at",
                 {
                     ascending:false
                 }
@@ -4093,26 +3973,22 @@ async function loadLatestNews(){
             .limit(3);
 
 
-        if(error)
+        if(error){
+
             throw error;
+
+        }
 
 
         if(
             !data ||
-            data.length === 0
+            !data.length
         ){
 
-            container.innerHTML = `
-
-                <div class="widget-item">
-
-                    <small>
-                        No latest news available.
-                    </small>
-
-                </div>
-
-            `;
+            container.innerHTML =
+                `<div class="empty">
+                    No news available yet.
+                 </div>`;
 
             return;
 
@@ -4120,63 +3996,176 @@ async function loadLatestNews(){
 
 
         container.innerHTML =
+            data.map(
+                function(item){
 
-        data.map(
-            n => `
+                    return `
 
-            <div class="widget-item">
+                        <a
+                            class="today-item"
+                            href="townnews.html"
+                        >
 
-                <strong>
+                            <strong>
+                                ${escapeHtml(
+                                    item.title ||
+                                    "Town update"
+                                )}
+                            </strong>
 
-                    ${escapeHtml(
-                        n.title ||
-                        "Jwaneng Update"
-                    )}
+                            <span>
+                                ${formatDate(
+                                    item.created_at
+                                )}
+                            </span>
 
-                </strong>
+                        </a>
 
-                <small>
+                    `;
 
-                    ${escapeHtml(
-                        n.category ||
-                        "Community"
-                    )}
+                }
+            ).join("");
 
-                </small>
+    }
 
-            </div>
+    catch(error){
 
-        `
-        ).join("");
-
-
-    }catch(error){
-
-        console.log(
-            "News:",
+        console.error(
+            "News error:",
             error
         );
 
-        container.innerHTML = `
 
-            <div class="widget-item">
-
-                <small>
-                    News temporarily unavailable.
-                </small>
-
-            </div>
-
-        `;
+        container.innerHTML =
+            `<div class="empty">
+                News temporarily unavailable.
+             </div>`;
 
     }
 
 }
 
 
-/* =========================================================
+/* =====================================================
+   UPDATES / PUBLIC NOTICES
+===================================================== */
+
+async function loadUpdates(){
+
+    const container =
+        document.getElementById(
+            "latestNotices"
+        );
+
+
+    try{
+
+        if(
+            !window.client
+        ){
+
+            throw new Error(
+                "Supabase client is not available."
+            );
+
+        }
+
+
+        const {
+            data,
+            error
+        } = await window.client
+
+            .from("updates")
+
+            .select("*")
+
+            .order(
+                "created_at",
+                {
+                    ascending:false
+                }
+            )
+
+            .limit(3);
+
+
+        if(error){
+
+            throw error;
+
+        }
+
+
+        if(
+            !data ||
+            !data.length
+        ){
+
+            container.innerHTML =
+                `<div class="empty">
+                    No public notices available.
+                 </div>`;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            data.map(
+                function(item){
+
+                    return `
+
+                        <a
+                            class="today-item"
+                            href="notices.html"
+                        >
+
+                            <strong>
+                                ${escapeHtml(
+                                    item.title ||
+                                    "Public notice"
+                                )}
+                            </strong>
+
+                            <span>
+                                ${formatDate(
+                                    item.created_at
+                                )}
+                            </span>
+
+                        </a>
+
+                    `;
+
+                }
+            ).join("");
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Updates error:",
+            error
+        );
+
+
+        container.innerHTML =
+            `<div class="empty">
+                Notices temporarily unavailable.
+             </div>`;
+
+    }
+
+}
+
+
+/* =====================================================
    JOBS
-========================================================= */
+===================================================== */
 
 async function loadLatestJobs(){
 
@@ -4188,18 +4177,28 @@ async function loadLatestJobs(){
 
     try{
 
+        if(
+            !window.client
+        ){
+
+            throw new Error(
+                "Supabase client is not available."
+            );
+
+        }
+
+
         const {
             data,
             error
-        } =
-        await client
+        } = await window.client
 
             .from("jobs")
 
             .select("*")
 
             .order(
-                "id",
+                "created_at",
                 {
                     ascending:false
                 }
@@ -4208,26 +4207,22 @@ async function loadLatestJobs(){
             .limit(3);
 
 
-        if(error)
+        if(error){
+
             throw error;
+
+        }
 
 
         if(
             !data ||
-            data.length === 0
+            !data.length
         ){
 
-            container.innerHTML = `
-
-                <div class="widget-item">
-
-                    <small>
-                        No current opportunities listed.
-                    </small>
-
-                </div>
-
-            `;
+            container.innerHTML =
+                `<div class="empty">
+                    No jobs available yet.
+                 </div>`;
 
             return;
 
@@ -4235,63 +4230,59 @@ async function loadLatestJobs(){
 
 
         container.innerHTML =
+            data.map(
+                function(item){
 
-        data.map(
-            j => `
+                    return `
 
-            <div class="widget-item">
+                        <a
+                            class="today-item"
+                            href="jobs.html"
+                        >
 
-                <strong>
+                            <strong>
+                                ${escapeHtml(
+                                    item.title ||
+                                    "Job opportunity"
+                                )}
+                            </strong>
 
-                    ${escapeHtml(
-                        j.title ||
-                        "Job Opportunity"
-                    )}
+                            <span>
+                                ${formatDate(
+                                    item.created_at
+                                )}
+                            </span>
 
-                </strong>
+                        </a>
 
-                <small>
+                    `;
 
-                    ${escapeHtml(
-                        j.company ||
-                        "Jwaneng"
-                    )}
+                }
+            ).join("");
 
-                </small>
+    }
 
-            </div>
+    catch(error){
 
-        `
-        ).join("");
-
-
-    }catch(error){
-
-        console.log(
-            "Jobs:",
+        console.error(
+            "Jobs error:",
             error
         );
 
-        container.innerHTML = `
 
-            <div class="widget-item">
-
-                <small>
-                    Opportunities temporarily unavailable.
-                </small>
-
-            </div>
-
-        `;
+        container.innerHTML =
+            `<div class="empty">
+                Jobs temporarily unavailable.
+             </div>`;
 
     }
 
 }
 
 
-/* =========================================================
+/* =====================================================
    EVENTS
-========================================================= */
+===================================================== */
 
 async function loadLatestEvents(){
 
@@ -4303,46 +4294,52 @@ async function loadLatestEvents(){
 
     try{
 
+        if(
+            !window.client
+        ){
+
+            throw new Error(
+                "Supabase client is not available."
+            );
+
+        }
+
+
         const {
             data,
             error
-        } =
-        await client
+        } = await window.client
 
             .from("events")
 
             .select("*")
 
             .order(
-                "event_date",
+                "created_at",
                 {
-                    ascending:true
+                    ascending:false
                 }
             )
 
             .limit(3);
 
 
-        if(error)
+        if(error){
+
             throw error;
+
+        }
 
 
         if(
             !data ||
-            data.length === 0
+            !data.length
         ){
 
-            container.innerHTML = `
-
-                <div class="widget-item">
-
-                    <small>
-                        No upcoming events listed.
-                    </small>
-
-                </div>
-
-            `;
+            container.innerHTML =
+                `<div class="empty">
+                    No upcoming events available.
+                 </div>`;
 
             return;
 
@@ -4350,293 +4347,634 @@ async function loadLatestEvents(){
 
 
         container.innerHTML =
+            data.map(
+                function(item){
 
-        data.map(
-            e => `
+                    return `
 
-            <div class="widget-item">
+                        <a
+                            class="today-item"
+                            href="events.html"
+                        >
 
-                <strong>
+                            <strong>
+                                ${escapeHtml(
+                                    item.title ||
+                                    "Community event"
+                                )}
+                            </strong>
 
-                    ${escapeHtml(
-                        e.title ||
-                        "Jwaneng Event"
-                    )}
+                            <span>
+                                ${formatDate(
+                                    item.created_at
+                                )}
+                            </span>
 
-                </strong>
+                        </a>
 
-                <small>
+                    `;
 
-                    ${escapeHtml(
-                        e.event_date ||
-                        ""
-                    )}
+                }
+            ).join("");
 
-                </small>
+    }
 
-            </div>
+    catch(error){
 
-        `
-        ).join("");
-
-
-    }catch(error){
-
-        console.log(
-            "Events:",
+        console.error(
+            "Events error:",
             error
         );
 
-        container.innerHTML = `
 
-            <div class="widget-item">
-
-                <small>
-                    Events temporarily unavailable.
-                </small>
-
-            </div>
-
-        `;
+        container.innerHTML =
+            `<div class="empty">
+                Events temporarily unavailable.
+             </div>`;
 
     }
 
 }
 
 
-/* =========================================================
+/* =====================================================
    WEATHER
-========================================================= */
+===================================================== */
 
-async function loadWeather(
-    lat,
-    lon
-){
+async function loadWeather(){
 
-    const url =
-        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+    const temp =
+        document.getElementById(
+            "weatherTemp"
+        );
+
+
+    const condition =
+        document.getElementById(
+            "weatherCondition"
+        );
+
+
+    const location =
+        document.getElementById(
+            "weatherLocation"
+        );
+
+
+    /*
+       Use Jwaneng directly.
+
+       This prevents the browser from requesting
+       precise location permission merely to display
+       Jwaneng weather.
+    */
+
+    const latitude =
+        -24.65;
+
+
+    const longitude =
+        24.73;
 
 
     try{
 
         const response =
-            await fetch(url);
+            await fetch(
 
+                "https://api.open-meteo.com/v1/forecast" +
 
-        if(!response.ok)
-            throw new Error(
-                "Weather request failed"
+                "?latitude=" +
+                encodeURIComponent(
+                    latitude
+                ) +
+
+                "&longitude=" +
+                encodeURIComponent(
+                    longitude
+                ) +
+
+                "&current=temperature_2m,weather_code" +
+
+                "&temperature_unit=celsius"
+
             );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "Weather request failed."
+            );
+
+        }
 
 
         const data =
             await response.json();
 
 
-        const weather =
-            data.current_weather;
+        const current =
+            data.current;
 
 
-        if(!weather)
+        if(!current){
+
             throw new Error(
-                "No weather data"
+                "No weather data."
+            );
+
+        }
+
+
+        temp.textContent =
+            Math.round(
+                current.temperature_2m
+            ) +
+            "°";
+
+
+        condition.textContent =
+            weatherDescription(
+                current.weather_code
             );
 
 
-        document.getElementById(
-            "weatherLoc"
-        ).innerText =
-            "Jwaneng";
+        location.textContent =
+            "Jwaneng, Botswana";
 
+    }
 
-        document.getElementById(
-            "weatherTemp"
-        ).innerText =
-            weather.temperature +
-            "°C";
+    catch(error){
 
-
-        document.getElementById(
-            "weatherWind"
-        ).innerText =
-            weather.windspeed +
-            " km/h";
-
-
-    }catch(error){
-
-        console.log(
-            "Weather:",
+        console.error(
+            "Weather error:",
             error
         );
 
 
-        document.getElementById(
-            "weatherTemp"
-        ).innerText =
-            "Unavailable";
+        temp.textContent =
+            "--";
 
 
-        document.getElementById(
-            "weatherWind"
-        ).innerText =
-            "Unavailable";
+        condition.textContent =
+            "Weather unavailable";
 
     }
 
 }
 
 
-function fallbackWeather(){
+/* =====================================================
+   WEATHER DESCRIPTION
+===================================================== */
 
-    loadWeather(
-        -24.65,
-        24.73
+function weatherDescription(
+    code
+){
+
+    const weather = {
+
+        0:"Clear sky",
+
+        1:"Mainly clear",
+
+        2:"Partly cloudy",
+
+        3:"Overcast",
+
+        45:"Foggy",
+
+        48:"Foggy",
+
+        51:"Light drizzle",
+
+        53:"Drizzle",
+
+        55:"Heavy drizzle",
+
+        61:"Light rain",
+
+        63:"Rain",
+
+        65:"Heavy rain",
+
+        71:"Light snow",
+
+        73:"Snow",
+
+        75:"Heavy snow",
+
+        80:"Rain showers",
+
+        81:"Rain showers",
+
+        82:"Heavy rain showers",
+
+        95:"Thunderstorm",
+
+        96:"Thunderstorm",
+
+        99:"Thunderstorm"
+
+    };
+
+
+    return (
+        weather[code] ||
+        "Current conditions"
     );
+
+}
+
+
+/* =====================================================
+   TOWN FACTS
+===================================================== */
+
+const townFacts = [
+
+    {
+        type:"DID YOU KNOW?",
+        text:
+            "Botswana's diamond town and home to one of the world's richest diamond mines."
+    },
+
+    {
+        type:"LOCATION",
+        text:
+            "Jwaneng is strategically located along the Trans-Kalahari Corridor, connecting Botswana with Namibia and South Africa."
+    },
+
+    {
+        type:"COMMUNITY",
+        text:
+            "Jwaneng serves surrounding communities including Sese, Mokhomma, Lefoko, Betesankwe, Sekoma, Maokane and Machana."
+    },
+
+    {
+        type:"SPORT",
+        text:
+            "Jwaneng Galaxy FC has represented Botswana in CAF Champions League competitions."
+    },
+
+    {
+        type:"BUSINESS",
+        text:
+            "Jwaneng is an important economic centre driven by mining, services and local enterprise."
+    },
+
+    {
+        type:"EDUCATION",
+        text:
+            "The town supports schools, training opportunities and youth development initiatives."
+    },
+
+    {
+        type:"TRAVEL",
+        text:
+            "Jwaneng's position along the Trans-Kalahari corridor makes it an important gateway through southern Botswana."
+    },
+
+    {
+        type:"MY JWANENG",
+        text:
+            "My Jwaneng is part of the MyTown360 vision to create digital gateways for towns and communities across Botswana."
+    }
+
+];
+
+
+const townFactElement =
+    document.getElementById(
+        "townFact"
+    );
+
+
+const townFactType =
+    document.getElementById(
+        "townFactType"
+    );
+
+
+const townCounter =
+    document.getElementById(
+        "townCounter"
+    );
+
+
+let currentFact =
+    0;
+
+
+function updateTownFact(){
+
+    if(
+        !townFactElement ||
+        !townFactType ||
+        !townCounter
+    ){
+
+        return;
+
+    }
+
+
+    townFactElement.style.opacity =
+        "0";
+
+
+    setTimeout(
+        function(){
+
+            const item =
+                townFacts[
+                    currentFact
+                ];
+
+
+            townFactType.textContent =
+                item.type;
+
+
+            townFactElement.textContent =
+                item.text;
+
+
+            townCounter.textContent =
+                (
+                    currentFact + 1
+                ) +
+                " / " +
+                townFacts.length;
+
+
+            townFactElement.style.opacity =
+                "1";
+
+        },
+        400
+    );
+
+}
+
+
+setInterval(
+    function(){
+
+        currentFact++;
+
+
+        if(
+            currentFact >=
+            townFacts.length
+        ){
+
+            currentFact =
+                0;
+
+        }
+
+
+        updateTownFact();
+
+    },
+    7000
+);
+
+
+updateTownFact();
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer =
+    null;
+
+
+function showToast(
+    title,
+    message
+){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    if(!toast){
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "toastTitle"
+    ).textContent =
+        title;
+
+
+    document.getElementById(
+        "toastMessage"
+    ).textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            function(){
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            5000
+        );
 
 }
 
 
 /*
-    Use the visitor's location only when
-    permission is available. Otherwise use
-    Jwaneng's coordinates.
+   Firebase module needs access to this function.
 */
 
-if(navigator.geolocation){
-
-    navigator.geolocation.getCurrentPosition(
-
-        position => {
-
-            loadWeather(
-
-                position.coords.latitude,
-
-                position.coords.longitude
-
-            );
-
-        },
-
-        fallbackWeather
-
-    );
-
-}else{
-
-    fallbackWeather();
-
-}
+window.showToast =
+    showToast;
 
 
-/* =========================================================
-   PWA
-========================================================= */
+/* =====================================================
+   PWA INSTALL
+===================================================== */
 
-function isPWA(){
-
-    return (
-
-        window.matchMedia(
-            "(display-mode: standalone)"
-        ).matches
-
-        ||
-
-        window.navigator.standalone === true
-
-    );
-
-}
+let deferredInstallPrompt =
+    null;
 
 
-if(isPWA()){
+window.addEventListener(
+    "beforeinstallprompt",
+    function(event){
 
-    document.getElementById(
-        "pwaBar"
-    ).style.display =
-        "flex";
-
-}
+        event.preventDefault();
 
 
-/* =========================================================
-   INITIAL LOAD
-========================================================= */
-
-loadUpdates();
-
-loadLatestNews();
-
-loadLatestJobs();
-
-loadLatestEvents();
+        deferredInstallPrompt =
+            event;
 
 
-/* =========================================================
-   CLOSE DRAWER ON LINK CLICK
-========================================================= */
+        document
+            .getElementById("pwaBar")
+            .classList.add("show");
+
+    }
+);
+
 
 document
-    .querySelectorAll(
-        ".drawer-link[href]"
-    )
+    .getElementById("installButton")
+    .addEventListener(
+        "click",
+        async function(){
+
+            if(!deferredInstallPrompt){
+
+                return;
+
+            }
+
+
+            deferredInstallPrompt.prompt();
+
+
+            await deferredInstallPrompt.userChoice;
+
+
+            deferredInstallPrompt =
+                null;
+
+
+            document
+                .getElementById("pwaBar")
+                .classList.remove("show");
+
+        }
+    );
+
+
+window.addEventListener(
+    "appinstalled",
+    function(){
+
+        document
+            .getElementById("pwaBar")
+            .classList.remove("show");
+
+
+        showToast(
+            "My Jwaneng installed",
+            "You can now open My Jwaneng directly from your device."
+        );
+
+    }
+);
+
+
+/* =====================================================
+   PWA DISPLAY MODE
+===================================================== */
+
+function updatePwaState(){
+
+    const standalone =
+        window.matchMedia(
+            "(display-mode: standalone)"
+        ).matches ||
+        window.navigator.standalone === true;
+
+
+    if(standalone){
+
+        document
+            .getElementById("pwaBar")
+            .classList.remove("show");
+
+    }
+
+}
+
+
+/* =====================================================
+   DRAWER LINK HANDLING
+===================================================== */
+
+document
+    .querySelectorAll(".drawer-link")
     .forEach(
-        link => {
+        function(link){
 
             link.addEventListener(
                 "click",
-                closeDrawer
+                function(){
+
+                    closeDrawer();
+
+                }
             );
 
         }
     );
-const townFacts = [
 
-    "Botswana's diamond town and home to one of the world's richest diamond mines.",
 
-    "Situated along the Trans-Kalahari Corridor linking Botswana, Namibia and South Africa.",
+/* =====================================================
+   INITIAL PAGE LOAD
+===================================================== */
 
-    "The name Jwaneng is commonly interpreted as 'place of small stones'.",
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
 
-    "Jwaneng Galaxy FC has represented Botswana in CAF Champions League competitions.",
+        loadUpdates();
 
-    "Jwaneng serves as a gateway to surrounding communities including Sese, Mokhomma, Lefoko, Betesankwe, Sekoma, Maokane and Machana.",
+        loadLatestNews();
 
-    "Behind the mine is a vibrant community of families, schools, businesses, entrepreneurs and local organisations."
+        loadLatestJobs();
 
-];
+        loadLatestEvents();
 
-const townFactElement =
-document.getElementById("townFact");
+        loadWeather();
 
-let currentFact = 0;
+        updatePwaState();
 
-setInterval(() => {
 
-    townFactElement.style.opacity = "0";
+        if(
+            typeof window.updateNotificationButtons ===
+            "function"
+        ){
 
-    setTimeout(() => {
+            window.updateNotificationButtons();
 
-        currentFact++;
-
-        if(currentFact >= townFacts.length){
-            currentFact = 0;
         }
 
-        townFactElement.textContent =
-            townFacts[currentFact];
-
-        townFactElement.style.opacity = "1";
-
-    },500);
-
-},7000);
+    }
+);
 
 </script>
+
 
 </body>
 
 </html>
-
