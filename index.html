@@ -3055,7 +3055,7 @@ async function initialiseFirebaseMessaging(){
                 "Firebase Cloud Messaging is not supported by this browser."
             );
 
-            return;
+            return false;
 
         }
 
@@ -3064,19 +3064,53 @@ async function initialiseFirebaseMessaging(){
             getMessaging(firebaseApp);
 
 
-        firebaseMessagingReady = true;
+        firebaseMessagingReady =
+            true;
 
+
+        /*
+           IMPORTANT:
+
+           Firebase delivers the Firebase Installation ID
+           asynchronously through onRegistered().
+        */
 
         onRegistered(
             messagingInstance,
-            async function(
-                installationId
-            ){
+            async function(installationId){
+
+                console.log(
+                    "================================="
+                );
+
+                console.log(
+                    "🔥 FIREBASE onRegistered FIRED"
+                );
 
                 console.log(
                     "Firebase Installation ID:",
                     installationId
                 );
+
+                console.log(
+                    "Installation ID type:",
+                    typeof installationId
+                );
+
+                console.log(
+                    "================================="
+                );
+
+
+                if(!installationId){
+
+                    console.error(
+                        "❌ Firebase returned an empty Installation ID."
+                    );
+
+                    return;
+
+                }
 
 
                 currentInstallationId =
@@ -3089,13 +3123,40 @@ async function initialiseFirebaseMessaging(){
                 );
 
 
-                await saveInstallationId(
-                    installationId
+                console.log(
+                    "💾 Saving Installation ID to Supabase..."
                 );
+
+
+                try{
+
+                    await saveInstallationId(
+                        installationId
+                    );
+
+
+                    console.log(
+                        "✅ Push installation saved to Supabase."
+                    );
+
+                }
+
+                catch(error){
+
+                    console.error(
+                        "❌ Failed to save installation:",
+                        error
+                    );
+
+                }
 
             }
         );
 
+
+        /*
+           FOREGROUND MESSAGES
+        */
 
         onMessage(
             messagingInstance,
@@ -3119,6 +3180,69 @@ async function initialiseFirebaseMessaging(){
             "Firebase Cloud Messaging is ready."
         );
 
+
+        /*
+           IMPORTANT:
+
+           If the user has ALREADY granted notification
+           permission, register immediately.
+
+           Previously this was only happening when the
+           Enable Notifications button was clicked.
+        */
+
+        if(
+            "Notification" in window &&
+            Notification.permission === "granted"
+        ){
+
+            console.log(
+                "🔔 Notification permission already granted."
+            );
+
+            const registration =
+                await navigator.serviceWorker.ready;
+
+
+            console.log(
+                "🔥 Automatically registering Firebase Messaging..."
+            );
+
+
+            try{
+
+                await register(
+                    messagingInstance,
+                    {
+                        vapidKey:
+                            vapidKey,
+
+                        serviceWorkerRegistration:
+                            registration
+                    }
+                );
+
+
+                console.log(
+                    "✅ Automatic Firebase registration completed."
+                );
+
+            }
+
+            catch(error){
+
+                console.error(
+                    "❌ Automatic Firebase registration failed:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        return true;
+
     }
 
     catch(error){
@@ -3128,11 +3252,12 @@ async function initialiseFirebaseMessaging(){
             error
         );
 
+
+        return false;
+
     }
 
 }
-
-
 /* =====================================================
    SAVE INSTALLATION ID
 ===================================================== */
@@ -3326,30 +3451,6 @@ window.enableNotifications =
                     true;
 
 
-                onRegistered(
-                    messagingInstance,
-                    async function(
-                        installationId
-                    ){
-
-                        currentInstallationId =
-                            installationId;
-
-
-                        localStorage.setItem(
-                            "myjwaneng_fid",
-                            installationId
-                        );
-
-
-                        await saveInstallationId(
-                            installationId
-                        );
-
-                    }
-                );
-
-
                 onMessage(
                     messagingInstance,
                     function(payload){
@@ -3364,18 +3465,34 @@ window.enableNotifications =
             }
 
 
-            await register(
-                messagingInstance,
-                {
+           console.log(
+    "🔥 Starting Firebase registration..."
+);
 
-                    vapidKey:
-                        vapidKey,
+try{
 
-                    serviceWorkerRegistration:
-                        registration
+    const result = await register(
+        messagingInstance,
+        {
+            vapidKey: vapidKey,
+            serviceWorkerRegistration: registration
+        }
+    );
 
-                }
-            );
+    console.log(
+        "✅ Firebase register() completed:",
+        result
+    );
+
+}catch(error){
+
+    console.error(
+        "❌ Firebase register() FAILED:",
+        error
+    );
+
+    throw error;
+}
 
 
             window.updateNotificationButtons();
