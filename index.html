@@ -10,11 +10,11 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>My Jwaneng | Welcome to Jwaneng</title>
+<title>My Jwaneng | Smart Community Platform for Jwaneng</title>
 
 <meta
     name="description"
-    content="My Jwaneng — your digital gateway to Jwaneng, Botswana and surrounding communities."
+    content="Discover Jwaneng through one smart community platform for local information, businesses, jobs, events and community connections."
 >
 
 <meta
@@ -888,7 +888,7 @@ img {
 
 
 /* =========================================================
-   FADING LIVE UPDATES BAR
+   FADING LATEST UPDATES BAR
 ========================================================= */
 
 .live-updates-section {
@@ -2590,12 +2590,221 @@ footer {
 
 }
 
+
+
+/* =========================================================
+   MY JWANENG — MODERN SMART COMMUNITY DESIGN LAYER
+   Keeps the existing data integrations and page destinations.
+========================================================= */
+:root {
+    --dark:#071923;
+    --dark-2:#0b2532;
+    --dark-3:#123847;
+    --blue:#35b8e8;
+    --blue-light:#a3e7ff;
+    --gold:#e1b96f;
+    --page:#f3f7f9;
+    --surface:#ffffff;
+    --border:rgba(7,25,35,.09);
+    --shadow:0 18px 55px rgba(7,25,35,.09);
+}
+
+body { background:#f3f7f9; color:#102a35; }
+.skip-link {
+    position:fixed; left:14px; top:-60px; z-index:3000;
+    padding:11px 16px; border-radius:8px; background:#fff;
+    color:#071923; font-size:13px; font-weight:700;
+    box-shadow:0 8px 30px rgba(0,0,0,.2);
+}
+.skip-link:focus { top:12px; }
+.navbar {
+    height:76px; background:rgba(5,22,31,.96);
+    border-bottom:1px solid rgba(255,255,255,.09);
+    box-shadow:0 8px 28px rgba(0,0,0,.08);
+}
+.nav-inner { width:min(1280px,calc(100% - 48px)); gap:18px; }
+.menu-btn { border-radius:13px; width:46px; height:46px; }
+.logo { font-size:25px; letter-spacing:-1.2px; }
+.nav-tagline { font-size:10px; letter-spacing:1.4px; text-transform:uppercase; }
+.nav-location { font-size:12px; }
+.live-bar {
+    top:76px; height:54px; background:#0b2532;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+.live-bar-inner {
+    width:min(1180px,calc(100% - 48px)); height:100%; margin:auto;
+    display:grid; grid-template-columns:150px minmax(0,1fr); align-items:center;
+}
+.updates-label { display:flex; align-items:center; gap:9px; }
+.updates-live-dot { width:7px; height:7px; flex:0 0 7px; border-radius:50%; background:#48d99a; box-shadow:0 0 0 4px rgba(72,217,154,.12); }
+.updates-label-text { color:#8edcf7; font-size:9px; letter-spacing:1.5px; }
+.updates-display { height:48px; padding-left:20px; }
+.fade-update { grid-template-columns:105px minmax(0,1fr) 100px; gap:14px; }
+.hero {
+    margin-top:130px; min-height:650px; padding:72px 0 86px;
+    background-image:
+      radial-gradient(circle at 78% 30%,rgba(48,169,209,.22),transparent 34%),
+      linear-gradient(105deg,rgba(3,17,24,.96) 0%,rgba(4,22,31,.86) 48%,rgba(4,22,31,.40) 100%),
+      url("images/jwaneng-hero.jpg");
+    background-size:cover; background-position:center 46%;
+}
+.hero::after { height:150px; background:linear-gradient(transparent,rgba(7,25,35,.55)); }
+.hero-inner { width:min(1180px,calc(100% - 48px)); grid-template-columns:minmax(0,1fr) 340px; gap:65px; }
+.hero-copy { max-width:720px; }
+.hero-kicker {
+    display:inline-flex; align-items:center; gap:10px; margin-bottom:22px;
+    color:#a5e8ff; font-size:10px; letter-spacing:2px;
+}
+.hero-kicker::before { content:""; width:26px; height:2px; background:#35b8e8; }
+.hero h1 { max-width:700px; font-size:clamp(52px,6.2vw,82px); line-height:1.01; letter-spacing:-4px; margin-bottom:24px; }
+.hero h1 span { color:#58c9f1; }
+.hero-description { max-width:640px; color:#d4e1e6; font-size:15px; line-height:1.9; margin-bottom:32px; }
+.btn { min-height:50px; padding:0 23px; border-radius:10px; font-size:11px; letter-spacing:.1px; }
+.btn-primary { background:#42c0ec; color:#06202b; box-shadow:0 8px 22px rgba(53,184,232,.2); }
+.btn-primary:hover { background:#8de0fb; }
+.btn-outline { border-color:rgba(255,255,255,.27); background:rgba(255,255,255,.07); }
+.hero-info-card {
+    padding:27px; border-radius:20px; background:rgba(7,25,35,.78);
+    border:1px solid rgba(255,255,255,.16); box-shadow:0 28px 80px rgba(0,0,0,.3);
+}
+.hero-info-label { color:#9cb5bf; }
+.weather-temp { font-size:54px; }
+.hero-message { font-size:11px; color:#c4d6dc; }
+.today-section { padding:0 0 58px; background:#f3f7f9; }
+.today-panel {
+    position:relative; margin-top:-1px; grid-template-columns:260px minmax(0,1fr);
+    border:1px solid rgba(7,25,35,.08); border-radius:20px;
+    box-shadow:0 22px 60px rgba(7,25,35,.09);
+}
+.today-weather {
+    display:flex; flex-direction:column; justify-content:center;
+    min-height:235px; padding:30px; background:linear-gradient(145deg,#0b2937,#12475b);
+}
+.today-weather-label { margin-bottom:19px; color:#8ee0fb; letter-spacing:1.7px; }
+.today-weather-reading { display:flex; align-items:flex-start; gap:5px; }
+.today-weather-temp { font-size:48px; font-weight:700; line-height:1; }
+.today-weather-unit { color:#b5dce8; font-size:18px; }
+.today-weather-condition { margin-top:10px; color:#e3f1f5; font-size:12px; }
+.today-weather-location { margin-top:17px; color:#9ab7c1; font-size:9px; }
+.today-content { padding:28px 32px; }
+.today-eyebrow { margin-bottom:5px; color:#4a9fbd; font-size:9px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; }
+.today-content-title { font-size:18px; letter-spacing:-.4px; }
+.today-content-date { color:#82969e; font-size:10px; white-space:nowrap; }
+.today-items { gap:0; }
+.today-item { min-width:0; padding:8px 18px; border-left:1px solid #e4ecef; }
+.today-item:first-child { padding-left:0; border-left:0; }
+.today-item-label { color:#4b9db9; font-size:9px; letter-spacing:1.1px; }
+.today-item-title { display:-webkit-box; min-height:40px; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:2; font-size:11px; }
+.today-item-link { display:inline-block; margin-top:10px; color:#328eae; font-size:9px; font-weight:700; }
+.today-item-link span { margin-left:4px; }
+.section { padding:88px 0; }
+.section-header { margin-bottom:34px; }
+.section-label { color:#368eae; font-size:9px; letter-spacing:1.8px; }
+.section-title { font-size:clamp(27px,3vw,36px); letter-spacing:-1.3px; }
+.section-text { max-width:500px; color:#71858e; font-size:11px; }
+.hot-section { background:#fff; }
+.hot-grid { gap:20px; }
+.hot-card { border-radius:16px; box-shadow:0 5px 18px rgba(7,25,35,.035); }
+.hot-image { height:180px; background:linear-gradient(135deg,#0d2a38,#1b5368); }
+.hot-content { padding:19px; }
+.hot-title { font-size:13px; }
+.editorial-section { background:#f3f7f9; }
+.editorial-grid { gap:20px; }
+.editorial-card { border-radius:17px; padding:27px; box-shadow:0 7px 24px rgba(7,25,35,.035); }
+.editorial-card.featured { background:linear-gradient(145deg,#0a2634,#104256); position:relative; overflow:hidden; }
+.editorial-card.featured::after { content:""; position:absolute; width:210px; height:210px; right:-90px; bottom:-100px; border:1px solid rgba(112,216,248,.2); border-radius:50%; box-shadow:0 0 0 28px rgba(112,216,248,.035),0 0 0 58px rgba(112,216,248,.025); }
+.editorial-card h3 { font-size:21px; letter-spacing:-.5px; }
+.editorial-card p,.editorial-list li { font-size:11px; }
+.discover-section { background:#fff; }
+.discover-grid { gap:1px; border-radius:16px; overflow:hidden; }
+.discover-card { min-height:178px; padding:28px; transition:background .2s,transform .2s; }
+.discover-card:hover { background:#f4fbfd; }
+.discover-number { color:#62b6d2; font-size:9px; margin-bottom:23px; }
+.discover-card h3 { font-size:16px; letter-spacing:-.3px; }
+.discover-card p { max-width:290px; font-size:10px; }
+.discover-arrow { color:#279bc2; }
+.community-section { background:linear-gradient(115deg,#071923,#0d3445); }
+.community-title { font-size:clamp(30px,4vw,42px); letter-spacing:-1.5px; }
+.community-text { color:#bfd0d6; }
+footer { background:#061720; }
+.footer-grid { padding:65px 0 45px; }
+.footer-logo { font-size:27px; }
+.footer-description { max-width:380px; }
+.footer-bottom { border-top-color:rgba(255,255,255,.1); }
+.install-bar { box-shadow:0 12px 45px rgba(0,0,0,.2); }
+
+@media(max-width:1000px) {
+    .hero-inner { grid-template-columns:minmax(0,1fr) 320px; gap:30px; }
+    .hero h1 { font-size:clamp(48px,6vw,68px); }
+    .today-panel { grid-template-columns:230px minmax(0,1fr); }
+    .today-content { padding:25px; }
+}
+@media(max-width:760px) {
+    .navbar { height:68px; }
+    .nav-inner { width:calc(100% - 28px); gap:13px; }
+    .logo { font-size:22px; }
+    .live-bar { top:68px; height:66px; }
+    .live-bar-inner { width:calc(100% - 28px); display:grid; grid-template-columns:1fr; align-content:center; gap:2px; }
+    .updates-label-text { font-size:8px; }
+    .updates-display { height:30px; padding:0; }
+    .fade-update { display:flex; width:max-content; max-width:none; min-height:28px; gap:9px; white-space:nowrap; }
+    .update-category { flex:0 0 auto; font-size:8px; }
+    .update-message { width:max-content; max-width:none; font-size:10px; overflow:visible; text-overflow:clip; }
+    .update-date { display:none; }
+    .hero { margin-top:134px; min-height:0; padding:70px 0 65px; background-position:58% center; }
+    .hero-inner { width:calc(100% - 30px); grid-template-columns:1fr; gap:32px; }
+    .hero h1 { font-size:clamp(48px,12vw,66px); letter-spacing:-2.8px; }
+    .hero-kicker { font-size:8px; letter-spacing:1.4px; }
+    .hero-description { font-size:12px; line-height:1.85; margin-bottom:25px; }
+    .hero-actions { gap:9px; }
+    .hero-actions .btn { width:100%; }
+    .hero-side { max-width:100%; }
+    .hero-info-card { padding:22px; }
+    .today-section { padding:0 0 42px; }
+    .today-panel { grid-template-columns:1fr; border-radius:16px; }
+    .today-weather { min-height:0; padding:22px; }
+    .today-weather-reading { align-items:flex-end; }
+    .today-weather-temp { font-size:42px; }
+    .today-content { padding:23px 20px; }
+    .today-content-head { align-items:flex-start; flex-direction:column; gap:5px; }
+    .today-content-title { font-size:16px; }
+    .today-items { grid-template-columns:1fr; gap:0; }
+    .today-item,.today-item:first-child { padding:14px 0; border-left:0; border-top:1px solid #e8eef0; }
+    .today-item:first-child { border-top:0; }
+    .today-item-title { min-height:0; }
+    .section { padding:62px 0; }
+    .section-header { display:block; margin-bottom:25px; }
+    .section-title { font-size:29px; }
+    .section-text { margin-top:12px; }
+    .hot-grid { grid-template-columns:1fr 1fr; gap:12px; }
+    .hot-image { height:130px; }
+    .hot-content { padding:13px; }
+    .hot-title { font-size:11px; min-height:0; }
+    .editorial-grid { grid-template-columns:1fr; gap:13px; }
+    .editorial-card.featured { grid-column:auto; }
+    .discover-grid { grid-template-columns:1fr; }
+    .discover-card { min-height:145px; padding:23px; }
+    .community-section { padding:62px 0; }
+    .community-inner { grid-template-columns:1fr; gap:30px; }
+    .community-title { font-size:32px; }
+    .community-links { grid-template-columns:1fr; }
+    .footer-grid { grid-template-columns:1fr; gap:28px; padding:48px 0 35px; }
+    .footer-bottom { display:block; }
+    .footer-bottom div+div { margin-top:7px; }
+}
+@media(max-width:390px) {
+    .hot-grid { grid-template-columns:1fr; }
+    .hero h1 { font-size:46px; }
+}
+
 </style>
 
 </head>
 
 
 <body>
+
+<a class="skip-link" href="#mainContent">Skip to main content</a>
 
 
 <!-- =======================================================
@@ -2632,7 +2841,7 @@ footer {
 
 
         <div class="nav-tagline">
-            Discover • Connect • Belong
+            A SMART COMMUNITY PLATFORM
         </div>
 
 
@@ -2665,7 +2874,7 @@ footer {
             <span class="updates-live-dot"></span>
 
             <span class="updates-label-text">
-                LIVE UPDATES
+                LATEST UPDATES
             </span>
 
         </div>
@@ -2733,7 +2942,7 @@ footer {
         </div>
 
         <div class="drawer-subtitle">
-            Digital Town Portal
+            Smart Community Platform
         </div>
 
     </div>
@@ -2851,6 +3060,8 @@ footer {
 ></div>
 
 
+<main id="mainContent">
+
 <!-- =======================================================
      HERO
 ======================================================= -->
@@ -2863,22 +3074,23 @@ footer {
         <div class="hero-copy">
 
             <div class="hero-kicker">
-                Welcome to your town
+                A SMART COMMUNITY PLATFORM FOR JWANENG
             </div>
 
 
             <h1>
-                Discover
+                A Smarter
                 <span>Jwaneng.</span>
             </h1>
 
 
             <p class="hero-description">
 
-                Your digital gateway to Jwaneng and
-                surrounding communities — bringing together
-                local news, opportunities, businesses,
-                events, services and community information.
+                A shared digital platform connecting residents,
+                businesses, community organisations and local
+                opportunities — making it easier to stay informed,
+                discover what is happening and participate in
+                the growth of Jwaneng.
 
             </p>
 
@@ -2886,19 +3098,19 @@ footer {
             <div class="hero-actions">
 
                 <a
-                    href="townnews.html"
+                    href="#platform"
                     class="btn btn-primary"
                 >
-                    Explore Town News
+                    Explore the Platform
                 </a>
 
 
-                <button
+                <a
+                    href="townconnect.html"
                     class="btn btn-outline"
-                    onclick="openDrawer()"
                 >
-                    Explore Jwaneng
-                </button>
+                    Connect with the Community
+                </a>
 
             </div>
 
@@ -2963,14 +3175,13 @@ footer {
                 <div class="hero-message">
 
                     <strong>
-                        One town. One digital gateway.
+                        One community. Connected digitally.
                     </strong>
 
                     <br>
 
-                    Stay informed about what is happening
-                    across Jwaneng and its surrounding
-                    communities.
+                    Discover local information, opportunities,
+                    services and ways to take part in Jwaneng.
 
                 </div>
 
@@ -2988,90 +3199,50 @@ footer {
      JWANENG TODAY
 ======================================================= -->
 
+<section class="today-section" aria-labelledby="todayHeading">
 
+    <div class="container">
 
+        <div class="today-panel">
 
-
+            <aside class="today-weather" aria-label="Current weather in Jwaneng">
+                <div class="today-weather-label">Jwaneng weather</div>
+                <div class="today-weather-reading">
+                    <div class="today-weather-temp" id="weatherTempToday">--</div>
+                    <div class="today-weather-unit">°C</div>
+                </div>
+                <div class="today-weather-condition" id="weatherConditionToday">Weather information loading...</div>
+                <div class="today-weather-location">Jwaneng, Botswana · Current conditions</div>
+            </aside>
 
             <div class="today-content">
-
                 <div class="today-content-head">
-
-                    <div class="today-content-title">
-                        What's happening around town
+                    <div>
+                        <div class="today-eyebrow">The town at a glance</div>
+                        <h2 class="today-content-title" id="todayHeading">What's happening around Jwaneng</h2>
                     </div>
-
-                    <div
-                        class="today-content-date"
-                        id="todayDate"
-                    >
-                        Loading...
-                    </div>
-
+                    <div class="today-content-date" id="todayDate">Loading...</div>
                 </div>
-
 
                 <div class="today-items">
-
-
-                    <a
-                        href="townnews.html"
-                        class="today-item"
-                    >
-
-                        <div class="today-item-label">
-                            News
-                        </div>
-
-                        <div
-                            class="today-item-title loading"
-                            id="latestNews"
-                        >
-                            Loading latest news...
-                        </div>
-
+                    <a href="townnews.html" class="today-item">
+                        <div class="today-item-label">Latest news</div>
+                        <div class="today-item-title loading" id="latestNews">Loading latest news...</div>
+                        <span class="today-item-link">Explore news <span aria-hidden="true">→</span></span>
                     </a>
 
-
-                    <a
-                        href="publicnoticeboard.html"
-                        class="today-item"
-                    >
-
-                        <div class="today-item-label">
-                            Notices
-                        </div>
-
-                        <div
-                            class="today-item-title loading"
-                            id="latestNotices"
-                        >
-                            Loading latest notices...
-                        </div>
-
+                    <a href="publicnoticeboard.html" class="today-item">
+                        <div class="today-item-label">Public notices</div>
+                        <div class="today-item-title loading" id="latestNotices">Loading latest notices...</div>
+                        <span class="today-item-link">View notices <span aria-hidden="true">→</span></span>
                     </a>
 
-
-                    <a
-                        href="jobs.html"
-                        class="today-item"
-                    >
-
-                        <div class="today-item-label">
-                            Jobs
-                        </div>
-
-                        <div
-                            class="today-item-title loading"
-                            id="latestJobs"
-                        >
-                            Loading latest jobs...
-                        </div>
-
+                    <a href="jobs.html" class="today-item">
+                        <div class="today-item-label">Jobs & opportunities</div>
+                        <div class="today-item-title loading" id="latestJobs">Loading latest jobs...</div>
+                        <span class="today-item-link">Find opportunities <span aria-hidden="true">→</span></span>
                     </a>
-
                 </div>
-
             </div>
 
         </div>
@@ -3099,7 +3270,7 @@ footer {
                 </div>
 
                 <h2 class="section-title">
-                    Trending around Jwaneng
+                    Latest from Jwaneng
                 </h2>
 
             </div>
@@ -3107,9 +3278,7 @@ footer {
 
             <p class="section-text">
 
-                Discover some of the latest opportunities,
-                events, businesses and community listings
-                appearing on My Jwaneng.
+                A changing snapshot of local information and listings recently added to My Jwaneng.
 
             </p>
 
@@ -3252,7 +3421,7 @@ footer {
             <article class="editorial-card">
 
                 <div class="editorial-card-label">
-                    Upcoming Events
+                    Community Events
                 </div>
 
                 <ul
@@ -3333,7 +3502,7 @@ footer {
      DISCOVER JWANENG
 ======================================================= -->
 
-<section class="section discover-section">
+<section class="section discover-section" id="platform">
 
     <div class="container">
 
@@ -3524,6 +3693,9 @@ footer {
 
 
 
+</main>
+
+
 <!-- =======================================================
      FOOTER
 ======================================================= -->
@@ -3543,8 +3715,9 @@ footer {
 
                 <p class="footer-description">
 
-                    Your digital gateway to Jwaneng and
-                    surrounding communities.
+                    A smart community platform bringing together
+                    local information, opportunities and ways
+                    for people to connect and participate.
 
                     <br><br>
 
@@ -3625,7 +3798,7 @@ footer {
             </div>
 
             <div>
-                A MyTown360 community pilot
+                Built by A-eye Group · A MyTown360 community pilot
             </div>
 
         </div>
@@ -4231,7 +4404,7 @@ function getDescription(row) {
 
 
 /* =========================================================
-   LIVE UPDATES
+   LATEST UPDATES
    Connected to Supabase
 ========================================================= */
 
@@ -4242,7 +4415,7 @@ let liveUpdateRefreshTimer = null;
 
 
 /* =========================================================
-   GET LIVE UPDATES FROM DATABASE
+   GET LATEST UPDATES FROM DATABASE
 ========================================================= */
 
 async function getLiveUpdates() {
@@ -4271,14 +4444,14 @@ async function getLiveUpdates() {
         if (error) {
 
             console.error(
-                "LIVE UPDATES - NEWS ERROR:",
+                "LATEST UPDATES - NEWS ERROR:",
                 error
             );
 
         } else {
 
             console.log(
-                "LIVE UPDATES - NEWS:",
+                "LATEST UPDATES - NEWS:",
                 data
             );
 
@@ -4308,7 +4481,7 @@ async function getLiveUpdates() {
     } catch(error) {
 
         console.error(
-            "LIVE UPDATES - NEWS EXCEPTION:",
+            "LATEST UPDATES - NEWS EXCEPTION:",
             error
         );
 
@@ -4336,14 +4509,14 @@ async function getLiveUpdates() {
         if (error) {
 
             console.error(
-                "LIVE UPDATES - PUBLIC NOTICES ERROR:",
+                "LATEST UPDATES - PUBLIC NOTICES ERROR:",
                 error
             );
 
         } else {
 
             console.log(
-                "LIVE UPDATES - PUBLIC NOTICES:",
+                "LATEST UPDATES - PUBLIC NOTICES:",
                 data
             );
 
@@ -4373,7 +4546,7 @@ async function getLiveUpdates() {
     } catch(error) {
 
         console.error(
-            "LIVE UPDATES - NOTICES EXCEPTION:",
+            "LATEST UPDATES - NOTICES EXCEPTION:",
             error
         );
 
@@ -4401,14 +4574,14 @@ async function getLiveUpdates() {
         if (error) {
 
             console.error(
-                "LIVE UPDATES - JOBS ERROR:",
+                "LATEST UPDATES - JOBS ERROR:",
                 error
             );
 
         } else {
 
             console.log(
-                "LIVE UPDATES - JOBS:",
+                "LATEST UPDATES - JOBS:",
                 data
             );
 
@@ -4438,7 +4611,7 @@ async function getLiveUpdates() {
     } catch(error) {
 
         console.error(
-            "LIVE UPDATES - JOBS EXCEPTION:",
+            "LATEST UPDATES - JOBS EXCEPTION:",
             error
         );
 
@@ -4466,14 +4639,14 @@ async function getLiveUpdates() {
         if (error) {
 
             console.error(
-                "LIVE UPDATES - EVENTS ERROR:",
+                "LATEST UPDATES - EVENTS ERROR:",
                 error
             );
 
         } else {
 
             console.log(
-                "LIVE UPDATES - EVENTS:",
+                "LATEST UPDATES - EVENTS:",
                 data
             );
 
@@ -4504,7 +4677,7 @@ async function getLiveUpdates() {
     } catch(error) {
 
         console.error(
-            "LIVE UPDATES - EVENTS EXCEPTION:",
+            "LATEST UPDATES - EVENTS EXCEPTION:",
             error
         );
 
@@ -4563,7 +4736,7 @@ async function getLiveUpdates() {
 
 
     console.log(
-        "LIVE UPDATES - COMBINED RESULTS:",
+        "LATEST UPDATES - COMBINED RESULTS:",
         unique
     );
 
@@ -4613,7 +4786,7 @@ function displayLiveUpdate(
     ) {
 
         console.error(
-            "LIVE UPDATES: Display elements not found."
+            "LATEST UPDATES: Display elements not found."
         );
 
         return;
@@ -4657,7 +4830,7 @@ function displayLiveUpdate(
 
 
 /* =========================================================
-   ROTATE LIVE UPDATES
+   ROTATE LATEST UPDATES
 ========================================================= */
 
 function startLiveUpdateRotation() {
@@ -4745,13 +4918,13 @@ function startLiveUpdateRotation() {
 
 
 /* =========================================================
-   LOAD LIVE UPDATES
+   LOAD LATEST UPDATES
 ========================================================= */
 
 async function loadLiveUpdates() {
 
     console.log(
-        "LIVE UPDATES: Connecting to Supabase..."
+        "LATEST UPDATES: Connecting to Supabase..."
     );
 
 
@@ -4772,7 +4945,7 @@ async function loadLiveUpdates() {
 
 
         console.log(
-            "LIVE UPDATES: Database connected.",
+            "LATEST UPDATES: Database connected.",
             liveUpdates.length,
             "updates loaded."
         );
@@ -4787,7 +4960,7 @@ async function loadLiveUpdates() {
     else {
 
         console.warn(
-            "LIVE UPDATES: No database records found."
+            "LATEST UPDATES: No database records found."
         );
 
 
@@ -4864,7 +5037,7 @@ function startLiveUpdateRefresh() {
             async () => {
 
                 console.log(
-                    "LIVE UPDATES: Refreshing database..."
+                    "LATEST UPDATES: Refreshing database..."
                 );
 
 
@@ -4907,7 +5080,7 @@ function startLiveUpdateRefresh() {
 
 
                     console.log(
-                        "LIVE UPDATES: Refreshed.",
+                        "LATEST UPDATES: Refreshed.",
                         liveUpdates.length,
                         "records."
                     );
@@ -5190,7 +5363,7 @@ async function loadLatestEvents() {
             container.innerHTML = `
 
                 <li>
-                    No upcoming events available.
+                    No events are currently listed.
                 </li>
 
             `;
@@ -5215,9 +5388,9 @@ async function loadLatestEvents() {
 
                                 ${
                                     formatDate(
-                                        item.created_at ||
+                                        item.event_date ||
                                         item.date ||
-                                        item.event_date
+                                        item.created_at
                                     )
                                 }
 
@@ -5801,6 +5974,10 @@ async function loadWeather() {
             );
 
 
+        if (!response.ok) {
+            throw new Error(`Weather request failed: ${response.status}`);
+        }
+
         const data =
             await response.json();
 
@@ -5839,17 +6016,10 @@ async function loadWeather() {
         ).textContent =
             condition;
 
-
-        document.getElementById(
-            "todayWeatherTemp"
-        ).textContent =
-            temperature;
-
-
-        document.getElementById(
-            "todayWeatherCondition"
-        ).textContent =
-            condition;
+        const todayTemp = document.getElementById("weatherTempToday");
+        const todayCondition = document.getElementById("weatherConditionToday");
+        if (todayTemp) todayTemp.textContent = temperature;
+        if (todayCondition) todayCondition.textContent = condition;
 
 
     } catch(error) {
@@ -5865,11 +6035,9 @@ async function loadWeather() {
         ).textContent =
             "Weather unavailable";
 
+        const todayCondition = document.getElementById("weatherConditionToday");
+        if (todayCondition) todayCondition.textContent = "Weather unavailable";
 
-        document.getElementById(
-            "todayWeatherCondition"
-        ).textContent =
-            "Weather unavailable";
 
     }
 
@@ -6241,12 +6409,14 @@ document.addEventListener(
 
 /*
    Continue checking Supabase every 60 seconds
-   for new LIVE UPDATES.
+   for new LATEST UPDATES.
 */
 startLiveUpdateRefresh();
 
 
-        window.updateNotificationButtons();
+        if (typeof window.updateNotificationButtons === "function") {
+            window.updateNotificationButtons();
+        }
 
     }
 );
